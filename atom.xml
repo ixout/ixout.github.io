@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-  <title>erga5e&#39;s blog</title>
+  <title>ixout&#39;s blog</title>
   
   
-  <link href="https://erga5e.github.io/atom.xml" rel="self"/>
+  <link href="https://ixout.github.io/atom.xml" rel="self"/>
   
-  <link href="https://erga5e.github.io/"/>
+  <link href="https://ixout.github.io/"/>
   <updated>2023-02-27T06:48:38.753Z</updated>
-  <id>https://erga5e.github.io/</id>
+  <id>https://ixout.github.io/</id>
   
   <author>
-    <name>erga5e</name>
+    <name>ixout</name>
     
   </author>
   
@@ -18,8 +18,8 @@
   
   <entry>
     <title>WHAT</title>
-    <link href="https://erga5e.github.io/2023/02/27/WHAT/"/>
-    <id>https://erga5e.github.io/2023/02/27/WHAT/</id>
+    <link href="https://ixout.github.io/2023/02/27/WHAT/"/>
+    <id>https://ixout.github.io/2023/02/27/WHAT/</id>
     <published>2023-02-27T06:48:38.000Z</published>
     <updated>2023-02-27T06:48:38.753Z</updated>
     
