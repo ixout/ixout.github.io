@@ -1,6 +1,8 @@
-https://ixout.github.io/tages/index.html
+https://ixout.github.io/posts/22693/
+https://ixout.github.io/posts/60018/
+https://ixout.github.io/tags/index.html
 https://ixout.github.io/about/index.html
 https://ixout.github.io/link/index.html
 https://ixout.github.io/categories/index.html
-https://ixout.github.io/posts/60018/
 https://ixout.github.io/
+https://ixout.github.io/tags/%E4%BE%8B%E5%AD%90/

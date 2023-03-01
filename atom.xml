@@ -6,7 +6,7 @@
   <link href="https://ixout.github.io/atom.xml" rel="self"/>
   
   <link href="https://ixout.github.io/"/>
-  <updated>2023-02-28T14:02:42.413Z</updated>
+  <updated>2023-03-01T13:27:46.747Z</updated>
   <id>https://ixout.github.io/</id>
   
   <author>
@@ -17,15 +17,37 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>try</title>
+    <link href="https://ixout.github.io/posts/22693/"/>
+    <id>https://ixout.github.io/posts/22693/</id>
+    <published>2023-03-01T13:27:33.000Z</published>
+    <updated>2023-03-01T13:27:46.747Z</updated>
+    
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
     <title>example</title>
     <link href="https://ixout.github.io/posts/60018/"/>
     <id>https://ixout.github.io/posts/60018/</id>
     <published>2023-02-28T14:02:31.000Z</published>
-    <updated>2023-02-28T14:02:42.413Z</updated>
+    <updated>2023-03-01T13:24:39.589Z</updated>
+    
+    <content type="html"><![CDATA[<p>如图中所示，找到网易云歌单的 url，<code>https://music.163.com/#/playlist?id=4907060762</code>, 此处的 <strong>palylist</strong> 对应的就是 <strong>data-type</strong> 的值，<strong>id</strong> 就是 <strong>data-id</strong> 的值，而网易云的 <strong>data-server</strong> 为 <strong>netease</strong>，这个可以通过 Aplayer 的插件文档查阅到。 只有三个参数对应正确才能正常加载歌单。</p><p>7、Aplayer 的网易云歌单接口时不时的会挂掉，所以如果你确定你配置正确，但是歌单还是没有出现。不妨去看看其他人的站点是不是也没有 Aplayer 标签了来判断是 Aplayer 本身接口的问题还是自己配置出错的问题。</p><p>8、配置成功后会发现 Aplayer 的吸底标签一直占据着左下角的一片空间，对手机端阅读不太友好，可以添加一下 CSS 样式使其自动缩进隐藏。在 <code>[Blogroot]\themes\butterfly\source\css\custom.css</code> 中 (没有这个文件就按照路径自己新建) 添加如下内容：如图中所示，找到网易云歌单的 url，<code>https://music.163.com/#/playlist?id=4907060762</code>, 此处的 <strong>palylist</strong> 对应的就是 <strong>data-type</strong> 的值，<strong>id</strong> 就是 <strong>data-id</strong> 的值，而网易云的 <strong>data-server</strong> 为 <strong>netease</strong>，这个可以通过 Aplayer 的插件文档查阅到。 只有三个参数对应正确才能正常加载歌单。</p><p>7、Aplayer 的网易云歌单接口时不时的会挂掉，所以如果你确定你配置正确，但是歌单还是没有出现。不妨去看看其他人的站点是不是也没有 Aplayer 标签了来判断是 Aplayer 本身接口的问题还是自己配置出错的问题。</p><p>8、配置成功后会发现 Aplayer 的吸底标签一直占据着左下角的一片空间，对手机端阅读不太友好，可以添加一下 CSS 样式使其自动缩进隐藏。在 <code>[Blogroot]\themes\butterfly\source\css\custom.css</code> 中 (没有这个文件就按照路径自己新建) 添加如下内容：如图中所示，找到网易云歌单的 url，<code>https://music.163.com/#/playlist?id=4907060762</code>, 此处的 <strong>palylist</strong> 对应的就是 <strong>data-type</strong> 的值，<strong>id</strong> 就是 <strong>data-id</strong> 的值，而网易云的 <strong>data-server</strong> 为 <strong>netease</strong>，这个可以通过 Aplayer 的插件文档查阅到。 只有三个参数对应正确才能正常加载歌单。</p><p>7、Aplayer 的网易云歌单接口时不时的会挂掉，所以如果你确定你配置正确，但是歌单还是没有出现。不妨去看看其他人的站点是不是也没有 Aplayer 标签了来判断是 Aplayer 本身接口的问题还是自己配置出错的问题。</p><p>8、配置成功后会发现 Aplayer 的吸底标签一直占据着左下角的一片空间，对手机端阅读不太友好，可以添加一下 CSS 样式使其自动缩进隐藏。在 <code>[Blogroot]\themes\butterfly\source\css\custom.css</code> 中 (没有这个文件就按照路径自己新建) 添加如下内容：</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;如图中所示，找到网易云歌单的 url，&lt;code&gt;https://music.163.com/#/playlist?id=4907060762&lt;/code&gt;, 此处的 &lt;strong&gt;palylist&lt;/strong&gt; 对应的就是 &lt;strong&gt;data-type&lt;/st</summary>
+      
     
     
     
     
+    <category term="例子" scheme="https://ixout.github.io/tags/%E4%BE%8B%E5%AD%90/"/>
     
   </entry>
   
