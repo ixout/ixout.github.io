@@ -1340,7 +1340,7 @@ canvas:not(#ribbon-canvas),
   --search-bg: #f6f8fa;
   --search-input-color: #4c4948;
   --search-a-color: #4c4948;
-  --preloader-bg: #37474f;
+  --preloader-bg: #000;
   --preloader-color: #fff;
   --tab-border-color: #f0f0f0;
   --tab-botton-bg: #f0f0f0;
@@ -4666,6 +4666,182 @@ h1.page-title + .tag-cloud-list {
     transform: rotate(-315deg);
   }
 }
+#loading-box {
+  position: fixed;
+  z-index: 1000;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  text-align: center;
+}
+#loading-box.loaded {
+  z-index: -1000;
+}
+#loading-box.loaded .pokeball-loading {
+  display: none;
+}
+@-webkit-keyframes rotateBall {
+  0% {
+    -webkit-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  50% {
+    -webkit-transform: rotate(50deg);
+    -moz-transform: rotate(50deg);
+    -o-transform: rotate(50deg);
+    -ms-transform: rotate(50deg);
+    transform: rotate(50deg);
+  }
+  0% {
+    -webkit-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+.pokeball-back {
+  background: rgba(255,255,255,0.6);
+  height: 100%;
+  width: 100%;
+}
+.pokeball-loading {
+  height: 48px;
+  width: 264px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translateX(-50%) translateY(-50%);
+  -moz-transform: translateX(-50%) translateY(-50%);
+  -o-transform: translateX(-50%) translateY(-50%);
+  -ms-transform: translateX(-50%) translateY(-50%);
+  transform: translateX(-50%) translateY(-50%);
+}
+.pokeball {
+  width: 4px;
+  height: 4px;
+  -webkit-transform-origin: 24px 24px;
+  -moz-transform-origin: 24px 24px;
+  -o-transform-origin: 24px 24px;
+  -ms-transform-origin: 24px 24px;
+  transform-origin: 24px 24px;
+  -webkit-animation: rotateBall 1.5s infinite forwards;
+  -moz-animation: rotateBall 1.5s infinite forwards;
+  -o-animation: rotateBall 1.5s infinite forwards;
+  -ms-animation: rotateBall 1.5s infinite forwards;
+  animation: rotateBall 1.5s infinite forwards;
+}
+.pokeball#pokeball-normal {
+  -webkit-box-shadow: 16px 0 0 #000, 20px 0 0 #000, 24px 0 0 #000, 28px 0 0 #000, 8px 4px 0 #000, 12px 4px 0 #000, 16px 4px 0 #e20f07, 20px 4px 0 #e20f07, 24px 4px 0 #e20f07, 28px 4px 0 #e20f07, 32px 4px 0 #000, 36px 4px 0 #000, 4px 8px 0 #000, 8px 8px 0 #e20f07, 12px 8px 0 #e20f07, 16px 8px 0 #fff, 20px 8px 0 #e20f07, 24px 8px 0 #e20f07, 28px 8px 0 #e20f07, 32px 8px 0 #e20f07, 36px 8px 0 #e20f07, 40px 8px 0 #000, 4px 12px 0 #000, 8px 12px 0 #e20f07, 12px 12px 0 #fff, 16px 12px 0 #fff, 20px 12px 0 #fff, 24px 12px 0 #e20f07, 28px 12px 0 #e20f07, 32px 12px 0 #e20f07, 36px 12px 0 #e20f07, 40px 12px 0 #000, 0px 16px 0 #000, 4px 16px 0 #e20f07, 8px 16px 0 #e20f07, 12px 16px 0 #e20f07, 16px 16px 0 #fff, 20px 16px 0 #e20f07, 24px 16px 0 #e20f07, 28px 16px 0 #e20f07, 32px 16px 0 #e20f07, 36px 16px 0 #e20f07, 40px 16px 0 #e20f07, 44px 16px 0 #000, 0px 20px 0 #000, 4px 20px 0 #e20f07, 8px 20px 0 #e20f07, 12px 20px 0 #e20f07, 16px 20px 0 #e20f07, 20px 20px 0 #000, 24px 20px 0 #000, 28px 20px 0 #e20f07, 32px 20px 0 #e20f07, 36px 20px 0 #e20f07, 40px 20px 0 #e20f07, 44px 20px 0 #000, 0px 24px 0 #000, 4px 24px 0 #000, 8px 24px 0 #e20f07, 12px 24px 0 #e20f07, 16px 24px 0 #000, 20px 24px 0 #fff, 24px 24px 0 #a5a5a5, 28px 24px 0 #000, 32px 24px 0 #e20f07, 36px 24px 0 #e20f07, 40px 24px 0 #000, 44px 24px 0 #000, 0px 28px 0 #000, 4px 28px 0 #fff, 8px 28px 0 #000, 12px 28px 0 #000, 16px 28px 0 #000, 20px 28px 0 #a5a5a5, 24px 28px 0 #a5a5a5, 28px 28px 0 #000, 32px 28px 0 #000, 36px 28px 0 #000, 40px 28px 0 #a5a5a5, 44px 28px 0 #000, 4px 32px 0 #000, 8px 32px 0 #fff, 12px 32px 0 #fff, 16px 32px 0 #fff, 20px 32px 0 #000, 24px 32px 0 #000, 28px 32px 0 #a5a5a5, 32px 32px 0 #a5a5a5, 36px 32px 0 #a5a5a5, 40px 32px 0 #000, 4px 36px 0 #000, 8px 36px 0 #a5a5a5, 12px 36px 0 #fff, 16px 36px 0 #fff, 20px 36px 0 #fff, 24px 36px 0 #a5a5a5, 28px 36px 0 #a5a5a5, 32px 36px 0 #a5a5a5, 36px 36px 0 #a5a5a5, 40px 36px 0 #000, 8px 40px 0 #000, 12px 40px 0 #000, 16px 40px 0 #a5a5a5, 20px 40px 0 #a5a5a5, 24px 40px 0 #a5a5a5, 28px 40px 0 #a5a5a5, 32px 40px 0 #000, 36px 40px 0 #000, 16px 44px 0 #000, 20px 44px 0 #000, 24px 44px 0 #000, 28px 44px 0 #000;
+  box-shadow: 16px 0 0 #000, 20px 0 0 #000, 24px 0 0 #000, 28px 0 0 #000, 8px 4px 0 #000, 12px 4px 0 #000, 16px 4px 0 #e20f07, 20px 4px 0 #e20f07, 24px 4px 0 #e20f07, 28px 4px 0 #e20f07, 32px 4px 0 #000, 36px 4px 0 #000, 4px 8px 0 #000, 8px 8px 0 #e20f07, 12px 8px 0 #e20f07, 16px 8px 0 #fff, 20px 8px 0 #e20f07, 24px 8px 0 #e20f07, 28px 8px 0 #e20f07, 32px 8px 0 #e20f07, 36px 8px 0 #e20f07, 40px 8px 0 #000, 4px 12px 0 #000, 8px 12px 0 #e20f07, 12px 12px 0 #fff, 16px 12px 0 #fff, 20px 12px 0 #fff, 24px 12px 0 #e20f07, 28px 12px 0 #e20f07, 32px 12px 0 #e20f07, 36px 12px 0 #e20f07, 40px 12px 0 #000, 0px 16px 0 #000, 4px 16px 0 #e20f07, 8px 16px 0 #e20f07, 12px 16px 0 #e20f07, 16px 16px 0 #fff, 20px 16px 0 #e20f07, 24px 16px 0 #e20f07, 28px 16px 0 #e20f07, 32px 16px 0 #e20f07, 36px 16px 0 #e20f07, 40px 16px 0 #e20f07, 44px 16px 0 #000, 0px 20px 0 #000, 4px 20px 0 #e20f07, 8px 20px 0 #e20f07, 12px 20px 0 #e20f07, 16px 20px 0 #e20f07, 20px 20px 0 #000, 24px 20px 0 #000, 28px 20px 0 #e20f07, 32px 20px 0 #e20f07, 36px 20px 0 #e20f07, 40px 20px 0 #e20f07, 44px 20px 0 #000, 0px 24px 0 #000, 4px 24px 0 #000, 8px 24px 0 #e20f07, 12px 24px 0 #e20f07, 16px 24px 0 #000, 20px 24px 0 #fff, 24px 24px 0 #a5a5a5, 28px 24px 0 #000, 32px 24px 0 #e20f07, 36px 24px 0 #e20f07, 40px 24px 0 #000, 44px 24px 0 #000, 0px 28px 0 #000, 4px 28px 0 #fff, 8px 28px 0 #000, 12px 28px 0 #000, 16px 28px 0 #000, 20px 28px 0 #a5a5a5, 24px 28px 0 #a5a5a5, 28px 28px 0 #000, 32px 28px 0 #000, 36px 28px 0 #000, 40px 28px 0 #a5a5a5, 44px 28px 0 #000, 4px 32px 0 #000, 8px 32px 0 #fff, 12px 32px 0 #fff, 16px 32px 0 #fff, 20px 32px 0 #000, 24px 32px 0 #000, 28px 32px 0 #a5a5a5, 32px 32px 0 #a5a5a5, 36px 32px 0 #a5a5a5, 40px 32px 0 #000, 4px 36px 0 #000, 8px 36px 0 #a5a5a5, 12px 36px 0 #fff, 16px 36px 0 #fff, 20px 36px 0 #fff, 24px 36px 0 #a5a5a5, 28px 36px 0 #a5a5a5, 32px 36px 0 #a5a5a5, 36px 36px 0 #a5a5a5, 40px 36px 0 #000, 8px 40px 0 #000, 12px 40px 0 #000, 16px 40px 0 #a5a5a5, 20px 40px 0 #a5a5a5, 24px 40px 0 #a5a5a5, 28px 40px 0 #a5a5a5, 32px 40px 0 #000, 36px 40px 0 #000, 16px 44px 0 #000, 20px 44px 0 #000, 24px 44px 0 #000, 28px 44px 0 #000;
+}
+.pokeball#pokeball-great {
+  -webkit-animation-delay: 0.25s;
+  -moz-animation-delay: 0.25s;
+  -o-animation-delay: 0.25s;
+  -ms-animation-delay: 0.25s;
+  animation-delay: 0.25s;
+  margin: -4px 0 0 54px;
+  -webkit-box-shadow: 16px 0 0 #000, 20px 0 0 #000, 24px 0 0 #000, 28px 0 0 #000, 8px 4px 0 #000, 12px 4px 0 #000, 16px 4px 0 #278de1, 20px 4px 0 #278de1, 24px 4px 0 #278de1, 28px 4px 0 #278de1, 32px 4px 0 #000, 36px 4px 0 #000, 4px 8px 0 #000, 8px 8px 0 #e20f07, 12px 8px 0 #e20f07, 16px 8px 0 #278de1, 20px 8px 0 #278de1, 24px 8px 0 #278de1, 28px 8px 0 #278de1, 32px 8px 0 #e20f07, 36px 8px 0 #e20f07, 40px 8px 0 #000, 4px 12px 0 #000, 8px 12px 0 #e20f07, 12px 12px 0 #e20f07, 16px 12px 0 #e20f07, 20px 12px 0 #278de1, 24px 12px 0 #278de1, 28px 12px 0 #e20f07, 32px 12px 0 #e20f07, 36px 12px 0 #e20f07, 40px 12px 0 #000, 0px 16px 0 #000, 4px 16px 0 #278de1, 8px 16px 0 #278de1, 12px 16px 0 #e20f07, 16px 16px 0 #e20f07, 20px 16px 0 #278de1, 24px 16px 0 #278de1, 28px 16px 0 #e20f07, 32px 16px 0 #e20f07, 36px 16px 0 #278de1, 40px 16px 0 #278de1, 44px 16px 0 #000, 0px 20px 0 #000, 4px 20px 0 #278de1, 8px 20px 0 #278de1, 12px 20px 0 #278de1, 16px 20px 0 #278de1, 20px 20px 0 #000, 24px 20px 0 #000, 28px 20px 0 #278de1, 32px 20px 0 #278de1, 36px 20px 0 #278de1, 40px 20px 0 #278de1, 44px 20px 0 #000, 0px 24px 0 #000, 4px 24px 0 #000, 8px 24px 0 #278de1, 12px 24px 0 #278de1, 16px 24px 0 #000, 20px 24px 0 #fff, 24px 24px 0 #a5a5a5, 28px 24px 0 #000, 32px 24px 0 #278de1, 36px 24px 0 #278de1, 40px 24px 0 #000, 44px 24px 0 #000, 0px 28px 0 #000, 4px 28px 0 #fff, 8px 28px 0 #000, 12px 28px 0 #000, 16px 28px 0 #000, 20px 28px 0 #a5a5a5, 24px 28px 0 #a5a5a5, 28px 28px 0 #000, 32px 28px 0 #000, 36px 28px 0 #000, 40px 28px 0 #a5a5a5, 44px 28px 0 #000, 4px 32px 0 #000, 8px 32px 0 #fff, 12px 32px 0 #fff, 16px 32px 0 #fff, 20px 32px 0 #000, 24px 32px 0 #000, 28px 32px 0 #a5a5a5, 32px 32px 0 #a5a5a5, 36px 32px 0 #a5a5a5, 40px 32px 0 #000, 4px 36px 0 #000, 8px 36px 0 #a5a5a5, 12px 36px 0 #fff, 16px 36px 0 #fff, 20px 36px 0 #fff, 24px 36px 0 #a5a5a5, 28px 36px 0 #a5a5a5, 32px 36px 0 #a5a5a5, 36px 36px 0 #a5a5a5, 40px 36px 0 #000, 8px 40px 0 #000, 12px 40px 0 #000, 16px 40px 0 #a5a5a5, 20px 40px 0 #a5a5a5, 24px 40px 0 #a5a5a5, 28px 40px 0 #a5a5a5, 32px 40px 0 #000, 36px 40px 0 #000, 16px 44px 0 #000, 20px 44px 0 #000, 24px 44px 0 #000, 28px 44px 0 #000;
+  box-shadow: 16px 0 0 #000, 20px 0 0 #000, 24px 0 0 #000, 28px 0 0 #000, 8px 4px 0 #000, 12px 4px 0 #000, 16px 4px 0 #278de1, 20px 4px 0 #278de1, 24px 4px 0 #278de1, 28px 4px 0 #278de1, 32px 4px 0 #000, 36px 4px 0 #000, 4px 8px 0 #000, 8px 8px 0 #e20f07, 12px 8px 0 #e20f07, 16px 8px 0 #278de1, 20px 8px 0 #278de1, 24px 8px 0 #278de1, 28px 8px 0 #278de1, 32px 8px 0 #e20f07, 36px 8px 0 #e20f07, 40px 8px 0 #000, 4px 12px 0 #000, 8px 12px 0 #e20f07, 12px 12px 0 #e20f07, 16px 12px 0 #e20f07, 20px 12px 0 #278de1, 24px 12px 0 #278de1, 28px 12px 0 #e20f07, 32px 12px 0 #e20f07, 36px 12px 0 #e20f07, 40px 12px 0 #000, 0px 16px 0 #000, 4px 16px 0 #278de1, 8px 16px 0 #278de1, 12px 16px 0 #e20f07, 16px 16px 0 #e20f07, 20px 16px 0 #278de1, 24px 16px 0 #278de1, 28px 16px 0 #e20f07, 32px 16px 0 #e20f07, 36px 16px 0 #278de1, 40px 16px 0 #278de1, 44px 16px 0 #000, 0px 20px 0 #000, 4px 20px 0 #278de1, 8px 20px 0 #278de1, 12px 20px 0 #278de1, 16px 20px 0 #278de1, 20px 20px 0 #000, 24px 20px 0 #000, 28px 20px 0 #278de1, 32px 20px 0 #278de1, 36px 20px 0 #278de1, 40px 20px 0 #278de1, 44px 20px 0 #000, 0px 24px 0 #000, 4px 24px 0 #000, 8px 24px 0 #278de1, 12px 24px 0 #278de1, 16px 24px 0 #000, 20px 24px 0 #fff, 24px 24px 0 #a5a5a5, 28px 24px 0 #000, 32px 24px 0 #278de1, 36px 24px 0 #278de1, 40px 24px 0 #000, 44px 24px 0 #000, 0px 28px 0 #000, 4px 28px 0 #fff, 8px 28px 0 #000, 12px 28px 0 #000, 16px 28px 0 #000, 20px 28px 0 #a5a5a5, 24px 28px 0 #a5a5a5, 28px 28px 0 #000, 32px 28px 0 #000, 36px 28px 0 #000, 40px 28px 0 #a5a5a5, 44px 28px 0 #000, 4px 32px 0 #000, 8px 32px 0 #fff, 12px 32px 0 #fff, 16px 32px 0 #fff, 20px 32px 0 #000, 24px 32px 0 #000, 28px 32px 0 #a5a5a5, 32px 32px 0 #a5a5a5, 36px 32px 0 #a5a5a5, 40px 32px 0 #000, 4px 36px 0 #000, 8px 36px 0 #a5a5a5, 12px 36px 0 #fff, 16px 36px 0 #fff, 20px 36px 0 #fff, 24px 36px 0 #a5a5a5, 28px 36px 0 #a5a5a5, 32px 36px 0 #a5a5a5, 36px 36px 0 #a5a5a5, 40px 36px 0 #000, 8px 40px 0 #000, 12px 40px 0 #000, 16px 40px 0 #a5a5a5, 20px 40px 0 #a5a5a5, 24px 40px 0 #a5a5a5, 28px 40px 0 #a5a5a5, 32px 40px 0 #000, 36px 40px 0 #000, 16px 44px 0 #000, 20px 44px 0 #000, 24px 44px 0 #000, 28px 44px 0 #000;
+}
+.pokeball#pokeball-ultra {
+  -webkit-animation-delay: 0.5s;
+  -moz-animation-delay: 0.5s;
+  -o-animation-delay: 0.5s;
+  -ms-animation-delay: 0.5s;
+  animation-delay: 0.5s;
+  margin: -4px 0 0 108px;
+  -webkit-box-shadow: 16px 0 0 #000, 20px 0 0 #000, 24px 0 0 #000, 28px 0 0 #000, 8px 4px 0 #000, 12px 4px 0 #000, 16px 4px 0 #ff0, 20px 4px 0 #ff0, 24px 4px 0 #ff0, 28px 4px 0 #ff0, 32px 4px 0 #000, 36px 4px 0 #000, 4px 8px 0 #000, 8px 8px 0 #ff0, 12px 8px 0 #ff0, 16px 8px 0 #ff0, 20px 8px 0 #ff0, 24px 8px 0 #ff0, 28px 8px 0 #ff0, 32px 8px 0 #ff0, 36px 8px 0 #ff0, 40px 8px 0 #000, 4px 12px 0 #000, 8px 12px 0 #ff0, 12px 12px 0 #ff0, 16px 12px 0 #000, 20px 12px 0 #000, 24px 12px 0 #000, 28px 12px 0 #000, 32px 12px 0 #ff0, 36px 12px 0 #ff0, 40px 12px 0 #000, 0px 16px 0 #000, 4px 16px 0 #000, 8px 16px 0 #ff0, 12px 16px 0 #ff0, 16px 16px 0 #000, 20px 16px 0 #000, 24px 16px 0 #000, 28px 16px 0 #000, 32px 16px 0 #ff0, 36px 16px 0 #ff0, 40px 16px 0 #000, 44px 16px 0 #000, 0px 20px 0 #000, 4px 20px 0 #000, 8px 20px 0 #000, 12px 20px 0 #000, 16px 20px 0 #000, 20px 20px 0 #000, 24px 20px 0 #000, 28px 20px 0 #000, 32px 20px 0 #000, 36px 20px 0 #000, 40px 20px 0 #000, 44px 20px 0 #000, 0px 24px 0 #000, 4px 24px 0 #000, 8px 24px 0 #000, 12px 24px 0 #000, 16px 24px 0 #000, 20px 24px 0 #fff, 24px 24px 0 #a5a5a5, 28px 24px 0 #000, 32px 24px 0 #000, 36px 24px 0 #000, 40px 24px 0 #000, 44px 24px 0 #000, 0px 28px 0 #000, 4px 28px 0 #fff, 8px 28px 0 #000, 12px 28px 0 #000, 16px 28px 0 #000, 20px 28px 0 #a5a5a5, 24px 28px 0 #a5a5a5, 28px 28px 0 #000, 32px 28px 0 #000, 36px 28px 0 #000, 40px 28px 0 #a5a5a5, 44px 28px 0 #000, 4px 32px 0 #000, 8px 32px 0 #fff, 12px 32px 0 #fff, 16px 32px 0 #fff, 20px 32px 0 #000, 24px 32px 0 #000, 28px 32px 0 #a5a5a5, 32px 32px 0 #a5a5a5, 36px 32px 0 #a5a5a5, 40px 32px 0 #000, 4px 36px 0 #000, 8px 36px 0 #a5a5a5, 12px 36px 0 #fff, 16px 36px 0 #fff, 20px 36px 0 #fff, 24px 36px 0 #a5a5a5, 28px 36px 0 #a5a5a5, 32px 36px 0 #a5a5a5, 36px 36px 0 #a5a5a5, 40px 36px 0 #000, 8px 40px 0 #000, 12px 40px 0 #000, 16px 40px 0 #a5a5a5, 20px 40px 0 #a5a5a5, 24px 40px 0 #a5a5a5, 28px 40px 0 #a5a5a5, 32px 40px 0 #000, 36px 40px 0 #000, 16px 44px 0 #000, 20px 44px 0 #000, 24px 44px 0 #000, 28px 44px 0 #000;
+  box-shadow: 16px 0 0 #000, 20px 0 0 #000, 24px 0 0 #000, 28px 0 0 #000, 8px 4px 0 #000, 12px 4px 0 #000, 16px 4px 0 #ff0, 20px 4px 0 #ff0, 24px 4px 0 #ff0, 28px 4px 0 #ff0, 32px 4px 0 #000, 36px 4px 0 #000, 4px 8px 0 #000, 8px 8px 0 #ff0, 12px 8px 0 #ff0, 16px 8px 0 #ff0, 20px 8px 0 #ff0, 24px 8px 0 #ff0, 28px 8px 0 #ff0, 32px 8px 0 #ff0, 36px 8px 0 #ff0, 40px 8px 0 #000, 4px 12px 0 #000, 8px 12px 0 #ff0, 12px 12px 0 #ff0, 16px 12px 0 #000, 20px 12px 0 #000, 24px 12px 0 #000, 28px 12px 0 #000, 32px 12px 0 #ff0, 36px 12px 0 #ff0, 40px 12px 0 #000, 0px 16px 0 #000, 4px 16px 0 #000, 8px 16px 0 #ff0, 12px 16px 0 #ff0, 16px 16px 0 #000, 20px 16px 0 #000, 24px 16px 0 #000, 28px 16px 0 #000, 32px 16px 0 #ff0, 36px 16px 0 #ff0, 40px 16px 0 #000, 44px 16px 0 #000, 0px 20px 0 #000, 4px 20px 0 #000, 8px 20px 0 #000, 12px 20px 0 #000, 16px 20px 0 #000, 20px 20px 0 #000, 24px 20px 0 #000, 28px 20px 0 #000, 32px 20px 0 #000, 36px 20px 0 #000, 40px 20px 0 #000, 44px 20px 0 #000, 0px 24px 0 #000, 4px 24px 0 #000, 8px 24px 0 #000, 12px 24px 0 #000, 16px 24px 0 #000, 20px 24px 0 #fff, 24px 24px 0 #a5a5a5, 28px 24px 0 #000, 32px 24px 0 #000, 36px 24px 0 #000, 40px 24px 0 #000, 44px 24px 0 #000, 0px 28px 0 #000, 4px 28px 0 #fff, 8px 28px 0 #000, 12px 28px 0 #000, 16px 28px 0 #000, 20px 28px 0 #a5a5a5, 24px 28px 0 #a5a5a5, 28px 28px 0 #000, 32px 28px 0 #000, 36px 28px 0 #000, 40px 28px 0 #a5a5a5, 44px 28px 0 #000, 4px 32px 0 #000, 8px 32px 0 #fff, 12px 32px 0 #fff, 16px 32px 0 #fff, 20px 32px 0 #000, 24px 32px 0 #000, 28px 32px 0 #a5a5a5, 32px 32px 0 #a5a5a5, 36px 32px 0 #a5a5a5, 40px 32px 0 #000, 4px 36px 0 #000, 8px 36px 0 #a5a5a5, 12px 36px 0 #fff, 16px 36px 0 #fff, 20px 36px 0 #fff, 24px 36px 0 #a5a5a5, 28px 36px 0 #a5a5a5, 32px 36px 0 #a5a5a5, 36px 36px 0 #a5a5a5, 40px 36px 0 #000, 8px 40px 0 #000, 12px 40px 0 #000, 16px 40px 0 #a5a5a5, 20px 40px 0 #a5a5a5, 24px 40px 0 #a5a5a5, 28px 40px 0 #a5a5a5, 32px 40px 0 #000, 36px 40px 0 #000, 16px 44px 0 #000, 20px 44px 0 #000, 24px 44px 0 #000, 28px 44px 0 #000;
+}
+.pokeball#pokeball-master {
+  -webkit-animation-delay: 0.75s;
+  -moz-animation-delay: 0.75s;
+  -o-animation-delay: 0.75s;
+  -ms-animation-delay: 0.75s;
+  animation-delay: 0.75s;
+  margin: -4px 0 0 162px;
+  -webkit-box-shadow: 16px 0 0 #000, 20px 0 0 #000, 24px 0 0 #000, 28px 0 0 #000, 8px 4px 0 #000, 12px 4px 0 #000, 16px 4px 0 #481a66, 20px 4px 0 #481a66, 24px 4px 0 #481a66, 28px 4px 0 #481a66, 32px 4px 0 #000, 36px 4px 0 #000, 4px 8px 0 #000, 8px 8px 0 #eb23aa, 12px 8px 0 #eb23aa, 16px 8px 0 #481a66, 20px 8px 0 #481a66, 24px 8px 0 #481a66, 28px 8px 0 #481a66, 32px 8px 0 #eb23aa, 36px 8px 0 #eb23aa, 40px 8px 0 #000, 4px 12px 0 #000, 8px 12px 0 #eb23aa, 12px 12px 0 #fff, 16px 12px 0 #fff, 20px 12px 0 #481a66, 24px 12px 0 #481a66, 28px 12px 0 #fff, 32px 12px 0 #fff, 36px 12px 0 #eb23aa, 40px 12px 0 #000, 0px 16px 0 #000, 4px 16px 0 #481a66, 8px 16px 0 #481a66, 12px 16px 0 #fff, 16px 16px 0 #481a66, 20px 16px 0 #fff, 24px 16px 0 #fff, 28px 16px 0 #481a66, 32px 16px 0 #fff, 36px 16px 0 #481a66, 40px 16px 0 #481a66, 44px 16px 0 #000, 0px 20px 0 #000, 4px 20px 0 #481a66, 8px 20px 0 #481a66, 12px 20px 0 #481a66, 16px 20px 0 #481a66, 20px 20px 0 #000, 24px 20px 0 #000, 28px 20px 0 #481a66, 32px 20px 0 #481a66, 36px 20px 0 #481a66, 40px 20px 0 #481a66, 44px 20px 0 #000, 0px 24px 0 #000, 4px 24px 0 #000, 8px 24px 0 #481a66, 12px 24px 0 #481a66, 16px 24px 0 #000, 20px 24px 0 #fff, 24px 24px 0 #a5a5a5, 28px 24px 0 #000, 32px 24px 0 #481a66, 36px 24px 0 #481a66, 40px 24px 0 #000, 44px 24px 0 #000, 0px 28px 0 #000, 4px 28px 0 #fff, 8px 28px 0 #000, 12px 28px 0 #000, 16px 28px 0 #000, 20px 28px 0 #a5a5a5, 24px 28px 0 #a5a5a5, 28px 28px 0 #000, 32px 28px 0 #000, 36px 28px 0 #000, 40px 28px 0 #a5a5a5, 44px 28px 0 #000, 4px 32px 0 #000, 8px 32px 0 #fff, 12px 32px 0 #fff, 16px 32px 0 #fff, 20px 32px 0 #000, 24px 32px 0 #000, 28px 32px 0 #a5a5a5, 32px 32px 0 #a5a5a5, 36px 32px 0 #a5a5a5, 40px 32px 0 #000, 4px 36px 0 #000, 8px 36px 0 #a5a5a5, 12px 36px 0 #fff, 16px 36px 0 #fff, 20px 36px 0 #fff, 24px 36px 0 #a5a5a5, 28px 36px 0 #a5a5a5, 32px 36px 0 #a5a5a5, 36px 36px 0 #a5a5a5, 40px 36px 0 #000, 8px 40px 0 #000, 12px 40px 0 #000, 16px 40px 0 #a5a5a5, 20px 40px 0 #a5a5a5, 24px 40px 0 #a5a5a5, 28px 40px 0 #a5a5a5, 32px 40px 0 #000, 36px 40px 0 #000, 16px 44px 0 #000, 20px 44px 0 #000, 24px 44px 0 #000, 28px 44px 0 #000;
+  box-shadow: 16px 0 0 #000, 20px 0 0 #000, 24px 0 0 #000, 28px 0 0 #000, 8px 4px 0 #000, 12px 4px 0 #000, 16px 4px 0 #481a66, 20px 4px 0 #481a66, 24px 4px 0 #481a66, 28px 4px 0 #481a66, 32px 4px 0 #000, 36px 4px 0 #000, 4px 8px 0 #000, 8px 8px 0 #eb23aa, 12px 8px 0 #eb23aa, 16px 8px 0 #481a66, 20px 8px 0 #481a66, 24px 8px 0 #481a66, 28px 8px 0 #481a66, 32px 8px 0 #eb23aa, 36px 8px 0 #eb23aa, 40px 8px 0 #000, 4px 12px 0 #000, 8px 12px 0 #eb23aa, 12px 12px 0 #fff, 16px 12px 0 #fff, 20px 12px 0 #481a66, 24px 12px 0 #481a66, 28px 12px 0 #fff, 32px 12px 0 #fff, 36px 12px 0 #eb23aa, 40px 12px 0 #000, 0px 16px 0 #000, 4px 16px 0 #481a66, 8px 16px 0 #481a66, 12px 16px 0 #fff, 16px 16px 0 #481a66, 20px 16px 0 #fff, 24px 16px 0 #fff, 28px 16px 0 #481a66, 32px 16px 0 #fff, 36px 16px 0 #481a66, 40px 16px 0 #481a66, 44px 16px 0 #000, 0px 20px 0 #000, 4px 20px 0 #481a66, 8px 20px 0 #481a66, 12px 20px 0 #481a66, 16px 20px 0 #481a66, 20px 20px 0 #000, 24px 20px 0 #000, 28px 20px 0 #481a66, 32px 20px 0 #481a66, 36px 20px 0 #481a66, 40px 20px 0 #481a66, 44px 20px 0 #000, 0px 24px 0 #000, 4px 24px 0 #000, 8px 24px 0 #481a66, 12px 24px 0 #481a66, 16px 24px 0 #000, 20px 24px 0 #fff, 24px 24px 0 #a5a5a5, 28px 24px 0 #000, 32px 24px 0 #481a66, 36px 24px 0 #481a66, 40px 24px 0 #000, 44px 24px 0 #000, 0px 28px 0 #000, 4px 28px 0 #fff, 8px 28px 0 #000, 12px 28px 0 #000, 16px 28px 0 #000, 20px 28px 0 #a5a5a5, 24px 28px 0 #a5a5a5, 28px 28px 0 #000, 32px 28px 0 #000, 36px 28px 0 #000, 40px 28px 0 #a5a5a5, 44px 28px 0 #000, 4px 32px 0 #000, 8px 32px 0 #fff, 12px 32px 0 #fff, 16px 32px 0 #fff, 20px 32px 0 #000, 24px 32px 0 #000, 28px 32px 0 #a5a5a5, 32px 32px 0 #a5a5a5, 36px 32px 0 #a5a5a5, 40px 32px 0 #000, 4px 36px 0 #000, 8px 36px 0 #a5a5a5, 12px 36px 0 #fff, 16px 36px 0 #fff, 20px 36px 0 #fff, 24px 36px 0 #a5a5a5, 28px 36px 0 #a5a5a5, 32px 36px 0 #a5a5a5, 36px 36px 0 #a5a5a5, 40px 36px 0 #000, 8px 40px 0 #000, 12px 40px 0 #000, 16px 40px 0 #a5a5a5, 20px 40px 0 #a5a5a5, 24px 40px 0 #a5a5a5, 28px 40px 0 #a5a5a5, 32px 40px 0 #000, 36px 40px 0 #000, 16px 44px 0 #000, 20px 44px 0 #000, 24px 44px 0 #000, 28px 44px 0 #000;
+}
+.pokeball#pokeball-safari {
+  -webkit-animation-delay: 1s;
+  -moz-animation-delay: 1s;
+  -o-animation-delay: 1s;
+  -ms-animation-delay: 1s;
+  animation-delay: 1s;
+  margin: -4px 0 0 216px;
+  -webkit-box-shadow: 16px 0 0 #000, 20px 0 0 #000, 24px 0 0 #000, 28px 0 0 #000, 8px 4px 0 #000, 12px 4px 0 #000, 16px 4px 0 #9a4a01, 20px 4px 0 #9a4a01, 24px 4px 0 #606700, 28px 4px 0 #5fa300, 32px 4px 0 #000, 36px 4px 0 #000, 4px 8px 0 #000, 8px 8px 0 #606700, 12px 8px 0 #606700, 16px 8px 0 #606700, 20px 8px 0 #9a4a01, 24px 8px 0 #9a4a01, 28px 8px 0 #5fa300, 32px 8px 0 #606700, 36px 8px 0 #9a4a01, 40px 8px 0 #000, 4px 12px 0 #000, 8px 12px 0 #9a4a01, 12px 12px 0 #9a4a01, 16px 12px 0 #9a4a01, 20px 12px 0 #9a4a01, 24px 12px 0 #9a4a01, 28px 12px 0 #5fa300, 32px 12px 0 #606700, 36px 12px 0 #606700, 40px 12px 0 #000, 0px 16px 0 #000, 4px 16px 0 #5fa300, 8px 16px 0 #606700, 12px 16px 0 #5fa300, 16px 16px 0 #5fa300, 20px 16px 0 #606700, 24px 16px 0 #606700, 28px 16px 0 #606700, 32px 16px 0 #5fa300, 36px 16px 0 #9a4a01, 40px 16px 0 #9a4a01, 44px 16px 0 #000, 0px 20px 0 #000, 4px 20px 0 #5fa300, 8px 20px 0 #606700, 12px 20px 0 #5fa300, 16px 20px 0 #606700, 20px 20px 0 #000, 24px 20px 0 #000, 28px 20px 0 #606700, 32px 20px 0 #606700, 36px 20px 0 #5fa300, 40px 20px 0 #5fa300, 44px 20px 0 #000, 0px 24px 0 #000, 4px 24px 0 #000, 8px 24px 0 #606700, 12px 24px 0 #606700, 16px 24px 0 #000, 20px 24px 0 #fff, 24px 24px 0 #a5a5a5, 28px 24px 0 #000, 32px 24px 0 #9a4a01, 36px 24px 0 #9a4a01, 40px 24px 0 #000, 44px 24px 0 #000, 0px 28px 0 #000, 4px 28px 0 #fff, 8px 28px 0 #000, 12px 28px 0 #000, 16px 28px 0 #000, 20px 28px 0 #a5a5a5, 24px 28px 0 #a5a5a5, 28px 28px 0 #000, 32px 28px 0 #000, 36px 28px 0 #000, 40px 28px 0 #a5a5a5, 44px 28px 0 #000, 4px 32px 0 #000, 8px 32px 0 #fff, 12px 32px 0 #fff, 16px 32px 0 #fff, 20px 32px 0 #000, 24px 32px 0 #000, 28px 32px 0 #a5a5a5, 32px 32px 0 #a5a5a5, 36px 32px 0 #a5a5a5, 40px 32px 0 #000, 4px 36px 0 #000, 8px 36px 0 #a5a5a5, 12px 36px 0 #fff, 16px 36px 0 #fff, 20px 36px 0 #fff, 24px 36px 0 #a5a5a5, 28px 36px 0 #a5a5a5, 32px 36px 0 #a5a5a5, 36px 36px 0 #a5a5a5, 40px 36px 0 #000, 8px 40px 0 #000, 12px 40px 0 #000, 16px 40px 0 #a5a5a5, 20px 40px 0 #a5a5a5, 24px 40px 0 #a5a5a5, 28px 40px 0 #a5a5a5, 32px 40px 0 #000, 36px 40px 0 #000, 16px 44px 0 #000, 20px 44px 0 #000, 24px 44px 0 #000, 28px 44px 0 #000;
+  box-shadow: 16px 0 0 #000, 20px 0 0 #000, 24px 0 0 #000, 28px 0 0 #000, 8px 4px 0 #000, 12px 4px 0 #000, 16px 4px 0 #9a4a01, 20px 4px 0 #9a4a01, 24px 4px 0 #606700, 28px 4px 0 #5fa300, 32px 4px 0 #000, 36px 4px 0 #000, 4px 8px 0 #000, 8px 8px 0 #606700, 12px 8px 0 #606700, 16px 8px 0 #606700, 20px 8px 0 #9a4a01, 24px 8px 0 #9a4a01, 28px 8px 0 #5fa300, 32px 8px 0 #606700, 36px 8px 0 #9a4a01, 40px 8px 0 #000, 4px 12px 0 #000, 8px 12px 0 #9a4a01, 12px 12px 0 #9a4a01, 16px 12px 0 #9a4a01, 20px 12px 0 #9a4a01, 24px 12px 0 #9a4a01, 28px 12px 0 #5fa300, 32px 12px 0 #606700, 36px 12px 0 #606700, 40px 12px 0 #000, 0px 16px 0 #000, 4px 16px 0 #5fa300, 8px 16px 0 #606700, 12px 16px 0 #5fa300, 16px 16px 0 #5fa300, 20px 16px 0 #606700, 24px 16px 0 #606700, 28px 16px 0 #606700, 32px 16px 0 #5fa300, 36px 16px 0 #9a4a01, 40px 16px 0 #9a4a01, 44px 16px 0 #000, 0px 20px 0 #000, 4px 20px 0 #5fa300, 8px 20px 0 #606700, 12px 20px 0 #5fa300, 16px 20px 0 #606700, 20px 20px 0 #000, 24px 20px 0 #000, 28px 20px 0 #606700, 32px 20px 0 #606700, 36px 20px 0 #5fa300, 40px 20px 0 #5fa300, 44px 20px 0 #000, 0px 24px 0 #000, 4px 24px 0 #000, 8px 24px 0 #606700, 12px 24px 0 #606700, 16px 24px 0 #000, 20px 24px 0 #fff, 24px 24px 0 #a5a5a5, 28px 24px 0 #000, 32px 24px 0 #9a4a01, 36px 24px 0 #9a4a01, 40px 24px 0 #000, 44px 24px 0 #000, 0px 28px 0 #000, 4px 28px 0 #fff, 8px 28px 0 #000, 12px 28px 0 #000, 16px 28px 0 #000, 20px 28px 0 #a5a5a5, 24px 28px 0 #a5a5a5, 28px 28px 0 #000, 32px 28px 0 #000, 36px 28px 0 #000, 40px 28px 0 #a5a5a5, 44px 28px 0 #000, 4px 32px 0 #000, 8px 32px 0 #fff, 12px 32px 0 #fff, 16px 32px 0 #fff, 20px 32px 0 #000, 24px 32px 0 #000, 28px 32px 0 #a5a5a5, 32px 32px 0 #a5a5a5, 36px 32px 0 #a5a5a5, 40px 32px 0 #000, 4px 36px 0 #000, 8px 36px 0 #a5a5a5, 12px 36px 0 #fff, 16px 36px 0 #fff, 20px 36px 0 #fff, 24px 36px 0 #a5a5a5, 28px 36px 0 #a5a5a5, 32px 36px 0 #a5a5a5, 36px 36px 0 #a5a5a5, 40px 36px 0 #000, 8px 40px 0 #000, 12px 40px 0 #000, 16px 40px 0 #a5a5a5, 20px 40px 0 #a5a5a5, 24px 40px 0 #a5a5a5, 28px 40px 0 #a5a5a5, 32px 40px 0 #000, 36px 40px 0 #000, 16px 44px 0 #000, 20px 44px 0 #000, 24px 44px 0 #000, 28px 44px 0 #000;
+}
+@-moz-keyframes rotateBall {
+  0% {
+    -webkit-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+@-webkit-keyframes rotateBall {
+  0% {
+    -webkit-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+@-o-keyframes rotateBall {
+  0% {
+    -webkit-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+@keyframes rotateBall {
+  0% {
+    -webkit-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
 #pagination .pagination {
   margin-top: 20px;
   text-align: center;
@@ -6960,7 +7136,7 @@ blockquote.pullquote.right {
   --search-bg: #121212;
   --search-input-color: rgba(255,255,255,0.7);
   --search-a-color: rgba(255,255,255,0.7);
-  --preloader-bg: #0d0d0d;
+  --preloader-bg: #cc4346;
   --preloader-color: rgba(255,255,255,0.7);
   --tab-border-color: #2c2c2c;
   --tab-botton-bg: #2c2c2c;
