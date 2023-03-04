@@ -12,7 +12,7 @@
 }
 /*文章页面*/
 .layout>#post{
-    background: rgba(30,41,61,.5);
+    background: rgba(30,41,61,1);
 }
 /*分类页面*/
 .layout>#page{

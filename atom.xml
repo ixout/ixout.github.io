@@ -6,7 +6,7 @@
   <link href="https://ixout.github.io/atom.xml" rel="self"/>
   
   <link href="https://ixout.github.io/"/>
-  <updated>2023-03-03T14:56:21.781Z</updated>
+  <updated>2023-03-04T08:21:27.683Z</updated>
   <id>https://ixout.github.io/</id>
   
   <author>
@@ -21,9 +21,9 @@
     <link href="https://ixout.github.io/posts/8932/"/>
     <id>https://ixout.github.io/posts/8932/</id>
     <published>2023-03-02T14:31:03.000Z</published>
-    <updated>2023-03-03T14:56:21.781Z</updated>
+    <updated>2023-03-04T08:21:27.683Z</updated>
     
-    <content type="html"><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>最近搭建博客花了不少时间，期间对堆的学习就搁置了，现在既然博客搭建完毕，就要利用起来了，刚好用来记录自己的堆学习过程</p><hr><h1 id="堆是什么？"><a href="#堆是什么？" class="headerlink" title="堆是什么？"></a>堆是什么？</h1><blockquote><p>在程序运行过程中，堆可以提供动态分配的内存，允许程序申请大小未知的内存。堆其实就是程序虚拟地址空间的一块连续的线性区域，它由低地址向高地址方向增长。我们一般称管理堆的那部分程序为堆管理器。</p><p>堆管理器处于用户程序与内核中间，主要做以下工作</p><ul><li>响应用户的申请内存请求，向操作系统申请内存，然后将其返回给用户程序。同时，为了保持内存管理的高效性，内核一般都会预先分配很大的一块连续的内存，然后让堆管理器通过某种算法管理这块内存。只有当出现了堆空间不足的情况，堆管理器才会再次与操作系统进行交互。</li><li>管理用户所释放的内存。一般来说，用户释放的内存并不是直接返还给操作系统的，而是由堆管理器进行管理。这些释放的内存可以来响应用户新申请的内存的请求。</li></ul><p>引自ctf—wiki</p></blockquote><p>数据结构中也有堆这么个东西，但与这个堆关系不大</p><h1 id="学习记录"><a href="#学习记录" class="headerlink" title="学习记录"></a>学习记录</h1><h2 id="基础"><a href="#基础" class="headerlink" title="基础"></a>基础</h2><p>这部分主要就是多翻ctfwiki的内容讲的已经很细了，不过还是推荐看一看华庭大佬的<a href="https://pan.baidu.com/s/167Z3CHDEeP1dl3c2Ii0lXg?pwd=1234">glibc内存管理-ptmalloc2源码分析</a>,看了之后真的能有很多收获.</p>]]></content>
+    <content type="html"><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>最近搭建博客花了不少时间，期间对堆的学习就搁置了，现在既然博客搭建完毕，就要利用起来了，刚好用来记录自己的堆学习过程</p><hr><h1 id="学习记录"><a href="#学习记录" class="headerlink" title="学习记录"></a>学习记录</h1><h2 id="基础"><a href="#基础" class="headerlink" title="基础"></a>基础</h2><p>ctfwiki的内容讲的已经很细了，不过还是推荐看一看华庭大佬的<a href="https://pan.baidu.com/s/167Z3CHDEeP1dl3c2Ii0lXg?pwd=1234">glibc内存管理-ptmalloc2源码分析</a>,看了之后真的能有很多收获.</p><h2 id="堆是啥"><a href="#堆是啥" class="headerlink" title="堆是啥"></a>堆是啥</h2><blockquote><p>在程序运行过程中，堆可以提供动态分配的内存，允许程序申请大小未知的内存。堆其实就是程序虚拟地址空间的一块连续的线性区域，它由低地址向高地址方向增长。我们一般称管理堆的那部分程序为堆管理器。</p><p>堆管理器处于用户程序与内核中间，主要做以下工作</p><ul><li>响应用户的申请内存请求，向操作系统申请内存，然后将其返回给用户程序。同时，为了保持内存管理的高效性，内核一般都会预先分配很大的一块连续的内存，然后让堆管理器通过某种算法管理这块内存。只有当出现了堆空间不足的情况，堆管理器才会再次与操作系统进行交互。</li><li>管理用户所释放的内存。一般来说，用户释放的内存并不是直接返还给操作系统的，而是由堆管理器进行管理。这些释放的内存可以来响应用户新申请的内存的请求。</li></ul><p>引自ctf—wiki</p></blockquote><p>数据结构中也有堆这么个东西，但与这个堆关系不大(大概)</p><h2 id="重点"><a href="#重点" class="headerlink" title="重点"></a>重点</h2><h3 id="malloc流程"><a href="#malloc流程" class="headerlink" title="malloc流程"></a>malloc流程</h3><hr><p>总结一下：根据用户请求分配的内存的大小，ptmalloc 有可能会在两个地方为用户分配内存空间。在第一次分配内存时，一般情况下只存在一个主分配区，但也有可能从父进程那里继承来了多个非主分配区，在这里主要讨论主分配区的情况，brk 值等于start_brk，所以实际上 heap 大小为 0，top chunk 大小也是 0。这时，如果不增加 heap大小，就不能满足任何分配要求。所以，若用户的请求的内存大小小于 mmap 分配阈值，则 ptmalloc 会初始 heap。然后在 heap 中分配空间给用户，以后的分配就基于这个 heap进行。若第一次用户的请求就大于 mmap 分配阈值，则 ptmalloc 直接使用 mmap()分配一块内存给用户，而 heap 也就没有被初始化，直到用户第一次请求小于 mmap 分配阈值的内存分配。第一次以后的分配就比较复杂了，简单说来，ptmalloc 首先会查找 fast bins，如果不能找到匹配的 chunk，则查找 small bins。若还是不行，合并 fast bins，把 chunk加入 unsorted bin，在 unsorted bin 中查找，若还是不行，把 unsorted bin 中的 chunk 全加入 large bins 中，并查找 large bins。在 fast bins 和 small bins 中的查找都需要精确匹配，而在 large bins 中查找时，则遵循“smallest-first，best-fit”的原则，不需要精确匹配。若以上方法都失败了，则 ptmalloc 会考虑使用 top chunk。若 top chunk 也不能满足分配要求。而且所需 chunk 大小大于 mmap 分配阈值，则使用 mmap 进行分配。否则增加heap，增大 top chunk。以满足分配要求。</p>]]></content>
     
     
     <summary type="html">一个字：就TM让人头大</summary>
