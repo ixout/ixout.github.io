@@ -3,27 +3,3 @@
     /* 以下代表透明度为0.5 */
     background: rgba(30,41,61,.5);
 }
-/*侧边栏页面*/
-#aside-content>.card-widget  {
-    background: rgba(30,41,61,.5);
-}
-#aside-content>.sticky_layout>.card-widget{
-    background: rgba(30,41,61,.5);
-}
-/*文章页面*/
-.layout>#post{
-    background: rgba(30,41,61,1);
-}
-/*分类页面*/
-.layout>#page{
-    
-    background: rgba(30,41,61,.5);
-}
-/*时间轴页面*/
-.layout>#archive{
-    background: rgba(30,41,61,.5);
-}
-/* 夜间模式文章背景颜色 */
-.butterfly-dark #article-container {
-  background-color: rgba(0,0,0,1);
-}
