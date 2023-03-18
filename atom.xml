@@ -6,7 +6,7 @@
   <link href="https://ixout.github.io/atom.xml" rel="self"/>
   
   <link href="https://ixout.github.io/"/>
-  <updated>2023-03-18T07:33:35.692Z</updated>
+  <updated>2023-03-18T07:38:37.858Z</updated>
   <id>https://ixout.github.io/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="https://ixout.github.io/posts/32771/"/>
     <id>https://ixout.github.io/posts/32771/</id>
     <published>2023-03-18T07:16:02.000Z</published>
-    <updated>2023-03-18T07:33:35.692Z</updated>
+    <updated>2023-03-18T07:38:37.858Z</updated>
     
     <content type="html"><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>学习过程中发现自己对一些计算机系统的基础知识并不了解，目前暂时也没有精力去系统的学习，于是就将经常遇到的又不懂的知识归纳一下</p><hr><h1 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h1><h2 id="虚拟地址与物理地址之间的映射"><a href="#虚拟地址与物理地址之间的映射" class="headerlink" title="虚拟地址与物理地址之间的映射"></a>虚拟地址与物理地址之间的映射</h2><p>先看一下进程虚拟地址空间的总体布局，以32位Linux系统为例：</p><p><img src="https://cdn.staticaly.com/gh/ixout/picture@main/img/2023-03-18_152459.png" alt=""></p><p>基于上图的虚拟地址空间布局来简单说下ELF文件是怎样映射到进程虚拟地址空间的，ELF文件被组织成如下图左列出的一系列section，其中具有相同属性（R/W/E）的section再组成一个segment，以segment为单位映射到进程的虚拟地址空间，其中虚拟地址空间中的segment要做到页大小对齐，下图也一同简要展示了虚拟地址空间到物理地址空间的映射，通过MMU完成。</p><p><img src="https://cdn.staticaly.com/gh/ixout/picture@main/img/2023-03-18_152545.png" alt=""></p><p>其它系统原理类似，都是将可执行程序组织成若干segment连同用到的动态库和kernel映射到进程的虚拟地址空间，主要差别在于不同segment映射的起始地址、大小不同等，比如32位Linux系统的Text segment起址是0x08048000，64位Linux系统的Text segment起址是0x00400000，再比如相对32位Linux系统的kernel space是1G，32位Windows的kernel space是2G等等。</p>]]></content>
     
