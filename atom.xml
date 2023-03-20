@@ -6,7 +6,7 @@
   <link href="https://ixout.github.io/atom.xml" rel="self"/>
   
   <link href="https://ixout.github.io/"/>
-  <updated>2023-03-20T06:36:03.472Z</updated>
+  <updated>2023-03-20T13:49:16.509Z</updated>
   <id>https://ixout.github.io/</id>
   
   <author>
@@ -15,6 +15,27 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>pwnable.kr刷题记录-1</title>
+    <link href="https://ixout.github.io/posts/4569/"/>
+    <id>https://ixout.github.io/posts/4569/</id>
+    <published>2023-03-20T13:46:51.000Z</published>
+    <updated>2023-03-20T13:49:16.509Z</updated>
+    
+    
+    <summary type="html">比tw简单一点</summary>
+    
+    
+    
+    <category term="write up" scheme="https://ixout.github.io/categories/write-up/"/>
+    
+    
+    <category term="wp" scheme="https://ixout.github.io/tags/wp/"/>
+    
+    <category term="pwnable.kr" scheme="https://ixout.github.io/tags/pwnable-kr/"/>
+    
+  </entry>
   
   <entry>
     <title>pwnable.tw刷题记录-1</title>
@@ -58,9 +79,9 @@
     <category term="pwn" scheme="https://ixout.github.io/categories/pwn/"/>
     
     
-    <category term="堆" scheme="https://ixout.github.io/tags/%E5%A0%86/"/>
-    
     <category term="学习记录" scheme="https://ixout.github.io/tags/%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/"/>
+    
+    <category term="堆" scheme="https://ixout.github.io/tags/%E5%A0%86/"/>
     
   </entry>
   
@@ -104,9 +125,9 @@
     <category term="pwn" scheme="https://ixout.github.io/categories/pwn/"/>
     
     
-    <category term="堆" scheme="https://ixout.github.io/tags/%E5%A0%86/"/>
-    
     <category term="学习记录" scheme="https://ixout.github.io/tags/%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/"/>
+    
+    <category term="堆" scheme="https://ixout.github.io/tags/%E5%A0%86/"/>
     
   </entry>
   
