@@ -4,7 +4,16 @@
   <url>
     <loc>https://ixout.github.io/posts/40023/</loc>
     
-    <lastmod>2023-03-18</lastmod>
+    <lastmod>2023-03-20</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://ixout.github.io/posts/10836/</loc>
+    
+    <lastmod>2023-03-20</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -67,7 +76,7 @@
 
   <url>
     <loc>https://ixout.github.io/</loc>
-    <lastmod>2023-03-18</lastmod>
+    <lastmod>2023-03-20</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
@@ -75,21 +84,42 @@
   
   <url>
     <loc>https://ixout.github.io/tags/%E5%A0%86/</loc>
-    <lastmod>2023-03-18</lastmod>
+    <lastmod>2023-03-20</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://ixout.github.io/tags/%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/</loc>
-    <lastmod>2023-03-18</lastmod>
+    <lastmod>2023-03-20</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://ixout.github.io/tags/%E5%9F%BA%E7%A1%80/</loc>
-    <lastmod>2023-03-18</lastmod>
+    <lastmod>2023-03-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://ixout.github.io/tags/pwnable-tw/</loc>
+    <lastmod>2023-03-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://ixout.github.io/tags/wp/</loc>
+    <lastmod>2023-03-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://ixout.github.io/tags/%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/</loc>
+    <lastmod>2023-03-20</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
@@ -98,14 +128,21 @@
   
   <url>
     <loc>https://ixout.github.io/categories/pwn/</loc>
-    <lastmod>2023-03-18</lastmod>
+    <lastmod>2023-03-20</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://ixout.github.io/categories/%E6%9D%82%E7%83%A9/</loc>
-    <lastmod>2023-03-18</lastmod>
+    <lastmod>2023-03-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://ixout.github.io/categories/write-up/</loc>
+    <lastmod>2023-03-20</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
