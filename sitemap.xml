@@ -2,15 +2,6 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://ixout.github.io/posts/11792/</loc>
-    
-    <lastmod>2023-04-02</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://ixout.github.io/posts/60497/</loc>
     
     <lastmod>2023-04-02</lastmod>
@@ -20,18 +11,27 @@
   </url>
   
   <url>
-    <loc>https://ixout.github.io/posts/40023/</loc>
+    <loc>https://ixout.github.io/posts/8932/</loc>
     
-    <lastmod>2023-04-01</lastmod>
+    <lastmod>2023-04-02</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>https://ixout.github.io/posts/8932/</loc>
+    <loc>https://ixout.github.io/posts/11792/</loc>
     
-    <lastmod>2023-04-01</lastmod>
+    <lastmod>2023-04-02</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://ixout.github.io/posts/61329/</loc>
+    
+    <lastmod>2023-04-02</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -39,6 +39,15 @@
   
   <url>
     <loc>https://ixout.github.io/posts/61137/</loc>
+    
+    <lastmod>2023-04-02</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://ixout.github.io/posts/40023/</loc>
     
     <lastmod>2023-04-01</lastmod>
     
@@ -66,15 +75,6 @@
   
   <url>
     <loc>https://ixout.github.io/about/index.html</loc>
-    
-    <lastmod>2023-03-30</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://ixout.github.io/posts/61329/</loc>
     
     <lastmod>2023-03-30</lastmod>
     
