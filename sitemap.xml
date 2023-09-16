@@ -11,15 +11,6 @@
   </url>
   
   <url>
-    <loc>https://ixout.github.io/posts/18798/</loc>
-    
-    <lastmod>2023-09-16</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://ixout.github.io/posts/14246/</loc>
     
     <lastmod>2023-09-16</lastmod>
@@ -711,13 +702,6 @@
     <priority>0.2</priority>
   </url>
   
-  <url>
-    <loc>https://ixout.github.io/tags/%E6%9D%82%E7%83%A9/</loc>
-    <lastmod>2023-09-16</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
 
   
   <url>
@@ -743,13 +727,6 @@
   
   <url>
     <loc>https://ixout.github.io/categories/CS-learn/</loc>
-    <lastmod>2023-09-16</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://ixout.github.io/categories/else/</loc>
     <lastmod>2023-09-16</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
