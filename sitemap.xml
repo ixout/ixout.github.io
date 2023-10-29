@@ -2,9 +2,9 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://ixout.github.io/posts/69471/</loc>
+    <loc>https://ixout.github.io/posts/8990/</loc>
     
-    <lastmod>2023-10-26</lastmod>
+    <lastmod>2023-10-29</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -12,6 +12,51 @@
   
   <url>
     <loc>https://ixout.github.io/posts/1518/</loc>
+    
+    <lastmod>2023-10-29</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://ixout.github.io/posts/23411/</loc>
+    
+    <lastmod>2023-10-29</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://ixout.github.io/posts/33400/</loc>
+    
+    <lastmod>2023-10-28</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://ixout.github.io/posts/25867/</loc>
+    
+    <lastmod>2023-10-27</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://ixout.github.io/posts/35200/</loc>
+    
+    <lastmod>2023-10-27</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://ixout.github.io/posts/69471/</loc>
     
     <lastmod>2023-10-26</lastmod>
     
@@ -29,25 +74,7 @@
   </url>
   
   <url>
-    <loc>https://ixout.github.io/posts/23411/</loc>
-    
-    <lastmod>2023-10-26</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://ixout.github.io/posts/32516/</loc>
-    
-    <lastmod>2023-10-25</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://ixout.github.io/posts/8990/</loc>
     
     <lastmod>2023-10-25</lastmod>
     
@@ -59,15 +86,6 @@
     <loc>https://ixout.github.io/posts/32771/</loc>
     
     <lastmod>2023-10-25</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://ixout.github.io/posts/33400/</loc>
-    
-    <lastmod>2023-10-24</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -119,15 +137,6 @@
   </url>
   
   <url>
-    <loc>https://ixout.github.io/posts/25867/</loc>
-    
-    <lastmod>2023-10-15</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://ixout.github.io/posts/4654/</loc>
     
     <lastmod>2023-10-15</lastmod>
@@ -137,7 +146,7 @@
   </url>
   
   <url>
-    <loc>https://ixout.github.io/%E5%A4%87%E4%BB%BD/vsyscall%E5%88%9D%E8%AF%86.html</loc>
+    <loc>https://ixout.github.io/posts%E5%A4%87%E4%BB%BD/vsyscall%E5%88%9D%E8%AF%86.html</loc>
     
     <lastmod>2023-10-15</lastmod>
     
@@ -200,7 +209,7 @@
   </url>
   
   <url>
-    <loc>https://ixout.github.io/%E5%A4%87%E4%BB%BD/pwn%E6%8A%80%E5%B7%A7-setcontext.html</loc>
+    <loc>https://ixout.github.io/posts%E5%A4%87%E4%BB%BD/pwn%E6%8A%80%E5%B7%A7-setcontext.html</loc>
     
     <lastmod>2023-10-15</lastmod>
     
@@ -210,15 +219,6 @@
   
   <url>
     <loc>https://ixout.github.io/posts/6947/</loc>
-    
-    <lastmod>2023-10-15</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://ixout.github.io/posts/35200/</loc>
     
     <lastmod>2023-10-15</lastmod>
     
@@ -353,7 +353,7 @@
   </url>
   
   <url>
-    <loc>https://ixout.github.io/%E5%A4%87%E4%BB%BD/pwn%E6%8A%80%E5%B7%A7-mprotect.html</loc>
+    <loc>https://ixout.github.io/posts%E5%A4%87%E4%BB%BD/pwn%E6%8A%80%E5%B7%A7-mprotect.html</loc>
     
     <lastmod>2023-09-22</lastmod>
     
@@ -436,7 +436,7 @@
 
   <url>
     <loc>https://ixout.github.io/</loc>
-    <lastmod>2023-10-26</lastmod>
+    <lastmod>2023-10-29</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
@@ -444,315 +444,315 @@
   
   <url>
     <loc>https://ixout.github.io/tags/awdp/</loc>
-    <lastmod>2023-10-26</lastmod>
+    <lastmod>2023-10-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://ixout.github.io/tags/%E7%BA%BF%E4%B8%8B%E8%B5%9B/</loc>
-    <lastmod>2023-10-26</lastmod>
+    <lastmod>2023-10-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://ixout.github.io/tags/patch/</loc>
-    <lastmod>2023-10-26</lastmod>
+    <lastmod>2023-10-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://ixout.github.io/tags/pwn/</loc>
-    <lastmod>2023-10-26</lastmod>
+    <lastmod>2023-10-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://ixout.github.io/tags/wp/</loc>
-    <lastmod>2023-10-26</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://ixout.github.io/tags/IO-FILE/</loc>
-    <lastmod>2023-10-26</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://ixout.github.io/tags/%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/</loc>
-    <lastmod>2023-10-26</lastmod>
+    <lastmod>2023-10-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://ixout.github.io/tags/SunmerCamp2023/</loc>
-    <lastmod>2023-10-26</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://ixout.github.io/tags/awd/</loc>
-    <lastmod>2023-10-26</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://ixout.github.io/tags/buuctf/</loc>
-    <lastmod>2023-10-26</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://ixout.github.io/tags/calloc/</loc>
-    <lastmod>2023-10-26</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://ixout.github.io/tags/%E5%9F%BA%E7%A1%80/</loc>
-    <lastmod>2023-10-26</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://ixout.github.io/tags/elf/</loc>
-    <lastmod>2023-10-26</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://ixout.github.io/tags/SunmerWeek2023/</loc>
-    <lastmod>2023-10-26</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://ixout.github.io/tags/%E6%8A%A5%E9%94%99/</loc>
-    <lastmod>2023-10-26</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://ixout.github.io/tags/exit/</loc>
-    <lastmod>2023-10-26</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://ixout.github.io/tags/pwn%E6%8A%80%E5%B7%A7/</loc>
-    <lastmod>2023-10-26</lastmod>
+    <lastmod>2023-10-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://ixout.github.io/tags/IO-FILE/</loc>
-    <lastmod>2023-10-26</lastmod>
+    <lastmod>2023-10-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://ixout.github.io/tags/%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/</loc>
+    <lastmod>2023-10-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://ixout.github.io/tags/SunmerWeek2023/</loc>
+    <lastmod>2023-10-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://ixout.github.io/tags/buuctf/</loc>
+    <lastmod>2023-10-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://ixout.github.io/tags/awd/</loc>
+    <lastmod>2023-10-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://ixout.github.io/tags/calloc/</loc>
+    <lastmod>2023-10-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://ixout.github.io/tags/%E5%9F%BA%E7%A1%80/</loc>
+    <lastmod>2023-10-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://ixout.github.io/tags/elf/</loc>
+    <lastmod>2023-10-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://ixout.github.io/tags/%E6%8A%A5%E9%94%99/</loc>
+    <lastmod>2023-10-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://ixout.github.io/tags/exit/</loc>
+    <lastmod>2023-10-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://ixout.github.io/tags/pwn%E6%8A%80%E5%B7%A7/</loc>
+    <lastmod>2023-10-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://ixout.github.io/tags/IO-FILE/</loc>
+    <lastmod>2023-10-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://ixout.github.io/tags/ida/</loc>
-    <lastmod>2023-10-26</lastmod>
+    <lastmod>2023-10-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://ixout.github.io/tags/how2heap/</loc>
-    <lastmod>2023-10-26</lastmod>
+    <lastmod>2023-10-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://ixout.github.io/tags/heap/</loc>
-    <lastmod>2023-10-26</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://ixout.github.io/tags/linux/</loc>
-    <lastmod>2023-10-26</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://ixout.github.io/tags/%E6%9D%82%E7%83%A9/</loc>
-    <lastmod>2023-10-26</lastmod>
+    <lastmod>2023-10-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://ixout.github.io/tags/%E5%AE%89%E5%85%A8%E6%A3%80%E6%9F%A5/</loc>
-    <lastmod>2023-10-26</lastmod>
+    <lastmod>2023-10-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://ixout.github.io/tags/glibc/</loc>
-    <lastmod>2023-10-26</lastmod>
+    <lastmod>2023-10-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://ixout.github.io/tags/%E5%A0%86/</loc>
-    <lastmod>2023-10-26</lastmod>
+    <lastmod>2023-10-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://ixout.github.io/tags/linux/</loc>
+    <lastmod>2023-10-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://ixout.github.io/tags/%E6%9D%82%E7%83%A9/</loc>
+    <lastmod>2023-10-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://ixout.github.io/tags/pwnable-kr/</loc>
-    <lastmod>2023-10-26</lastmod>
+    <lastmod>2023-10-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://ixout.github.io/tags/pwnable-tw/</loc>
-    <lastmod>2023-10-26</lastmod>
+    <lastmod>2023-10-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://ixout.github.io/tags/%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/</loc>
-    <lastmod>2023-10-26</lastmod>
+    <lastmod>2023-10-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://ixout.github.io/tags/%E6%8A%80%E5%B7%A7/</loc>
-    <lastmod>2023-10-26</lastmod>
+    <lastmod>2023-10-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://ixout.github.io/tags/DynELF/</loc>
-    <lastmod>2023-10-26</lastmod>
+    <lastmod>2023-10-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://ixout.github.io/tags/mprotect/</loc>
-    <lastmod>2023-10-26</lastmod>
+    <lastmod>2023-10-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://ixout.github.io/tags/vsyscall/</loc>
-    <lastmod>2023-10-26</lastmod>
+    <lastmod>2023-10-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://ixout.github.io/tags/setcontext/</loc>
-    <lastmod>2023-10-26</lastmod>
+    <lastmod>2023-10-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://ixout.github.io/tags/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/</loc>
-    <lastmod>2023-10-26</lastmod>
+    <lastmod>2023-10-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://ixout.github.io/tags/python/</loc>
-    <lastmod>2023-10-26</lastmod>
+    <lastmod>2023-10-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://ixout.github.io/tags/c%E5%BA%93%E5%87%BD%E6%95%B0/</loc>
-    <lastmod>2023-10-26</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://ixout.github.io/tags/FSOP/</loc>
-    <lastmod>2023-10-26</lastmod>
+    <lastmod>2023-10-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://ixout.github.io/tags/%E5%A0%86%E5%88%A9%E7%94%A8/</loc>
-    <lastmod>2023-10-26</lastmod>
+    <lastmod>2023-10-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://ixout.github.io/tags/FSOP/</loc>
+    <lastmod>2023-10-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://ixout.github.io/tags/fastbin/</loc>
-    <lastmod>2023-10-26</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://ixout.github.io/tags/%E9%A2%98%E8%A7%A3/</loc>
-    <lastmod>2023-10-26</lastmod>
+    <lastmod>2023-10-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://ixout.github.io/tags/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/</loc>
-    <lastmod>2023-10-26</lastmod>
+    <lastmod>2023-10-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://ixout.github.io/tags/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/</loc>
-    <lastmod>2023-10-26</lastmod>
+    <lastmod>2023-10-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://ixout.github.io/tags/%E5%AE%9E%E6%93%8D/</loc>
-    <lastmod>2023-10-26</lastmod>
+    <lastmod>2023-10-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://ixout.github.io/tags/%E9%A2%98%E8%A7%A3/</loc>
+    <lastmod>2023-10-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://ixout.github.io/tags/asm/</loc>
-    <lastmod>2023-10-26</lastmod>
+    <lastmod>2023-10-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
@@ -761,35 +761,28 @@
   
   <url>
     <loc>https://ixout.github.io/categories/pwn/</loc>
-    <lastmod>2023-10-26</lastmod>
+    <lastmod>2023-10-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://ixout.github.io/categories/%E9%A2%98%E8%A7%A3/</loc>
-    <lastmod>2023-10-26</lastmod>
+    <lastmod>2023-10-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://ixout.github.io/categories/%E6%9D%82%E7%83%A9/</loc>
-    <lastmod>2023-10-26</lastmod>
+    <lastmod>2023-10-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://ixout.github.io/categories/CS-learn/</loc>
-    <lastmod>2023-10-26</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://ixout.github.io/categories/%E6%9D%82%E7%83%A9/</loc>
-    <lastmod>2023-10-26</lastmod>
+    <lastmod>2023-10-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
