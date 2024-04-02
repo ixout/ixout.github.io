@@ -1,0 +1,326 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"><title>c实现socks5 | ixout's blog</title><meta name="author" content="ixout"><meta name="copyright" content="ixout"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="用c写个socks5">
+<meta property="og:type" content="website">
+<meta property="og:title" content="c实现socks5">
+<meta property="og:url" content="https://ixout.github.io/%E6%9A%82%E7%BD%AE/c%E5%AE%9E%E7%8E%B0socks5.html">
+<meta property="og:site_name" content="ixout&#39;s blog">
+<meta property="og:description" content="用c写个socks5">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ixout/picture@main/img/865885b088167c2d2ec.png">
+<meta property="article:published_time" content="2024-03-16T13:01:33.000Z">
+<meta property="article:modified_time" content="2024-03-17T09:44:55.065Z">
+<meta property="article:author" content="ixout">
+<meta property="article:tag" content="socks5">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/ixout/picture@main/img/865885b088167c2d2ec.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://ixout.github.io/%E6%9A%82%E7%BD%AE/c%E5%AE%9E%E7%8E%B0socks5.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: true,
+  islazyload: true,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: true,
+  }
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'c实现socks5',
+  isPost: false,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: false,
+  postUpdate: '2024-03-17 17:44:55'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/universe.css"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/js-heo@1.0.11/mainColor/heoMainColor.css"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/js-heo@1.0.11/poem/poem.css"><link rel="stylesheet" href="/css/footerb.css"><link rel="stylesheet" href="/css/bolang.css"><link rel="stylesheet" href="/css/jzbar.css"><link rel="stylesheet" href="/css/trans.css"><link rel="stylesheet" href="/css/gundongtiao.css"><link rel="stylesheet" href="/css/shubiao.css"><link rel="stylesheet" href="/css/fengche.css"><link rel="stylesheet" href="/css/alitubiao.css"><link rel="stylesheet" href="/css/fps.css"><span id="fps"></span><link rel="stylesheet" href="/css/yituliu.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="//at.alicdn.com/t/c/font_3930344_38rvofbfw64.css" media="defer" onload="this.media='all'"><svg aria-hidden="true" style="position:absolute; overflow:hidden; width:0; height:0"><symbol id="icon-sun" viewBox="0 0 1024 1024"><path d="M960 512l-128 128v192h-192l-128 128-128-128H192v-192l-128-128 128-128V192h192l128-128 128 128h192v192z" fill="#FFD878" p-id="8420"></path><path d="M736 512a224 224 0 1 0-448 0 224 224 0 1 0 448 0z" fill="#FFE4A9" p-id="8421"></path><path d="M512 109.248L626.752 224H800v173.248L914.752 512 800 626.752V800h-173.248L512 914.752 397.248 800H224v-173.248L109.248 512 224 397.248V224h173.248L512 109.248M512 64l-128 128H192v192l-128 128 128 128v192h192l128 128 128-128h192v-192l128-128-128-128V192h-192l-128-128z" fill="#4D5152" p-id="8422"></path><path d="M512 320c105.888 0 192 86.112 192 192s-86.112 192-192 192-192-86.112-192-192 86.112-192 192-192m0-32a224 224 0 1 0 0 448 224 224 0 0 0 0-448z" fill="#4D5152" p-id="8423"></path></symbol><symbol id="icon-moon" viewBox="0 0 1024 1024"><path d="M611.370667 167.082667a445.013333 445.013333 0 0 1-38.4 161.834666 477.824 477.824 0 0 1-244.736 244.394667 445.141333 445.141333 0 0 1-161.109334 38.058667 85.077333 85.077333 0 0 0-65.066666 135.722666A462.08 462.08 0 1 0 747.093333 102.058667a85.077333 85.077333 0 0 0-135.722666 65.024z" fill="#FFB531" p-id="11345"></path><path d="M329.728 274.133333l35.157333-35.157333a21.333333 21.333333 0 1 0-30.165333-30.165333l-35.157333 35.157333-35.114667-35.157333a21.333333 21.333333 0 0 0-30.165333 30.165333l35.114666 35.157333-35.114666 35.157334a21.333333 21.333333 0 1 0 30.165333 30.165333l35.114667-35.157333 35.157333 35.157333a21.333333 21.333333 0 1 0 30.165333-30.165333z" fill="#030835" p-id="11346"></path></symbol></svg><!-- hexo injector head_end start --><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/assets/font-awesome-animation.min.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/tag_plugins.css" media="defer" onload="this.media='all'"><script src="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/assets/carousel-touch.js"></script><!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="ixout's blog" type="application/atom+xml">
+</head><body><div id="loading-box"><div class="pokeball-back"></div><div class="pokeball-loading"><div class="pokeball" id="pokeball-normal"></div><div class="pokeball" id="pokeball-great"></div><div class="pokeball" id="pokeball-ultra"></div><div class="pokeball" id="pokeball-master"></div><div class="pokeball" id="pokeball-safari"></div></div></div><script async="async">const preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+document.getElementById('loading-box').addEventListener('click',()=> {preloader.endLoading()})
+setTimeout(function(){preloader.endLoading();}, 7000);
+
+if (false) {
+  document.addEventListener('pjax:send', () => { preloader.initLoading() })
+  document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+}</script><link rel="stylesheet" href="/css/jzbar.css"/><script src="https://cdn.jsdelivr.net/npm/pace-js/pace.min.js"></script><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/touxiang.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">44</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">49</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">4</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw iconfont icon-hanbao"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw iconfont icon-fenlei"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw iconfont icon-biaoqian"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw iconfont icon-youlian"></i><span> 友人帐</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw iconfont icon-fantuan"></i><span> About</span></a></div></div></div></div><div class="page" id="body-wrap"><header class="not-home-page" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="ixout's blog"><span class="site-name">ixout's blog</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw iconfont icon-hanbao"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw iconfont icon-fenlei"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw iconfont icon-biaoqian"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw iconfont icon-youlian"></i><span> 友人帐</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw iconfont icon-fantuan"></i><span> About</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="page-site-info"><h1 id="site-title">c实现socks5</h1></div></header><main class="layout" id="content-inner"><div id="page"><div id="article-container"><h1 id="先知"><a href="#先知" class="headerlink" title="先知"></a>先知</h1><p><a target="_blank" rel="noopener" href="https://datatracker.ietf.org/doc/html/rfc1928">RFC 1928 - SOCKS Protocol Version 5 (ietf.org)</a></p>
+<h2 id="什么是socks协议"><a href="#什么是socks协议" class="headerlink" title="什么是socks协议"></a>什么是socks协议</h2><p>socks协议是个啥</p>
+<p>引用wiki的定义</p>
+<blockquote>
+<p>SOCKS is an Internet protocol that exchanges network packets between a client and server through a proxy server</p>
+</blockquote>
+<p>socks是一种互联网协议，它通过一个代理服务器在客户端和服务端之间交换网络数据。简单来说，它就是一种代理协议，扮演一个中间人的角色，在客户端和目标主机之间转发数据。</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/ixout/picture@main/img/2024-03-16_211617.png" alt=""></p>
+<p>socks协议位于OSI模型中的第五层，即会话层(Session Layer)。</p>
+<p>而socks5顾名思义就是socks协议的第五个版本，作为socks4的一个延伸，在socks4的基础上新增<strong>UDP转发</strong>和<strong>认证功能</strong>。唯一遗憾的是socks5并不兼容socks4协议。socks5由IETF在1996年正式发布，经过这么多年的发展，互联网上基本上都以socks5为主，socks4已经退出了历史的舞台。</p>
+<p>实际上，并不需要回头去看socks4协议，因为socks5协议完全可以取代socks4，对此不必感觉有心理压力。</p>
+<h2 id="socks5是怎么工作的"><a href="#socks5是怎么工作的" class="headerlink" title="socks5是怎么工作的"></a>socks5是怎么工作的</h2><p>在开始介绍socks5协议工作工程之前，先来了解一下浏览器不设置代理情况下的请求过程。假设通过浏览器访问网页(假设使用的是HTTP协议)，流程如下:</p>
+<ol>
+<li>建立TCP连接</li>
+<li>发起HTTP请求,TCP连接建立成功后，浏览器通过建立的连接发送HTTP请求</li>
+<li>服务器响应浏览器一段HTML内容，浏览器收到后对页面进行渲染</li>
+</ol>
+<p>上面是正常的请求过程，若给浏览器设置了一个socks5代理，情况会复杂一些。在这里我们假设socks5代理位于本地，端口为7582，它的工作流程如下:</p>
+<ol>
+<li><p>浏览器和socks5代理建立TCP连接</p>
+<p>和上面不同的时，浏览器和服务器之间多了一个中间人，即socks5，因此浏览器需要跟socks5服务器建立一条连接。</p>
+</li>
+<li><p>socks5协商阶段</p>
+<p>在浏览器正式向socks5服务器发起请求之前，双方需要协商，包括协议版本，支持的认证方式等，双方需要协商成功才能进行下一步。协商的细节将会在下一小节详细描述。</p>
+</li>
+<li><p>socks5请求阶段</p>
+<p>协商成功后，浏览器向socks5代理发起一个请求。请求的内容包括，它要访问的服务器域名或ip，端口等信息。</p>
+</li>
+<li><p>socks5 relay阶段</p>
+<p>scoks5收到浏览器请求后，解析请求内容，然后向目标服务器建立TCP连接。</p>
+</li>
+<li><p>数据传输阶段</p>
+<p>经过上面步骤，我们成功建立了浏览器 –&gt; socks5，socks5–&gt;目标服务器之间的连接。这个阶段浏览器开始把数据传输给scoks5代理，socks5代理把数据转发到目标服务器。</p>
+</li>
+</ol>
+<p>上面的步骤虽然变多，但本质不变，非常容易理解，简单整理为下图</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/ixout/picture@main/img/1111.jpg" alt=""></p>
+<h2 id="协议细节"><a href="#协议细节" class="headerlink" title="协议细节"></a>协议细节</h2><p>在上一个小节介绍了socks5代理简要的工作流程，我们可以把它的的过程总结为3个阶段，分别为:握手阶段、请求阶段，Relay阶段。</p>
+<h3 id="握手阶段"><a href="#握手阶段" class="headerlink" title="握手阶段"></a>握手阶段</h3><p>握手阶段包含协商和子协商阶段，我们把它拆分为两个分别讨论</p>
+<h4 id="协商阶段"><a href="#协商阶段" class="headerlink" title="协商阶段"></a>协商阶段</h4><p>在这个阶段，客户端向socks5发起请求，内容如下:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">+----+----------+----------+</span><br><span class="line">|VER | NMETHODS | METHODS  |</span><br><span class="line">+----+----------+----------+</span><br><span class="line">| 1  |    1     | 1 to 255 |</span><br><span class="line">+----+----------+----------+</span><br></pre></td></tr></table></figure>
+<p>VER: 协议版本，socks5为<code>0x05</code></p>
+<p>NMETHODS: 支持认证的方法数量</p>
+<p>METHODS: 对应NMETHODS，NMETHODS的值为多少，METHODS就有多少个字节。RFC预定义了一些值的含义，内容如下:</p>
+<ul>
+<li>X’00’ NO AUTHENTICATION REQUIRED</li>
+<li>X’01’ GSSAPI</li>
+<li>X’02’ USERNAME/PASSWORD</li>
+<li>X’03’ to X’7F’ IANA ASSIGNED</li>
+<li>X’80’ to X’FE’ RESERVED FOR PRIVATE METHODS</li>
+<li>X’FF’ NO ACCEPTABLE METHODS</li>
+</ul>
+<p>socks5服务器需要选中一个METHOD返回给客户端，格式如下:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">+----+--------+</span><br><span class="line">|VER | METHOD |</span><br><span class="line">+----+--------+</span><br><span class="line">| 1  |   1    |</span><br><span class="line">+----+--------+</span><br></pre></td></tr></table></figure>
+<p>当客户端收到<code>0x00</code>时，会跳过认证阶段直接进入请求阶段; 当收到<code>0xFF</code>时，直接断开连接。其他的值进入到对应的认证阶段。</p>
+<h4 id="认证阶段-子协商"><a href="#认证阶段-子协商" class="headerlink" title="认证阶段(子协商)"></a>认证阶段(子协商)</h4><p>认证阶段作为协商的一个子流程，它<strong>不是必须</strong>的。socks5服务器可以决定是否需要认证，如果不需要认证，那么认证阶段会被直接略过。</p>
+<p>如果需要认证，客户端向socks5服务器发起一个认证请求，这里以<code>0x02</code>的认证方式举例:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">+----+------+----------+------+----------+</span><br><span class="line">|VER | ULEN |  UNAME   | PLEN |  PASSWD  |</span><br><span class="line">+----+------+----------+------+----------+</span><br><span class="line">| 1  |  1   | 1 to 255 |  1   | 1 to 255 |</span><br><span class="line">+----+------+----------+------+----------+</span><br></pre></td></tr></table></figure>
+<p>VER: 版本，通常为<code>0x01</code></p>
+<p>ULEN: 用户名长度</p>
+<p>UNAME: 对应用户名的字节数据</p>
+<p>PLEN: 密码长度</p>
+<p>PASSWD: 密码对应的数据</p>
+<p>socks5服务器收到客户端的认证请求后，解析内容，验证信息是否合法，然后给客户端响应结果。响应格式如下:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">+----+--------+</span><br><span class="line">|VER | STATUS |</span><br><span class="line">+----+--------+</span><br><span class="line">| 1  |   1    |</span><br><span class="line">+----+--------+</span><br></pre></td></tr></table></figure>
+<p>STATUS字段如果为<code>0x00</code>表示认证成功，其他的值为认证失败。当客户端收到认证失败的响应后，它将会断开连接。</p>
+<h3 id="请求阶段"><a href="#请求阶段" class="headerlink" title="请求阶段"></a>请求阶段</h3><p>顺利通过协商阶段后，客户端向socks5服务器发起请求细节，格式如下:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">+----+-----+-------+------+----------+----------+</span><br><span class="line">|VER | CMD |  RSV  | ATYP | DST.ADDR | DST.PORT |</span><br><span class="line">+----+-----+-------+------+----------+----------+</span><br><span class="line">| 1  |  1  | X&#x27;00&#x27; |  1   | Variable |    2     |</span><br><span class="line">+----+-----+-------+------+----------+----------+</span><br></pre></td></tr></table></figure>
+<ul>
+<li>VER 版本号，socks5的值为<code>0x05</code></li>
+<li>CMD<ul>
+<li><code>0x01</code>表示CONNECT请求</li>
+<li><code>0x02</code>表示BIND请求</li>
+<li><code>0x03</code>表示UDP转发</li>
+</ul>
+</li>
+<li>RSV 保留字段，值为<code>0x00</code></li>
+<li>ATYP 目标地址类型，DST.ADDR的数据对应这个字段的类型。<ul>
+<li><code>0x01</code>表示IPv4地址，DST.ADDR为4个字节</li>
+<li><code>0x03</code>表示域名，DST.ADDR是一个可变长度的域名</li>
+<li><code>0x04</code>表示IPv6地址，DST.ADDR为16个字节长度</li>
+</ul>
+</li>
+<li>DST.ADDR 一个可变长度的值</li>
+<li>DST.PORT 目标端口，固定2个字节</li>
+</ul>
+<p>上面的值中，DST.ADDR是一个变长的数据，它的数据长度根据ATYP的类型决定。<del>我们可以通过掐头去尾解析出这部分数据。</del>分为下面3种情况:</p>
+<ul>
+<li><p>X’01’</p>
+<p>一个4字节的ipv4地址</p>
+</li>
+<li><p>X’03’</p>
+<p>一个可变长度的域名，这种情况下<code>DST.ADDR</code>的第一个字节表示域名长度，剩下部分是域名内容。</p>
+</li>
+<li><p>X’04’</p>
+<p>一个16字节的ipv6地址</p>
+</li>
+</ul>
+<p>socks5服务器收到客户端的请求后，需要返回一个响应，结构如下</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">+----+-----+-------+------+----------+----------+</span><br><span class="line">|VER | REP |  RSV  | ATYP | BND.ADDR | BND.PORT |</span><br><span class="line">+----+-----+-------+------+----------+----------+</span><br><span class="line">| 1  |  1  | X&#x27;00&#x27; |  1   | Variable |    2     |</span><br><span class="line">+----+-----+-------+------+----------+----------+</span><br></pre></td></tr></table></figure>
+<ul>
+<li>VER socks版本，这里为<code>0x05</code></li>
+<li>REP Relay field,内容取值如下<ul>
+<li>X’00’ succeeded</li>
+<li>X’01’ general SOCKS server failure</li>
+<li>X’02’ connection not allowed by ruleset</li>
+<li>X’03’ Network unreachable</li>
+<li>X’04’ Host unreachable</li>
+<li>X’05’ Connection refused</li>
+<li>X’06’ TTL expired</li>
+<li>X’07’ Command not supported</li>
+<li>X’08’ Address type not supported</li>
+<li>X’09’ to X’FF’ unassigned</li>
+</ul>
+</li>
+<li>RSV 保留字段</li>
+<li>ATYPE 同请求的ATYPE</li>
+<li>BND.ADDR 服务绑定的地址</li>
+<li>BND.PORT 服务绑定的端口DST.PORT</li>
+</ul>
+<p>针对响应的结构中，<code>BND.ADDR</code>和<code>BND.PORT</code>值得特别关注一下，可能有朋友在这里会产生困惑，返回的地址和端口是用来做什么的呢？</p>
+<p>我们回过头看,可以发现在socks5既充当socks服务器，又充当relay服务器。实际上这两个是可以被拆开的，当我们的socks5 server和relay server不是一体的，就需要告知客户端relay server的地址，这个地址就是BND.ADDR和BND.PORT。</p>
+<p>当我们的relay server和socks5 server是同一台服务器时，<code>BND.ADDR</code>和<code>BND.PORT</code>的值全部为0即可。</p>
+<h4 id="Relay阶段"><a href="#Relay阶段" class="headerlink" title="Relay阶段"></a>Relay阶段</h4><p>socks5服务器收到请求后，解析内容。如果是UDP请求，服务器直接转发; 如果是TCP请求，服务器向目标服务器建立TCP连接，后续负责把客户端的所有数据转发到目标服务。</p>
+<h1 id="c实现"><a href="#c实现" class="headerlink" title="c实现"></a>c实现</h1><p>源项目<a target="_blank" rel="noopener" href="https://github.com/hmgle/socks5_c">hmgle/socks5_c: 一个轻量级的 socks5 代理, 带简单加密传输功能, 可穿透 GFW (github.com)</a></p>
+<h2 id="common"><a href="#common" class="headerlink" title="common"></a>common</h2><p>首先需要实现协议标准中的一些结构体</p>
+<h3 id="socks5-protocol-h"><a href="#socks5-protocol-h" class="headerlink" title="socks5_protocol.h"></a>socks5_protocol.h</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">ifndef</span> _SOCKS5_PROTOCOL_H</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> _SOCKS5_PROTOCOL_H</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdint.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">enum</span> <span class="title">ss_state</span> &#123;</span></span><br><span class="line">	OPENING = <span class="number">0</span>,</span><br><span class="line">	CONNECTING,			<span class="comment">//socks5状态</span></span><br><span class="line">	CONNECTED,</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">ss_requests_frame</span> &#123;</span></span><br><span class="line">	<span class="type">uint8_t</span> ver;</span><br><span class="line">	<span class="type">uint8_t</span> cmd;</span><br><span class="line">	<span class="type">uint8_t</span> rsv;</span><br><span class="line">	<span class="type">uint8_t</span> atyp;</span><br><span class="line">	<span class="type">uint8_t</span> dst_addr[<span class="number">256</span>];<span class="comment">//发送给socks5服务器的请求</span></span><br><span class="line">	<span class="type">uint8_t</span> dst_port[<span class="number">2</span>];</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">ss_replies_frame</span> &#123;</span></span><br><span class="line">	<span class="type">uint8_t</span> ver;</span><br><span class="line">	<span class="type">uint8_t</span> rep;</span><br><span class="line">	<span class="type">uint8_t</span> rsv;</span><br><span class="line">	<span class="type">uint8_t</span> atyp;</span><br><span class="line">	<span class="type">uint8_t</span> dst_addr[<span class="number">256</span>];<span class="comment">//socks5服务器的应答</span></span><br><span class="line">	<span class="type">uint8_t</span> dst_port[<span class="number">2</span>];</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">endif</span></span></span><br></pre></td></tr></table></figure>
+<h2 id="server"><a href="#server" class="headerlink" title="server"></a>server</h2><p>getopt() 方法是用来分析命令行参数的，该方法由 Unix 标准库提供，包含在 <unistd.h> 头文件中。</p>
+<p>其会自带一个全局变量optarg代表此次匹配的参数</p>
+<h2 id="more"><a href="#more" class="headerlink" title="more"></a>more</h2><h3 id="getopt"><a href="#getopt" class="headerlink" title="getopt"></a>getopt</h3><p>getopt() 方法是用来分析命令行参数的，该方法由 Unix 标准库提供，包含在 <unistd.h> 头文件中。</p>
+<p>二、定义<br>int getopt(int argc, char <em> const argv[], const char </em>optstring);</p>
+<p>extern char *optarg;<br>extern int optind, opterr, optopt;<br>getopt 参数说明：</p>
+<p>argc：通常由 main 函数直接传入，表示参数的数量<br>argv：通常也由 main 函数直接传入，表示参数的字符串变量数组<br>optstring：一个包含正确的参数选项字符串，用于参数的解析。例如 “abc:”，其中 -a，-b 就表示两个普通选项，-c 表示一个必须有参数的选项，因为它后面有一个冒号<br>外部变量说明：</p>
+<p>optarg：如果某个选项有参数，这包含当前选项的参数字符串<br>optind：argv 的当前索引值<br>opterr：正常运行状态下为 0。非零时表示存在无效选项或者缺少选项参数，并输出其错误信息<br>optopt：当发现无效选项字符时，即 getopt() 方法返回 ? 字符，optopt 中包含的就是发现的无效选项字符</p>
+</div></div><div class="aside-content" id="aside-content"><div class="card-widget card-author"><div class="item-headline"><i class="fa-solid fa-circle-user"></i><span>Author</span></div><div class="author-main-content"><div class="author-check-content"><label class="author-info" for="author-info">     <input id="author-info" type="checkbox" name="author-info"/><div class="author-avatar"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/touxiang.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-name">ixout</div></label></div><div class="author-switch-content"><input class="switch-content" type="radio" name="switch-content" value="description"/><label class="author-description-box">      <div class="author-description"><font color="#e66b6d">十八线业余选手</font></div></label><input class="switch-content" type="radio" name="switch-content" value="social" checked="checked"/><label class="author-social-box"><a class="card-author-button" target="_blank" rel="noopener" href="https://github.com/ixout"><i class="iconfont icon-github"></i><span>Follow Me With Github</span></a><div class="social-icons"><a class="social-icon" href="https://github.com/ixout" target="_blank" title="Github"><i class="iconfont icon-github1"></i></a></div></label><input class="switch-content" type="radio" name="switch-content" value="site-data"/><label class="author-data-box"><div class="site-data"><a class="data-item" href="/archives/"><div class="data-name">文章</div><div class="data-length">44</div></a><a class="data-item" href="/tags/"><div class="data-name">标签</div><div class="data-length">49</div></a><a class="data-item" href="/categories/"><div class="data-name">分类</div><div class="data-length">4</div></a></div></label></div></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>告示牌</span></div><div class="announcement_content"><font color="＃00CED1">(º﹃º)阿巴阿巴阿巴......</font></div></div><div class="card-widget" id="card-poem"><div id="poem_sentence"></div><div id="poem_info"><div id="poem_dynasty"></div><div id="poem_author"></div></div></div><script src="https://cdn.jsdelivr.net/npm/js-heo@1.0.11/poem/jinrishici.js" charset="utf-8"></script><script type="text/javascript">jinrishici.load(function(result) {
+var sentence = document.querySelector("#poem_sentence")
+var author = document.querySelector("#poem_author")
+var dynasty = document.querySelector("#poem_dynasty")
+
+var sentenceText = result.data.content
+sentenceText = sentenceText.substr(0, sentenceText.length - 1);
+sentence.innerHTML = sentenceText
+dynasty.innerHTML = result.data.origin.dynasty
+author.innerHTML = result.data.origin.author + '《' + result.data.origin.title + '》'
+});</script><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/posts/10326/" title="从d3cache看页级堆风水与一个off-by-null导致的任意读写"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/ixout/picture@main/img/c9d3deb2ca2.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="从d3cache看页级堆风水与一个off-by-null导致的任意读写"/></a><div class="content"><a class="title" href="/posts/10326/" title="从d3cache看页级堆风水与一个off-by-null导致的任意读写">从d3cache看页级堆风水与一个off-by-null导致的任意读写</a><time datetime="2024-03-24T13:37:46.000Z" title="发表于 2024-03-24 21:37:46">2024-03-24</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/57127/" title="kernel小记"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/ixout/picture@main/img/1ccabf1b.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="kernel小记"/></a><div class="content"><a class="title" href="/posts/57127/" title="kernel小记">kernel小记</a><time datetime="2024-03-22T02:22:04.000Z" title="发表于 2024-03-22 10:22:04">2024-03-22</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/3059/" title="kernel练习记录"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/ixout/picture@main/img/676eab85f89e48508a.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="kernel练习记录"/></a><div class="content"><a class="title" href="/posts/3059/" title="kernel练习记录">kernel练习记录</a><time datetime="2024-03-19T14:53:49.000Z" title="发表于 2024-03-19 22:53:49">2024-03-19</time></div></div></div></div><div class="card-widget card-tags"><div class="item-headline"><i class="fas fa-tags"></i><span>标签</span></div><div class="card-tag-cloud"><a href="/tags/pwn/" style="font-size: 1.39em; color: rgb(184, 27, 164)">pwn</a><a href="/tags/wp/" style="font-size: 1.33em; color: rgb(5, 89, 155)">wp</a><a href="/tags/IO-FILE/" style="font-size: 1.21em; color: rgb(193, 131, 105)">IO_FILE</a><a href="/tags/%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/" style="font-size: 1.45em; color: rgb(64, 56, 188)">学习记录</a><a href="/tags/VMpwn/" style="font-size: 1.15em; color: rgb(153, 30, 118)">VMpwn</a><a href="/tags/wasm/" style="font-size: 1.15em; color: rgb(145, 140, 149)">wasm</a><a href="/tags/webpwn/" style="font-size: 1.15em; color: rgb(144, 79, 130)">webpwn</a><a href="/tags/awd/" style="font-size: 1.15em; color: rgb(61, 147, 155)">awd</a><a href="/tags/awdp/" style="font-size: 1.15em; color: rgb(123, 69, 78)">awdp</a><a href="/tags/buuctf/" style="font-size: 1.15em; color: rgb(19, 89, 71)">buuctf</a><a href="/tags/calloc/" style="font-size: 1.15em; color: rgb(118, 133, 72)">calloc</a><a href="/tags/realloc/" style="font-size: 1.15em; color: rgb(177, 107, 193)">realloc</a><a href="/tags/%E5%9F%BA%E7%A1%80/" style="font-size: 1.27em; color: rgb(29, 20, 10)">基础</a><a href="/tags/elf/" style="font-size: 1.15em; color: rgb(172, 4, 117)">elf</a><a href="/tags/%E6%8A%A5%E9%94%99/" style="font-size: 1.15em; color: rgb(40, 35, 22)">报错</a><a href="/tags/exit/" style="font-size: 1.15em; color: rgb(18, 38, 50)">exit</a><a href="/tags/pwn%E6%8A%80%E5%B7%A7/" style="font-size: 1.15em; color: rgb(109, 134, 4)">pwn技巧</a><a href="/tags/IO-FILE/" style="font-size: 1.21em; color: rgb(147, 111, 140)">_IO_FILE</a><a href="/tags/ida/" style="font-size: 1.15em; color: rgb(170, 50, 143)">ida</a><a href="/tags/kernel/" style="font-size: 1.27em; color: rgb(194, 11, 74)">kernel</a><a href="/tags/heap/" style="font-size: 1.21em; color: rgb(128, 40, 59)">heap</a><a href="/tags/%E5%AE%89%E5%85%A8%E6%A3%80%E6%9F%A5/" style="font-size: 1.15em; color: rgb(110, 180, 112)">安全检查</a><a href="/tags/glibc/" style="font-size: 1.21em; color: rgb(70, 86, 164)">glibc</a><a href="/tags/%E5%A0%86/" style="font-size: 1.39em; color: rgb(180, 138, 197)">堆</a><a href="/tags/pwnable-tw/" style="font-size: 1.15em; color: rgb(149, 158, 151)">pwnable.tw</a><a href="/tags/%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/" style="font-size: 1.15em; color: rgb(98, 19, 93)">刷题记录</a><a href="/tags/how2heap/" style="font-size: 1.15em; color: rgb(76, 177, 173)">how2heap</a><a href="/tags/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" style="font-size: 1.15em; color: rgb(168, 152, 8)">环境搭建</a><a href="/tags/linux/" style="font-size: 1.15em; color: rgb(56, 50, 37)">linux</a><a href="/tags/%E6%9D%82%E7%83%A9/" style="font-size: 1.15em; color: rgb(174, 97, 155)">杂烩</a><a href="/tags/sandbox/" style="font-size: 1.15em; color: rgb(29, 141, 73)">sandbox</a><a href="/tags/%E6%8A%80%E5%B7%A7/" style="font-size: 1.15em; color: rgb(12, 164, 116)">技巧</a><a href="/tags/DynELF/" style="font-size: 1.15em; color: rgb(160, 98, 91)">DynELF</a><a href="/tags/mprotect/" style="font-size: 1.15em; color: rgb(173, 159, 187)">mprotect</a><a href="/tags/vsyscall/" style="font-size: 1.15em; color: rgb(188, 56, 78)">vsyscall</a><a href="/tags/setcontext/" style="font-size: 1.15em; color: rgb(39, 45, 69)">setcontext</a><a href="/tags/rop/" style="font-size: 1.15em; color: rgb(8, 20, 86)">rop</a><a href="/tags/FSOP/" style="font-size: 1.15em; color: rgb(125, 77, 182)">FSOP</a><a href="/tags/%E5%A0%86%E5%88%A9%E7%94%A8/" style="font-size: 1.27em; color: rgb(37, 8, 197)">堆利用</a><a href="/tags/fastbin/" style="font-size: 1.15em; color: rgb(63, 170, 181)">fastbin</a></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2023 - 2024 By ixout</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><a class="icon-V hidden" onclick="switchNightMode()" title="浅色和深色模式转换"><svg width="25" height="25" viewBox="0 0 1024 1024"><use id="modeicon" xlink:href="#icon-moon"></use></svg></a><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button><button id="go-down" type="button" title="直达底部" onclick="btf.scrollToDest(document.body.scrollHeight, 500)"><i class="fas fa-arrow-down"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><div class="js-pjax"></div><canvas id="universe"></canvas><script defer src="/js/universe.js"></script><script defer src="/js/cursor.js"></script><script async src="/js/fps.js"></script><script async src="/js/title.js"></script><script src="/js/sun_moon.js" async></script><script async src="//at.alicdn.com/t/c/font_3930344_38rvofbfw64.js"></script><script defer="defer" id="ribbon" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-ribbon.min.js" size="150" alpha="0.6" zIndex="-1" mobile="false" data-click="true"></script><script id="click-show-text" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/click-show-text.min.js" data-mobile="false" data-text="富强,民主,文明,和谐,自由,平等,公正,法治,爱国,敬业,诚信,友善" data-fontsize="20px" data-random="false" async="async"></script></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div><!-- hexo injector body_end start --><script async src="//at.alicdn.com/t/font_2032782_8d5kxvn09md.js"></script><!-- hexo injector body_end end --></body></html>
