@@ -1,0 +1,360 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"><title>qiling框架笔记 | ixout's blog</title><meta name="author" content="ixout"><meta name="copyright" content="ixout"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="interesting">
+<meta property="og:type" content="website">
+<meta property="og:title" content="qiling框架笔记">
+<meta property="og:url" content="https://ixout.github.io/iot/qiling%E6%A1%86%E6%9E%B6%E7%AC%94%E8%AE%B0.html">
+<meta property="og:site_name" content="ixout&#39;s blog">
+<meta property="og:description" content="interesting">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ixout/picture@main/img/p45347545154796.png">
+<meta property="article:published_time" content="2024-05-21T10:24:22.000Z">
+<meta property="article:modified_time" content="2024-05-26T13:04:20.457Z">
+<meta property="article:author" content="ixout">
+<meta property="article:tag" content="qiling">
+<meta property="article:tag" content="firm">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/ixout/picture@main/img/p45347545154796.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://ixout.github.io/iot/qiling%E6%A1%86%E6%9E%B6%E7%AC%94%E8%AE%B0.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: true,
+  islazyload: true,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: true,
+  }
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'qiling框架笔记',
+  isPost: false,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: false,
+  postUpdate: '2024-05-26 21:04:20'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/universe.css"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/js-heo@1.0.11/mainColor/heoMainColor.css"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/js-heo@1.0.11/poem/poem.css"><link rel="stylesheet" href="/css/footerb.css"><link rel="stylesheet" href="/css/bolang.css"><link rel="stylesheet" href="/css/jzbar.css"><link rel="stylesheet" href="/css/trans.css"><link rel="stylesheet" href="/css/gundongtiao.css"><link rel="stylesheet" href="/css/shubiao.css"><link rel="stylesheet" href="/css/fengche.css"><link rel="stylesheet" href="/css/alitubiao.css"><link rel="stylesheet" href="/css/fps.css"><span id="fps"></span><link rel="stylesheet" href="/css/yituliu.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="//at.alicdn.com/t/c/font_3930344_38rvofbfw64.css" media="defer" onload="this.media='all'"><svg aria-hidden="true" style="position:absolute; overflow:hidden; width:0; height:0"><symbol id="icon-sun" viewBox="0 0 1024 1024"><path d="M960 512l-128 128v192h-192l-128 128-128-128H192v-192l-128-128 128-128V192h192l128-128 128 128h192v192z" fill="#FFD878" p-id="8420"></path><path d="M736 512a224 224 0 1 0-448 0 224 224 0 1 0 448 0z" fill="#FFE4A9" p-id="8421"></path><path d="M512 109.248L626.752 224H800v173.248L914.752 512 800 626.752V800h-173.248L512 914.752 397.248 800H224v-173.248L109.248 512 224 397.248V224h173.248L512 109.248M512 64l-128 128H192v192l-128 128 128 128v192h192l128 128 128-128h192v-192l128-128-128-128V192h-192l-128-128z" fill="#4D5152" p-id="8422"></path><path d="M512 320c105.888 0 192 86.112 192 192s-86.112 192-192 192-192-86.112-192-192 86.112-192 192-192m0-32a224 224 0 1 0 0 448 224 224 0 0 0 0-448z" fill="#4D5152" p-id="8423"></path></symbol><symbol id="icon-moon" viewBox="0 0 1024 1024"><path d="M611.370667 167.082667a445.013333 445.013333 0 0 1-38.4 161.834666 477.824 477.824 0 0 1-244.736 244.394667 445.141333 445.141333 0 0 1-161.109334 38.058667 85.077333 85.077333 0 0 0-65.066666 135.722666A462.08 462.08 0 1 0 747.093333 102.058667a85.077333 85.077333 0 0 0-135.722666 65.024z" fill="#FFB531" p-id="11345"></path><path d="M329.728 274.133333l35.157333-35.157333a21.333333 21.333333 0 1 0-30.165333-30.165333l-35.157333 35.157333-35.114667-35.157333a21.333333 21.333333 0 0 0-30.165333 30.165333l35.114666 35.157333-35.114666 35.157334a21.333333 21.333333 0 1 0 30.165333 30.165333l35.114667-35.157333 35.157333 35.157333a21.333333 21.333333 0 1 0 30.165333-30.165333z" fill="#030835" p-id="11346"></path></symbol></svg><!-- hexo injector head_end start --><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/assets/font-awesome-animation.min.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/tag_plugins.css" media="defer" onload="this.media='all'"><script src="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/assets/carousel-touch.js"></script><!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="ixout's blog" type="application/atom+xml">
+</head><body><div id="loading-box"><div class="pokeball-back"></div><div class="pokeball-loading"><div class="pokeball" id="pokeball-normal"></div><div class="pokeball" id="pokeball-great"></div><div class="pokeball" id="pokeball-ultra"></div><div class="pokeball" id="pokeball-master"></div><div class="pokeball" id="pokeball-safari"></div></div></div><script async="async">const preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+document.getElementById('loading-box').addEventListener('click',()=> {preloader.endLoading()})
+setTimeout(function(){preloader.endLoading();}, 7000);
+
+if (false) {
+  document.addEventListener('pjax:send', () => { preloader.initLoading() })
+  document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+}</script><link rel="stylesheet" href="/css/jzbar.css"/><script src="https://cdn.jsdelivr.net/npm/pace-js/pace.min.js"></script><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/touxiang.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">57</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">64</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">5</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw iconfont icon-hanbao"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw iconfont icon-fenlei"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw iconfont icon-biaoqian"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw iconfont icon-youlian"></i><span> 友人帐</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw iconfont icon-fantuan"></i><span> About</span></a></div></div></div></div><div class="page" id="body-wrap"><header class="not-home-page" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="ixout's blog"><span class="site-name">ixout's blog</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw iconfont icon-hanbao"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw iconfont icon-fenlei"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw iconfont icon-biaoqian"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw iconfont icon-youlian"></i><span> 友人帐</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw iconfont icon-fantuan"></i><span> About</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="page-site-info"><h1 id="site-title">qiling框架笔记</h1></div></header><main class="layout" id="content-inner"><div id="page"><div id="article-container"><p>qiling框架是一个基于python的二进制分析模拟和虚拟化框架</p>
+<p>其可以用动态分析和仿真运行不同操作系统,处理器和体系结构下的二进制文件</p>
+<p>并且提供了易于使用的api接口和插件系统,方便用户进行二进制分析以及漏洞挖掘等工作</p>
+<p>qiling是基于unicorn的,qiling框架的创始人本身就是一个iot hacker,其创建qiling框架的目的之一就是解决研究iot时遇到的各种问题,因此与unicorn相比,其更适合iot初学者,比如我orz</p>
+<p>这是qiling的官方文档<a target="_blank" rel="noopener" href="https://docs.qiling.io/en/latest/">Qiling Framework Documentation</a></p>
+<h1 id="基础使用"><a href="#基础使用" class="headerlink" title="基础使用"></a>基础使用</h1><p>qiling没有提供中文文档,为了方便使用记录并实践一些文档中api使用方法</p>
+<h2 id="Start"><a href="#Start" class="headerlink" title="Start"></a>Start</h2><p><a target="_blank" rel="noopener" href="https://docs.qiling.io/en/latest/howto/">Getting Started - Qiling Framework Documentation</a></p>
+<h3 id="Qiling"><a href="#Qiling" class="headerlink" title="Qiling()"></a>Qiling()</h3><p>使用qiling框架必需包含的一个环节就是初始化一个Qiling对象</p>
+<p><strong>二进制模拟</strong></p>
+<ol>
+<li><strong>argv</strong><ul>
+<li><strong>Type</strong>: <code>Sequence[str]</code></li>
+<li><strong>Description</strong>: 一个命令行参数序列，用于仿真。在仿真过程中，这些参数将被传递给仿真的程序，模拟其在真实环境中被执行时所接收的命令行参数。</li>
+</ul>
+</li>
+<li><strong>rootfs</strong><ul>
+<li><strong>Type</strong>: <code>str</code></li>
+<li><strong>Description</strong>: 仿真文件系统的根目录。仿真的程序访问的所有路径都将基于这个目录。这意味着在仿真过程中，所有的文件访问操作都将相对于此根目录进行，从而模拟一个完整的文件系统环境。</li>
+</ul>
+</li>
+<li><strong>env (optional)</strong><ul>
+<li><strong>Type</strong>: <code>MutableMapping[AnyStr, AnyStr]</code></li>
+<li><strong>Description</strong>: 一个可选的环境变量字典。这些环境变量将可用于仿真的程序。通过这个字典，可以为仿真程序设置特定的环境变量，从而模拟其在不同环境下的行为。</li>
+</ul>
+</li>
+</ol>
+<p><strong>shellcode模拟</strong></p>
+<ol>
+<li><strong>code</strong><ul>
+<li><strong>Type</strong>: <code>bytes</code></li>
+<li><strong>Description</strong>: 要仿真的shellcode字节码。这取代了<code>argv</code>参数，即直接提供要执行的shellcode而不是命令行参数。</li>
+</ul>
+</li>
+<li><strong>rootfs (optional)</strong><ul>
+<li><strong>Type</strong>: <code>str</code></li>
+<li><strong>Description</strong>: 仿真文件系统的根目录。这个选项在上面的表格中也有详细描述，仿真的程序访问的所有路径都基于这个目录。</li>
+</ul>
+</li>
+<li><strong>ostype</strong><ul>
+<li><strong>Type</strong>: <code>str</code> 或 <code>QL_OS</code></li>
+<li><strong>Description</strong>: 设置目标操作系统（不区分大小写）。可选值包括：’Linux’, ‘FreeBSD’, ‘MacOS’, ‘Windows’, ‘UEFI’, ‘DOS’, ‘EVM’ 或 ‘QNX’。</li>
+</ul>
+</li>
+<li><strong>archtype</strong><ul>
+<li><strong>Type</strong>: <code>str</code> 或 <code>QL_ARCH</code></li>
+<li><strong>Description</strong>: 设置目标架构（不区分大小写）。可选值包括：’a8086’, ‘x86’, ‘x8664’, ‘ARM’, ‘ARM64’, ‘MIPS’, ‘EVM’, ‘Cortex_M’, ‘RISCV’ 或 ‘RISCV64’。</li>
+</ul>
+</li>
+<li><strong>endian (optional)</strong><ul>
+<li><strong>Type</strong>: <code>bool</code></li>
+<li><strong>Description</strong>: 指定架构的字节序，仅对ARM和MIPS架构相关。</li>
+</ul>
+</li>
+<li><strong>thumb (optional)</strong><ul>
+<li><strong>Type</strong>: <code>bool</code></li>
+<li><strong>Description</strong>: 指定ARM的Thumb模式，仅对ARM架构相关。</li>
+</ul>
+</li>
+</ol>
+<p><strong>通用选项</strong></p>
+<ol>
+<li><strong>verbose (optional)</strong><ul>
+<li><strong>Type</strong>: <code>QL_VERBOSE</code></li>
+<li><strong>Description</strong>: 设置Qiling的日志详细级别（默认值为 <code>QL_VERBOSE.DEFAULT</code>）。</li>
+</ul>
+</li>
+<li><strong>profile (optional)</strong><ul>
+<li><strong>Type</strong>: <code>str</code></li>
+<li><strong>Description</strong>: 指定包含额外设置的配置文件路径。更多详情见profile部分。</li>
+</ul>
+</li>
+<li><strong>console (optional)</strong><ul>
+<li><strong>Type</strong>: <code>bool</code></li>
+<li><strong>Description</strong>: 当设置为<code>False</code>时，完全禁用Qiling日志记录。相当于设置 <code>verbose=QL_VERBOSE.DISABLED</code>。</li>
+</ul>
+</li>
+<li><strong>multithread (optional)</strong><ul>
+<li><strong>Type</strong>: <code>bool</code></li>
+<li><strong>Description</strong>: 指定目标程序是否应作为多线程程序仿真。</li>
+</ul>
+</li>
+<li><strong>libcache (optional)</strong><ul>
+<li><strong>Type</strong>: <code>bool</code></li>
+<li><strong>Description</strong>: 指定是否应从缓存加载库。这可以在后续运行时节省库解析和重定位的时间。目前仅适用于Windows。</li>
+</ul>
+</li>
+</ol>
+<h3 id="Setup"><a href="#Setup" class="headerlink" title="Setup"></a>Setup</h3><p> <code>after ql=Qiling() and before ql.run()</code>一些中间准备环节,有以下可用选项</p>
+<ol>
+<li><p><strong>ql.fs_mapper (“tobe_mapped”,”actual_path”)</strong></p>
+<ul>
+<li><p><strong>描述</strong>: 将Qiling仿真文件或目录映射到实际的主机文件或目录。</p>
+</li>
+<li><p>用法示例</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ql.fs_mapper(<span class="string">&#x27;/etc&#x27;</span>,<span class="string">&#x27;/real_etc&#x27;</span>)</span><br></pre></td></tr></table></figure>
+<ul>
+<li>这表示将仿真环境中的 <code>/etc</code> 目录映射到主机系统中的 <code>/real_etc</code> 目录。这种映射允许仿真程序访问主机文件系统中的实际文件或目录。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>ql.debug_stop = False</strong></p>
+<ul>
+<li><p><strong>描述</strong>: 默认值是 <code>False</code>。如果设置为 <code>True</code>，在遇到缺失的POSIX系统调用或API时仿真将停止。</p>
+</li>
+<li><p>用法</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ql.debug_stop = <span class="literal">True</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>这意味着仿真过程中，如果遇到未实现的系统调用或API，Qiling会停止运行，便于调试。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>ql.debugger = None</strong></p>
+<ul>
+<li><p><strong>描述</strong>: 远程调试器配置。可以通过设置该选项来指定远程调试器。具体设置请参阅相关文档。</p>
+</li>
+<li><p>用法</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ql.debugger = your_debugger_instance</span><br></pre></td></tr></table></figure>
+<ul>
+<li>这里的 <code>your_debugger_instance</code> 是一个远程调试器实例，用于连接和调试仿真程序。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>ql.verbose = 1</strong></p>
+<ul>
+<li><p><strong>描述</strong>: 设置日志详细级别。值从1开始，可以设置更高的值以增加日志详细度。</p>
+</li>
+<li><p>用法</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ql.verbose = <span class="number">2</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>这里设置的值为 <code>2</code>，表示更详细的日志输出。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<h3 id="run"><a href="#run" class="headerlink" title="run()"></a>run()</h3><p>ql.run(begin, end, timeout, count)</p>
+<p>可以选择起始位置结束位置,以及次数</p>
+<h2 id="qltool"><a href="#qltool" class="headerlink" title="qltool"></a>qltool</h2><p>qiling的命令行模式</p>
+<p>四个选项</p>
+<ul>
+<li><code>run</code>: 模拟二进制文件</li>
+<li><code>code</code>: 执行机器码</li>
+<li><code>qltui</code>: tui模式</li>
+<li><code>examples</code>:展示一些例子</li>
+</ul>
+<h2 id="hijack"><a href="#hijack" class="headerlink" title="hijack"></a>hijack</h2><p>劫持程序标准流,系统调用,VFS,API,</p>
+<h2 id="Snapshot"><a href="#Snapshot" class="headerlink" title="Snapshot"></a>Snapshot</h2><p>保存或恢复当前状态</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ql_all = ql.save() </span><br><span class="line"></span><br><span class="line">ql.restore(ql_all)</span><br></pre></td></tr></table></figure>
+<p>保存选项有如下</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ql.save(mem= <span class="literal">True</span>, reg= <span class="literal">True</span>, fd= <span class="literal">True</span>, cpu_ctx= <span class="literal">False</span>)</span><br></pre></td></tr></table></figure>
+<p>此外也可以单独针对某些环境保存修改再恢复</p>
+<h2 id="Profile"><a href="#Profile" class="headerlink" title="Profile"></a>Profile</h2><p>自定义配置</p>
+<h2 id="Remote-debugging"><a href="#Remote-debugging" class="headerlink" title="Remote debugging"></a>Remote debugging</h2><p>支持gdb以及ida</p>
+<h2 id="Register"><a href="#Register" class="headerlink" title="Register"></a>Register</h2><p>寄存器操作Read,Write</p>
+<h2 id="Memory"><a href="#Memory" class="headerlink" title="Memory"></a>Memory</h2><h3 id="stack"><a href="#stack" class="headerlink" title="stack"></a>stack</h3><h3 id="mmap"><a href="#mmap" class="headerlink" title="mmap"></a>mmap</h3><h2 id="pack"><a href="#pack" class="headerlink" title="pack"></a>pack</h2><p>对数据进行打包解包</p>
+<h2 id="hook"><a href="#hook" class="headerlink" title="hook"></a>hook</h2><p>对某个地址/指令/基本块进行hook</p>
+<h2 id="qdb"><a href="#qdb" class="headerlink" title="qdb"></a>qdb</h2><h2 id="coverage"><a href="#coverage" class="headerlink" title="coverage"></a>coverage</h2><p>覆盖率相关</p>
+<h2 id="Adding-Syscall-and-OS-API"><a href="#Adding-Syscall-and-OS-API" class="headerlink" title="Adding Syscall and OS API"></a>Adding Syscall and OS API</h2><h2 id="EVM-Engine"><a href="#EVM-Engine" class="headerlink" title="EVM Engine"></a>EVM Engine</h2><p>以太虚拟机</p>
+<h2 id="Extending-Arch-OS-or-Loader"><a href="#Extending-Arch-OS-or-Loader" class="headerlink" title="Extending Arch, OS or Loader"></a>Extending Arch, OS or Loader</h2><h1 id="仿真并Fuzz-TendaAC15"><a href="#仿真并Fuzz-TendaAC15" class="headerlink" title="仿真并Fuzz TendaAC15"></a>仿真并Fuzz TendaAC15</h1><p>这是qiling提供的仿真脚本</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python3</span></span><br><span class="line"><span class="comment"># 1. Download AC15 Firmware from https://down.tenda.com.cn/uploadfile/AC15/US_AC15V1.0BR_V15.03.05.19_multi_TD01.zip</span></span><br><span class="line"><span class="comment"># 2. unzip</span></span><br><span class="line"><span class="comment"># 3. binwalk -e US_AC15V1.0BR_V15.03.05.19_multi_TD01.bin</span></span><br><span class="line"><span class="comment"># 4. locate squashfs-root</span></span><br><span class="line"><span class="comment"># 5. rm -rf webroot &amp;&amp; mv webroot_ro webroot</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># notes: we are using rootfs in this example, so rootfs = squashfs-root</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="keyword">import</span> os, socket, threading</span><br><span class="line"><span class="keyword">import</span> sys</span><br><span class="line">sys.path.append(<span class="string">&quot;../../../&quot;</span>)</span><br><span class="line"><span class="keyword">from</span> qiling <span class="keyword">import</span> Qiling</span><br><span class="line"><span class="comment"># 从qiling.const中导入QL_VERBOSE，指定qiling的日志输出级别</span></span><br><span class="line"><span class="keyword">from</span> qiling.const <span class="keyword">import</span> QL_VERBOSE</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义patcher函数，用于跳过网卡信息检测。在前面小节我们仿真tenda路由器时，路由器httpd程序在初始化网络时会检查网卡名称是否为br0。这里脚本直接将代码执行前内存中的br0字符串替换成了lo，从而跳过检查。</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">patcher</span>(<span class="params">ql: Qiling</span>):</span><br><span class="line">    br0_addr = ql.mem.search(<span class="string">&quot;br0&quot;</span>.encode() + <span class="string">b&#x27;\x00&#x27;</span>)</span><br><span class="line">    <span class="keyword">for</span> addr <span class="keyword">in</span> br0_addr:</span><br><span class="line">        ql.mem.write(addr, <span class="string">b&#x27;lo\x00&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义nvram_listener函数，使用该函数监听Unix套接字，并在收到消息时返回数据。</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">nvram_listener</span>():</span><br><span class="line">    server_address = <span class="string">&#x27;rootfs/var/cfm_socket&#x27;</span></span><br><span class="line">    data = <span class="string">&quot;&quot;</span></span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        os.unlink(server_address)</span><br><span class="line">    <span class="keyword">except</span> OSError:</span><br><span class="line">        <span class="keyword">if</span> os.path.exists(server_address):</span><br><span class="line">            <span class="keyword">raise</span></span><br><span class="line"></span><br><span class="line">    sock = socket.socket(socket.AF_UNIX,socket.SOCK_STREAM)</span><br><span class="line">    sock.bind(server_address)</span><br><span class="line">    sock.listen(<span class="number">1</span>)</span><br><span class="line">    <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">        connection, _ = sock.accept()</span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">                data += <span class="built_in">str</span>(connection.recv(<span class="number">1024</span>))</span><br><span class="line">                <span class="keyword">if</span> <span class="string">&quot;lan.webiplansslen&quot;</span> <span class="keyword">in</span> data:</span><br><span class="line">                    connection.send(<span class="string">&#x27;192.168.170.169&#x27;</span>.encode())</span><br><span class="line">                <span class="keyword">else</span>:</span><br><span class="line">                    <span class="keyword">break</span></span><br><span class="line">                data = <span class="string">&quot;&quot;</span></span><br><span class="line">        <span class="keyword">finally</span>:</span><br><span class="line">            connection.close()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义myvfork函数，仿真程序在执行系统调用vfork时被调用，返回值0。</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">myvfork</span>(<span class="params">ql: Qiling</span>):</span><br><span class="line">    regreturn = <span class="number">0</span></span><br><span class="line">    ql.log.info(<span class="string">&quot;vfork() = %d&quot;</span> % regreturn)</span><br><span class="line">    <span class="keyword">return</span> regreturn</span><br><span class="line"><span class="comment"># 仿真主函数，生成qiling实例和添加VFS映射。</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">my_sandbox</span>(<span class="params">path, rootfs</span>):</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;path:&quot;</span>,path)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;rootfs&quot;</span>,rootfs)</span><br><span class="line">    ql = Qiling(path, rootfs, verbose=QL_VERBOSE.DEBUG)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;ql:&quot;</span>,ql)</span><br><span class="line">    ql.add_fs_mapper(<span class="string">&quot;/dev/urandom&quot;</span>,<span class="string">&quot;/dev/urandom&quot;</span>)</span><br><span class="line">    ql.hook_address(patcher, ql.loader.elf_entry)</span><br><span class="line">    ql.debugger = <span class="literal">False</span></span><br><span class="line">    <span class="keyword">if</span> ql.debugger == <span class="literal">True</span>:</span><br><span class="line">        ql.os.set_syscall(<span class="string">&quot;vfork&quot;</span>, myvfork) <span class="comment"># vfork函数返回0时，debugger可正常调试。</span></span><br><span class="line">    ql.run()</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:</span><br><span class="line">  <span class="comment"># 创建后台运行的线程并执行，以便收到Unix套接字的消息时进行响应。</span></span><br><span class="line">    nvram_listener_therad = threading.Thread(target=nvram_listener, daemon=<span class="literal">True</span>)</span><br><span class="line">    nvram_listener_therad.start()</span><br><span class="line">  <span class="comment"># 运行仿真实例</span></span><br><span class="line">    my_sandbox([<span class="string">&quot;rootfs/bin/httpd&quot;</span>], <span class="string">&quot;rootfs&quot;</span>)</span><br></pre></td></tr></table></figure>
+<p>不过我自己试了下,发现能但不完全能实现仿真</p>
+<p>访问一次网页仿真就会崩溃</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">BlockingIOError: [Errno 11] Resource temporarily unavailable</span><br></pre></td></tr></table></figure>
+<p>暂时不清楚什么原因</p>
+</div></div><div class="aside-content" id="aside-content"><div class="card-widget card-author"><div class="item-headline"><i class="fa-solid fa-circle-user"></i><span>Author</span></div><div class="author-main-content"><div class="author-check-content"><label class="author-info" for="author-info">     <input id="author-info" type="checkbox" name="author-info"/><div class="author-avatar"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/touxiang.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-name">ixout</div></label></div><div class="author-switch-content"><input class="switch-content" type="radio" name="switch-content" value="description"/><label class="author-description-box">      <div class="author-description"><font color="#e66b6d">十八线业余选手</font></div></label><input class="switch-content" type="radio" name="switch-content" value="social" checked="checked"/><label class="author-social-box"><a class="card-author-button" target="_blank" rel="noopener" href="https://github.com/ixout"><i class="iconfont icon-github"></i><span>Follow Me With Github</span></a><div class="social-icons"><a class="social-icon" href="https://github.com/ixout" target="_blank" title="Github"><i class="fa-brands fa-github"></i></a><a class="social-icon" href="/1425430423" target="_blank" title="QQ"><i class="fa-brands fa-qq"></i></a></div></label><input class="switch-content" type="radio" name="switch-content" value="site-data"/><label class="author-data-box"><div class="site-data"><a class="data-item" href="/archives/"><div class="data-name">文章</div><div class="data-length">57</div></a><a class="data-item" href="/tags/"><div class="data-name">标签</div><div class="data-length">64</div></a><a class="data-item" href="/categories/"><div class="data-name">分类</div><div class="data-length">5</div></a></div></label></div></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>告示牌</span></div><div class="announcement_content"><font color="＃00CED1">(º﹃º)阿巴阿巴阿巴......</font></div></div><div class="card-widget" id="card-poem"><div id="poem_sentence"></div><div id="poem_info"><div id="poem_dynasty"></div><div id="poem_author"></div></div></div><script src="https://cdn.jsdelivr.net/npm/js-heo@1.0.11/poem/jinrishici.js" charset="utf-8"></script><script type="text/javascript">jinrishici.load(function(result) {
+var sentence = document.querySelector("#poem_sentence")
+var author = document.querySelector("#poem_author")
+var dynasty = document.querySelector("#poem_dynasty")
+
+var sentenceText = result.data.content
+sentenceText = sentenceText.substr(0, sentenceText.length - 1);
+sentence.innerHTML = sentenceText
+dynasty.innerHTML = result.data.origin.dynasty
+author.innerHTML = result.data.origin.author + '《' + result.data.origin.title + '》'
+});</script><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/posts/22716/" title="2024ciscn华东南pwn"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/ixout/picture@main/img/cover2.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="2024ciscn华东南pwn"/></a><div class="content"><a class="title" href="/posts/22716/" title="2024ciscn华东南pwn">2024ciscn华东南pwn</a><time datetime="2024-06-24T07:59:49.000Z" title="发表于 2024-06-24 15:59:49">2024-06-24</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/53981/" title="fuzz-in-pwn"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/ixout/picture@main/img/a96d6be2655648d9ab6dc8b314f2a8d1%20(1).jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="fuzz-in-pwn"/></a><div class="content"><a class="title" href="/posts/53981/" title="fuzz-in-pwn">fuzz-in-pwn</a><time datetime="2024-05-12T14:29:46.000Z" title="发表于 2024-05-12 22:29:46">2024-05-12</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/2980/" title="几道iotpwn题目复现"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/ixout/picture@main/img/676eab85f89e48508a.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="几道iotpwn题目复现"/></a><div class="content"><a class="title" href="/posts/2980/" title="几道iotpwn题目复现">几道iotpwn题目复现</a><time datetime="2024-05-12T13:59:00.000Z" title="发表于 2024-05-12 21:59:00">2024-05-12</time></div></div></div></div><div class="card-widget card-tags"><div class="item-headline"><i class="fas fa-tags"></i><span>标签</span></div><div class="card-tag-cloud"><a href="/tags/pwn/" style="font-size: 1.45em; color: rgb(133, 79, 19)">pwn</a><a href="/tags/dirtypagetable/" style="font-size: 1.15em; color: rgb(81, 4, 167)">dirtypagetable</a><a href="/tags/wp/" style="font-size: 1.3em; color: rgb(120, 171, 29)">wp</a><a href="/tags/IO-FILE/" style="font-size: 1.15em; color: rgb(166, 142, 125)">IO_FILE</a><a href="/tags/%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/" style="font-size: 1.4em; color: rgb(183, 133, 182)">学习记录</a><a href="/tags/VMpwn/" style="font-size: 1.15em; color: rgb(71, 176, 128)">VMpwn</a><a href="/tags/wasm/" style="font-size: 1.15em; color: rgb(149, 163, 139)">wasm</a><a href="/tags/webpwn/" style="font-size: 1.15em; color: rgb(144, 108, 13)">webpwn</a><a href="/tags/buuctf/" style="font-size: 1.15em; color: rgb(28, 63, 29)">buuctf</a><a href="/tags/calloc/" style="font-size: 1.15em; color: rgb(51, 146, 172)">calloc</a><a href="/tags/realloc/" style="font-size: 1.15em; color: rgb(59, 24, 62)">realloc</a><a href="/tags/grpc/" style="font-size: 1.15em; color: rgb(60, 116, 159)">grpc</a><a href="/tags/protobuf/" style="font-size: 1.2em; color: rgb(136, 186, 168)">protobuf</a><a href="/tags/%E5%9F%BA%E7%A1%80/" style="font-size: 1.25em; color: rgb(169, 120, 25)">基础</a><a href="/tags/elf/" style="font-size: 1.15em; color: rgb(7, 195, 145)">elf</a><a href="/tags/%E6%8A%A5%E9%94%99/" style="font-size: 1.15em; color: rgb(188, 5, 3)">报错</a><a href="/tags/exit/" style="font-size: 1.15em; color: rgb(118, 152, 171)">exit</a><a href="/tags/pwn%E6%8A%80%E5%B7%A7/" style="font-size: 1.15em; color: rgb(9, 8, 8)">pwn技巧</a><a href="/tags/fuzz/" style="font-size: 1.15em; color: rgb(87, 182, 171)">fuzz</a><a href="/tags/IO-FILE/" style="font-size: 1.2em; color: rgb(69, 135, 5)">_IO_FILE</a><a href="/tags/ida/" style="font-size: 1.15em; color: rgb(57, 125, 47)">ida</a><a href="/tags/kernel/" style="font-size: 1.25em; color: rgb(133, 93, 1)">kernel</a><a href="/tags/how2heap/" style="font-size: 1.15em; color: rgb(108, 36, 134)">how2heap</a><a href="/tags/heap/" style="font-size: 1.2em; color: rgb(78, 162, 48)">heap</a><a href="/tags/%E5%AE%89%E5%85%A8%E6%A3%80%E6%9F%A5/" style="font-size: 1.15em; color: rgb(127, 20, 71)">安全检查</a><a href="/tags/glibc/" style="font-size: 1.2em; color: rgb(108, 104, 40)">glibc</a><a href="/tags/%E5%A0%86/" style="font-size: 1.35em; color: rgb(32, 79, 10)">堆</a><a href="/tags/llvm-pass/" style="font-size: 1.15em; color: rgb(169, 87, 143)">llvm-pass</a><a href="/tags/pwnable-tw/" style="font-size: 1.15em; color: rgb(119, 58, 176)">pwnable.tw</a><a href="/tags/%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/" style="font-size: 1.15em; color: rgb(140, 172, 96)">刷题记录</a><a href="/tags/phppwn/" style="font-size: 1.15em; color: rgb(12, 105, 129)">phppwn</a><a href="/tags/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" style="font-size: 1.15em; color: rgb(8, 146, 52)">环境搭建</a><a href="/tags/linux/" style="font-size: 1.15em; color: rgb(104, 116, 166)">linux</a><a href="/tags/%E6%9D%82%E7%83%A9/" style="font-size: 1.15em; color: rgb(100, 54, 69)">杂烩</a><a href="/tags/%E6%8A%80%E5%B7%A7/" style="font-size: 1.15em; color: rgb(182, 8, 15)">技巧</a><a href="/tags/DynELF/" style="font-size: 1.15em; color: rgb(175, 28, 159)">DynELF</a><a href="/tags/mprotect/" style="font-size: 1.15em; color: rgb(64, 189, 144)">mprotect</a><a href="/tags/vsyscall/" style="font-size: 1.15em; color: rgb(99, 131, 160)">vsyscall</a><a href="/tags/setcontext/" style="font-size: 1.15em; color: rgb(44, 156, 180)">setcontext</a><a href="/tags/pyjail/" style="font-size: 1.15em; color: rgb(155, 154, 176)">pyjail</a></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2023 - 2024 By ixout</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><a class="icon-V hidden" onclick="switchNightMode()" title="浅色和深色模式转换"><svg width="25" height="25" viewBox="0 0 1024 1024"><use id="modeicon" xlink:href="#icon-moon"></use></svg></a><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button><button id="go-down" type="button" title="直达底部" onclick="btf.scrollToDest(document.body.scrollHeight, 500)"><i class="fas fa-arrow-down"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><div class="js-pjax"></div><canvas id="universe"></canvas><script defer src="/js/universe.js"></script><script defer src="/js/cursor.js"></script><script async src="/js/fps.js"></script><script async src="/js/title.js"></script><script src="/js/sun_moon.js" async></script><script async src="//at.alicdn.com/t/c/font_3930344_38rvofbfw64.js"></script><script defer="defer" id="ribbon" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-ribbon.min.js" size="150" alpha="0.6" zIndex="-1" mobile="false" data-click="true"></script><script id="click-show-text" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/click-show-text.min.js" data-mobile="false" data-text="富强,民主,文明,和谐,自由,平等,公正,法治,爱国,敬业,诚信,友善" data-fontsize="20px" data-random="false" async="async"></script></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div><!-- hexo injector body_end start --><script async src="//at.alicdn.com/t/font_2032782_8d5kxvn09md.js"></script><!-- hexo injector body_end end --></body></html>
