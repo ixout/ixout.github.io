@@ -1,4 +1,6 @@
 https://ixout.github.io/posts/22716/
+https://ixout.github.io/posts/57317/
+https://ixout.github.io/posts/4584/
 https://ixout.github.io/posts/46596/
 https://ixout.github.io/posts/5022/
 https://ixout.github.io/iot/%E5%B8%B8%E8%A7%81httpd%E4%B8%8Ecgi%E6%A8%A1%E5%9E%8B.html
@@ -19,7 +21,6 @@ https://ixout.github.io/%E7%AC%94%E8%AE%B0/sh.html
 https://ixout.github.io/posts/60418/
 https://ixout.github.io/posts/2980/
 https://ixout.github.io/posts/3834/
-https://ixout.github.io/posts/4584/
 https://ixout.github.io/posts/21638/
 https://ixout.github.io/posts/19037/
 https://ixout.github.io/posts/20048/
@@ -58,7 +59,6 @@ https://ixout.github.io/%E6%9A%82%E7%BD%AE/c%E5%AE%9E%E7%8E%B0socks5.html
 https://ixout.github.io/%E6%9A%82%E7%BD%AE/rust-start.html
 https://ixout.github.io/posts%E5%A4%87%E4%BB%BD/kernel%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.html
 https://ixout.github.io/posts%E5%A4%87%E4%BB%BD/kernel%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B04.html
-https://ixout.github.io/posts/57317/
 https://ixout.github.io/%E9%9A%8F%E7%AC%94%E8%AE%B0/kernel_debug.html
 https://ixout.github.io/%E9%9A%8F%E7%AC%94%E8%AE%B0/acwj%E9%A1%B9%E7%9B%AE%E6%97%A5%E5%BF%97.html
 https://ixout.github.io/posts/32771/
