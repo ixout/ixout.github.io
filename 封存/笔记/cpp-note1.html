@@ -1,0 +1,478 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"><title>cpp-note1 | ixout's blog</title><meta name="author" content="ixout"><meta name="copyright" content="ixout"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="c++1">
+<meta property="og:type" content="website">
+<meta property="og:title" content="cpp-note1">
+<meta property="og:url" content="https://ixout.github.io/%E5%B0%81%E5%AD%98/%E7%AC%94%E8%AE%B0/cpp-note1.html">
+<meta property="og:site_name" content="ixout&#39;s blog">
+<meta property="og:description" content="c++1">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ixout/picture@main/img/cfcb137bbbe3415.jpg">
+<meta property="article:published_time" content="2023-11-05T06:55:29.000Z">
+<meta property="article:modified_time" content="2023-11-27T04:55:20.366Z">
+<meta property="article:author" content="ixout">
+<meta property="article:tag" content="c++">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/ixout/picture@main/img/cfcb137bbbe3415.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://ixout.github.io/%E5%B0%81%E5%AD%98/%E7%AC%94%E8%AE%B0/cpp-note1.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: true,
+  islazyload: true,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: true,
+  }
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'cpp-note1',
+  isPost: false,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: false,
+  postUpdate: '2023-11-27 12:55:20'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/universe.css"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/js-heo@1.0.11/mainColor/heoMainColor.css"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/js-heo@1.0.11/poem/poem.css"><link rel="stylesheet" href="/css/footerb.css"><link rel="stylesheet" href="/css/bolang.css"><link rel="stylesheet" href="/css/jzbar.css"><link rel="stylesheet" href="/css/trans.css"><link rel="stylesheet" href="/css/gundongtiao.css"><link rel="stylesheet" href="/css/shubiao.css"><link rel="stylesheet" href="/css/fengche.css"><link rel="stylesheet" href="/css/alitubiao.css"><link rel="stylesheet" href="/css/fps.css"><span id="fps"></span><link rel="stylesheet" href="/css/yituliu.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="//at.alicdn.com/t/c/font_3930344_38rvofbfw64.css" media="defer" onload="this.media='all'"><svg aria-hidden="true" style="position:absolute; overflow:hidden; width:0; height:0"><symbol id="icon-sun" viewBox="0 0 1024 1024"><path d="M960 512l-128 128v192h-192l-128 128-128-128H192v-192l-128-128 128-128V192h192l128-128 128 128h192v192z" fill="#FFD878" p-id="8420"></path><path d="M736 512a224 224 0 1 0-448 0 224 224 0 1 0 448 0z" fill="#FFE4A9" p-id="8421"></path><path d="M512 109.248L626.752 224H800v173.248L914.752 512 800 626.752V800h-173.248L512 914.752 397.248 800H224v-173.248L109.248 512 224 397.248V224h173.248L512 109.248M512 64l-128 128H192v192l-128 128 128 128v192h192l128 128 128-128h192v-192l128-128-128-128V192h-192l-128-128z" fill="#4D5152" p-id="8422"></path><path d="M512 320c105.888 0 192 86.112 192 192s-86.112 192-192 192-192-86.112-192-192 86.112-192 192-192m0-32a224 224 0 1 0 0 448 224 224 0 0 0 0-448z" fill="#4D5152" p-id="8423"></path></symbol><symbol id="icon-moon" viewBox="0 0 1024 1024"><path d="M611.370667 167.082667a445.013333 445.013333 0 0 1-38.4 161.834666 477.824 477.824 0 0 1-244.736 244.394667 445.141333 445.141333 0 0 1-161.109334 38.058667 85.077333 85.077333 0 0 0-65.066666 135.722666A462.08 462.08 0 1 0 747.093333 102.058667a85.077333 85.077333 0 0 0-135.722666 65.024z" fill="#FFB531" p-id="11345"></path><path d="M329.728 274.133333l35.157333-35.157333a21.333333 21.333333 0 1 0-30.165333-30.165333l-35.157333 35.157333-35.114667-35.157333a21.333333 21.333333 0 0 0-30.165333 30.165333l35.114666 35.157333-35.114666 35.157334a21.333333 21.333333 0 1 0 30.165333 30.165333l35.114667-35.157333 35.157333 35.157333a21.333333 21.333333 0 1 0 30.165333-30.165333z" fill="#030835" p-id="11346"></path></symbol></svg><!-- hexo injector head_end start --><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/assets/font-awesome-animation.min.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/tag_plugins.css" media="defer" onload="this.media='all'"><script src="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/assets/carousel-touch.js"></script><!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="ixout's blog" type="application/atom+xml">
+</head><body><div id="loading-box"><div class="pokeball-back"></div><div class="pokeball-loading"><div class="pokeball" id="pokeball-normal"></div><div class="pokeball" id="pokeball-great"></div><div class="pokeball" id="pokeball-ultra"></div><div class="pokeball" id="pokeball-master"></div><div class="pokeball" id="pokeball-safari"></div></div></div><script async="async">const preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+document.getElementById('loading-box').addEventListener('click',()=> {preloader.endLoading()})
+setTimeout(function(){preloader.endLoading();}, 7000);
+
+if (false) {
+  document.addEventListener('pjax:send', () => { preloader.initLoading() })
+  document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+}</script><link rel="stylesheet" href="/css/jzbar.css"/><script src="https://cdn.jsdelivr.net/npm/pace-js/pace.min.js"></script><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/touxiang.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">58</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">64</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">5</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw iconfont icon-hanbao"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw iconfont icon-fenlei"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw iconfont icon-biaoqian"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw iconfont icon-youlian"></i><span> 友人帐</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw iconfont icon-fantuan"></i><span> About</span></a></div></div></div></div><div class="page" id="body-wrap"><header class="not-home-page" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="ixout's blog"><span class="site-name">ixout's blog</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw iconfont icon-hanbao"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw iconfont icon-fenlei"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw iconfont icon-biaoqian"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw iconfont icon-youlian"></i><span> 友人帐</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw iconfont icon-fantuan"></i><span> About</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="page-site-info"><h1 id="site-title">cpp-note1</h1></div></header><main class="layout" id="content-inner"><div id="page"><div id="article-container"><h1 id="基础"><a href="#基础" class="headerlink" title="基础"></a>基础</h1><h2 id="const"><a href="#const" class="headerlink" title="const"></a>const</h2><h3 id="1-const含义"><a href="#1-const含义" class="headerlink" title="1.const含义"></a>1.const含义</h3><p><strong>常类型</strong>是指使用类型修饰符<strong>const</strong>说明的类型，常类型的变量或对象的值是不能被更新的。</p>
+<h3 id="2-const作用"><a href="#2-const作用" class="headerlink" title="2.const作用"></a>2.const作用</h3><p>（1）可以定义常量</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">const int a=100;</span><br></pre></td></tr></table></figure>
+<p>（2）类型检查</p>
+<p>const常量与#define宏定义常量的区别：<strong>const常量具有类型，编译器可以进行安全检查；#define宏定义没有数据类型，只是简单的字符串替换，不能进行安全检查。</strong></p>
+<p><code>const</code> 定义的变量只有类型为整数或枚举，且以常量表达式初始化时才能作为常量表达式。其他情况下它只是一个 <code>const</code> 限定的变量，不要将与常量混淆。<code>const</code> 关键字在 C++ 中并不总是创建常量，而只有在特定条件下才会创建常量表达式。</p>
+<p>（3）防止修改，起保护作用，增加程序健壮性</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">void f(const int i)&#123;</span><br><span class="line">    i++; //error!</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>（4）可以节省空间，避免不必要的内存分配</p>
+<p>const定义常量从汇编的角度来看，只是给出了<strong>对应的内存地址</strong>，而不是像<strong>#define一样给出的是立即数</strong>，所以，const定义的常量在程序运行过程中<strong>只有一份拷贝</strong>，而#define定义的常量在内存中有若干个拷贝。</p>
+<h3 id="3-const对象默认为文件局部变量"><a href="#3-const对象默认为文件局部变量" class="headerlink" title="3.const对象默认为文件局部变量"></a>3.const对象默认为文件局部变量</h3><p>注意：非const变量默认为extern。<strong>要使const变量能够在其他文件中访问，必须在文件中显式地指定它为extern。</strong></p>
+<blockquote>
+<p>未被const修饰的变量在不同文件的访问</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">// file1.cpp</span><br><span class="line">int ext</span><br><span class="line">// file2.cpp</span><br><span class="line">#include&lt;iostream&gt;</span><br><span class="line">/**</span><br><span class="line"> * compile: g++ -o file file2.cpp file1.cpp</span><br><span class="line"> * execute: ./file</span><br><span class="line"> */</span><br><span class="line">extern int ext;</span><br><span class="line">int main()&#123;</span><br><span class="line">    std::cout&lt;&lt;(ext+10)&lt;&lt;std::endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>const常量在不同文件的访问</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">//extern_file1.cpp</span><br><span class="line">extern const int ext=12;</span><br><span class="line">//extern_file2.cpp</span><br><span class="line">#include&lt;iostream&gt;</span><br><span class="line">/**</span><br><span class="line"> * compile: g++ -o file const_file2.cpp const_file1.cpp</span><br><span class="line"> * execute: ./file</span><br><span class="line"> */</span><br><span class="line">extern const int ext;</span><br><span class="line">int main()&#123;</span><br><span class="line">    std::cout&lt;&lt;ext&lt;&lt;std::endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>可以发现未被const修饰的变量不需要extern显式声明！而const常量需要显式声明extern，并且需要做初始化！因为常量在定义后就不能被修改，所以定义时必须初始化。</p>
+<h3 id="4-定义常量"><a href="#4-定义常量" class="headerlink" title="4.定义常量"></a>4.定义常量</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">const int b = 10;</span><br><span class="line">b = 0; // error: assignment of read-only variable ‘b’</span><br><span class="line">const string s = &quot;helloworld&quot;;</span><br><span class="line">const int i,j=0 // error: uninitialized const ‘i’</span><br></pre></td></tr></table></figure>
+<p>上述有两个错误</p>
+<p>第一：b为常量，不可更改！</p>
+<p>第二：i为常量，必须进行初始化！(因为常量在定义后就不能被修改，所以定义时必须初始化。)</p>
+<h3 id="5-指针与const"><a href="#5-指针与const" class="headerlink" title="5.指针与const"></a>5.指针与const</h3><p>与指针相关的const有四种：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">const char * a; //指向const对象的指针或者说指向常量的指针。</span><br><span class="line">char const * a; //同上</span><br><span class="line">char * const a; //指向类型对象的const指针。或者说常指针、const指针。</span><br><span class="line">const char * const a; //指向const对象的const指针。</span><br></pre></td></tr></table></figure>
+<p>小结：如果<em>const</em>位于<code>*</code>的左侧，则const就是用来修饰指针所指向的变量，即指针指向为常量；如果const位于<code>*</code>的右侧，<em>const</em>就是修饰指针本身，即指针本身是常量。</p>
+<p>具体使用如下：</p>
+<p>（1）指向常量的指针</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">const int *ptr;</span><br><span class="line">*ptr = 10; //error</span><br></pre></td></tr></table></figure>
+<p>ptr是一个指向int类型const对象的指针，const定义的是int类型，也就是ptr所指向的对象类型，而不是ptr本身，所以ptr可以不用赋初始值。但是不能通过ptr去修改所指对象的值。</p>
+<p>除此之外，也不能使用void<code>*</code>指针保存const对象的地址，必须使用const void<code>*</code>类型的指针保存const对象的地址。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">const int p = 10;</span><br><span class="line">const void * vp = &amp;p;</span><br><span class="line">void *vp = &amp;p; //error</span><br></pre></td></tr></table></figure>
+<p>另外一个重点是：<strong>允许把非const对象的地址赋给指向const对象的指针</strong>。</p>
+<p>将非const对象的地址赋给const对象的指针:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">const int *ptr;</span><br><span class="line">int val = 3;</span><br><span class="line">ptr = &amp;val; //ok</span><br></pre></td></tr></table></figure>
+<p><strong>我们不能通过ptr指针来修改val的值，即使它指向的是非const对象!</strong></p>
+<p>我们不能使用指向const对象的指针修改基础对象，然而如果该指针指向了非const对象，可用其他方式修改其所指的对象。可以修改const指针所指向的值的，但是不能通过const对象指针来进行而已！如下修改：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">int *ptr1 = &amp;val;</span><br><span class="line">*ptr1=4;</span><br><span class="line">cout&lt;&lt;*ptr&lt;&lt;endl;</span><br></pre></td></tr></table></figure>
+<p>小结：对于指向常量的指针，不能通过指针来修改对象的值。<br>也不能使用void<code>*</code>指针保存const对象的地址，必须使用const void<code>*</code>类型的指针保存const对象的地址。<br>允许把非const对象的地址赋值给const对象的指针，如果要修改指针所指向的对象值，必须通过其他方式修改，不能直接通过当前指针直接修改。</p>
+<p>（2）常指针</p>
+<p>const指针必须进行初始化，且const指针的值不能修改。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">#include&lt;iostream&gt;</span><br><span class="line">using namespace std;</span><br><span class="line">int main()&#123;</span><br><span class="line"></span><br><span class="line">    int num=0;</span><br><span class="line">    int * const ptr=&amp;num; //const指针必须初始化！且const指针的值不能修改</span><br><span class="line">    int * t = &amp;num;</span><br><span class="line">    *t = 1;</span><br><span class="line">    cout&lt;&lt;*ptr&lt;&lt;endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上述修改ptr指针所指向的值，可以通过非const指针来修改。</p>
+<p>最后，当把一个const常量的地址赋值给ptr时候，由于ptr指向的是一个变量，而不是const常量，所以会报错，出现：const int<code>*</code> -&gt; int <code>*</code>错误！</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">#include&lt;iostream&gt;</span><br><span class="line">using namespace std;</span><br><span class="line">int main()&#123;</span><br><span class="line">    const int num=0;</span><br><span class="line">    int * const ptr=&amp;num; //error! const int* -&gt; int*</span><br><span class="line">    cout&lt;&lt;*ptr&lt;&lt;endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上述若改为 const int <code>*</code>ptr或者改为const int <code>*</code>const ptr，都可以正常！</p>
+<p>（3）指向常量的常指针</p>
+<p>理解完前两种情况，下面这个情况就比较好理解了：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">const int p = 3;</span><br><span class="line">const int * const ptr = &amp;p; </span><br></pre></td></tr></table></figure>
+<p>ptr是一个const指针，然后指向了一个int 类型的const对象</p>
+<h3 id="6-函数中使用const"><a href="#6-函数中使用const" class="headerlink" title="6.函数中使用const"></a>6.函数中使用const</h3><blockquote>
+<p>const修饰函数返回值</p>
+</blockquote>
+<p>这个跟const修饰普通变量以及指针的含义基本相同：</p>
+<p>（1）const int</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">const int func1();</span><br></pre></td></tr></table></figure>
+<p>这个本身无意义，因为参数返回本身就是赋值给其他的变量！</p>
+<p>（2）const int*</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">const int* func2();</span><br></pre></td></tr></table></figure>
+<p>指针指向的内容不变。</p>
+<p>（3）int *const</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">int *const func2();</span><br></pre></td></tr></table></figure>
+<p>指针本身不可变。</p>
+<blockquote>
+<p>const修饰函数参数</p>
+</blockquote>
+<p>（1）传递过来的参数及指针本身在函数内不可变，无意义！</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">void func(const int var); // 传递过来的参数不可变</span><br><span class="line">void func(int *const var); // 指针本身不可变</span><br></pre></td></tr></table></figure>
+<p>表明参数在函数体内不能被修改，但此处没有任何意义，var本身就是形参，在函数内不会改变。包括传入的形参是指针也是一样。</p>
+<p>输入参数采用“<strong>值传递</strong>”，由于函数将自动产生临时变量用于复制该参数，该输入参数本来就无需保护，所以不要加const 修饰。</p>
+<p>（2）参数指针所指内容为常量不可变</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">void StringCopy(char *dst, const char *src);</span><br></pre></td></tr></table></figure>
+<p>其中src 是输入参数，dst 是输出参数。给src加上const修饰后，如果函数体内的语句试图改动src的内容，编译器将指出错误。这就是加了const的作用之一。</p>
+<p>（3）参数为引用，为了增加效率同时防止修改。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">void func(const A &amp;a)</span><br></pre></td></tr></table></figure>
+<p>对于非内部数据类型的参数而言，象void func(A a) 这样声明的函数注定效率比较低。<strong>因为函数体内将产生A 类型</strong>的临时对象用于复制参数a，而临时对象的构造、复制、析构过程都将消耗时间。</p>
+<p>为了提高效率，可以将函数声明改为void func(A &amp;a)，因为“引用传递”仅借用一下参数的别名而已，不需要产生临时对象。但是函数void func(A &amp;a) 存在一个缺点：</p>
+<p><strong>“引用传递”有可能改变参数a</strong>，这是我们不期望的。解决这个问题很容易，加const修饰即可，因此函数最终成为</p>
+<p>void func(const A &amp;a)。</p>
+<p>以此类推，是否应将void func(int x) 改写为void func(const int &amp;x)，以便提高效率？完全没有必要，因为内部数据类型的参数不存在构造、析构的过程，而复制也非常快，“值传递”和“引用传递”的效率几乎相当。</p>
+<p><strong>小结：对于非内部数据类型的输入参数，应该将“值传递”的方式改为“const 引用传递”，目的是提高效率。例如将void func(A a) 改为void func(const A &amp;a)。</strong><br><strong>对于<u>内部数据类型</u>的输入参数，不要将“值传递”的方式改为“const 引用传递”。否则既达不到提高效率的目的，又降低了函数的可理解性。例如void func(int x) 不应该改为void func(const int &amp;x)。</strong></p>
+<p>以上解决了两个面试问题：</p>
+<p>（1）如果函数需要传入一个指针，是否需要为该指针加上const，把const加在指针不同的位置有什么区别；</p>
+<p>（2）如果写的函数需要传入的参数是一个复杂类型的实例，传入值参数或者引用参数有什么区别，什么时候需要为传入的引用参数加上const。</p>
+<h3 id="7-类中使用const"><a href="#7-类中使用const" class="headerlink" title="7.类中使用const"></a>7.类中使用const</h3><p>在一个类中，<strong>任何不会修改数据成员的函数都应该声明为const类型</strong>。如果在编写const成员函数时，不慎修改</p>
+<p>数据成员，或者调用了其它非const成员函数，编译器将指出错误，这无疑会提高程序的健壮性。使用const关键字进行说明的成员函数，称为常成员函数。<strong>只有常成员函数才有资格操作常量或常对象</strong>，没有使用const关键字声明的成员函数不能用来操作常对象。</p>
+<p><strong>对于类中的const成员变量必须通过初始化列表进行初始化</strong>，如下所示：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">class Apple</span><br><span class="line">&#123;</span><br><span class="line">private:</span><br><span class="line">    int people[100];</span><br><span class="line">public:</span><br><span class="line">    Apple(int i); </span><br><span class="line">    const int apple_number;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">Apple::Apple(int i):apple_number(i)</span><br><span class="line">&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>const对象只能访问const成员函数</strong>,而<strong>非const对象可以访问任意的成员函数,包括const成员函数.</strong></p>
+<p>例如：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line">//apple.cpp</span><br><span class="line">class Apple</span><br><span class="line">&#123;</span><br><span class="line">private:</span><br><span class="line">    int people[100];</span><br><span class="line">public:</span><br><span class="line">    Apple(int i); </span><br><span class="line">    const int apple_number;</span><br><span class="line">    void take(int num) const;</span><br><span class="line">    int add(int num);</span><br><span class="line">    int add(int num) const;</span><br><span class="line">    int getCount() const;</span><br><span class="line"></span><br><span class="line">&#125;;</span><br><span class="line">//main.cpp</span><br><span class="line">#include&lt;iostream&gt;</span><br><span class="line">#include&quot;apple.cpp&quot;</span><br><span class="line">using namespace std;</span><br><span class="line"></span><br><span class="line">Apple::Apple(int i):apple_number(i)</span><br><span class="line">&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">int Apple::add(int num)&#123;</span><br><span class="line">    take(num);</span><br><span class="line">&#125;</span><br><span class="line">int Apple::add(int num) const&#123;</span><br><span class="line">    take(num);</span><br><span class="line">&#125;</span><br><span class="line">void Apple::take(int num) const</span><br><span class="line">&#123;</span><br><span class="line">    cout&lt;&lt;&quot;take func &quot;&lt;&lt;num&lt;&lt;endl;</span><br><span class="line">&#125;</span><br><span class="line">int Apple::getCount() const</span><br><span class="line">&#123;</span><br><span class="line">    take(1);</span><br><span class="line">//    add(); //error</span><br><span class="line">    return apple_number;</span><br><span class="line">&#125;</span><br><span class="line">int main()&#123;</span><br><span class="line">    Apple a(2);</span><br><span class="line">    cout&lt;&lt;a.getCount()&lt;&lt;endl;</span><br><span class="line">    a.add(10);</span><br><span class="line">    const Apple b(3);</span><br><span class="line">    b.add(100);</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br><span class="line">//编译： g++ -o main main.cpp apple.cpp</span><br><span class="line">//结果</span><br><span class="line">take func 1</span><br><span class="line">2</span><br><span class="line">take func 10</span><br><span class="line">take func 100</span><br></pre></td></tr></table></figure>
+<p>上面getCount()方法中调用了一个add方法，而add方法并非const修饰，所以运行报错。也就是说const对象只能访问const成员函数。</p>
+<p>而add方法又调用了const修饰的take方法，证明了非const对象可以访问任意的成员函数,包括const成员函数。</p>
+<p>除此之外，我们也看到add的一个重载函数，也输出了两个结果，说明<strong>const对象默认调用const成员函数</strong>。</p>
+<p>我们除了上述的初始化const常量用初始化列表方式外，也可以通过下面方法：</p>
+<p>第一：将常量定义与static结合，也就是：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">static const int apple_number</span><br></pre></td></tr></table></figure>
+<p>第二：在外面初始化：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">const int Apple::apple_number=10;</span><br></pre></td></tr></table></figure>
+<p>当然，如果你使用c++11进行编译，直接可以在定义出初始化，可以直接写成：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">static const int apple_number=10;</span><br><span class="line">或者</span><br><span class="line">const int apple_number=10;</span><br></pre></td></tr></table></figure>
+<p>这两种都在c++11中支持！</p>
+<p>编译的时候加上<code>-std=c++11</code>即可！</p>
+<p>这里提到了static，下面简单的说一下：</p>
+<p><strong>在C++中，static静态成员变量不能在类的内部初始化</strong>。在类的内部只是声明，定义必须在类定义体的外部，通常在类的实现文件中初始化。</p>
+<p>在类中声明：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">static int ap;</span><br></pre></td></tr></table></figure>
+<p>在类实现文件中使用：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">int Apple::ap=666</span><br></pre></td></tr></table></figure>
+<p>对于此项，c++11不能进行声明并初始化，也就是上述使用方法。</p>
+<h2 id="引用-amp"><a href="#引用-amp" class="headerlink" title="引用&amp;"></a>引用&amp;</h2><h3 id="1-引用与指针"><a href="#1-引用与指针" class="headerlink" title="1.引用与指针"></a>1.引用与指针</h3><div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">引用</th>
+<th style="text-align:left">指针</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">必须初始化</td>
+<td style="text-align:left">可以不初始化</td>
+</tr>
+<tr>
+<td style="text-align:left">不能为空</td>
+<td style="text-align:left">可以为空</td>
+</tr>
+<tr>
+<td style="text-align:left">不能更换目标</td>
+<td style="text-align:left">可以更换目标</td>
+</tr>
+</tbody>
+</table>
+</div>
+<blockquote>
+<p>引用必须初始化，而指针可以不初始化。</p>
+</blockquote>
+<p>我们在定义一个引用的时候必须为其指定一个初始值，但是指针却不需要。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">int &amp;r;    //不合法，没有初始化引用</span><br><span class="line">int *p;    //合法，但p为野指针，使用需要小心</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>引用不能为空，而指针可以为空。</p>
+</blockquote>
+<p>由于引用不能为空，所以我们在使用引用的时候不需要测试其合法性，而在使用指针的时候需要首先判断指针是否为空指针，否则可能会引起程序崩溃。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">void test_p(int* p)</span><br><span class="line">&#123;</span><br><span class="line">    if(p != null_ptr)    //对p所指对象赋值时需先判断p是否为空指针</span><br><span class="line">        *p = 3;</span><br><span class="line">    return;</span><br><span class="line">&#125;</span><br><span class="line">void test_r(int&amp; r)</span><br><span class="line">&#123;</span><br><span class="line">    r = 3;    //由于引用不能为空，所以此处无需判断r的有效性就可以对r直接赋值</span><br><span class="line">    return;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>引用不能更换目标</p>
+</blockquote>
+<p>指针可以随时改变指向，但是引用只能指向初始化时指向的对象，无法改变。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">int a = 1;</span><br><span class="line">int b = 2;</span><br><span class="line"></span><br><span class="line">int &amp;r = a;    //初始化引用r指向变量a</span><br><span class="line">int *p = &amp;a;   //初始化指针p指向变量a</span><br><span class="line"></span><br><span class="line">p = &amp;b;        //指针p指向了变量b</span><br><span class="line">r = b;         //引用r依然指向a，但a的值变成了b</span><br></pre></td></tr></table></figure>
+<h3 id="2-引用"><a href="#2-引用" class="headerlink" title="2.引用"></a>2.引用</h3><h4 id="左值引用"><a href="#左值引用" class="headerlink" title="左值引用"></a>左值引用</h4><p>常规引用，一般表示对象的身份。</p>
+<h4 id="右值引用"><a href="#右值引用" class="headerlink" title="右值引用"></a>右值引用</h4><p>右值引用就是必须绑定到右值（一个临时对象、将要销毁的对象）的引用，一般表示对象的值。</p>
+<p>右值引用可实现转移语义（Move Sementics）和精确传递（Perfect Forwarding），它的主要目的有两个方面：</p>
+<ul>
+<li>消除两个对象交互时不必要的对象拷贝，节省运算存储资源，提高效率。</li>
+<li>能够更简洁明确地定义泛型函数。</li>
+</ul>
+<h4 id="引用折叠"><a href="#引用折叠" class="headerlink" title="引用折叠"></a>引用折叠</h4><ul>
+<li><code>X&amp; &amp;</code>、<code>X&amp; &amp;&amp;</code>、<code>X&amp;&amp; &amp;</code> 可折叠成 <code>X&amp;</code></li>
+<li><code>X&amp;&amp; &amp;&amp;</code> 可折叠成 <code>X&amp;&amp;</code></li>
+</ul>
+<p>C++的引用<strong>在减少了程序员自由度的同时提升了内存操作的安全性和语义的优美性</strong>。比如引用强制要求必须初始化，可以让我们在使用引用的时候不用再去判断引用是否为空，让代码更加简洁优美，避免了指针满天飞的情形。除了这种场景之外引用还用于如下两个场景：</p>
+<blockquote>
+<p>引用型参数</p>
+</blockquote>
+<p>一般我们使用const reference参数作为只读形参，这种情况下既可以避免参数拷贝还可以获得与传值参数一样的调用方式。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">void test(const vector&lt;int&gt; &amp;data)</span><br><span class="line">&#123;</span><br><span class="line">    //...</span><br><span class="line">&#125;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    vector&lt;int&gt; data&#123;1,2,3,4,5,6,7,8&#125;;</span><br><span class="line">    test(data);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>引用型返回值</p>
+</blockquote>
+<p>C++提供了重载运算符的功能，我们在重载某些操作符的时候，使用引用型返回值可以获得跟该操作符原来语法相同的调用方式，保持了操作符语义的一致性。一个例子就是operator []操作符，这个操作符一般需要返回一个引用对象，才能正确的被修改。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">vector&lt;int&gt; v(10);</span><br><span class="line">v[5] = 10;    //[]操作符返回引用，然后vector对应元素才能被修改</span><br><span class="line">              //如果[]操作符不返回引用而是指针的话，赋值语句则需要这样写</span><br><span class="line">*v[5] = 10;   //这种书写方式，完全不符合我们对[]调用的认知，容易产生误解</span><br></pre></td></tr></table></figure>
+<h3 id="3-指针与引用的性能差距"><a href="#3-指针与引用的性能差距" class="headerlink" title="3.指针与引用的性能差距"></a>3.指针与引用的性能差距</h3><p>指针与引用之间有没有性能差距呢？这种问题就需要进入汇编层面去看一下。我们先写一个test1函数，参数传递使用指针：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">void test1(int* p)</span><br><span class="line">&#123;</span><br><span class="line">    *p = 3;    //此处应该首先判断p是否为空，为了测试的需要，此处我们没加。</span><br><span class="line">    return;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>该代码段对应的汇编代码如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">(gdb) disassemble </span><br><span class="line">Dump of assembler code for function test1(int*):</span><br><span class="line">   0x0000000000400886 &lt;+0&gt;:  push   %rbp</span><br><span class="line">   0x0000000000400887 &lt;+1&gt;:  mov    %rsp,%rbp</span><br><span class="line">   0x000000000040088a &lt;+4&gt;:  mov    %rdi,-0x8(%rbp)</span><br><span class="line">=&gt; 0x000000000040088e &lt;+8&gt;:  mov    -0x8(%rbp),%rax</span><br><span class="line">   0x0000000000400892 &lt;+12&gt;: movl   $0x3,(%rax)</span><br><span class="line">   0x0000000000400898 &lt;+18&gt;: nop</span><br><span class="line">   0x0000000000400899 &lt;+19&gt;: pop    %rbp</span><br><span class="line">   0x000000000040089a &lt;+20&gt;: retq   </span><br><span class="line">End of assembler dump.</span><br></pre></td></tr></table></figure>
+<p>上述代码1、2行是参数调用保存现场操作；第3行是参数传递，函数调用第一个参数一般放在rdi寄存器，此行代码把rdi寄存器值（指针p的值）写入栈中；第4行是把栈中p的值写入rax寄存器；第5行是把立即数3写入到<strong>rax寄存器值所指向的内存</strong>中，此处要注意(%rax)两边的括号，这个括号并并不是可有可无的，(%rax)和%rax完全是两种意义，(%rax)代表rax寄存器中值所代表地址部分的内存，即相当于C++代码中的*p，而%rax代表rax寄存器，相当于C++代码中的p值，所以汇编这里使用了(%rax)而不是%rax。</p>
+<p>我们再写出参数传递使用引用的C++代码段test2：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">void test2(int&amp; r)</span><br><span class="line">&#123;</span><br><span class="line">    r = 3;    //赋值前无需判断reference是否为空</span><br><span class="line">    return;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这段代码对应的汇编代码如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">(gdb) disassemble </span><br><span class="line">Dump of assembler code for function test2(int&amp;):</span><br><span class="line">   0x000000000040089b &lt;+0&gt;:  push   %rbp</span><br><span class="line">   0x000000000040089c &lt;+1&gt;:  mov    %rsp,%rbp</span><br><span class="line">   0x000000000040089f &lt;+4&gt;:  mov    %rdi,-0x8(%rbp)</span><br><span class="line">=&gt; 0x00000000004008a3 &lt;+8&gt;:  mov    -0x8(%rbp),%rax</span><br><span class="line">   0x00000000004008a7 &lt;+12&gt;: movl   $0x3,(%rax)</span><br><span class="line">   0x00000000004008ad &lt;+18&gt;: nop</span><br><span class="line">   0x00000000004008ae &lt;+19&gt;: pop    %rbp</span><br><span class="line">   0x00000000004008af &lt;+20&gt;: retq   </span><br><span class="line">End of assembler dump.</span><br></pre></td></tr></table></figure>
+<p>我们发现test2对应的汇编代码和test1对应的汇编代码完全相同，这说明C++编译器在编译程序的时候将指针和引用编译成了完全一样的机器码。所以C++中的引用只是C++对指针操作的一个“语法糖”，在底层实现时C++编译器实现这两种操作的方法完全相同。</p>
+<h3 id="4-总结"><a href="#4-总结" class="headerlink" title="4.总结"></a>4.总结</h3><p>C++中引入了引用操作，在对引用的使用加了更多限制条件的情况下，保证了引用使用的安全性和便捷性，还可以保持代码的优雅性。在适合的情况使用适合的操作，引用的使用可以一定程度避免“指针满天飞”的情况，对于提升程序稳定性也有一定的积极意义。最后，<strong>指针与引用底层实现都是一样的</strong>，不用担心两者的性能差距。</p>
+<h2 id="宏"><a href="#宏" class="headerlink" title="宏"></a>宏</h2><h3 id="1-宏中包含特殊符号"><a href="#1-宏中包含特殊符号" class="headerlink" title="1.宏中包含特殊符号"></a>1.宏中包含特殊符号</h3><p>分为几种：<code>#</code>，<code>##</code>，<code>\</code></p>
+<h4 id="1-1-字符串化操作符（-）"><a href="#1-1-字符串化操作符（-）" class="headerlink" title="1.1 字符串化操作符（#）"></a>1.1 字符串化操作符（#）</h4><p><strong>在一个宏中的参数前面使用一个#,预处理器会把这个参数转换为一个字符数组</strong>，换言之就是：<strong>#是“字符串化”的意思，出现在宏定义中的#是把跟在后面的参数转换成一个字符串</strong>。</p>
+<p><strong>注意：其只能用于有传入参数的宏定义中，且必须置于宏定义体中的参数名前。</strong></p>
+<p>例如：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">#define exp(s) printf(&quot;test s is:%s\n&quot;,s)</span><br><span class="line">#define exp1(s) printf(&quot;test s is:%s\n&quot;,#s)</span><br><span class="line">#define exp2(s) #s </span><br><span class="line">int main() &#123;</span><br><span class="line">    exp(&quot;hello&quot;);</span><br><span class="line">    exp1(hello);</span><br><span class="line"></span><br><span class="line">    string str = exp2(   bac );</span><br><span class="line">    cout&lt;&lt;str&lt;&lt;&quot; &quot;&lt;&lt;str.size()&lt;&lt;endl;</span><br><span class="line">    /**</span><br><span class="line">     * 忽略传入参数名前面和后面的空格。</span><br><span class="line">     */</span><br><span class="line">    string str1 = exp2( asda  bac );</span><br><span class="line">    /**</span><br><span class="line">     * 当传入参数名间存在空格时，编译器将会自动连接各个子字符串，</span><br><span class="line">     * 用每个子字符串之间以一个空格连接，忽略剩余空格。</span><br><span class="line">     */</span><br><span class="line">    cout&lt;&lt;str1&lt;&lt;&quot; &quot;&lt;&lt;str1.size()&lt;&lt;endl;</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上述代码给出了基本的使用与空格处理规则，空格处理规则如下：</p>
+<ul>
+<li><strong>忽略传入参数名前面和后面的空格。</strong></li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">string str = exp2(   bac );</span><br><span class="line">cout&lt;&lt;str&lt;&lt;&quot; &quot;&lt;&lt;str.size()&lt;&lt;endl;</span><br></pre></td></tr></table></figure>
+<p>输出：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bac 3</span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong>当传入参数名间存在空格时，编译器将会自动连接各个子字符串，用每个子字符串之间以一个空格连接，忽略剩余空格。</strong></li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">string str1 = exp2( asda  bac );</span><br><span class="line">cout&lt;&lt;str1&lt;&lt;&quot; &quot;&lt;&lt;str1.size()&lt;&lt;endl;</span><br></pre></td></tr></table></figure>
+<p>输出：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">asda bac 8</span><br></pre></td></tr></table></figure>
+<h4 id="1-2-符号连接操作符（"><a href="#1-2-符号连接操作符（" class="headerlink" title="1.2 符号连接操作符（##)"></a>1.2 符号连接操作符（##)</h4><p><strong>“##”是一种分隔连接方式，它的作用是先分隔，然后进行强制连接。将宏定义的多个形参转换成一个实际参数名。</strong></p>
+<p>注意事项：</p>
+<p><strong>（1）当用##连接形参时，##前后的空格可有可无。</strong></p>
+<p><strong>（2）连接后的实际参数名，必须为实际存在的参数名或是编译器已知的宏定义。</strong></p>
+<p><strong>（3）如果##后的参数本身也是一个宏的话，##会阻止这个宏的展开。</strong></p>
+<p>示例：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">#define expA(s) printf(&quot;前缀加上后的字符串为:%s\n&quot;,gc_##s)  //gc_s必须存在</span><br><span class="line">// 注意事项2</span><br><span class="line">#define expB(s) printf(&quot;前缀加上后的字符串为:%s\n&quot;,gc_  ##  s)  //gc_s必须存在</span><br><span class="line">// 注意事项1</span><br><span class="line">#define gc_hello1 &quot;I am gc_hello1&quot;</span><br><span class="line">int main() &#123;</span><br><span class="line">    // 注意事项1</span><br><span class="line">    const char * gc_hello = &quot;I am gc_hello&quot;;</span><br><span class="line">    expA(hello);</span><br><span class="line">    expB(hello1);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="1-3-续行操作符（-）"><a href="#1-3-续行操作符（-）" class="headerlink" title="1.3 续行操作符（\）"></a>1.3 续行操作符（\）</h4><p><strong>当定义的宏不能用一行表达完整时，可以用”\”表示下一行继续此宏的定义。</strong></p>
+<p><strong>注意 \ 前留空格。</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">#define MAX(a,b) ((a)&gt;(b) ? (a) \</span><br><span class="line">   :(b))  </span><br><span class="line">int main() &#123;</span><br><span class="line">    int max_val = MAX(3,6);</span><br><span class="line">    cout&lt;&lt;max_val&lt;&lt;endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="2-do-…-while-0-的使用"><a href="#2-do-…-while-0-的使用" class="headerlink" title="2.do{…}while(0)的使用"></a>2.do{…}while(0)的使用</h3><h4 id="2-1-避免语义曲解"><a href="#2-1-避免语义曲解" class="headerlink" title="2.1 避免语义曲解"></a>2.1 避免语义曲解</h4><p>例如：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">#define fun() f1();f2();</span><br><span class="line">if(a&gt;0)</span><br><span class="line">    fun()</span><br></pre></td></tr></table></figure>
+<p>这个宏被展开后就是：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">if(a&gt;0)</span><br><span class="line">    f1();</span><br><span class="line">    f2();</span><br></pre></td></tr></table></figure>
+<p>本意是a&gt;0执行f1 f2，而实际是f2每次都会执行，所以就错误了。</p>
+<p>为了解决这种问题，在写代码的时候，通常可以采用<code>&#123;&#125;</code>块。</p>
+<p>如：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">#define fun() &#123;f1();f2();&#125;</span><br><span class="line">if(a&gt;0)</span><br><span class="line">    fun();</span><br><span class="line">// 宏展开</span><br><span class="line">if(a&gt;0)</span><br><span class="line">&#123;</span><br><span class="line">    f1();</span><br><span class="line">    f2();</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>但是会发现上述宏展开后多了一个分号，实际语法不太对。(虽然编译运行没问题，正常没分号)。</p>
+<h4 id="2-2避免使用goto控制流"><a href="#2-2避免使用goto控制流" class="headerlink" title="2.2避免使用goto控制流"></a>2.2避免使用goto控制流</h4><p>在一些函数中，我们可能需要在return语句之前做一些清理工作，比如释放在函数开始处由malloc申请的内存空间，使用goto总是一种简单的方法：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">int f() &#123;</span><br><span class="line">    int *p = (int *)malloc(sizeof(int));</span><br><span class="line">    *p = 10; </span><br><span class="line">    cout&lt;&lt;*p&lt;&lt;endl;</span><br><span class="line">#ifndef DEBUG</span><br><span class="line">    int error=1;</span><br><span class="line">#endif</span><br><span class="line">    if(error)</span><br><span class="line">        goto END;</span><br><span class="line">    // dosomething</span><br><span class="line">END:</span><br><span class="line">    cout&lt;&lt;&quot;free&quot;&lt;&lt;endl;</span><br><span class="line">    free(p);</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>但由于goto不符合软件工程的结构化，而且有可能使得代码难懂，所以很多人都不倡导使用，这个时候我们可以使用do{…}while(0)来做同样的事情：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">int ff() &#123;</span><br><span class="line">    int *p = (int *)malloc(sizeof(int));</span><br><span class="line">    *p = 10; </span><br><span class="line">    cout&lt;&lt;*p&lt;&lt;endl;</span><br><span class="line">    do&#123; </span><br><span class="line">#ifndef DEBUG</span><br><span class="line">        int error=1;</span><br><span class="line">#endif</span><br><span class="line">        if(error)</span><br><span class="line">            break;</span><br><span class="line">        //dosomething</span><br><span class="line">    &#125;while(0);</span><br><span class="line">    cout&lt;&lt;&quot;free&quot;&lt;&lt;endl;</span><br><span class="line">    free(p);</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这里将函数主体部分使用do{…}while(0)包含起来，使用break来代替goto，后续的清理工作在while之后，现在既能达到同样的效果，而且代码的可读性、可维护性都要比上面的goto代码好的多了。</p>
+<h4 id="2-3-避免由宏引起的警告"><a href="#2-3-避免由宏引起的警告" class="headerlink" title="2.3 避免由宏引起的警告"></a>2.3 避免由宏引起的警告</h4><p>内核中由于不同架构的限制，很多时候会用到空宏。在编译的时候，这些空宏会给出warning，为了避免这样的warning，我们可以使用do{…}while(0)来定义空宏：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">#define EMPTYMICRO do&#123;&#125;while(0)</span><br></pre></td></tr></table></figure>
+<h4 id="2-4-定义单一的函数块来完成复杂的操作"><a href="#2-4-定义单一的函数块来完成复杂的操作" class="headerlink" title="2.4 定义单一的函数块来完成复杂的操作"></a>2.4 <strong>定义单一的函数块来完成复杂的操作</strong></h4><p>如果你有一个复杂的函数，变量很多，而且你不想要增加新的函数，可以使用do{…}while(0)，将你的代码写在里面，<strong>里面可以定义变量而不用考虑变量名会同函数之前或者之后的重复</strong>。 这种情况应该是指一个变量多处使用（但每处的意义还不同），我们可以在每个do-while中缩小作用域，比如：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">int fc()</span><br><span class="line">&#123;</span><br><span class="line">    int k1 = 10;</span><br><span class="line">    cout&lt;&lt;k1&lt;&lt;endl;</span><br><span class="line">    do&#123;</span><br><span class="line">        int k1 = 100;</span><br><span class="line">        cout&lt;&lt;k1&lt;&lt;endl;</span><br><span class="line">    &#125;while(0);</span><br><span class="line">    cout&lt;&lt;k1&lt;&lt;endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="static"><a href="#static" class="headerlink" title="static"></a>static</h2><p>当与不同类型一起使用时，Static关键字具有不同的含义。我们可以使用static关键字：</p>
+<p><strong>静态变量：</strong> 函数中的变量，类中的变量</p>
+<p><strong>静态类的成员：</strong> 类对象和类中的函数</p>
+<p>现在让我们详细看一下静态的这些用法：</p>
+<p><strong>静态变量</strong></p>
+<ul>
+<li>函数中的静态变量</li>
+</ul>
+<p>当变量声明为static时，空间<strong>将在程序的生命周期内分配</strong>。即使多次调用该函数，静态变量的空间也<strong>只分配一次</strong>，前一次调用中的变量值通过下一次函数调用传递。这对于在C / C ++或需要存储先前函数状态的任何其他应用程序非常有用。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt; </span><br><span class="line">#include &lt;string&gt; </span><br><span class="line">using namespace std; </span><br><span class="line"></span><br><span class="line">void demo() </span><br><span class="line">&#123; </span><br><span class="line">    // static variable </span><br><span class="line">    static int count = 0; </span><br><span class="line">    cout &lt;&lt; count &lt;&lt; &quot; &quot;; </span><br><span class="line"></span><br><span class="line">    // value is updated and </span><br><span class="line">    // will be carried to next </span><br><span class="line">    // function calls </span><br><span class="line">    count++; </span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line">int main() </span><br><span class="line">&#123; </span><br><span class="line">    for (int i=0; i&lt;5; i++)  </span><br><span class="line">        demo(); </span><br><span class="line">    return 0; </span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
+<p>输出：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">0 1 2 3 4 </span><br></pre></td></tr></table></figure>
+<p>您可以在上面的程序中看到变量count被声明为static。因此，它的值通过函数调用来传递。每次调用函数时，都不会对变量计数进行初始化。</p>
+<ul>
+<li>类中的静态变量</li>
+</ul>
+<p>由于声明为static的变量只被初始化一次，因为它们在单独的静态存储中分配了空间，因此类中的静态变量<strong>由对象共享。</strong>对于不同的对象，不能有相同静态变量的多个副本。也是因为这个原因，静态变量不能使用构造函数初始化。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">#include&lt;iostream&gt; </span><br><span class="line">using namespace std; </span><br><span class="line"></span><br><span class="line">class Apple </span><br><span class="line">&#123; </span><br><span class="line">public: </span><br><span class="line">    static int i; </span><br><span class="line"></span><br><span class="line">    Apple() </span><br><span class="line">    &#123; </span><br><span class="line">        // Do nothing </span><br><span class="line">    &#125;; </span><br><span class="line">&#125;; </span><br><span class="line"></span><br><span class="line">int main() </span><br><span class="line">&#123; </span><br><span class="line">Apple obj1; </span><br><span class="line">Apple obj2; </span><br><span class="line">obj1.i =2; </span><br><span class="line">obj2.i = 3; </span><br><span class="line"></span><br><span class="line">// prints value of i </span><br><span class="line">cout &lt;&lt; obj1.i&lt;&lt;&quot; &quot;&lt;&lt;obj2.i; </span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
+<p>您可以在上面的程序中看到我们已经尝试为多个对象创建静态变量i的多个副本。但这并没有发生。因此，类中的静态变量应由用户使用类外的类名和范围解析运算符显式初始化，如下所示：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">#include&lt;iostream&gt; </span><br><span class="line">using namespace std; </span><br><span class="line"></span><br><span class="line">class Apple </span><br><span class="line">&#123; </span><br><span class="line">public: </span><br><span class="line">    static int i; </span><br><span class="line"></span><br><span class="line">    Apple() </span><br><span class="line">    &#123; </span><br><span class="line">        // Do nothing </span><br><span class="line">    &#125;; </span><br><span class="line">&#125;; </span><br><span class="line"></span><br><span class="line">int Apple::i = 1; </span><br><span class="line"></span><br><span class="line">int main() </span><br><span class="line">&#123; </span><br><span class="line">    Apple obj; </span><br><span class="line">    // prints value of i </span><br><span class="line">    cout &lt;&lt; obj.i; </span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
+<p>输出：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1</span><br></pre></td></tr></table></figure>
+<p><strong>静态成员</strong></p>
+<ul>
+<li>类对象为静态</li>
+</ul>
+<p>就像变量一样，对象也在声明为static时具有范围，直到程序的生命周期。</p>
+<p>考虑以下程序，其中对象是非静态的。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">#include&lt;iostream&gt; </span><br><span class="line">using namespace std; </span><br><span class="line"></span><br><span class="line">class Apple </span><br><span class="line">&#123; </span><br><span class="line">    int i; </span><br><span class="line">    public: </span><br><span class="line">        Apple() </span><br><span class="line">        &#123; </span><br><span class="line">            i = 0; </span><br><span class="line">            cout &lt;&lt; &quot;Inside Constructor\n&quot;; </span><br><span class="line">        &#125; </span><br><span class="line">        ~Apple() </span><br><span class="line">        &#123; </span><br><span class="line">            cout &lt;&lt; &quot;Inside Destructor\n&quot;; </span><br><span class="line">        &#125; </span><br><span class="line">&#125;; </span><br><span class="line"></span><br><span class="line">int main() </span><br><span class="line">&#123; </span><br><span class="line">    int x = 0; </span><br><span class="line">    if (x==0) </span><br><span class="line">    &#123; </span><br><span class="line">        Apple obj; </span><br><span class="line">    &#125; </span><br><span class="line">    cout &lt;&lt; &quot;End of main\n&quot;; </span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
+<p>输出：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Inside Constructor</span><br><span class="line">Inside Destructor</span><br><span class="line">End of main</span><br></pre></td></tr></table></figure>
+<p>在上面的程序中，对象在if块内声明为非静态。因此，变量的范围仅在if块内。因此，当创建对象时，将调用构造函数，并且在if块的控制权越过析构函数的同时调用，因为对象的范围仅在声明它的if块内。 如果我们将对象声明为静态，现在让我们看看输出的变化。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">#include&lt;iostream&gt; </span><br><span class="line">using namespace std; </span><br><span class="line"></span><br><span class="line">class Apple </span><br><span class="line">&#123; </span><br><span class="line">    int i; </span><br><span class="line">    public: </span><br><span class="line">        Apple() </span><br><span class="line">        &#123; </span><br><span class="line">            i = 0; </span><br><span class="line">            cout &lt;&lt; &quot;Inside Constructor\n&quot;; </span><br><span class="line">        &#125; </span><br><span class="line">        ~Apple() </span><br><span class="line">        &#123; </span><br><span class="line">            cout &lt;&lt; &quot;Inside Destructor\n&quot;; </span><br><span class="line">        &#125; </span><br><span class="line">&#125;; </span><br><span class="line"></span><br><span class="line">int main() </span><br><span class="line">&#123; </span><br><span class="line">    int x = 0; </span><br><span class="line">    if (x==0) </span><br><span class="line">    &#123; </span><br><span class="line">        static Apple obj; </span><br><span class="line">    &#125; </span><br><span class="line">    cout &lt;&lt; &quot;End of main\n&quot;; </span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
+<p>输出：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Inside Constructor</span><br><span class="line">End of main</span><br><span class="line">Inside Destructor</span><br></pre></td></tr></table></figure>
+<p>您可以清楚地看到输出的变化。现在，在main结束后调用析构函数。这是因为<strong>静态对象的范围是贯穿程序的生命周期。</strong></p>
+<ul>
+<li>类中的静态函数</li>
+</ul>
+<p>就像类中的静态数据成员或静态变量一样，静态成员函数也不依赖于类的对象。我们被允许使用对象和’.’来调用静态成员函数。但建议使用类名和范围解析运算符调用静态成员。</p>
+<p><strong>允许静态成员函数仅访问静态数据成员或其他静态成员函数，它们无法访问类的非静态数据成员或成员函数,因为不确定访问哪个对象的成员</strong>。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">#include&lt;iostream&gt; </span><br><span class="line">using namespace std; </span><br><span class="line"></span><br><span class="line">class Apple </span><br><span class="line">&#123; </span><br><span class="line">    public: </span><br><span class="line">        // static member function </span><br><span class="line">        static void printMsg() </span><br><span class="line">        &#123;</span><br><span class="line">            cout&lt;&lt;&quot;Welcome to Apple!&quot;; </span><br><span class="line">        &#125;</span><br><span class="line">&#125;; </span><br><span class="line"></span><br><span class="line">// main function </span><br><span class="line">int main() </span><br><span class="line">&#123; </span><br><span class="line">    // invoking a static member function </span><br><span class="line">    Apple::printMsg(); </span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
+<p>输出：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Welcome to Apple!</span><br></pre></td></tr></table></figure>
+<h1 id="关键字"><a href="#关键字" class="headerlink" title="关键字"></a>关键字</h1><h2 id="noexcept"><a href="#noexcept" class="headerlink" title="noexcept"></a>noexcept</h2><p><code>noexcept</code> 是C++11引入的一个关键字，它用于指示一个函数是否抛出异常。它的作用有两个方面：</p>
+<ol>
+<li><p><strong>在函数声明和定义中标识异常规范：</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cppCopy codevoid myFunction() noexcept &#123;</span><br><span class="line">    // 函数体</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>或者在函数指针、函数引用等地方使用：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cppCopy code</span><br><span class="line">void (*funcPtr)() noexcept = &amp;myFunction;</span><br></pre></td></tr></table></figure>
+<p>在这里，<code>noexcept</code> 表示 <code>myFunction</code> 不会抛出异常。这对于编译器和优化很有帮助，因为它提供了有关函数可能引发异常的信息，允许进行更好的代码优化。</p>
+</li>
+<li><p><strong>在移动构造函数和移动赋值运算符中用于指示不会抛出异常：</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">cppCopy codeclass MyClass &#123;</span><br><span class="line">public:</span><br><span class="line">    // 移动构造函数</span><br><span class="line">    MyClass(MyClass&amp;&amp; other) noexcept &#123;</span><br><span class="line">        // 移动资源的操作</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    // 移动赋值运算符</span><br><span class="line">    MyClass&amp; operator=(MyClass&amp;&amp; other) noexcept &#123;</span><br><span class="line">        // 移动资源的操作</span><br><span class="line">        return *this;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>在移动语义中，<code>noexcept</code> 可以帮助标识移动构造函数和移动赋值运算符是否会抛出异常。这对于某些标准库算法和容器的性能优化很重要。</p>
+</li>
+</ol>
+</div></div><div class="aside-content" id="aside-content"><div class="card-widget card-author"><div class="item-headline"><i class="fa-solid fa-circle-user"></i><span>Author</span></div><div class="author-main-content"><div class="author-check-content"><label class="author-info" for="author-info">     <input id="author-info" type="checkbox" name="author-info"/><div class="author-avatar"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/touxiang.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-name">ixout</div></label></div><div class="author-switch-content"><input class="switch-content" type="radio" name="switch-content" value="description"/><label class="author-description-box">      <div class="author-description"><font color="#e66b6d">十八线业余选手</font></div></label><input class="switch-content" type="radio" name="switch-content" value="social" checked="checked"/><label class="author-social-box"><a class="card-author-button" target="_blank" rel="noopener" href="https://github.com/ixout"><i class="iconfont icon-github"></i><span>Follow Me With Github</span></a><div class="social-icons"><a class="social-icon" href="https://github.com/ixout" target="_blank" title="Github"><i class="fa-brands fa-github"></i></a><a class="social-icon" href="/1425430423" target="_blank" title="QQ"><i class="fa-brands fa-qq"></i></a></div></label><input class="switch-content" type="radio" name="switch-content" value="site-data"/><label class="author-data-box"><div class="site-data"><a class="data-item" href="/archives/"><div class="data-name">文章</div><div class="data-length">58</div></a><a class="data-item" href="/tags/"><div class="data-name">标签</div><div class="data-length">64</div></a><a class="data-item" href="/categories/"><div class="data-name">分类</div><div class="data-length">5</div></a></div></label></div></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>告示牌</span></div><div class="announcement_content"><font color="＃00CED1">(º﹃º)阿巴阿巴阿巴......</font></div></div><div class="card-widget" id="card-poem"><div id="poem_sentence"></div><div id="poem_info"><div id="poem_dynasty"></div><div id="poem_author"></div></div></div><script src="https://cdn.jsdelivr.net/npm/js-heo@1.0.11/poem/jinrishici.js" charset="utf-8"></script><script type="text/javascript">jinrishici.load(function(result) {
+var sentence = document.querySelector("#poem_sentence")
+var author = document.querySelector("#poem_author")
+var dynasty = document.querySelector("#poem_dynasty")
+
+var sentenceText = result.data.content
+sentenceText = sentenceText.substr(0, sentenceText.length - 1);
+sentence.innerHTML = sentenceText
+dynasty.innerHTML = result.data.origin.dynasty
+author.innerHTML = result.data.origin.author + '《' + result.data.origin.title + '》'
+});</script><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/posts/15971/" title="还原魔改luac"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/ixout/picture@main/img/p45347545154796.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="还原魔改luac"/></a><div class="content"><a class="title" href="/posts/15971/" title="还原魔改luac">还原魔改luac</a><time datetime="2024-09-27T02:45:46.000Z" title="发表于 2024-09-27 10:45:46">2024-09-27</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/22716/" title="2024ciscn华东南pwn"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/ixout/picture@main/img/a96d6be2655648d9ab6dc8b314f2a8d1%20(1).jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="2024ciscn华东南pwn"/></a><div class="content"><a class="title" href="/posts/22716/" title="2024ciscn华东南pwn">2024ciscn华东南pwn</a><time datetime="2024-06-24T07:59:49.000Z" title="发表于 2024-06-24 15:59:49">2024-06-24</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/53981/" title="fuzz-in-pwn"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/ixout/picture@main/img/a96d6be2655648d9ab6dc8b314f2a8d1%20(1).jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="fuzz-in-pwn"/></a><div class="content"><a class="title" href="/posts/53981/" title="fuzz-in-pwn">fuzz-in-pwn</a><time datetime="2024-05-12T14:29:46.000Z" title="发表于 2024-05-12 22:29:46">2024-05-12</time></div></div></div></div><div class="card-widget card-tags"><div class="item-headline"><i class="fas fa-tags"></i><span>标签</span></div><div class="card-tag-cloud"><a href="/tags/pwn/" style="font-size: 1.45em; color: rgb(135, 187, 51)">pwn</a><a href="/tags/dirtypagetable/" style="font-size: 1.15em; color: rgb(33, 69, 170)">dirtypagetable</a><a href="/tags/wp/" style="font-size: 1.3em; color: rgb(77, 178, 116)">wp</a><a href="/tags/IO-FILE/" style="font-size: 1.15em; color: rgb(149, 51, 24)">IO_FILE</a><a href="/tags/%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/" style="font-size: 1.4em; color: rgb(48, 155, 113)">学习记录</a><a href="/tags/VMpwn/" style="font-size: 1.15em; color: rgb(170, 26, 119)">VMpwn</a><a href="/tags/wasm/" style="font-size: 1.15em; color: rgb(53, 78, 34)">wasm</a><a href="/tags/webpwn/" style="font-size: 1.15em; color: rgb(118, 42, 88)">webpwn</a><a href="/tags/buuctf/" style="font-size: 1.15em; color: rgb(180, 154, 97)">buuctf</a><a href="/tags/calloc/" style="font-size: 1.15em; color: rgb(88, 59, 163)">calloc</a><a href="/tags/realloc/" style="font-size: 1.15em; color: rgb(79, 70, 127)">realloc</a><a href="/tags/grpc/" style="font-size: 1.15em; color: rgb(171, 97, 121)">grpc</a><a href="/tags/protobuf/" style="font-size: 1.2em; color: rgb(67, 145, 31)">protobuf</a><a href="/tags/%E5%9F%BA%E7%A1%80/" style="font-size: 1.25em; color: rgb(19, 75, 73)">基础</a><a href="/tags/elf/" style="font-size: 1.15em; color: rgb(139, 22, 67)">elf</a><a href="/tags/%E6%8A%A5%E9%94%99/" style="font-size: 1.15em; color: rgb(86, 94, 139)">报错</a><a href="/tags/exit/" style="font-size: 1.15em; color: rgb(17, 103, 85)">exit</a><a href="/tags/pwn%E6%8A%80%E5%B7%A7/" style="font-size: 1.15em; color: rgb(133, 197, 69)">pwn技巧</a><a href="/tags/fuzz/" style="font-size: 1.15em; color: rgb(177, 131, 42)">fuzz</a><a href="/tags/IO-FILE/" style="font-size: 1.2em; color: rgb(170, 162, 168)">_IO_FILE</a><a href="/tags/ida/" style="font-size: 1.15em; color: rgb(67, 147, 67)">ida</a><a href="/tags/kernel/" style="font-size: 1.25em; color: rgb(57, 59, 58)">kernel</a><a href="/tags/how2heap/" style="font-size: 1.15em; color: rgb(167, 62, 27)">how2heap</a><a href="/tags/heap/" style="font-size: 1.2em; color: rgb(12, 137, 14)">heap</a><a href="/tags/%E5%AE%89%E5%85%A8%E6%A3%80%E6%9F%A5/" style="font-size: 1.15em; color: rgb(174, 20, 37)">安全检查</a><a href="/tags/glibc/" style="font-size: 1.2em; color: rgb(4, 152, 133)">glibc</a><a href="/tags/%E5%A0%86/" style="font-size: 1.35em; color: rgb(97, 148, 138)">堆</a><a href="/tags/llvm-pass/" style="font-size: 1.15em; color: rgb(109, 190, 58)">llvm-pass</a><a href="/tags/pwnable-tw/" style="font-size: 1.15em; color: rgb(1, 95, 153)">pwnable.tw</a><a href="/tags/%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/" style="font-size: 1.15em; color: rgb(99, 196, 26)">刷题记录</a><a href="/tags/phppwn/" style="font-size: 1.15em; color: rgb(66, 46, 147)">phppwn</a><a href="/tags/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" style="font-size: 1.15em; color: rgb(10, 136, 142)">环境搭建</a><a href="/tags/linux/" style="font-size: 1.15em; color: rgb(29, 10, 81)">linux</a><a href="/tags/%E6%9D%82%E7%83%A9/" style="font-size: 1.15em; color: rgb(0, 64, 31)">杂烩</a><a href="/tags/%E6%8A%80%E5%B7%A7/" style="font-size: 1.15em; color: rgb(164, 177, 14)">技巧</a><a href="/tags/DynELF/" style="font-size: 1.15em; color: rgb(75, 155, 42)">DynELF</a><a href="/tags/mprotect/" style="font-size: 1.15em; color: rgb(14, 92, 114)">mprotect</a><a href="/tags/vsyscall/" style="font-size: 1.15em; color: rgb(126, 88, 49)">vsyscall</a><a href="/tags/setcontext/" style="font-size: 1.15em; color: rgb(34, 123, 17)">setcontext</a><a href="/tags/pyjail/" style="font-size: 1.15em; color: rgb(10, 5, 124)">pyjail</a></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2023 - 2024 By ixout</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><a class="icon-V hidden" onclick="switchNightMode()" title="浅色和深色模式转换"><svg width="25" height="25" viewBox="0 0 1024 1024"><use id="modeicon" xlink:href="#icon-moon"></use></svg></a><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button><button id="go-down" type="button" title="直达底部" onclick="btf.scrollToDest(document.body.scrollHeight, 500)"><i class="fas fa-arrow-down"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><div class="js-pjax"></div><canvas id="universe"></canvas><script defer src="/js/universe.js"></script><script defer src="/js/cursor.js"></script><script async src="/js/fps.js"></script><script async src="/js/title.js"></script><script src="/js/sun_moon.js" async></script><script async src="//at.alicdn.com/t/c/font_3930344_38rvofbfw64.js"></script><script defer="defer" id="ribbon" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-ribbon.min.js" size="150" alpha="0.6" zIndex="-1" mobile="false" data-click="true"></script><script id="click-show-text" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/click-show-text.min.js" data-mobile="false" data-text="富强,民主,文明,和谐,自由,平等,公正,法治,爱国,敬业,诚信,友善" data-fontsize="20px" data-random="false" async="async"></script></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div><!-- hexo injector body_end start --><script async src="//at.alicdn.com/t/font_2032782_8d5kxvn09md.js"></script><!-- hexo injector body_end end --></body></html>

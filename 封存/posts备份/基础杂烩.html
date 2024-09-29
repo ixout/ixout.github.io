@@ -1,0 +1,515 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"><title>基础杂烩 | ixout's blog</title><meta name="author" content="ixout"><meta name="copyright" content="ixout"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="一些十分基础的东西">
+<meta property="og:type" content="website">
+<meta property="og:title" content="基础杂烩">
+<meta property="og:url" content="https://ixout.github.io/%E5%B0%81%E5%AD%98/posts%E5%A4%87%E4%BB%BD/%E5%9F%BA%E7%A1%80%E6%9D%82%E7%83%A9.html">
+<meta property="og:site_name" content="ixout&#39;s blog">
+<meta property="og:description" content="一些十分基础的东西">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ixout/picture@main/img/back.jpg">
+<meta property="article:published_time" content="2023-03-18T07:16:02.000Z">
+<meta property="article:modified_time" content="2023-11-17T15:27:43.845Z">
+<meta property="article:author" content="ixout">
+<meta property="article:tag" content="学习记录">
+<meta property="article:tag" content="基础">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/ixout/picture@main/img/back.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://ixout.github.io/%E5%B0%81%E5%AD%98/posts%E5%A4%87%E4%BB%BD/%E5%9F%BA%E7%A1%80%E6%9D%82%E7%83%A9.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: true,
+  islazyload: true,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: true,
+  }
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '基础杂烩',
+  isPost: false,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: false,
+  postUpdate: '2023-11-17 23:27:43'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/universe.css"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/js-heo@1.0.11/mainColor/heoMainColor.css"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/js-heo@1.0.11/poem/poem.css"><link rel="stylesheet" href="/css/footerb.css"><link rel="stylesheet" href="/css/bolang.css"><link rel="stylesheet" href="/css/jzbar.css"><link rel="stylesheet" href="/css/trans.css"><link rel="stylesheet" href="/css/gundongtiao.css"><link rel="stylesheet" href="/css/shubiao.css"><link rel="stylesheet" href="/css/fengche.css"><link rel="stylesheet" href="/css/alitubiao.css"><link rel="stylesheet" href="/css/fps.css"><span id="fps"></span><link rel="stylesheet" href="/css/yituliu.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="//at.alicdn.com/t/c/font_3930344_38rvofbfw64.css" media="defer" onload="this.media='all'"><svg aria-hidden="true" style="position:absolute; overflow:hidden; width:0; height:0"><symbol id="icon-sun" viewBox="0 0 1024 1024"><path d="M960 512l-128 128v192h-192l-128 128-128-128H192v-192l-128-128 128-128V192h192l128-128 128 128h192v192z" fill="#FFD878" p-id="8420"></path><path d="M736 512a224 224 0 1 0-448 0 224 224 0 1 0 448 0z" fill="#FFE4A9" p-id="8421"></path><path d="M512 109.248L626.752 224H800v173.248L914.752 512 800 626.752V800h-173.248L512 914.752 397.248 800H224v-173.248L109.248 512 224 397.248V224h173.248L512 109.248M512 64l-128 128H192v192l-128 128 128 128v192h192l128 128 128-128h192v-192l128-128-128-128V192h-192l-128-128z" fill="#4D5152" p-id="8422"></path><path d="M512 320c105.888 0 192 86.112 192 192s-86.112 192-192 192-192-86.112-192-192 86.112-192 192-192m0-32a224 224 0 1 0 0 448 224 224 0 0 0 0-448z" fill="#4D5152" p-id="8423"></path></symbol><symbol id="icon-moon" viewBox="0 0 1024 1024"><path d="M611.370667 167.082667a445.013333 445.013333 0 0 1-38.4 161.834666 477.824 477.824 0 0 1-244.736 244.394667 445.141333 445.141333 0 0 1-161.109334 38.058667 85.077333 85.077333 0 0 0-65.066666 135.722666A462.08 462.08 0 1 0 747.093333 102.058667a85.077333 85.077333 0 0 0-135.722666 65.024z" fill="#FFB531" p-id="11345"></path><path d="M329.728 274.133333l35.157333-35.157333a21.333333 21.333333 0 1 0-30.165333-30.165333l-35.157333 35.157333-35.114667-35.157333a21.333333 21.333333 0 0 0-30.165333 30.165333l35.114666 35.157333-35.114666 35.157334a21.333333 21.333333 0 1 0 30.165333 30.165333l35.114667-35.157333 35.157333 35.157333a21.333333 21.333333 0 1 0 30.165333-30.165333z" fill="#030835" p-id="11346"></path></symbol></svg><!-- hexo injector head_end start --><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/assets/font-awesome-animation.min.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/tag_plugins.css" media="defer" onload="this.media='all'"><script src="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/assets/carousel-touch.js"></script><!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="ixout's blog" type="application/atom+xml">
+</head><body><div id="loading-box"><div class="pokeball-back"></div><div class="pokeball-loading"><div class="pokeball" id="pokeball-normal"></div><div class="pokeball" id="pokeball-great"></div><div class="pokeball" id="pokeball-ultra"></div><div class="pokeball" id="pokeball-master"></div><div class="pokeball" id="pokeball-safari"></div></div></div><script async="async">const preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+document.getElementById('loading-box').addEventListener('click',()=> {preloader.endLoading()})
+setTimeout(function(){preloader.endLoading();}, 7000);
+
+if (false) {
+  document.addEventListener('pjax:send', () => { preloader.initLoading() })
+  document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+}</script><link rel="stylesheet" href="/css/jzbar.css"/><script src="https://cdn.jsdelivr.net/npm/pace-js/pace.min.js"></script><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/touxiang.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">58</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">64</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">5</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw iconfont icon-hanbao"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw iconfont icon-fenlei"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw iconfont icon-biaoqian"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw iconfont icon-youlian"></i><span> 友人帐</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw iconfont icon-fantuan"></i><span> About</span></a></div></div></div></div><div class="page" id="body-wrap"><header class="not-home-page" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="ixout's blog"><span class="site-name">ixout's blog</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw iconfont icon-hanbao"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw iconfont icon-fenlei"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw iconfont icon-biaoqian"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw iconfont icon-youlian"></i><span> 友人帐</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw iconfont icon-fantuan"></i><span> About</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="page-site-info"><h1 id="site-title">基础杂烩</h1></div></header><main class="layout" id="content-inner"><div id="page"><div id="article-container"><h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>学习过程中发现自己对一些计算机系统的基础知识并不了解，目前暂时也没有精力去系统的学习，于是就将经常遇到的又不懂的知识归纳一下</p>
+<hr>
+<h1 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h1><h2 id="虚拟地址与物理地址之间的映射"><a href="#虚拟地址与物理地址之间的映射" class="headerlink" title="虚拟地址与物理地址之间的映射"></a>虚拟地址与物理地址之间的映射</h2><p>先看一下进程虚拟地址空间的总体布局，以32位Linux系统为例：</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/ixout/picture@main/img/2023-03-18_152459.png" alt=""></p>
+<p>基于上图的虚拟地址空间布局来简单说下ELF文件是怎样映射到进程虚拟地址空间的，ELF文件被组织成如下图左列出的一系列section，其中具有相同属性（R/W/E）的section再组成一个segment，以segment为单位映射到进程的虚拟地址空间，其中虚拟地址空间中的segment要做到页大小对齐，下图也一同简要展示了虚拟地址空间到物理地址空间的映射，通过MMU完成。</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/ixout/picture@main/img/2023-03-18_152545.png" alt=""></p>
+<p>其它系统原理类似，都是将可执行程序组织成若干segment连同用到的动态库和kernel映射到进程的虚拟地址空间，主要差别在于不同segment映射的起始地址、大小不同等，比如32位Linux系统的Text segment起址是0x08048000，64位Linux系统的Text segment起址是0x00400000，再比如相对32位Linux系统的kernel space是1G，32位Windows的kernel space是2G等等。</p>
+<h2 id="main函数参数"><a href="#main函数参数" class="headerlink" title="main函数参数"></a>main函数参数</h2><p>学c语言时有没有学过忘了，反正我不会，了解一下</p>
+<ul>
+<li><p>int argc：这个东西是所有参数的个数，包括文件名</p>
+</li>
+<li><p>char* argv[]：这个东西里面，argv[]是argc个参数，其中第0个参数即argv[0]是程序的全名，后面跟着的就是用户输入的参数了</p>
+</li>
+<li>char* envp[]：这个东西用来取得系统的环境变量，envp保存了系统所有的环境变量路径</li>
+</ul>
+<h2 id="从源代码到可执行文件"><a href="#从源代码到可执行文件" class="headerlink" title="从源代码到可执行文件"></a>从源代码到可执行文件</h2><p>过程可分为4个步骤：预处理（Preprocessing）、编译（Compilation）、汇编（Assembly）和链接（Linking）。</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/ixout/picture@main/img/2023-03-26_110757.png" alt=""></p>
+<p>以hello word 为例</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line">main()</span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;hello, world\n&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="预编译"><a href="#预编译" class="headerlink" title="预编译"></a>预编译</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gcc -E hello.c -o hello.i</span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"># <span class="number">1</span> <span class="string">&quot;hello.c&quot;</span></span><br><span class="line"># <span class="number">1</span> <span class="string">&quot;&lt;built-in&gt;&quot;</span></span><br><span class="line"># <span class="number">1</span> <span class="string">&quot;&lt;command-line&gt;&quot;</span></span><br><span class="line">......</span><br><span class="line"><span class="keyword">extern</span> <span class="type">int</span> <span class="title function_">printf</span> <span class="params">(<span class="type">const</span> <span class="type">char</span> *__restrict __format, ...)</span>;</span><br><span class="line">......</span><br><span class="line">main() &#123;</span><br><span class="line"> <span class="built_in">printf</span>(<span class="string">&quot;hello, world\n&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>预编译过程主要处理源代码中以 “#” 开始的预编译指令：</p>
+<ul>
+<li>将所有的 “#define” 删除，并且展开所有的宏定义。</li>
+<li>处理所有条件预编译指令，如 “#if”、“#ifdef”、“#elif”、“#else”、“#endif”。</li>
+<li>处理 “#include” 预编译指令，将被包含的文件插入到该预编译指令的位置。注意，该过程递归执行。</li>
+<li>删除所有注释。</li>
+<li>添加行号和文件名标号。</li>
+<li>保留所有的 #pragma 编译器指令。</li>
+</ul>
+<h3 id="编译"><a href="#编译" class="headerlink" title="编译"></a>编译</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gcc -S hello.c -o hello.s</span><br></pre></td></tr></table></figure>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">        .file   &quot;hello.c&quot;</span><br><span class="line">        .section        .rodata</span><br><span class="line">.LC0:</span><br><span class="line">        .string &quot;hello, world&quot;</span><br><span class="line">        .text</span><br><span class="line">        .globl  main</span><br><span class="line">        .type   main, @function</span><br><span class="line">main:</span><br><span class="line">.LFB0:</span><br><span class="line">        .cfi_startproc</span><br><span class="line">        pushq   %rbp</span><br><span class="line">        .cfi_def_cfa_offset 16</span><br><span class="line">        .cfi_offset 6, -16</span><br><span class="line">        movq    %rsp, %rbp</span><br><span class="line">        .cfi_def_cfa_register 6</span><br><span class="line">        leaq    .LC0(%rip), %rdi</span><br><span class="line">        call    puts@PLT</span><br><span class="line">        movl    $0, %eax</span><br><span class="line">        popq    %rbp</span><br><span class="line">        .cfi_def_cfa 7, 8</span><br><span class="line">        ret</span><br><span class="line">        .cfi_endproc</span><br><span class="line">.LFE0:</span><br><span class="line">        .size   main, .-main</span><br><span class="line">        .ident  &quot;GCC: (GNU) 7.2.0&quot;</span><br><span class="line">        .section        .note.GNU-stack,&quot;&quot;,@progbits</span><br></pre></td></tr></table></figure>
+<p>编译过程就是把预处理完的文件进行一系列词法分析、语法分析、语义分析及优化后生成相应的汇编代码文件。</p>
+<h3 id="汇编"><a href="#汇编" class="headerlink" title="汇编"></a>汇编</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ gcc -c hello.s -o hello.o</span><br><span class="line">或者</span><br><span class="line">$gcc -c hello.c -o hello.o</span><br></pre></td></tr></table></figure>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">$ objdump -sd hello.o</span><br><span class="line"></span><br><span class="line">hello.o:     file format elf64-x86-64</span><br><span class="line"></span><br><span class="line">Contents of section .text:</span><br><span class="line"> 0000 554889e5 488d3d00 000000e8 00000000  UH..H.=.........</span><br><span class="line"> 0010 b8000000 005dc3                      .....].</span><br><span class="line">Contents of section .rodata:</span><br><span class="line"> 0000 68656c6c 6f2c2077 6f726c64 00        hello, world.</span><br><span class="line">Contents of section .comment:</span><br><span class="line"> 0000 00474343 3a202847 4e552920 372e322e  .GCC: (GNU) 7.2.</span><br><span class="line"> 0010 3000                                 0.</span><br><span class="line">Contents of section .eh_frame:</span><br><span class="line"> 0000 14000000 00000000 017a5200 01781001  .........zR..x..</span><br><span class="line"> 0010 1b0c0708 90010000 1c000000 1c000000  ................</span><br><span class="line"> 0020 00000000 17000000 00410e10 8602430d  .........A....C.</span><br><span class="line"> 0030 06520c07 08000000                    .R......</span><br><span class="line"></span><br><span class="line">Disassembly of section .text:</span><br><span class="line"></span><br><span class="line">0000000000000000 &lt;main&gt;:</span><br><span class="line">   0:   55                      push   %rbp</span><br><span class="line">   1:   48 89 e5                mov    %rsp,%rbp</span><br><span class="line">   4:   48 8d 3d 00 00 00 00    lea    0x0(%rip),%rdi        # b &lt;main+0xb&gt;</span><br><span class="line">   b:   e8 00 00 00 00          callq  10 &lt;main+0x10&gt;</span><br><span class="line">  10:   b8 00 00 00 00          mov    $0x0,%eax</span><br><span class="line">  15:   5d                      pop    %rbp</span><br><span class="line">  16:   c3                      retq</span><br></pre></td></tr></table></figure>
+<p>汇编器将汇编代码转变成机器可以执行的指令。</p>
+<h3 id="链接"><a href="#链接" class="headerlink" title="链接"></a>链接</h3><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gcc hello.o -o hello</span><br></pre></td></tr></table></figure>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">$ objdump -d -j .text hello</span><br><span class="line">......</span><br><span class="line">000000000000064a &lt;main&gt;:</span><br><span class="line"> 64a:   55                      push   %rbp</span><br><span class="line"> 64b:   48 89 e5                mov    %rsp,%rbp</span><br><span class="line"> 64e:   48 8d 3d 9f 00 00 00    lea    0x9f(%rip),%rdi        # 6f4 &lt;_IO_stdin_used+0x4&gt;</span><br><span class="line"> 655:   e8 d6 fe ff ff          callq  530 &lt;puts@plt&gt;</span><br><span class="line"> 65a:   b8 00 00 00 00          mov    $0x0,%eax</span><br><span class="line"> 65f:   5d                      pop    %rbp</span><br><span class="line"> 660:   c3                      retq</span><br><span class="line"> 661:   66 2e 0f 1f 84 00 00    nopw   %cs:0x0(%rax,%rax,1)</span><br><span class="line"> 668:   00 00 00</span><br><span class="line"> 66b:   0f 1f 44 00 00          nopl   0x0(%rax,%rax,1)</span><br><span class="line">......</span><br></pre></td></tr></table></figure>
+<p>目标文件需要链接一大堆文件才能得到最终的可执行文件（上面只展示了链接后的 main 函数，可以和 hello.o 中的 main 函数作对比）。链接过程主要包括地址和空间分配（Address and Storage Allocation）、符号决议（Symbol Resolution）和重定向（Relocation）等。</p>
+<h2 id="流与缓冲"><a href="#流与缓冲" class="headerlink" title="流与缓冲"></a>流与缓冲</h2><h3 id="缓冲区是啥"><a href="#缓冲区是啥" class="headerlink" title="缓冲区是啥"></a>缓冲区是啥</h3><p>缓冲区是计算机中用于存储数据的一段内存区域，它可以用于临时存储输入或输出的数据，以提高计算机的性能。<strong>在输入/输出操作中，缓冲区通常用于临时存储待读取或待写入的数据</strong>。</p>
+<p>在标准C库中，对于文件流，缓冲区是由库管理的一个内存区域，用于存储读写数据时的临时数据。<strong>输入缓冲区用于缓存从文件中读取的数据，输出缓冲区用于缓存将要写入文件的数据</strong>。缓冲区的作用是将多个小数据块合并成一个大数据块进行读写，从而提高输入输出效率。</p>
+<p>缓冲区的大小通常是可配置的，并且可以根据实际需求进行调整。较小的缓冲区可以提高输入输出的实时性，但可能会导致读写速度较慢。较大的缓冲区可以提高输入输出的速度，但会消耗更多的内存空间。因此，在实际应用中，需要根据具体场景和需求来选择合适的缓冲区大小。</p>
+<h3 id="输出流与输入流和错误流"><a href="#输出流与输入流和错误流" class="headerlink" title="输出流与输入流和错误流"></a>输出流与输入流和错误流</h3><p><strong>输入流</strong>通常与输入设备相对应，例如键盘、鼠标、触摸屏等。程序可以从输入流中读取数据，以便对数据进行处理和分析。在 C 语言中，标准输入流 stdin 就是一种输入流，程序可以使用各种输入函数（如 scanf() 或 fgets()）从 stdin 中读取数据。</p>
+<p><strong>输出流</strong>通常与输出设备相对应，例如显示器、打印机、文件等。程序可以使用各种输出函数（如 printf() 或 fputs()）将数据输出到输出流中，以便展示给用户或保存到文件中。在 C 语言中，标准输出流 stdout 就是一种输出流，程序可以使用各种输出函数向 stdout 中输出数据。</p>
+<p>除了标准输入流 stdin 和标准输出流 stdout，C 语言还提供了一个<strong>标准错误流 stderr</strong>。与标准输入流和标准输出流类似，标准错误流也是一种数据流，用于向程序开发者或用户报告错误和异常情况。在 C 语言中，标准错误流 stderr 与标准输出流 stdout 类似，也是一种输出流，可以使用各种输出函数将错误信息输出到 stderr 中。与标准输出流不同的是，标准错误流通常不会被缓冲，这意味着当错误信息输出到 stderr 时，它会立即显示在屏幕上或被写入到文件中，以便及时发现和处理错误。</p>
+<h3 id="setbuf"><a href="#setbuf" class="headerlink" title="setbuf"></a>setbuf</h3><p>setbuf 是一个标准C库函数，用于设置标准I/O库的缓冲区。它的原型为：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">void setbuf(FILE *restrict stream, char *restrict buf);</span><br></pre></td></tr></table></figure>
+<p>其中，stream 是一个指向 FILE 结构体的指针，用于标识要设置缓冲区的流；buf 是一个指向 char 类型的数组，用于指定缓冲区的地址。<strong>如果 buf 是 NULL，那么会禁用缓冲，相当于将流设置为无缓冲模式</strong>。</p>
+<p>setbuf 函数的作用是设置流的缓冲区，以及决定流的缓冲模式（有缓冲或无缓冲）。</p>
+<p>使用 setbuf 函数可以在打开文件之后立即设置流的缓冲区，这比使用 setvbuf 函数要简单，但是 setbuf 函数不支持自定义缓冲区大小和缓冲模式的设置。</p>
+<h3 id="setvbuf"><a href="#setvbuf" class="headerlink" title="setvbuf"></a>setvbuf</h3><p>setvbuf和setbuf类似,但有些许差异</p>
+<p>setvbuf 函数原型为：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">int setvbuf(FILE *stream, char *buffer, int mode, size_t size);</span><br></pre></td></tr></table></figure>
+<ol>
+<li><code>stream</code>：一个指向文件流的指针，它指定要设置缓冲区的文件。</li>
+<li><code>buffer</code>：一个指向缓冲区的指针，用于指定自定义缓冲区。如果设置为 <code>NULL</code>，<strong>则 <code>setvbuf</code> 将为文件流分配一个默认缓冲区。</strong></li>
+<li><code>mode</code>：一个整数，指定缓冲区的类型。可以采用以下三个预定义常量之一：<ul>
+<li><code>_IOFBF</code>：完全缓冲（full buffering）模式，文件的读写操作都在缓冲区中进行。数据在缓冲区填满或者使用 <code>fflush</code> 函数刷新缓冲区时才进行实际的读写操作。<strong>值等于0</strong></li>
+<li><code>_IOLBF</code>：行缓冲（line buffering）模式，每次写入缓冲区的数据是以换行符 <code>\n</code> 结尾的，或者缓冲区已满时会自动刷新缓冲区。在读取时，数据也是以行为单位从缓冲区读取。<strong>值等于1</strong></li>
+<li><code>_IONBF</code>：无缓冲（unbuffered）模式，数据立即写入文件或从文件读取，没有缓冲区。<strong>值等于2</strong></li>
+</ul>
+</li>
+<li><code>size</code>：一个 <code>size_t</code> 类型的值，指定缓冲区的大小（仅在自定义缓冲区时有效）。如果 <code>buffer</code> 参数为 <code>NULL</code>，则此参数指定默认缓冲区的大小</li>
+</ol>
+<h3 id="缓冲区刷新"><a href="#缓冲区刷新" class="headerlink" title="缓冲区刷新"></a>缓冲区刷新</h3><p>当缓冲区满时(或行缓冲遇到\n)，<strong>会触发缓冲区刷新操作</strong>，<strong>即将缓冲区内的数据发送到相应的文件或设备中(写入或输出)</strong>。具体来说，缓冲区满的情况下有两种触发缓冲区刷新的方式：</p>
+<ol>
+<li>缓冲区填满(或行缓冲遇到\n)：当缓冲区已满并且程序试图向其写入更多数据时，会自动触发缓冲区刷新操作，将缓冲区内的数据发送到相应的文件或设备中，以便为新的数据腾出空间。(如果换行符后面还有字符则可能会出现一些奇怪的行为)</li>
+<li>强制刷新：程序可以通过调用 fflush 函数强制刷新缓冲区，即将缓冲区内的数据立即发送到相应的文件或设备中，而不必等待缓冲区填满。</li>
+</ol>
+<p>需要注意的是，<strong><u>在默认情况下</u></strong>，缓冲区在以下情况下会自动刷新：</p>
+<ol>
+<li><strong>当程序正常退出时。</strong></li>
+<li><u><strong>当程序调用 exit 函数时。</strong></u></li>
+<li><strong>在输出流（例如标准输出流<code>stdout</code>或标准错误流<code>stderr</code>）中，当缓冲区被填满，或者调用<code>printf()</code>、<code>puts()</code>等输出函数时，会自动刷新缓冲区。</strong></li>
+<li><strong>程序调用了某些输入函数（例如fgets、fscanf、gets、getchar、scanf）来读取缓冲区中的数据，此时缓冲区中的数据将被强制刷新到程序中进行处理。</strong>(如果输入缓冲区中有数据，就会从输入缓冲区中读取数据并进行处理，如果输入缓冲区中没有数据，则会等待用户输入，直到用户输入完毕。当这些函数被调用时，<strong><u>如果输入缓冲区中的数据长度超过了函数所期望的长度，多余的数据将会被保留在输入缓冲区中</u></strong>，等待下一次输入函数调用时被处理。)</li>
+</ol>
+<h3 id="常见形式与功能"><a href="#常见形式与功能" class="headerlink" title="常见形式与功能"></a>常见形式与功能</h3><p>经常能在做题时看见</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">setvbuf(<span class="built_in">stdout</span>, <span class="number">0</span>, <span class="number">2</span>, <span class="number">0</span>);</span><br><span class="line">setvbuf(<span class="built_in">stdin</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>);</span><br><span class="line">setvbuf(<span class="built_in">stderr</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>);</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>setvbuf(stdout, 0, 2, 0);</code> 表示将标准输出流 stdout 设置为无缓冲模式，并且缓冲区大小为默认大小。</li>
+<li><code>setvbuf(stdin, 0, 1, 0);</code> 表示将标准输入流 stdin 设置为行缓冲模式，并且缓冲区大小为默认大小。</li>
+<li><code>setvbuf(stderr, 0, 1, 0);</code> 表示将标准错误流 stderr 设置为行缓冲模式，并且缓冲区大小为默认大小。</li>
+</ul>
+<p>或者</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">setbuf(<span class="built_in">stdin</span>,<span class="number">0</span>)</span><br><span class="line">setbuf(<span class="built_in">stdout</span>,<span class="number">0</span>)</span><br><span class="line">setbuf(<span class="built_in">stderr</span>,<span class="number">0</span>)</span><br></pre></td></tr></table></figure>
+<p>setbuf函数被用来禁用了标准输入、标准输出和标准错误流的缓冲区，将其设置为无缓冲模式。</p>
+<p>在无缓冲模式下，每次从流中读取或写入的数据都会直接传输到底层设备，而不会先缓存在流的缓冲区中。文件与设备是直接交互的，中间没有缓冲区(存在但未使用)。</p>
+<h3 id="若无setbuf与setvbuf"><a href="#若无setbuf与setvbuf" class="headerlink" title="若无setbuf与setvbuf"></a>若无setbuf与setvbuf</h3><p>在标准C中，<strong><u><em>默认情况下</em></u></strong>，<strong>标准错误流是不缓冲的</strong>，也就是说，每次读取或写入<u>一个字符</u>时都会立即与底层设备进行交互。而<strong>标准输入和标准输出流默认是<u>全缓冲</u>的</strong>，也就是说，每当输出一个<u>换行符</u>或者缓冲区被<u>填满</u>时，才会将缓冲区中的数据输出到屏幕上。</p>
+<p>这也就是为什么一些题目,按照源码明明该有输出,但管道却阻塞无输出的原因</p>
+<p><strong><u>此外若程序在无setbuf与setvbuf的情况下,要想获得其最终结果输出就需要使得程序正常退出(exit())</u></strong></p>
+<p>因为此时输出结果<u>是先缓存在服务器本地的</u>。</p>
+<p>另外，程序<u>本身没有setbuf操作的话</u>，<strong>在第一次执行io操作时会在堆中申请缓冲区(1024?)</strong>。</p>
+<p>上面所述有一些问题，具体与编译器版本有一定关系</p>
+<h3 id="待修！！"><a href="#待修！！" class="headerlink" title="待修！！"></a>待修！！</h3><p>有点懵<br><strong>总之做题过程中，要<u>特别注意传递的数据的长度与程序处理的数据长度对应，特别是换行符的问题</u>！！！</strong></p>
+<p><u>还有相连的输入函数处理问题</u></p>
+<p><strong>还有低级io函数如read、write，与其他标准输入输出函数又有些许不同(<u>例如read似乎并不完全遵守有缓冲模式的规则</u>),需要注意具体分析。</strong></p>
+<h2 id="linux程序执行流程"><a href="#linux程序执行流程" class="headerlink" title="linux程序执行流程"></a>linux程序执行流程</h2><p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/ixout/picture@main/img/hZ3KjroJWDPQBcl.png" alt=""></p>
+<h2 id="ASLR与PIE"><a href="#ASLR与PIE" class="headerlink" title="ASLR与PIE"></a>ASLR与PIE</h2><p>总是混淆分不清,整理一下</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th></th>
+<th>作用位置</th>
+<th>归属</th>
+<th>作用时间</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ASLR</td>
+<td>0:不开启<br/>1：栈基地址（stack）、共享库（.so\libraries）、mmap 基地址<br/>2：在 1 基础上，增加随机化堆基地址（chunk）</td>
+<td>系统功能</td>
+<td>作用于程序（ELF）装入内存运行时</td>
+</tr>
+<tr>
+<td>PIE</td>
+<td>代码段（ .text ）、初始化数据段（ .data ）、未初始化数据段（ .bss ）</td>
+<td>编译器功能</td>
+<td>作用于程序（ELF）编译过程中</td>
+</tr>
+</tbody>
+</table>
+</div>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">修改ASLR设置</span><br><span class="line">echo 0/1/2 &gt; /proc/sys/kernel/randomize_va_space</span><br></pre></td></tr></table></figure>
+<h2 id="python3-str-amp-amp-bytes"><a href="#python3-str-amp-amp-bytes" class="headerlink" title="python3-str&amp;&amp;bytes"></a>python3-str&amp;&amp;bytes</h2><p>在Python 3中,有两种类型的文本数据字符串(str)和字节串(bytes).</p>
+<h3 id="异同"><a href="#异同" class="headerlink" title="异同"></a>异同</h3><p>二者最大的差异在于编码方式:</p>
+<ol>
+<li>字符串是Unicode字符序列，使用UTF-8等编码方式存储。</li>
+<li>字节串是二进制数据序列，它们是字节的序列，采用ASCII编码,每个字节的值在0-255之间。</li>
+</ol>
+<p>此外还有许多细节差异</p>
+<ol>
+<li>可变性： 字符串是不可变的，这意味着一旦创建，就不能修改它们的内容。字节串也是不可变的，但它们可以被替换成一个新的字节串。</li>
+<li>用途： 字符串通常用于文本处理，如字符串的搜索、替换、拼接等。字节串通常用于二进制数据处理，如图像、声音、视频等数据的读写和处理。</li>
+<li>操作符的区别： 在字符串中，“+”运算符表示字符串的连接，而在字节串中，“+”运算符表示字节串的拼接。在字符串中，“<em>”运算符表示重复一个字符串，而在字节串中，“\</em>”运算符表示重复一个字节串。</li>
+<li>方法的区别： 字符串和字节串具有许多相同的方法，但在实现上有所不同。例如，在字符串中，str.split()方法返回一个字符串列表，而在字节串中，bytes.split()方法返回一个字节串列表。</li>
+</ol>
+<h3 id="表示"><a href="#表示" class="headerlink" title="表示"></a>表示</h3><ol>
+<li>str:字符串使用单引号、双引号或三重引号来表示。</li>
+<li>bytes:字节串则使用<strong>前缀“b”</strong>来表示，后跟一对单引号、双引号或三重引号。</li>
+</ol>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">string1 = <span class="string">&#x27;Hello, world!&#x27;</span></span><br><span class="line">bytes1 = <span class="string">b&#x27;Hello, world!&#x27;</span></span><br></pre></td></tr></table></figure>
+<h3 id="变量插入"><a href="#变量插入" class="headerlink" title="变量插入"></a>变量插入</h3><p>{}留空,逐个对应format中的变量</p>
+<p>在str中插入变量</p>
+<p><code>str=&#39;abc&#123;&#125;&#39;.format()&#39;</code></p>
+<p>在bytes中插入变量</p>
+<p><code>bytes=bytes(&#39;abc&#123;&#125;&#39;.format(),&#39;utf-8&#39;)</code></p>
+<p>bytes插入变量需要<strong>指定解码方式</strong></p>
+<h2 id="XMM寄存器"><a href="#XMM寄存器" class="headerlink" title="XMM寄存器"></a>XMM寄存器</h2><h3 id="基础"><a href="#基础" class="headerlink" title="基础"></a>基础</h3><p>现代处理器还有一些扩展,这些扩展体现在电路上，指令集上，有时候也会扩展一些很有用的寄存器。</p>
+<p>比较著名的扩展叫作 SSE (Streaming SIMD Extensions)，该扩展加入了新的 xmm 寄存器集合：</p>
+<p><strong>xmm0，xmm1，…，xmm15</strong>。共16个寄存器,这些寄存器固定为 <strong>128 位宽</strong>，常用于两种任务：</p>
+<ul>
+<li>浮点数运算；</li>
+<li>SIMD 指令集(这种指令一条指令可以操作多条数据)</li>
+</ul>
+<p>每个XMM寄存器都可以存储128位（16字节）的数据，并且可以用于执行一次性并行处理多个数据的操作，如浮点运算、图像处理和向量运算等。这使得XMM寄存器在执行高性能计算和多媒体应用程序时非常有用。</p>
+<h3 id="内存对齐问题"><a href="#内存对齐问题" class="headerlink" title="内存对齐问题"></a>内存对齐问题</h3><p>先看操作xmm寄存器的四个指令</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">movaps和movups之间的区别在于对内存对齐的要求。movaps要求数据在内存中按照128位对齐，而movups可以处理未对齐的数据。</span><br><span class="line"></span><br><span class="line">movups：将128位数据从一个XMM寄存器或内存位置复制到另一个XMM寄存器或内存位置。与movaps不同，movups不要求数据在内存中按照128位对齐。</span><br><span class="line"></span><br><span class="line">movdqa：将128位数据从一个XMM寄存器或内存位置复制到另一个XMM寄存器或内存位置。与movaps类似，movdqa要求数据在内存中按照128位对齐。</span><br><span class="line"></span><br><span class="line">movdqu：类似于movups，它将128位数据从一个XMM寄存器或内存位置复制到另一个XMM寄存器或内存位置，但是对内存对齐没有特殊要求。它可以处理未对齐的数据，并且在某些情况下，可能会导致性能下降。</span><br></pre></td></tr></table></figure>
+<p><strong>结论:movaps和movdqa要求内存对齐,而movups和movdqu不要求</strong></p>
+<p>大多数 SSE 指令都需要内存操作数适当地进行对齐。上面说到的未对齐版本的指令和对齐版本的指令在助记符上就有差别，而且因为内存未对齐的关系，性能也会受影响。由于 SSE 指令经常被用在性能敏感的场合，所以始终使用操作数内存对齐版本的指令是明智之举。</p>
+<h2 id="CISC和RISC"><a href="#CISC和RISC" class="headerlink" title="CISC和RISC"></a>CISC和RISC</h2><p>处理器有一种按照其指令集进行分类的方式。当设计一个处理器时有两个极端。</p>
+<ul>
+<li>设计出各种特化指令，高级指令。这种架构叫作 <strong>CISC (Complete Instruction Set Computer)</strong> 架构。</li>
+<li>只使用一些基本指令，完成的架构叫 <strong>RISC (Reduced Instruction Set Computer)</strong> 架构。</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">指令集复杂：CISC架构的指令集包含大量的复杂指令，可以执行更高级的操作，如内存访问、字符串处理、浮点运算等。这些指令通常具有多个操作数和复杂的寻址模式。</span><br><span class="line">指令多样性：CISC架构的指令集包含各种不同的指令，每个指令可以执行多个操作，甚至一个指令可以完成一系列操作。这使得编程更灵活，但也增加了硬件的复杂性。</span><br><span class="line">存储器访问：CISC架构通常允许直接访问内存，即指令可以直接操作内存中的数据，而不需要将数据加载到寄存器中。</span><br><span class="line">指令长度不统一：CISC指令长度可以不同，从几个字节到几十个字节不等，这使得指令解码复杂。</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">简化指令集：RISC架构的指令集相对简化，指令数量较少且固定，每个指令执行的操作也更加简单和基本，如算术运算、逻辑运算等。</span><br><span class="line">指令统一性：RISC架构的指令长度一般是固定的，通常为两个字（32位）或一个字（16位），这简化了指令解码和处理器设计。</span><br><span class="line">寄存器优先：RISC架构鼓励使用寄存器操作，大多数操作都在寄存器上进行，减少了对内存的直接访问。</span><br><span class="line">流水线执行：RISC架构更注重流水线执行，指令之间的依赖关系较少，可以并行执行，提高了处理器的性能。</span><br></pre></td></tr></table></figure>
+<h2 id="浮点数在内存中的存储"><a href="#浮点数在内存中的存储" class="headerlink" title="浮点数在内存中的存储"></a>浮点数在内存中的存储</h2><p>在计算机中，浮点数表示方式采用了<strong>IEEE 754</strong>标准。IEEE 754定义了浮点数的二进制表示规范，它规定了浮点数的位数、指数位数、小数位数等。</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th></th>
+<th>符号位</th>
+<th>指数位</th>
+<th>小数位</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>float</td>
+<td>1位</td>
+<td>11位(偏移1023)</td>
+<td>52位</td>
+</tr>
+<tr>
+<td>double</td>
+<td>1位</td>
+<td>8位(偏移127)</td>
+<td>23位</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>具体的存储方式为：</p>
+<ol>
+<li>符号位：用于表示浮点数的正负号，0表示正数，1表示负数。</li>
+<li>指数位：用于表示浮点数的指数部分。采用”偏移量表示法”，即指数的实际值等于存储的值减去一个偏移量，这样可以使指数既有正数又有负数的表示范围。</li>
+<li>小数位：用于表示浮点数的小数部分。</li>
+</ol>
+<p><strong>具体的转换过程如下：</strong></p>
+<ol>
+<li>将浮点数转换为二进制科学计数法：将浮点数表示为M乘以2的E次方的形式。<strong>其中M是一个大于等于1且小于2的小数（隐藏了最高位的1）</strong>，E是整数。</li>
+<li>根据科学计数法，将M和E转换为二进制表示。</li>
+<li>将符号位、指数位、和小数位组合在一起形成64位二进制数，即双精度浮点数的内存表示。</li>
+</ol>
+<p>举个例子，我们将<code>3.14</code>转换成双精度浮点数(double)的二进制表示：</p>
+<ol>
+<li><code>3.14</code>的二进制科学计数法为<code>1.570*2^1</code>，其中<code>1.570</code>是小数部分，<code>2^1</code>是2的1次方，即2。</li>
+<li><code>1.570</code>的二进制表示是<code>1.1010001001100110011001100110011001100110011001101</code>。</li>
+<li><code>2</code>的二进制表示是<code>10</code>。</li>
+</ol>
+<p>现在将符号位、指数位、和小数位组合在一起：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">符号位: 0 (表示正数)</span><br><span class="line">指数位: 1023 + 1 = 1024，对应的二进制表示是：`10000000000`</span><br><span class="line">小数位: `1010001001100110011001100110011001100110011001101`</span><br></pre></td></tr></table></figure>
+<p>将它们放在一起：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">0 10000000000 1010001001100110011001100110011001100110011001101</span><br></pre></td></tr></table></figure>
+<p><strong>NaN:</strong></p>
+<p>在IEEE 754浮点数标准中，NaN（Not a Number）是一种特殊的浮点数表示，用于表示非法的或未定义的操作的结果。NaN不是一个具体的数字，而是一种特殊的标记。</p>
+<p><code>01111111111  1111 1111 1111 1111 1111 1111 1111 1111</code></p>
+<p>满足</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>Comparison</th>
+<th>NaN ≥ <em>x</em></th>
+<th>NaN ≤ <em>x</em></th>
+<th>NaN &gt; <em>x</em></th>
+<th>NaN &lt; <em>x</em></th>
+<th>NaN = <em>x</em></th>
+<th>NaN ≠ <em>x</em></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Result</td>
+<td>False</td>
+<td>False</td>
+<td>False</td>
+<td>False</td>
+<td>False</td>
+<td>True</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>且NaN!=NaN是成立的</p>
+<p><strong>小数转二进制</strong></p>
+<p>例如，我们要将十进制数0.625转换为二进制表示：</p>
+<ol>
+<li>0.625的整数部分为0，保留小数部分。</li>
+<li>将0.625乘以2，得到1.25。整数部分为1，保留小数部分0.25。</li>
+<li>再将0.25乘以2，得到0.5。整数部分为0，保留小数部分0.5。</li>
+<li>继续将0.5乘以2，得到1.0。整数部分为1，没有小数部分，结束。</li>
+</ol>
+<p>将每次得到的整数部分依次排列起来，就得到了0.625的二进制表示：0.101。</p>
+<p>对于无限不循环小数（如π、e等），在计算机中是无法完全表示的，因为计算机的内存是有限的。因此，对于这些无限不循环小数，计算机只能使用有限的位数来表示，导致了一定的精度损失。</p>
+<h2 id="四大常见架构"><a href="#四大常见架构" class="headerlink" title="四大常见架构"></a>四大常见架构</h2><p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/ixout/picture@main/img/2023-09-05_153014.png" alt=""></p>
+<ol>
+<li><strong>x86 架构</strong>：<ul>
+<li>最常见的处理器架构之一，由英特尔（Intel）和 AMD 公司开发和推广。</li>
+<li>主要用于个人电脑和服务器领域。</li>
+<li>典型的操作系统如Windows和Linux都支持x86架构。</li>
+<li>x86处理器通常采用复杂指令集计算机（CISC）设计，具有广泛的软件兼容性。</li>
+</ul>
+</li>
+<li><strong>ARM 架构</strong>：<ul>
+<li>常见于移动设备、嵌入式系统和物联网设备中。</li>
+<li>低功耗、高性能和节能的特性使其成为移动计算领域的主流。</li>
+<li>ARM处理器通常采用精简指令集计算机（RISC）设计，具有出色的能效和性能平衡。</li>
+</ul>
+</li>
+<li><p><strong>MIPS 架构</strong>：</p>
+<ul>
+<li>最初用于工作站和嵌入式系统。</li>
+<li>具有良好的性能和可扩展性，适用于一些特定应用。</li>
+<li>在某些嵌入式领域仍然有一定的存在。</li>
+</ul>
+</li>
+<li><p><strong>RISC-V</strong></p>
+<ul>
+<li><p>RISC-V是一种开放标准的指令集架构（ISA），任何人都可以免费使用、实现和定制它，而不必支付专利费用。这使得RISC-V在开源和学术界广泛流行。</p>
+</li>
+<li><p>与传统的CISC架构（如x86）不同，RISC-V采用了精简指令集计算机（RISC）设计原则，使指令集更简单和统一，有助于提高性能和降低功耗。</p>
+</li>
+<li><p>RISC-V的设计非常模块化，可以根据需求自定义指令集，这使得它非常适合各种应用，从嵌入式系统到高性能计算。</p>
+</li>
+<li><p>RISC-V可用于各种应用领域，包括嵌入式系统、物联网设备、移动设备、服务器、超级计算机等。</p>
+</li>
+</ul>
+</li>
+<li><p><strong>Power 架构</strong>：</p>
+<ul>
+<li>最初由IBM开发，用于高性能计算和服务器领域。</li>
+<li>具有强大的多核和多线程性能，广泛应用于超级计算机和高性能计算集群。</li>
+</ul>
+</li>
+</ol>
+<h2 id="数据编码"><a href="#数据编码" class="headerlink" title="数据编码"></a>数据编码</h2><h2 id="linux-proc目录"><a href="#linux-proc目录" class="headerlink" title="linux-proc目录"></a>linux-proc目录</h2><p>在Linux系统中，/proc目录是一个虚拟文件系统，用于提供有关当前运行中的内核和系统状态的信息。它不包含实际的文件，而是包含一组伪文件和子目录，这些文件和目录提供了有关系统内核、进程、硬件和其他系统信息的实时视图。</p>
+<p>以下是/proc目录的一些常见用途和子目录：</p>
+<ol>
+<li><strong>/proc/cpuinfo</strong>: 包含有关CPU的信息，如制造商、型号、时钟频率等。</li>
+<li><strong>/proc/meminfo</strong>: 提供系统内存使用的信息，包括总内存、可用内存、缓存等。</li>
+<li><strong>/proc/sys</strong>: 包含用于配置内核参数的文件。可以通过这些文件来动态更改内核的某些行为。</li>
+<li><strong>/proc/<PID></strong>: 每个正在运行的进程都有一个以其进程ID（PID）命名的子目录，其中包含有关该进程的信息，如命令行参数、状态、打开的文件描述符等。</li>
+<li><strong>/proc/net</strong>: 包含有关网络协议、接口和连接的信息。</li>
+<li><strong>/proc/loadavg</strong>: 提供系统的负载平均值，以及最近1分钟、5分钟和15分钟的负载平均值。</li>
+<li><strong>/proc/filesystems</strong>: 列出支持的文件系统类型。</li>
+<li><strong>/proc/interrupts</strong>: 显示当前系统上的中断分配情况，可以用于监视硬件中断的使用情况。</li>
+<li><strong>/proc/mounts</strong>: 列出当前已挂载的文件系统。</li>
+<li><strong>/proc/sys/kernel</strong>: 包含与内核相关的参数，如主机名、域名、内核版本等。</li>
+<li><strong>/proc/sys/fs</strong>: 包含与文件系统相关的参数，如文件句柄限制等。</li>
+</ol>
+<p>这些信息对于系统管理、性能调优和故障排除非常有用，管理员和开发人员可以通过读取/proc目录中的文件来了解系统的运行状况和性能指标。需要注意的是，/proc目录中的信息是动态的，可以在运行时获取，因此可以用于实时监控系统状态。</p>
+<p><strong>其中</strong></p>
+<p>进程的内存信息都会存储于/proc/pid/maps中，</p>
+<p>如果不知道pid,这里pid可以使用self来代替，就能获取本进程libc的地址了。</p>
+<h2 id="函数指针与函数变量"><a href="#函数指针与函数变量" class="headerlink" title="函数指针与函数变量"></a>函数指针与函数变量</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">func1</span><span class="params">()</span>;<span class="comment">//函数变量</span></span><br><span class="line"><span class="type">int</span> (*func2)();<span class="comment">//函数指针</span></span><br></pre></td></tr></table></figure>
+<p>但二者的使用都是一样的</p>
+<p><code>func1();func2();</code></p>
+<p>而这存储的值都是指向函数代码的起始</p>
+</div></div><div class="aside-content" id="aside-content"><div class="card-widget card-author"><div class="item-headline"><i class="fa-solid fa-circle-user"></i><span>Author</span></div><div class="author-main-content"><div class="author-check-content"><label class="author-info" for="author-info">     <input id="author-info" type="checkbox" name="author-info"/><div class="author-avatar"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/touxiang.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-name">ixout</div></label></div><div class="author-switch-content"><input class="switch-content" type="radio" name="switch-content" value="description"/><label class="author-description-box">      <div class="author-description"><font color="#e66b6d">十八线业余选手</font></div></label><input class="switch-content" type="radio" name="switch-content" value="social" checked="checked"/><label class="author-social-box"><a class="card-author-button" target="_blank" rel="noopener" href="https://github.com/ixout"><i class="iconfont icon-github"></i><span>Follow Me With Github</span></a><div class="social-icons"><a class="social-icon" href="https://github.com/ixout" target="_blank" title="Github"><i class="fa-brands fa-github"></i></a><a class="social-icon" href="/1425430423" target="_blank" title="QQ"><i class="fa-brands fa-qq"></i></a></div></label><input class="switch-content" type="radio" name="switch-content" value="site-data"/><label class="author-data-box"><div class="site-data"><a class="data-item" href="/archives/"><div class="data-name">文章</div><div class="data-length">58</div></a><a class="data-item" href="/tags/"><div class="data-name">标签</div><div class="data-length">64</div></a><a class="data-item" href="/categories/"><div class="data-name">分类</div><div class="data-length">5</div></a></div></label></div></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>告示牌</span></div><div class="announcement_content"><font color="＃00CED1">(º﹃º)阿巴阿巴阿巴......</font></div></div><div class="card-widget" id="card-poem"><div id="poem_sentence"></div><div id="poem_info"><div id="poem_dynasty"></div><div id="poem_author"></div></div></div><script src="https://cdn.jsdelivr.net/npm/js-heo@1.0.11/poem/jinrishici.js" charset="utf-8"></script><script type="text/javascript">jinrishici.load(function(result) {
+var sentence = document.querySelector("#poem_sentence")
+var author = document.querySelector("#poem_author")
+var dynasty = document.querySelector("#poem_dynasty")
+
+var sentenceText = result.data.content
+sentenceText = sentenceText.substr(0, sentenceText.length - 1);
+sentence.innerHTML = sentenceText
+dynasty.innerHTML = result.data.origin.dynasty
+author.innerHTML = result.data.origin.author + '《' + result.data.origin.title + '》'
+});</script><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/posts/15971/" title="还原魔改luac"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/ixout/picture@main/img/p45347545154796.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="还原魔改luac"/></a><div class="content"><a class="title" href="/posts/15971/" title="还原魔改luac">还原魔改luac</a><time datetime="2024-09-27T02:45:46.000Z" title="发表于 2024-09-27 10:45:46">2024-09-27</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/22716/" title="2024ciscn华东南pwn"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/ixout/picture@main/img/a96d6be2655648d9ab6dc8b314f2a8d1%20(1).jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="2024ciscn华东南pwn"/></a><div class="content"><a class="title" href="/posts/22716/" title="2024ciscn华东南pwn">2024ciscn华东南pwn</a><time datetime="2024-06-24T07:59:49.000Z" title="发表于 2024-06-24 15:59:49">2024-06-24</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/53981/" title="fuzz-in-pwn"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/ixout/picture@main/img/a96d6be2655648d9ab6dc8b314f2a8d1%20(1).jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="fuzz-in-pwn"/></a><div class="content"><a class="title" href="/posts/53981/" title="fuzz-in-pwn">fuzz-in-pwn</a><time datetime="2024-05-12T14:29:46.000Z" title="发表于 2024-05-12 22:29:46">2024-05-12</time></div></div></div></div><div class="card-widget card-tags"><div class="item-headline"><i class="fas fa-tags"></i><span>标签</span></div><div class="card-tag-cloud"><a href="/tags/pwn/" style="font-size: 1.45em; color: rgb(135, 187, 51)">pwn</a><a href="/tags/dirtypagetable/" style="font-size: 1.15em; color: rgb(33, 69, 170)">dirtypagetable</a><a href="/tags/wp/" style="font-size: 1.3em; color: rgb(77, 178, 116)">wp</a><a href="/tags/IO-FILE/" style="font-size: 1.15em; color: rgb(149, 51, 24)">IO_FILE</a><a href="/tags/%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/" style="font-size: 1.4em; color: rgb(48, 155, 113)">学习记录</a><a href="/tags/VMpwn/" style="font-size: 1.15em; color: rgb(170, 26, 119)">VMpwn</a><a href="/tags/wasm/" style="font-size: 1.15em; color: rgb(53, 78, 34)">wasm</a><a href="/tags/webpwn/" style="font-size: 1.15em; color: rgb(118, 42, 88)">webpwn</a><a href="/tags/buuctf/" style="font-size: 1.15em; color: rgb(180, 154, 97)">buuctf</a><a href="/tags/calloc/" style="font-size: 1.15em; color: rgb(88, 59, 163)">calloc</a><a href="/tags/realloc/" style="font-size: 1.15em; color: rgb(79, 70, 127)">realloc</a><a href="/tags/grpc/" style="font-size: 1.15em; color: rgb(171, 97, 121)">grpc</a><a href="/tags/protobuf/" style="font-size: 1.2em; color: rgb(67, 145, 31)">protobuf</a><a href="/tags/%E5%9F%BA%E7%A1%80/" style="font-size: 1.25em; color: rgb(19, 75, 73)">基础</a><a href="/tags/elf/" style="font-size: 1.15em; color: rgb(139, 22, 67)">elf</a><a href="/tags/%E6%8A%A5%E9%94%99/" style="font-size: 1.15em; color: rgb(86, 94, 139)">报错</a><a href="/tags/exit/" style="font-size: 1.15em; color: rgb(17, 103, 85)">exit</a><a href="/tags/pwn%E6%8A%80%E5%B7%A7/" style="font-size: 1.15em; color: rgb(133, 197, 69)">pwn技巧</a><a href="/tags/fuzz/" style="font-size: 1.15em; color: rgb(177, 131, 42)">fuzz</a><a href="/tags/IO-FILE/" style="font-size: 1.2em; color: rgb(170, 162, 168)">_IO_FILE</a><a href="/tags/ida/" style="font-size: 1.15em; color: rgb(67, 147, 67)">ida</a><a href="/tags/kernel/" style="font-size: 1.25em; color: rgb(57, 59, 58)">kernel</a><a href="/tags/how2heap/" style="font-size: 1.15em; color: rgb(167, 62, 27)">how2heap</a><a href="/tags/heap/" style="font-size: 1.2em; color: rgb(12, 137, 14)">heap</a><a href="/tags/%E5%AE%89%E5%85%A8%E6%A3%80%E6%9F%A5/" style="font-size: 1.15em; color: rgb(174, 20, 37)">安全检查</a><a href="/tags/glibc/" style="font-size: 1.2em; color: rgb(4, 152, 133)">glibc</a><a href="/tags/%E5%A0%86/" style="font-size: 1.35em; color: rgb(97, 148, 138)">堆</a><a href="/tags/llvm-pass/" style="font-size: 1.15em; color: rgb(109, 190, 58)">llvm-pass</a><a href="/tags/pwnable-tw/" style="font-size: 1.15em; color: rgb(1, 95, 153)">pwnable.tw</a><a href="/tags/%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/" style="font-size: 1.15em; color: rgb(99, 196, 26)">刷题记录</a><a href="/tags/phppwn/" style="font-size: 1.15em; color: rgb(66, 46, 147)">phppwn</a><a href="/tags/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" style="font-size: 1.15em; color: rgb(10, 136, 142)">环境搭建</a><a href="/tags/linux/" style="font-size: 1.15em; color: rgb(29, 10, 81)">linux</a><a href="/tags/%E6%9D%82%E7%83%A9/" style="font-size: 1.15em; color: rgb(0, 64, 31)">杂烩</a><a href="/tags/%E6%8A%80%E5%B7%A7/" style="font-size: 1.15em; color: rgb(164, 177, 14)">技巧</a><a href="/tags/DynELF/" style="font-size: 1.15em; color: rgb(75, 155, 42)">DynELF</a><a href="/tags/mprotect/" style="font-size: 1.15em; color: rgb(14, 92, 114)">mprotect</a><a href="/tags/vsyscall/" style="font-size: 1.15em; color: rgb(126, 88, 49)">vsyscall</a><a href="/tags/setcontext/" style="font-size: 1.15em; color: rgb(34, 123, 17)">setcontext</a><a href="/tags/pyjail/" style="font-size: 1.15em; color: rgb(10, 5, 124)">pyjail</a></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2023 - 2024 By ixout</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><a class="icon-V hidden" onclick="switchNightMode()" title="浅色和深色模式转换"><svg width="25" height="25" viewBox="0 0 1024 1024"><use id="modeicon" xlink:href="#icon-moon"></use></svg></a><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button><button id="go-down" type="button" title="直达底部" onclick="btf.scrollToDest(document.body.scrollHeight, 500)"><i class="fas fa-arrow-down"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><div class="js-pjax"></div><canvas id="universe"></canvas><script defer src="/js/universe.js"></script><script defer src="/js/cursor.js"></script><script async src="/js/fps.js"></script><script async src="/js/title.js"></script><script src="/js/sun_moon.js" async></script><script async src="//at.alicdn.com/t/c/font_3930344_38rvofbfw64.js"></script><script defer="defer" id="ribbon" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-ribbon.min.js" size="150" alpha="0.6" zIndex="-1" mobile="false" data-click="true"></script><script id="click-show-text" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/click-show-text.min.js" data-mobile="false" data-text="富强,民主,文明,和谐,自由,平等,公正,法治,爱国,敬业,诚信,友善" data-fontsize="20px" data-random="false" async="async"></script></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div><!-- hexo injector body_end start --><script async src="//at.alicdn.com/t/font_2032782_8d5kxvn09md.js"></script><!-- hexo injector body_end end --></body></html>

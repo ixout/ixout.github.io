@@ -1,0 +1,815 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"><title>学点Android-基础篇 | ixout's blog</title><meta name="author" content="ixout"><meta name="copyright" content="ixout"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="基础">
+<meta property="og:type" content="website">
+<meta property="og:title" content="学点Android-基础篇">
+<meta property="og:url" content="https://ixout.github.io/only_Android/%E5%AD%A6%E7%82%B9Android-%E5%9F%BA%E7%A1%80%E7%AF%87.html">
+<meta property="og:site_name" content="ixout&#39;s blog">
+<meta property="og:description" content="基础">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ixout/picture@main/img/cfcb137bbbe3415.jpg">
+<meta property="article:published_time" content="2024-08-08T09:08:04.000Z">
+<meta property="article:modified_time" content="2024-08-08T14:43:44.191Z">
+<meta property="article:author" content="ixout">
+<meta property="article:tag" content="Android">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/ixout/picture@main/img/cfcb137bbbe3415.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://ixout.github.io/only_Android/%E5%AD%A6%E7%82%B9Android-%E5%9F%BA%E7%A1%80%E7%AF%87.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: true,
+  islazyload: true,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: true,
+  }
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '学点Android-基础篇',
+  isPost: false,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: false,
+  postUpdate: '2024-08-08 22:43:44'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/universe.css"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/js-heo@1.0.11/mainColor/heoMainColor.css"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/js-heo@1.0.11/poem/poem.css"><link rel="stylesheet" href="/css/footerb.css"><link rel="stylesheet" href="/css/bolang.css"><link rel="stylesheet" href="/css/jzbar.css"><link rel="stylesheet" href="/css/trans.css"><link rel="stylesheet" href="/css/gundongtiao.css"><link rel="stylesheet" href="/css/shubiao.css"><link rel="stylesheet" href="/css/fengche.css"><link rel="stylesheet" href="/css/alitubiao.css"><link rel="stylesheet" href="/css/fps.css"><span id="fps"></span><link rel="stylesheet" href="/css/yituliu.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="//at.alicdn.com/t/c/font_3930344_38rvofbfw64.css" media="defer" onload="this.media='all'"><svg aria-hidden="true" style="position:absolute; overflow:hidden; width:0; height:0"><symbol id="icon-sun" viewBox="0 0 1024 1024"><path d="M960 512l-128 128v192h-192l-128 128-128-128H192v-192l-128-128 128-128V192h192l128-128 128 128h192v192z" fill="#FFD878" p-id="8420"></path><path d="M736 512a224 224 0 1 0-448 0 224 224 0 1 0 448 0z" fill="#FFE4A9" p-id="8421"></path><path d="M512 109.248L626.752 224H800v173.248L914.752 512 800 626.752V800h-173.248L512 914.752 397.248 800H224v-173.248L109.248 512 224 397.248V224h173.248L512 109.248M512 64l-128 128H192v192l-128 128 128 128v192h192l128 128 128-128h192v-192l128-128-128-128V192h-192l-128-128z" fill="#4D5152" p-id="8422"></path><path d="M512 320c105.888 0 192 86.112 192 192s-86.112 192-192 192-192-86.112-192-192 86.112-192 192-192m0-32a224 224 0 1 0 0 448 224 224 0 0 0 0-448z" fill="#4D5152" p-id="8423"></path></symbol><symbol id="icon-moon" viewBox="0 0 1024 1024"><path d="M611.370667 167.082667a445.013333 445.013333 0 0 1-38.4 161.834666 477.824 477.824 0 0 1-244.736 244.394667 445.141333 445.141333 0 0 1-161.109334 38.058667 85.077333 85.077333 0 0 0-65.066666 135.722666A462.08 462.08 0 1 0 747.093333 102.058667a85.077333 85.077333 0 0 0-135.722666 65.024z" fill="#FFB531" p-id="11345"></path><path d="M329.728 274.133333l35.157333-35.157333a21.333333 21.333333 0 1 0-30.165333-30.165333l-35.157333 35.157333-35.114667-35.157333a21.333333 21.333333 0 0 0-30.165333 30.165333l35.114666 35.157333-35.114666 35.157334a21.333333 21.333333 0 1 0 30.165333 30.165333l35.114667-35.157333 35.157333 35.157333a21.333333 21.333333 0 1 0 30.165333-30.165333z" fill="#030835" p-id="11346"></path></symbol></svg><!-- hexo injector head_end start --><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/assets/font-awesome-animation.min.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/tag_plugins.css" media="defer" onload="this.media='all'"><script src="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/assets/carousel-touch.js"></script><!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="ixout's blog" type="application/atom+xml">
+</head><body><div id="loading-box"><div class="pokeball-back"></div><div class="pokeball-loading"><div class="pokeball" id="pokeball-normal"></div><div class="pokeball" id="pokeball-great"></div><div class="pokeball" id="pokeball-ultra"></div><div class="pokeball" id="pokeball-master"></div><div class="pokeball" id="pokeball-safari"></div></div></div><script async="async">const preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+document.getElementById('loading-box').addEventListener('click',()=> {preloader.endLoading()})
+setTimeout(function(){preloader.endLoading();}, 7000);
+
+if (false) {
+  document.addEventListener('pjax:send', () => { preloader.initLoading() })
+  document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+}</script><link rel="stylesheet" href="/css/jzbar.css"/><script src="https://cdn.jsdelivr.net/npm/pace-js/pace.min.js"></script><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/touxiang.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">58</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">64</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">5</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw iconfont icon-hanbao"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw iconfont icon-fenlei"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw iconfont icon-biaoqian"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw iconfont icon-youlian"></i><span> 友人帐</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw iconfont icon-fantuan"></i><span> About</span></a></div></div></div></div><div class="page" id="body-wrap"><header class="not-home-page" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="ixout's blog"><span class="site-name">ixout's blog</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw iconfont icon-hanbao"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw iconfont icon-fenlei"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw iconfont icon-biaoqian"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw iconfont icon-youlian"></i><span> 友人帐</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw iconfont icon-fantuan"></i><span> About</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="page-site-info"><h1 id="site-title">学点Android-基础篇</h1></div></header><main class="layout" id="content-inner"><div id="page"><div id="article-container"><p>参考:</p>
+<p><a target="_blank" rel="noopener" href="https://wizardforcel.gitbooks.io/fl-android-re-tut/">https://wizardforcel.gitbooks.io/fl-android-re-tut/</a></p>
+<h1 id="Dalvik指令集"><a href="#Dalvik指令集" class="headerlink" title="Dalvik指令集"></a>Dalvik指令集</h1><p><strong>Dalvik</strong> 是Android操作系统使用的进程虚拟机，用于运行Android应用程序。每个Android应用程序在其自己的Dalvik虚拟机实例中运行，提供了应用程序隔离和安全性。</p>
+<p>Dalvik将Java字节码（.class文件）转换为Dalvik可执行文件（.dex文件），这些文件在Dalvik虚拟机中运行。</p>
+<p>虽然Android上的程序是使用java来开发的，但是Dalvik和标准的java虚拟机JVM还是两回事。Dalvik VM是基于寄存器的，而JVM是基于栈的；Dalvik有专属的文件执行格式dex（dalvik executable），而JVM则执行的是java字节码。Dalvik VM比JVM速度更快，占用空间更少。</p>
+<h2 id="Smali"><a href="#Smali" class="headerlink" title="Smali"></a>Smali</h2><p>smali是Android应用的中间语言，与Java字节码类似，但专门用于Dalvik虚拟机（Android 5.0之前）和ART（Android 5.0及以后)</p>
+<p>粗略的理解smali就是dex的反汇编结果,是对dalvik虚拟机字节码的一种解释</p>
+<p>常说的smali语言其实可以笼统地和dalvik指令集视作一样的</p>
+<h2 id="寄存器"><a href="#寄存器" class="headerlink" title="寄存器"></a>寄存器</h2><p>所有寄存器都是 32 位，无类型的。</p>
+<p>如果要处理 64 位的值，需要连续的两个寄存器，但是代码中仍然只写一个寄存器。这种情况下，你在代码中看到的<code>vx</code>实际上是指<code>vx</code>和<code>vx + 1</code>。</p>
+<h2 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h2><p>Dalvik 拥有独特的数据类型表示方法，并且和 Java 类型一一对应：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>Java 类型</th>
+<th>Dalvik 表示</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>boolean</code></td>
+<td>Z</td>
+</tr>
+<tr>
+<td><code>byte</code></td>
+<td>B</td>
+</tr>
+<tr>
+<td><code>short</code></td>
+<td>S</td>
+</tr>
+<tr>
+<td><code>char</code></td>
+<td>C</td>
+</tr>
+<tr>
+<td><code>int</code></td>
+<td>I</td>
+</tr>
+<tr>
+<td><code>long</code></td>
+<td>J</td>
+</tr>
+<tr>
+<td><code>float</code></td>
+<td>F</td>
+</tr>
+<tr>
+<td><code>double</code></td>
+<td>D</td>
+</tr>
+<tr>
+<td><code>void</code></td>
+<td>V</td>
+</tr>
+<tr>
+<td>对象类型</td>
+<td>L</td>
+</tr>
+<tr>
+<td>数组类型</td>
+<td>[</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>其中对象类型由<code>L&lt;包名&gt;/&lt;类名&gt;;</code>（完全限定名称）表示，要注意末尾有个分号，比如<code>String</code>表示为<code>Ljava/lang/String;</code>。</p>
+<p>数组类型是<code>[</code>加上元素类型，比如<code>int[]</code>表示为<code>[I</code>。左方括号的个数也就是数组的维数，比如<code>int[][]</code>表示为<code>[[I</code>。</p>
+<h2 id="类定义"><a href="#类定义" class="headerlink" title="类定义"></a>类定义</h2><p>一个 smali 文件中存放一个类，文件开头保存类的各种信息。类的定义是这样的。</p>
+<figure class="highlight smali"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">.class</span> &lt;权限修饰符&gt; &lt;非权限修饰符&gt; &lt;完全限定名称&gt;</span><br><span class="line"><span class="keyword">.super</span> &lt;超类的完全限定名称&gt;</span><br><span class="line"><span class="keyword">.source</span> &lt;源文件名&gt;</span><br></pre></td></tr></table></figure>
+<p>比如这是某个<code>MainActivity</code>：</p>
+<figure class="highlight smali"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">.class</span><span class="keyword"> public</span> <span class="class">Lnet/flygon/myapplication/MainActivity;</span></span><br><span class="line"><span class="keyword">.super</span> <span class="class">Landroid/app/Activity;</span></span><br><span class="line"><span class="keyword">.source</span> <span class="string">&quot;MainActivity.java&quot;</span></span><br></pre></td></tr></table></figure>
+<p>我们可以看到该类是<code>public</code>的，完整名称是<code>net.flygon.myapplication.MainActivity</code>，继承了<code>android.app.Activity</code>，在源码中是<code>MainActivity.java</code>。如果类是<code>abstract</code>或者<code>final</code>的，会在<code>public/private/protected</code>后面表示。</p>
+<p>类可以实现接口，如果类实现了接口，那么这三条语句下面会出现<code>.implements &lt;接口的完全限定名称&gt;</code>。比如通常用于回调的匿名类中会出现<code>.implements Landroid/view/View$OnClickListener;</code>。</p>
+<p>类还可以拥有注解，同样，这三条语句下方出现这样的代码：</p>
+<figure class="highlight smali"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">.annotation</span> &lt;完全限定名称&gt;</span><br><span class="line">    键 = 值</span><br><span class="line"><span class="keyword">    .</span>..<span class="keyword"></span></span><br><span class="line"><span class="keyword">.end annotation</span></span><br></pre></td></tr></table></figure>
+<p>这些语句下面就是类拥有的字段和方法。</p>
+<h2 id="字段定义"><a href="#字段定义" class="headerlink" title="字段定义"></a>字段定义</h2><p>字段定义如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.field &lt;权限修饰符&gt; &lt;非权限修饰符&gt; &lt;名称&gt;:&lt;类型&gt;</span><br></pre></td></tr></table></figure>
+<p>其中非权限修饰符可以为<code>final</code>或者<code>abstract</code>。</p>
+<p>比如我在<code>MainActivity</code>中定义一个按钮：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.field private button1:Landroid/widget/Button;</span><br></pre></td></tr></table></figure>
+<h2 id="方法定义"><a href="#方法定义" class="headerlink" title="方法定义"></a>方法定义</h2><p>方法定义如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">.method &lt;权限修饰符&gt; &lt;非权限修饰符&gt; &lt;名称&gt;(&lt;参数类型&gt;)&lt;返回值类型&gt;</span><br><span class="line">    ...</span><br><span class="line">.end method</span><br></pre></td></tr></table></figure>
+<p>要注意如果有多个参数，参数之间是紧密挨着的，没有逗号也没有空格。如果某个方法的参数是<code>int, int, String</code>，那么应该表示为<code>IILjava/lang/String;</code>。</p>
+<p><code>.locals</code></p>
+<p>方法里面可以包含很多很多东西，可以说是反编译的重点。首先，方法开头处可能会含有局部变量个数声明和参数声明。<code>.locals &lt;个数&gt;</code>可以用于变量个数声明，比如声明了<code>.locals 10</code>之后，我们就可以直接使用<code>v0</code>到<code>v9</code>的寄存器。</p>
+<p><code>.param</code></p>
+<p>另外，参数虽然也占用寄存器，但是声明是不在一起的。<code>.param px,&quot;&lt;名称&gt;&quot;</code>用于声明参数。不知道是不是必需的。</p>
+<p><code>.prologue</code></p>
+<p>之后<code>.prologue</code>的下面是方法中的代码。</p>
+<p><code>.line</code></p>
+<p>代码之间可能会出现<code>.line &lt;行号&gt;</code>，用来标识 Java 代码中对应的行，不过这个是非强制性的，修改之后对应不上也无所谓。</p>
+<p><code>.local</code></p>
+<p>还可能出现局部变量声明，<code>.local vx, &quot;&lt;名称&gt;&quot;:&lt;类型&gt;</code>。这个也是非强制性的，只是为了让你清楚哪些是具名变量，哪些是临时变量。临时变量没有这种声明，照样正常工作。甚至你把它改成不匹配的类型（<code>int</code>改成<code>Object</code>），也可以正常运行。</p>
+<h2 id="数据定义"><a href="#数据定义" class="headerlink" title="数据定义"></a>数据定义</h2><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>指令</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>const/4 vx,lit4</td>
+<td>将 4 位字面值<code>lit4</code>（扩展为 32 位）存入<code>vx</code></td>
+</tr>
+<tr>
+<td>const/16 vx,lit16</td>
+<td>将 16 位字面值<code>lit16</code>（扩展为 32 位）存入<code>vx</code></td>
+</tr>
+<tr>
+<td>const vx, lit32</td>
+<td>将 32 位字面值<code>lit32</code>存入<code>vx</code></td>
+</tr>
+<tr>
+<td>const-wide/16 vx, lit16</td>
+<td>将 16 位字面值<code>lit16</code>（扩展为 64 位）存入<code>vx</code>及<code>vx + 1</code></td>
+</tr>
+<tr>
+<td>const-wide/32 vx, lit32</td>
+<td>将 32 位字面值<code>lit32</code>（扩展为 64 位）存入<code>vx</code>及<code>vx + 1</code></td>
+</tr>
+<tr>
+<td>const-wide vx, lit64</td>
+<td>将 64 位字面值<code>lit64</code>存入<code>vx</code>及<code>vx + 1</code></td>
+</tr>
+<tr>
+<td>const/high16 v0, lit16</td>
+<td>将 16 位字面值<code>lit16</code>存入<code>vx</code>的高位</td>
+</tr>
+<tr>
+<td>const-wide/high16, lit16</td>
+<td>将 16 位字面值<code>lit16</code>存入<code>vx</code>和<code>vx + 1</code>的高位</td>
+</tr>
+<tr>
+<td>const-string vx, string</td>
+<td>将指字符串常量（的引用）<code>string</code>存入<code>vx</code></td>
+</tr>
+<tr>
+<td>const-class vx, class</td>
+<td>将指向类对象（的引用）<code>class</code>存入<code>vx</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>这些指令会在我们给变量赋字面值的时候用到。下面我们来看看这些指令如何与 Java 代码对应，以下我定义了所有相关类型的变量。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">boolean</span> <span class="variable">z</span> <span class="operator">=</span> <span class="literal">true</span>;</span><br><span class="line">z = <span class="literal">false</span>;</span><br><span class="line"><span class="type">byte</span> <span class="variable">b</span> <span class="operator">=</span> <span class="number">1</span>;</span><br><span class="line"><span class="type">short</span> <span class="variable">s</span> <span class="operator">=</span> <span class="number">2</span>;</span><br><span class="line"><span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">3</span>;</span><br><span class="line"><span class="type">long</span> <span class="variable">l</span> <span class="operator">=</span> <span class="number">4</span>;</span><br><span class="line"><span class="type">float</span> <span class="variable">f</span> <span class="operator">=</span> <span class="number">0.1f</span>;</span><br><span class="line"><span class="type">double</span> <span class="variable">d</span> <span class="operator">=</span> <span class="number">0.2</span>;</span><br><span class="line"><span class="type">String</span> <span class="variable">str</span> <span class="operator">=</span> <span class="string">&quot;test&quot;</span>;</span><br><span class="line"><span class="type">Class</span> <span class="variable">c</span> <span class="operator">=</span> Object.class;</span><br></pre></td></tr></table></figure>
+<p>编译之后的代码可能是这样：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">const/4 v10, 0x1</span><br><span class="line">const/4 v10, 0x0</span><br><span class="line">const/4 v0, 0x1</span><br><span class="line">const/4 v8, 0x2</span><br><span class="line">const/4 v5, 0x3</span><br><span class="line">const-wide/16 v6, 0x4</span><br><span class="line">const v4, 0x3dcccccd    # 0.1f</span><br><span class="line">const-wide v2, 0x3fc999999999999aL    # 0.2</span><br><span class="line">const-string v9, &quot;test&quot;</span><br><span class="line">const-class v1, Ljava/lang/Object;</span><br></pre></td></tr></table></figure>
+<p>我们可以看到，<code>boolean</code>、<code>byte</code>、<code>short</code>、<code>int</code>都是使用<code>const</code>系列指令来加载的。我们在这里为其赋了比较小的值，所以它用了<code>const/4</code>。如果我们选择一个更大的值，编译器会采用<code>const/16</code>或者<code>const</code>指令。然后我们可以看到<code>const-wide/16</code>用于为<code>long</code>赋值，说明<code>const-wide</code>系列指令用于处理<code>long</code>。</p>
+<p>接下来，<code>float</code>使用<code>const</code>指令处理，<code>double</code>使用<code>const-wide</code>指令处理。以<code>float</code>为例，它的<code>const</code>语句的字面值是<code>0x3dcccccd</code>，比较费解。实际上它是保持二进制数据不变，将其表示为<code>int</code>得到的。</p>
+<p>我们可以用这段 c 代码来验证。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="type">int</span> i = <span class="number">0x3dcccccd</span>;</span><br><span class="line">    <span class="type">float</span> f = *(<span class="type">float</span> *)&amp;i;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%f&quot;</span>, f);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>结果是<code>0.100000</code>，的确是我们当初赋值的 0.1。</p>
+<p>最后，<code>const-string</code>用于加载字符串，<code>const-class</code>用于加载类对象。虽然文档中写着“字符串的 ID”，但实际的反编译代码中是字符串字面值，比较方便。对于类对象来说，代码中出现的是完全先定名称。</p>
+<h2 id="数据移动"><a href="#数据移动" class="headerlink" title="数据移动"></a>数据移动</h2><p>数据移动指令就是大名鼎鼎的<code>move</code>：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>指令</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>move vx,vy</td>
+<td><code>vx = vy</code></td>
+</tr>
+<tr>
+<td>move/from16 vx,vy</td>
+<td><code>vx = vy</code></td>
+</tr>
+<tr>
+<td>move/16 vx,vy</td>
+<td><code>vx = vy</code></td>
+</tr>
+<tr>
+<td>move-wide vx,vy</td>
+<td><code>vx, vx + 1 = vy, vy + 1</code></td>
+</tr>
+<tr>
+<td>move-wide/from16 vx,vy</td>
+<td><code>vx, vx + 1 = vy, vy + 1</code></td>
+</tr>
+<tr>
+<td>move-wide/16 vx,vy</td>
+<td><code>vx, vx + 1 = vy, vy + 1</code></td>
+</tr>
+<tr>
+<td>move-object vx,vy</td>
+<td><code>vx = vy</code></td>
+</tr>
+<tr>
+<td>move-object/from16 vx,vy</td>
+<td><code>vx = vy</code></td>
+</tr>
+<tr>
+<td>move-object/16 vx,vy</td>
+<td><code>vx = vy</code></td>
+</tr>
+<tr>
+<td>move-result vx</td>
+<td>将小于等于 32 位的基本类型（<code>int</code>等）的返回值赋给<code>vx</code></td>
+</tr>
+<tr>
+<td>move-result-wide vx</td>
+<td>将<code>long</code>和<code>double</code>类型的返回值赋给<code>vx</code></td>
+</tr>
+<tr>
+<td>move-result-object vx</td>
+<td>将对象类型的返回值（的引用）赋给<code>vx</code></td>
+</tr>
+<tr>
+<td>move-exception vx</td>
+<td>将异常对象（的引用）赋给<code>vx</code>，只能在<code>throw</code>之后使用</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><code>move</code>系列指令以及<code>move-result</code>用于处理小于等于 32 位的基本类型。<code>move-wide</code>系列指令和<code>move-result-wide</code>用于处理<code>long</code>和<code>double</code>类型。<code>move-object</code>系列指令和<code>move-result-object</code>用于处理对象引用。</p>
+<p>另外不同后缀（无、<code>/from16</code>、<code>/16</code>）只影响字节码的位数和寄存器的范围，不影响指令的逻辑。</p>
+<h2 id="跳转"><a href="#跳转" class="headerlink" title="跳转"></a>跳转</h2><h3 id="无条件"><a href="#无条件" class="headerlink" title="无条件"></a>无条件</h3><p>Java 里面没有<code>goto</code>，但是 Smali 里面有，一般来说和<code>if</code>以及<code>for</code>配合的可能性很大，还有一个作用就是用于代码混淆。</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>指令</th>
+<th>类型</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>goto target</td>
+<td>8 位无条件跳</td>
+</tr>
+<tr>
+<td>goto/16 target</td>
+<td>16 位无条件跳</td>
+</tr>
+<tr>
+<td>goto/32 target</td>
+<td>32 位无条件跳</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><code>target</code>在 Smali 中是标签，以冒号开头，使用方式是这样：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">goto :label</span><br><span class="line"></span><br><span class="line"># 一些语句</span><br><span class="line"></span><br><span class="line">:label</span><br></pre></td></tr></table></figure>
+<p>这三个指令在使用形式上都一样，就是位数越大的语句支持的距离也越长。</p>
+<h3 id="条件跳转"><a href="#条件跳转" class="headerlink" title="条件跳转"></a>条件跳转</h3><p><code>if</code>系列指令可用于<code>int</code>（以及<code>short</code>、<code>char</code>、<code>byte</code>、<code>boolean</code>甚至是对象引用）：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>指令</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>if-eq vx,vy,target</td>
+<td><code>vx == vy</code>则跳到 target</td>
+</tr>
+<tr>
+<td>if-ne vx,vy,target</td>
+<td><code>vx != vy</code>则跳到 target</td>
+</tr>
+<tr>
+<td>if-lt vx,vy,target</td>
+<td><code>vx &lt; vy</code>则跳到 target</td>
+</tr>
+<tr>
+<td>if-ge vx,vy,target</td>
+<td><code>vx &gt;= vy</code>则跳到 target</td>
+</tr>
+<tr>
+<td>if-gt vx,vy,target</td>
+<td><code>vx &gt; vy</code>则跳到 target</td>
+</tr>
+<tr>
+<td>if-le vx,vy,target</td>
+<td><code>vx &lt;= vy</code>则跳到 target</td>
+</tr>
+<tr>
+<td>if-eqz vx,target</td>
+<td><code>vx == 0</code>则跳到 target</td>
+</tr>
+<tr>
+<td>if-nez vx,target</td>
+<td><code>vx != 0</code>则跳到 target</td>
+</tr>
+<tr>
+<td>if-ltz vx,target</td>
+<td><code>vx &lt; 0</code>则跳到 target</td>
+</tr>
+<tr>
+<td>if-gez vx,target</td>
+<td><code>vx &gt;= 0</code>则跳到 target</td>
+</tr>
+<tr>
+<td>if-gtz vx,target</td>
+<td><code>vx &gt; 0</code>则跳到 target</td>
+</tr>
+<tr>
+<td>if-lez vx,target</td>
+<td><code>vx &lt;= 0</code>则跳到 target</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>看一下这段代码：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="variable">a</span> <span class="operator">=</span> <span class="number">10</span></span><br><span class="line"><span class="keyword">if</span>(a &gt; <span class="number">0</span>) </span><br><span class="line">    a = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">    a = <span class="number">0</span>;</span><br></pre></td></tr></table></figure>
+<p>可能的编译结果是：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">const/4 v0, 0xa</span><br><span class="line">if-lez v0, :cond_0 # if 块开始</span><br><span class="line">const/4 v0, 0x1</span><br><span class="line">goto :cond_1       # if 块结束</span><br><span class="line">:cond_0            # else 块开始</span><br><span class="line">const/4 v0, 0x0</span><br><span class="line">:cond_1            # else 块结束</span><br></pre></td></tr></table></figure>
+<p>我们会看到用于比较逻辑是反着的，Java 里是大于，Smali 中就变成了小于等于，这个要注意。也有一些情况下，逻辑不是反着的，但是<code>if</code>块和<code>else</code>块会对调。还有，标签不一定是一样的，后面的数字会变，但是多数情况下都是两个标签，一个相对跳一个绝对跳。</p>
+<p>如果只有<code>if</code>：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="variable">a</span> <span class="operator">=</span> <span class="number">10</span>;</span><br><span class="line"><span class="keyword">if</span>(a &gt; <span class="number">0</span>) </span><br><span class="line">    a = <span class="number">1</span>;</span><br></pre></td></tr></table></figure>
+<p>相对来说就简单一些，只需要在条件不满足时跳过<code>if</code>块即可：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">const/4 v0, 0xa</span><br><span class="line">if-lez v0, :cond_0 # if 块开始</span><br><span class="line">const/4 v0, 0x1</span><br><span class="line">:cond_0            # if 块结束</span><br></pre></td></tr></table></figure>
+<h2 id="比较"><a href="#比较" class="headerlink" title="比较"></a>比较</h2><p>对于<code>long</code>、<code>float</code>和<code>double</code>又该如何比较呢？Dalvik 提供了下面这些指令：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>指令</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>cmpl-float vx, vy, vz</td>
+<td><code>vx = -sgn(vy - vz)</code></td>
+</tr>
+<tr>
+<td>cmpg-float vx, vy, vz</td>
+<td><code>vx = sgn(vy - vz)</code></td>
+</tr>
+<tr>
+<td>cmp-float vx, vy, vz</td>
+<td><code>cmpg-float</code>的别名</td>
+</tr>
+<tr>
+<td>cmpl-double vx, vy, vz</td>
+<td><code>vx = -sgn(vy - vz)</code></td>
+</tr>
+<tr>
+<td>cmpg-double vx, vy, vz</td>
+<td><code>vx = sgn(vy - vz)</code></td>
+</tr>
+<tr>
+<td>cmp-double vx, vy, vz</td>
+<td><code>cmpg-double</code>的别名</td>
+</tr>
+<tr>
+<td>cmp-long vx, vy, vz</td>
+<td><code>vx = sgn(vy - vz)</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>其中<code>sgn(x)</code>是符号函数，定义为：<code>x &gt; 0</code>时值为 1，<code>x = 0</code>时值为 0，<code>x &lt; 0</code>时值为 -1。</p>
+<p>我们把之前例子中的<code>int</code>改为<code>float</code>：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">float</span> <span class="variable">a</span> <span class="operator">=</span> <span class="number">10</span>;</span><br><span class="line"><span class="keyword">if</span>(a &gt; <span class="number">0</span>) </span><br><span class="line">    a = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">    a = <span class="number">0</span>;</span><br></pre></td></tr></table></figure>
+<p>我们会得到：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">const v0, 0x41200000 # float 10</span><br><span class="line">const v1, 0x0</span><br><span class="line">cmp-float v2, v0, v1</span><br><span class="line">if-lez v2, :cond_0   # if 块开始</span><br><span class="line">const v0, 0x3f800000 # float 1</span><br><span class="line">goto :goto_0         # if 块结束</span><br><span class="line">:cond_0              # else 块开始</span><br><span class="line">const/4 v0, 0x0</span><br><span class="line">:goto_0              # else 块结束</span><br></pre></td></tr></table></figure>
+<p>由于<code>cmpg</code>更类似平时使用的比较器，用起来更加顺手，但是<code>cmpl</code>也需要了解。</p>
+<h2 id="数组操作"><a href="#数组操作" class="headerlink" title="数组操作"></a>数组操作</h2><p>数组拥有一套特化的指令。</p>
+<h3 id="创建"><a href="#创建" class="headerlink" title="创建"></a>创建</h3><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>指令</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>new-array vx,vy,type</td>
+<td>创建类型为<code>type</code>，大小为<code>vy</code>的数组赋给<code>vx</code></td>
+</tr>
+<tr>
+<td>filled-new-array {params},type_id</td>
+<td>从<code>params</code>创建数组，结果使用<code>move-result</code>获取</td>
+</tr>
+<tr>
+<td>filled-new-array-range {vx..vy},type_id</td>
+<td>从<code>vx</code>与<code>vy</code>之间（包含）的所有寄存器创建数组，结果使用<code>move-result</code>获取</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>对于第一条指令，如果我们这样写：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span>[] arr = <span class="keyword">new</span> <span class="title class_">int</span>[<span class="number">10</span>];</span><br></pre></td></tr></table></figure>
+<p>就可以使用该指令编译：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">const/4 v1, 0xa</span><br><span class="line">new-array v0, v1, I</span><br></pre></td></tr></table></figure>
+<p>但如果我们直接使用数组字面值给一个数组赋值：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">int[] arr = &#123;1, 2, 3, 4, 5&#125;;</span><br><span class="line">// 或者</span><br><span class="line">arr = new int[]&#123;1, 2, 3, 4, 5&#125;;</span><br></pre></td></tr></table></figure>
+<p>可以使用第二条指令编写如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">const/4 v1, 0x1</span><br><span class="line">const/4 v2, 0x2</span><br><span class="line">const/4 v3, 0x3</span><br><span class="line">const/4 v4, 0x4</span><br><span class="line">const/4 v5, 0x5</span><br><span class="line">filled-new-array &#123;v1, v2, v3, v4, v5&#125;, I</span><br><span class="line">move-result v0</span><br></pre></td></tr></table></figure>
+<p>我们这里的寄存器是连续的，实际上不一定是这样，如果寄存器是连续的，还可以改写为第三条指令：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">const/4 v1, 0x1</span><br><span class="line">const/4 v2, 0x2</span><br><span class="line">const/4 v3, 0x3</span><br><span class="line">const/4 v4, 0x4</span><br><span class="line">const/4 v5, 0x5</span><br><span class="line">filled-new-array-range &#123;v1..v5&#125;, I</span><br><span class="line">move-result v0</span><br></pre></td></tr></table></figure>
+<h3 id="元素操作"><a href="#元素操作" class="headerlink" title="元素操作"></a>元素操作</h3><p><code>aget</code>系列指令用于读取数组元素，效果为<code>vx = vy[vz]</code>：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">aget vx,vy,vz</span><br><span class="line">aget-wide vx,vy,vz</span><br><span class="line">aget-object vx,vy,vz</span><br><span class="line">aget-boolean vx,vy,vz</span><br><span class="line">aget-byte vx,vy,vz</span><br><span class="line">aget-char vx,vy,vz</span><br><span class="line">aget-short vx,vy,vz</span><br></pre></td></tr></table></figure>
+<p>有两个指令需要说明，<code>aget</code>用于获取<code>int</code>和<code>float</code>，<code>aget-wide</code>用于获取<code>long</code>和<code>double</code>。</p>
+<p>同样，<code>aput</code>系列指令用于写入数组元素，效果为<code>vy[vz] = vx</code>：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">aget vx,vy,vz</span><br><span class="line">aget-wide vx,vy,vz</span><br><span class="line">aget-object vx,vy,vz</span><br><span class="line">aget-boolean vx,vy,vz</span><br><span class="line">aget-byte vx,vy,vz</span><br><span class="line">aget-char vx,vy,vz</span><br><span class="line">aget-short vx,vy,vz</span><br></pre></td></tr></table></figure>
+<p>如果我们编写以下代码：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">int[] arr = new int[2];</span><br><span class="line">int b = arr[0];</span><br><span class="line">arr[1] = b;</span><br></pre></td></tr></table></figure>
+<p>可能会编译成：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">const/4 v0, 0x2</span><br><span class="line">new-array v1, v0, I</span><br><span class="line">const/4 v0, 0x0</span><br><span class="line">aget-int v2, v1, v0</span><br><span class="line">const/4 v0, 0x1</span><br><span class="line">aput-int v2, v1, v0</span><br></pre></td></tr></table></figure>
+<h2 id="对象操作"><a href="#对象操作" class="headerlink" title="对象操作"></a>对象操作</h2><h3 id="对象创建"><a href="#对象创建" class="headerlink" title="对象创建"></a>对象创建</h3><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>指令</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>new-instance vx, type</td>
+<td>创建<code>type</code>的新实例，并赋给<code>vx</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><code>new-instance</code>用于创建实例，但之后还需要调用构造器<code>&lt;init&gt;</code>，比如：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Object obj = new Object();</span><br></pre></td></tr></table></figure>
+<p>会编译成：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">new-instance v0, Ljava/lang/Object;</span><br><span class="line">invoke-direct-empty &#123;v0&#125;, Ljava/lang/Object;-&gt;&lt;init&gt;()V</span><br></pre></td></tr></table></figure>
+<p>方法调用后面再讲。</p>
+<h3 id="字段操作"><a href="#字段操作" class="headerlink" title="字段操作"></a>字段操作</h3><p><code>sget</code>系列指令用于获取静态字段，效果为<code>vx = class.field</code>：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">sget vx, type-&gt;field:field_type</span><br><span class="line">sget-wide vx, type-&gt;field:field_type</span><br><span class="line">sget-object vx, type-&gt;field:field_type</span><br><span class="line">sget-boolean vx, type-&gt;field:field_type</span><br><span class="line">sget-byte vx, type-&gt;field:field_type</span><br><span class="line">sget-char vx, type-&gt;field:field_type</span><br><span class="line">sget-short vx, type-&gt;field:field_type</span><br></pre></td></tr></table></figure>
+<p><code>sput</code>系列指令用于设置静态字段，效果为<code>class.field = vx</code>：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">sput vx, type-&gt;field:field_type</span><br><span class="line">sput-wide vx, type-&gt;field:field_type</span><br><span class="line">sput-object vx, type-&gt;field:field_type</span><br><span class="line">sput-boolean vx, type-&gt;field:field_type</span><br><span class="line">sput-byte vx, type-&gt;field:field_type</span><br><span class="line">sput-char vx, type-&gt;field:field_type</span><br><span class="line">sput-short vx, type-&gt;field:field_type</span><br></pre></td></tr></table></figure>
+<p>我们在这里创建一个类：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">public class Test </span><br><span class="line">&#123;</span><br><span class="line">    private static int staticField;</span><br><span class="line"></span><br><span class="line">    public static int getStaticField() &#123;</span><br><span class="line">        return staticField;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static void setStaticField(int staticField) &#123;</span><br><span class="line">        Test.staticField = staticField;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>编译之后，我们可以在<code>getStaticField</code>中找到：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sget v0, Lnet/flygon/myapplication/Test;-&gt;staticField:I</span><br><span class="line">return v0</span><br></pre></td></tr></table></figure>
+<p>在<code>setStaticField</code>中可以找到：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sput p0, Lnet/flygon/myapplication/Test;-&gt;staticField:I</span><br><span class="line">return-void</span><br></pre></td></tr></table></figure>
+<p><code>iget</code>系列指令用于获取实例字段，效果为<code>vx = vy.field</code>：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">iget vx, vy, type-&gt;field:field_type</span><br><span class="line">iget-wide vx, vy, type-&gt;field:field_type</span><br><span class="line">iget-object vx, vy, type-&gt;field:field_type</span><br><span class="line">iget-boolean vx, vy, type-&gt;field:field_type</span><br><span class="line">iget-byte vx, vy, type-&gt;field:field_type</span><br><span class="line">iget-char vx, vy, type-&gt;field:field_type</span><br><span class="line">iget-short vx, vy, type-&gt;field:field_type</span><br></pre></td></tr></table></figure>
+<p><code>iput</code>系列指令用于设置实例字段，效果为<code>vy.field = vx</code>：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">iput vx, vy, type-&gt;field:field_type</span><br><span class="line">iput-wide vx, vy, type-&gt;field:field_type</span><br><span class="line">iput-object vx, vy, type-&gt;field:field_type</span><br><span class="line">iput-boolean vx, vy, type-&gt;field:field_type</span><br><span class="line">iput-byte vx, vy, type-&gt;field:field_type</span><br><span class="line">iput-char vx, vy, type-&gt;field:field_type</span><br><span class="line">iput-short vx, vy, type-&gt;field:field_type</span><br></pre></td></tr></table></figure>
+<p>我们将之前的类修改一下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">public class Test</span><br><span class="line">&#123;</span><br><span class="line">    private int instanceField;</span><br><span class="line"></span><br><span class="line">    public int getInstanceField() &#123;</span><br><span class="line">        return instanceField;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void setInstanceField(int instanceField) &#123;</span><br><span class="line">       this.instanceField = instanceField;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>反编译之后，我们可以在<code>getInstanceField</code>中找到：·</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">iget v0, p0, Lnet/flygon/myapplication/Test;-&gt;instanceField:I</span><br><span class="line">return v0</span><br></pre></td></tr></table></figure>
+<p>在<code>setInstanceField</code>中可以找到：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">iset p1, p0, Lnet/flygon/myapplication/Test;-&gt;instanceField:I</span><br><span class="line">return-void</span><br></pre></td></tr></table></figure>
+<p>在实例方法中，<code>this</code>引用永远是<code>p0</code>。第一个参数从<code>p1</code>开始。</p>
+<h2 id="方法调用"><a href="#方法调用" class="headerlink" title="方法调用"></a>方法调用</h2><p>有五类方法调用指令：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>指令</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>invoke-static</td>
+<td>调用静态方法</td>
+</tr>
+<tr>
+<td>invoke-direct</td>
+<td>调用直接方法</td>
+</tr>
+<tr>
+<td>invoke-direct-empty</td>
+<td>无参的<code>invoke-direct</code></td>
+</tr>
+<tr>
+<td>invoke-virtual</td>
+<td>调用虚方法</td>
+</tr>
+<tr>
+<td>invoke-super</td>
+<td>调用超类的虚方法</td>
+</tr>
+<tr>
+<td>invoke-interface</td>
+<td>调用接口方法</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>这些指令的格式均为：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">invoke-* &#123;params&#125;, type-&gt;method(params_type)return_type</span><br></pre></td></tr></table></figure>
+<p>如果需要传递<code>this</code>引用，将其放置在<code>param</code>的第一个位置。</p>
+<p>那么这些指令有什么不同呢？首先要分辨两个概念，虚方法和直接方法（JVM 里面叫特殊方法）。其实 Java 是没有虚方法这个概念的，但是 DVM 里面有，直接方法是指类的（<code>type</code>为某个类）所有实例构造器和<code>private</code>实例方法。反之<code>protected</code>或者<code>public</code>方法都叫做虚方法。</p>
+<p><code>invoke-static</code>比较好分辨，当且仅当调用静态方法时，才会使用它。</p>
+<p><code>invoke-direct</code>（在 JVM 中叫做<code>invokespecial</code>）用于调用直接方法，<code>invoke-virtual</code>用于调用虚方法。除了一种情况，显式使用<code>super</code>调用超类的虚方法时，使用<code>invoke-super</code>（直接方法仍然使用<code>invoke-direct</code>）。</p>
+<p>就比如说，每个<code>Activity</code>的<code>onCreate</code>中要调用<code>super.onCreate</code>，该方法属于虚方法，于是我们会看到：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">invoke-super &#123;p0, p1&#125;, Landroid/app/Activity;-&gt;onCreate(Landroid/os/Bundle;)V</span><br></pre></td></tr></table></figure>
+<p>但是呢，每个<code>Activity</code>构造器里面要调用<code>super</code>的无参构造器，它属于直接方法，那么我们会看到：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">invoke-direct &#123;p0&#125;, Landroid/app/Activity;-&gt;&lt;init&gt;()V</span><br></pre></td></tr></table></figure>
+<p><code>invoke-interface</code>用于调用接口方法，接口方法就是接口的方法，<code>type</code>一定为某个接口，而不是类。换句话说，类中实现的方法仍然是虚方法。比如我们在某个对象上调用<code>Map.get</code>，属于接口方法，但是调用<code>HashMap.get</code>，属于虚方法。这个指令一般在向上转型为接口类型的时候出现。</p>
+<p>此外，五类指令中每一个都有对应的<code>invoke-*-range</code>指令，格式为：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">invoke-*-range &#123;vx..vy&#125;,type-&gt;method(params_type)return_type</span><br></pre></td></tr></table></figure>
+<p>如果参数所在的寄存器的连续的，可以替换为这条指令。</p>
+<h2 id="返回"><a href="#返回" class="headerlink" title="返回"></a>返回</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">return-void</span><br><span class="line">return vx</span><br><span class="line">return-wide vx</span><br><span class="line">return-object vx</span><br></pre></td></tr></table></figure>
+<p>如果函数无返回值，那么使用<code>return-void</code>，注意在 Java 中，无返回值函数结尾处的<code>return</code>可以省，而 Smali 不可以。</p>
+<p>如果函数需要返回对象，使用<code>return-object</code>；需要返回<code>long</code>或者<code>double</code>，使用<code>return-wide</code>；除此之外所有情况都使用<code>return</code>。</p>
+<h1 id="DEX"><a href="#DEX" class="headerlink" title="DEX"></a>DEX</h1><p>DEX 即 Dalvik Executable，Dalvik 可执行文件。</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/ixout/picture@main/img/b7e7a648.png" alt=""></p>
+<h2 id="文件格式"><a href="#文件格式" class="headerlink" title="文件格式"></a>文件格式</h2><div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">名称</th>
+<th style="text-align:left">格式</th>
+<th style="text-align:left">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">header</td>
+<td style="text-align:left">header_item</td>
+<td style="text-align:left">标头</td>
+</tr>
+<tr>
+<td style="text-align:left">string_ids</td>
+<td style="text-align:left">string_id_item[]</td>
+<td style="text-align:left">字符串标识符列表。这些是此文件使用的所有字符串的标识符，用于内部命名（例如类型描述符）或用作代码引用的常量对象。此列表必须使用 UTF-16 码位值按字符串内容进行排序（不采用语言区域敏感方式），且不得包含任何重复条目。</td>
+</tr>
+<tr>
+<td style="text-align:left">type_ids</td>
+<td style="text-align:left">type_id_item[]</td>
+<td style="text-align:left">类型标识符列表。这些是此文件引用的所有类型（类、数组或原始类型）的标识符（无论文件中是否已定义）。此列表必须按 <code>string_id</code> 索引进行排序，且不得包含任何重复条目。</td>
+</tr>
+<tr>
+<td style="text-align:left">proto_ids</td>
+<td style="text-align:left">proto_id_item[]</td>
+<td style="text-align:left">方法原型标识符列表。这些是此文件引用的所有原型的标识符。此列表必须按返回类型（按 <code>type_id</code> 索引排序）主要顺序进行排序，然后按参数列表（按 <code>type_id</code> 索引排序的各个参数，采用字典排序方法）进行排序。该列表不得包含任何重复条目。</td>
+</tr>
+<tr>
+<td style="text-align:left">field_ids</td>
+<td style="text-align:left">field_id_item[]</td>
+<td style="text-align:left">字段标识符列表。这些是此文件引用的所有字段的标识符（无论文件中是否已定义）。此列表必须进行排序，其中定义类型（按 <code>type_id</code> 索引排序）是主要顺序，字段名称（按 <code>string_id</code> 索引排序）是中间顺序，而类型（按 <code>type_id</code> 索引排序）是次要顺序。该列表不得包含任何重复条目。</td>
+</tr>
+<tr>
+<td style="text-align:left">method_ids</td>
+<td style="text-align:left">method_id_item[]</td>
+<td style="text-align:left">方法标识符列表。这些是此文件引用的所有方法的标识符（无论文件中是否已定义）。此列表必须进行排序，其中定义类型（按 <code>type_id</code> 索引排序）是主要顺序，方法名称（按 <code>string_id</code> 索引排序）是中间顺序，而方法原型（按 <code>proto_id</code> 索引排序）是次要顺序。该列表不得包含任何重复条目。</td>
+</tr>
+<tr>
+<td style="text-align:left">class_defs</td>
+<td style="text-align:left">class_def_item[]</td>
+<td style="text-align:left">类定义列表。这些类必须进行排序，以便所指定类的父类和已实现的接口比引用类更早出现在该列表中。此外，对于在该列表中多次出现的同名类，其定义是无效的。</td>
+</tr>
+<tr>
+<td style="text-align:left">call_site_ids</td>
+<td style="text-align:left">call_site_id_item[]</td>
+<td style="text-align:left">调用站点标识符列表。这些是此文件引用的所有调用站点的标识符（无论文件中是否已定义）。此列表必须按 <code>call_site_off</code> 以升序进行排序。</td>
+</tr>
+<tr>
+<td style="text-align:left">method_handles</td>
+<td style="text-align:left">method_handle_item[]</td>
+<td style="text-align:left">方法句柄列表。此文件引用的所有方法句柄的列表（无论文件中是否已定义）。此列表未进行排序，而且可能包含将在逻辑上对应于不同方法句柄实例的重复项。</td>
+</tr>
+<tr>
+<td style="text-align:left">data</td>
+<td style="text-align:left">ubyte[]</td>
+<td style="text-align:left">数据区，包含上面所列表格的所有支持数据。不同的项有不同的对齐要求；如有必要，则在每个项之前插入填充字节，以实现所需的对齐效果。</td>
+</tr>
+<tr>
+<td style="text-align:left">link_data</td>
+<td style="text-align:left">ubyte[]</td>
+<td style="text-align:left">静态链接文件中使用的数据。本文档尚未指定本区段中数据的格式。此区段在未链接文件中为空，而运行时实现可能会在适当的情况下使用这些数据。</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="Header-区段"><a href="#Header-区段" class="headerlink" title="Header 区段"></a>Header 区段</h2><p>Header 区段用于储存版本标识、校验和、文件大小、各部分的大小及偏移。结构以及描述如下：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">DexHeader</span> &#123;</span></span><br><span class="line">    u1  magic[<span class="number">8</span>];           <span class="comment">/* 版本标识 */</span>  </span><br><span class="line">    u4  checksum;           <span class="comment">/* adler32 检验和 */</span>  </span><br><span class="line">    u1  signature[kSHA1DigestLen]; <span class="comment">/* SHA-1 哈希值 */</span></span><br><span class="line">    u4  fileSize;           <span class="comment">/* 整个文件大小 */</span></span><br><span class="line">    u4  headerSize;         <span class="comment">/* Header 区段大小 */</span></span><br><span class="line">    u4  endianTag;          <span class="comment">/* 字节序标记 */</span></span><br><span class="line">    u4  linkSize;           <span class="comment">/* 链接区段大小 */</span></span><br><span class="line">    u4  linkOff;            <span class="comment">/* 链接区段偏移 */</span></span><br><span class="line">    u4  mapOff;             <span class="comment">/* MapList 的偏移 */</span></span><br><span class="line">    u4  stringIdsSize;      <span class="comment">/* StringId 的个数 */</span></span><br><span class="line">    u4  stringIdsOff;       <span class="comment">/* StringIds 区段偏移 */</span></span><br><span class="line">    u4  typeIdsSize;        <span class="comment">/* TypeId 的个数 */</span></span><br><span class="line">    u4  typeIdsOff;         <span class="comment">/* TypeIds 区段偏移 */</span></span><br><span class="line">    u4  protoIdsSize;       <span class="comment">/* ProtoId 的个数 */</span></span><br><span class="line">    u4  protoIdsOff;        <span class="comment">/* ProtoIds 区段偏移 */</span></span><br><span class="line">    u4  fieldIdsSize;       <span class="comment">/* FieldId 的个数 */</span></span><br><span class="line">    u4  fieldIdsOff;        <span class="comment">/* FieldIds 区段偏移 */</span></span><br><span class="line">    u4  methodIdsSize;      <span class="comment">/* MethodId 的个数 */</span></span><br><span class="line">    u4  methodIdsOff;       <span class="comment">/* MethodIds 区段偏移 */</span></span><br><span class="line">    u4  classDefsSize;      <span class="comment">/* ClassDef 的个数 */</span></span><br><span class="line">    u4  classDefsOff;       <span class="comment">/* ClassDefs 区段偏移 */</span></span><br><span class="line">    u4  dataSize;           <span class="comment">/* 数据区段的大小 */</span></span><br><span class="line">    u4  dataOff;            <span class="comment">/* 数据区段的文件偏移 */</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>有几个条目需要特别提醒。</p>
+<ul>
+<li><p><code>magic</code>：必须为<code>DEX_FILE_MAGIC</code>：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ubyte[<span class="number">8</span>] DEX_FILE_MAGIC = &#123; <span class="number">0x64</span> <span class="number">0x65</span> <span class="number">0x78</span> <span class="number">0x0a</span> <span class="number">0x30</span> <span class="number">0x33</span> <span class="number">0x35</span> <span class="number">0x00</span> &#125;</span><br><span class="line">                        = <span class="string">&quot;dex\n035\0&quot;</span>;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>checksum</code>：是整个文件除去它本身以及魔数的校验和。</p>
+</li>
+<li><p><code>signature</code>：是整个文件除去它本身、校验和以及魔数的哈希值。</p>
+</li>
+<li><p><code>headerSize</code>：一般为 70。</p>
+</li>
+<li><p><code>endianTag</code>：有两种顺序，小端和大端，定义如下：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">uint ENDIAN_CONSTANT = <span class="number">0x12345678</span>; <span class="comment">/* 小端序 */</span></span><br><span class="line">uint REVERSE_ENDIAN_CONSTANT = <span class="number">0x78563412</span>; <span class="comment">/* 大端序 */</span></span><br></pre></td></tr></table></figure>
+<p>一般为小端序，反正我还没见过大端的。</p>
+</li>
+<li><p><code>stringIdsOff</code>：由于前一个区段的偏移加上它的长度一般为后一个区段的偏移，所以这个条目一般也为 70。</p>
+</li>
+<li><p><code>xxxSize</code>：要注意有几个是个数，后缀也是<code>Size</code>。</p>
+</li>
+<li><p><code>xxxOff</code>：如果对应的<code>xxxSize</code>为 0，那么它也为 0（很奇怪）。</p>
+</li>
+</ul>
+<h2 id="StringIds-区段"><a href="#StringIds-区段" class="headerlink" title="StringIds 区段"></a>StringIds 区段</h2><p>StringIds 区段包含<code>stringIdsSize</code>个<code>DexStringId</code>结构，如下：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">DexStringId</span> &#123;</span></span><br><span class="line">    u4 stringDataOff;   <span class="comment">/* 字符串内容，字符串数据偏移 */</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>其中数据偏移指向 Data 区段的字符串数据。</p>
+<h2 id="TypeIds-区段"><a href="#TypeIds-区段" class="headerlink" title="TypeIds 区段"></a>TypeIds 区段</h2><p>TypeIds 包含<code>typeIdsSize</code>个<code>DexTypeId</code>结构，如下：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">DexTypeId</span> &#123;</span></span><br><span class="line">    u4 descriptorIdx;    <span class="comment">/* 类型的完全限定符，指向 DexStringId 列表的索引 */</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>索引是一个从 0 开始的数字，表示对应第几个<code>DexStringId</code>。这些<code>DexStringId</code>指向的字符串都是类型名称，比如<code>I</code>、<code>Ljava/lang/String;</code>之类的。<code>DexTypeId</code>的索引也会用于后面的结构。</p>
+<h2 id="ProtoIds-区段"><a href="#ProtoIds-区段" class="headerlink" title="ProtoIds 区段"></a>ProtoIds 区段</h2><p>ProtoIds 包含<code>ProtoIdsSize</code>个<code>DexProtoId</code>结构。这里的 Proto 指方法原型，包含返回类型和参数类型。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">DexProtoId</span> &#123;</span></span><br><span class="line">    u4 shortyIdx;       <span class="comment">/* 原型缩写，指向 DexStringId 列表的索引 */</span></span><br><span class="line">    u4 returnTypeIdx;   <span class="comment">/* 返回类型，指向 DexTypeId 列表的索引 */</span></span><br><span class="line">    u4 parametersOff;   <span class="comment">/* 参数类型列表，指向 DexTypeList 的偏移 */</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">DexTypeList</span> &#123;</span></span><br><span class="line">    u4 size;             <span class="comment">/* 接下来 DexTypeItem 的个数 */</span></span><br><span class="line">    DexTypeItem <span class="built_in">list</span>[size]; <span class="comment">/* DexTypeItem 结构 */</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">DexTypeItem</span> &#123;</span></span><br><span class="line">    u2 typeIdx;    <span class="comment">/* 参数类型，指向 DexTypeId 列表的索引 */</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>原型缩写是把所有返回类型和参数类型的名称拼在一起，对象的话只写<code>L</code>。比如<code>int(int,int)</code>写为<code>III</code>，<code>void()</code>写为<code>V</code>，<code>void(String)</code>写为<code>VL</code>。</p>
+<p>参数类型列表一般保存在<code>Data</code>区段中，如果没有，<code>parametersOff</code>为 0。</p>
+<h2 id="FieldIds-区段"><a href="#FieldIds-区段" class="headerlink" title="FieldIds 区段"></a>FieldIds 区段</h2><p>TypeIds 包含<code>fieldIdsSize</code>个<code>DexFieldId</code>结构，如下：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">DexFieldId</span> &#123;</span></span><br><span class="line">    u2 classIdx;   <span class="comment">/* 类的类型，指向 DexTypeId 列表的索引 */</span></span><br><span class="line">    u2 typeIdx;    <span class="comment">/* 字段类型，指向 DexTypeId 列表的索引 */</span></span><br><span class="line">    u4 nameIdx;    <span class="comment">/* 字段名称，指向 DexStringId 列表的索引 */</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h2 id="MethodIds-区段"><a href="#MethodIds-区段" class="headerlink" title="MethodIds 区段"></a>MethodIds 区段</h2><p>MethodIds 包含<code>methodIdsSize</code>个<code>DexMethodId</code>结构，如下：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">DexMethodId</span> &#123;</span></span><br><span class="line">    u2 classIdx;  <span class="comment">/* 类的类型，指向 DexTypeId 列表的索引 */</span></span><br><span class="line">    u2 protoIdx;  <span class="comment">/* 方法原型，指向 DexProtoId 列表的索引 */</span></span><br><span class="line">    u4 nameIdx;   <span class="comment">/* 方法名称，指向 DexStringId 列表的索引 */</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h2 id="ClassDefs-区段"><a href="#ClassDefs-区段" class="headerlink" title="ClassDefs 区段"></a>ClassDefs 区段</h2><p>ClassDefs 包含<code>classDefsSize</code>个<code>DexClassDef</code>结构，如下：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">DexClassDef</span> &#123;</span></span><br><span class="line">    u4 classIdx;         <span class="comment">/* 类的类型，指向 DexTypeId 列表的索引 */</span></span><br><span class="line">    u4 accessFlags;      <span class="comment">/* 访问标志 */</span></span><br><span class="line">    u4 superclassIdx;    <span class="comment">/* 父类类型，指向 DexTypeId列表的索引 */</span></span><br><span class="line">    u4 interfacesOff;    <span class="comment">/* 接口，指向 DexTypeList 的偏移 */</span></span><br><span class="line">    u4 sourceFileIdx;    <span class="comment">/* 源文件名，指向 DexStringId 列表的索引 */</span></span><br><span class="line">    u4 annotationsOff;   <span class="comment">/* 注解，指向 DexAnnotationsDirectoryItem 结构 */</span></span><br><span class="line">    u4 classDataOff;     <span class="comment">/* 指向 DexClassData 结构的偏移 */</span></span><br><span class="line">    u4 staticValuesOff;  <span class="comment">/* 指向 DexEncodedArray 结构的偏移 */</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">DexClassData</span> &#123;</span></span><br><span class="line">    DexClassDataHeader header;                    <span class="comment">/* 各个字段与方法的个数 */</span></span><br><span class="line">    DexField staticFields[staticFieldsSize];      <span class="comment">/* 静态字段 */</span></span><br><span class="line">    DexField instanceFields[instanceFieldsSize];  <span class="comment">/* 实例字段 */</span></span><br><span class="line">    DexMethod directMethods[directMethodsSize];   <span class="comment">/* 直接方法 */</span></span><br><span class="line">    DexMethod virtualMethods[virtualMethodsSize]; <span class="comment">/* 虚方法 */</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">DexClassDataHeader</span> &#123;</span></span><br><span class="line">    u4 staticFieldsSize;   <span class="comment">/* 静态字段个数 */</span></span><br><span class="line">    u4 instanceFieldsSize; <span class="comment">/* 实例字段个数 */</span></span><br><span class="line">    u4 directMethodsSize;  <span class="comment">/* 直接方法个数 */</span></span><br><span class="line">    u4 virtualMethodsSize; <span class="comment">/* 虚方法个数 */</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">DexField</span> &#123;</span></span><br><span class="line">    u4 fieldIdx;    <span class="comment">/* 指向 DexFieldId 的索引 */</span></span><br><span class="line">    u4 accessFlags; <span class="comment">/* 访问标志 */</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">DexMethod</span> &#123;</span></span><br><span class="line">    u4 methodIdx;   <span class="comment">/* 指向 DexMethodId 的索引 */</span></span><br><span class="line">    u4 accessFlags; <span class="comment">/* 访问标志 */</span></span><br><span class="line">    u4 codeOff;     <span class="comment">/* 方法指令，指向DexCode结构的偏移 */</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">DexCode</span> &#123;</span></span><br><span class="line">    u2 registersSize;    <span class="comment">/* 使用的寄存器个数 */</span></span><br><span class="line">    u2 insSize;          <span class="comment">/* 参数个数 */</span></span><br><span class="line">    u2 outsSize;         <span class="comment">/* 调用其他方法时使用的寄存器个数 */</span></span><br><span class="line">    u2 triesSize;        <span class="comment">/* Try/Catch个数 */</span></span><br><span class="line">    u4 debugInfoOff;     <span class="comment">/* 指向调试信息的偏移 */</span></span><br><span class="line">    u4 insnsSize;        <span class="comment">/* 指令集个数，以2字节为单位 */</span></span><br><span class="line">    u2 insns[insnsSize]; <span class="comment">/* 指令集 */</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p><code>DexClassData</code>和<code>DexCode</code>保存在 Data 区段中。</p>
+<h2 id="Data-区段"><a href="#Data-区段" class="headerlink" title="Data 区段"></a>Data 区段</h2><p>这个区段中除了存放二级结构和字符串，还有个重要的结构叫做<code>DexMapList</code>，它实际上 DEX 中所有东西的索引，包括各种二级结构、字符串和它本身。DEX 中同类结构都会保存在一起，所以一类结构只占用一个条目。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">DexMapList</span> &#123;</span></span><br><span class="line">    u4 size;                  <span class="comment">/* 条目个数 */</span></span><br><span class="line">    DexMapItem <span class="built_in">list</span>[size];    <span class="comment">/* 条目列表 */</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">DexMapItem</span> &#123;</span>   </span><br><span class="line">    u2 type;      <span class="comment">/* 结构类型，kDexType 开头 */</span></span><br><span class="line">    u2 unused;    <span class="comment">/* 未使用，用于字节对齐 */</span></span><br><span class="line">    u4 size;      <span class="comment">/* 连续存放的结构个数 */</span></span><br><span class="line">    u4 offset;    <span class="comment">/* 结构的偏移 */</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 结构类型代码 */</span></span><br><span class="line"><span class="class"><span class="keyword">enum</span> &#123;</span></span><br><span class="line">    kDexTypeHeaderItem               = <span class="number">0x0000</span>,</span><br><span class="line">    kDexTypeStringIdItem             = <span class="number">0x0001</span>,</span><br><span class="line">    kDexTypeTypeIdItem               = <span class="number">0x0002</span>,</span><br><span class="line">    kDexTypeProtoIdItem              = <span class="number">0x0003</span>,</span><br><span class="line">    kDexTypeFieldIdItem              = <span class="number">0x0004</span>,</span><br><span class="line">    kDexTypeMethodIdItem             = <span class="number">0x0005</span>,</span><br><span class="line">    kDexTypeClassDefItem             = <span class="number">0x0006</span>,</span><br><span class="line">    kDexTypeMapList                  = <span class="number">0x1000</span>,</span><br><span class="line">    kDexTypeTypeList                 = <span class="number">0x1001</span>,</span><br><span class="line">    kDexTypeAnnotationSetRefList     = <span class="number">0x1002</span>,</span><br><span class="line">    kDexTypeAnnotationSetItem        = <span class="number">0x1003</span>,</span><br><span class="line">    kDexTypeClassDataItem            = <span class="number">0x2000</span>,</span><br><span class="line">    kDexTypeCodeItem                 = <span class="number">0x2001</span>,</span><br><span class="line">    kDexTypeStringDataItem           = <span class="number">0x2002</span>,</span><br><span class="line">    kDexTypeDebugInfoItem            = <span class="number">0x2003</span>,</span><br><span class="line">    kDexTypeAnnotationItem           = <span class="number">0x2004</span>,</span><br><span class="line">    kDexTypeEncodedArrayItem         = <span class="number">0x2005</span>,</span><br><span class="line">    kDexTypeAnnotationsDirectoryItem = <span class="number">0x2006</span>,</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+</div></div><div class="aside-content" id="aside-content"><div class="card-widget card-author"><div class="item-headline"><i class="fa-solid fa-circle-user"></i><span>Author</span></div><div class="author-main-content"><div class="author-check-content"><label class="author-info" for="author-info">     <input id="author-info" type="checkbox" name="author-info"/><div class="author-avatar"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/touxiang.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-name">ixout</div></label></div><div class="author-switch-content"><input class="switch-content" type="radio" name="switch-content" value="description"/><label class="author-description-box">      <div class="author-description"><font color="#e66b6d">十八线业余选手</font></div></label><input class="switch-content" type="radio" name="switch-content" value="social" checked="checked"/><label class="author-social-box"><a class="card-author-button" target="_blank" rel="noopener" href="https://github.com/ixout"><i class="iconfont icon-github"></i><span>Follow Me With Github</span></a><div class="social-icons"><a class="social-icon" href="https://github.com/ixout" target="_blank" title="Github"><i class="fa-brands fa-github"></i></a><a class="social-icon" href="/1425430423" target="_blank" title="QQ"><i class="fa-brands fa-qq"></i></a></div></label><input class="switch-content" type="radio" name="switch-content" value="site-data"/><label class="author-data-box"><div class="site-data"><a class="data-item" href="/archives/"><div class="data-name">文章</div><div class="data-length">58</div></a><a class="data-item" href="/tags/"><div class="data-name">标签</div><div class="data-length">64</div></a><a class="data-item" href="/categories/"><div class="data-name">分类</div><div class="data-length">5</div></a></div></label></div></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>告示牌</span></div><div class="announcement_content"><font color="＃00CED1">(º﹃º)阿巴阿巴阿巴......</font></div></div><div class="card-widget" id="card-poem"><div id="poem_sentence"></div><div id="poem_info"><div id="poem_dynasty"></div><div id="poem_author"></div></div></div><script src="https://cdn.jsdelivr.net/npm/js-heo@1.0.11/poem/jinrishici.js" charset="utf-8"></script><script type="text/javascript">jinrishici.load(function(result) {
+var sentence = document.querySelector("#poem_sentence")
+var author = document.querySelector("#poem_author")
+var dynasty = document.querySelector("#poem_dynasty")
+
+var sentenceText = result.data.content
+sentenceText = sentenceText.substr(0, sentenceText.length - 1);
+sentence.innerHTML = sentenceText
+dynasty.innerHTML = result.data.origin.dynasty
+author.innerHTML = result.data.origin.author + '《' + result.data.origin.title + '》'
+});</script><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/posts/15971/" title="还原魔改luac"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/ixout/picture@main/img/p45347545154796.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="还原魔改luac"/></a><div class="content"><a class="title" href="/posts/15971/" title="还原魔改luac">还原魔改luac</a><time datetime="2024-09-27T02:45:46.000Z" title="发表于 2024-09-27 10:45:46">2024-09-27</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/22716/" title="2024ciscn华东南pwn"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/ixout/picture@main/img/a96d6be2655648d9ab6dc8b314f2a8d1%20(1).jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="2024ciscn华东南pwn"/></a><div class="content"><a class="title" href="/posts/22716/" title="2024ciscn华东南pwn">2024ciscn华东南pwn</a><time datetime="2024-06-24T07:59:49.000Z" title="发表于 2024-06-24 15:59:49">2024-06-24</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/53981/" title="fuzz-in-pwn"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/ixout/picture@main/img/a96d6be2655648d9ab6dc8b314f2a8d1%20(1).jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="fuzz-in-pwn"/></a><div class="content"><a class="title" href="/posts/53981/" title="fuzz-in-pwn">fuzz-in-pwn</a><time datetime="2024-05-12T14:29:46.000Z" title="发表于 2024-05-12 22:29:46">2024-05-12</time></div></div></div></div><div class="card-widget card-tags"><div class="item-headline"><i class="fas fa-tags"></i><span>标签</span></div><div class="card-tag-cloud"><a href="/tags/pwn/" style="font-size: 1.45em; color: rgb(135, 187, 51)">pwn</a><a href="/tags/dirtypagetable/" style="font-size: 1.15em; color: rgb(33, 69, 170)">dirtypagetable</a><a href="/tags/wp/" style="font-size: 1.3em; color: rgb(77, 178, 116)">wp</a><a href="/tags/IO-FILE/" style="font-size: 1.15em; color: rgb(149, 51, 24)">IO_FILE</a><a href="/tags/%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/" style="font-size: 1.4em; color: rgb(48, 155, 113)">学习记录</a><a href="/tags/VMpwn/" style="font-size: 1.15em; color: rgb(170, 26, 119)">VMpwn</a><a href="/tags/wasm/" style="font-size: 1.15em; color: rgb(53, 78, 34)">wasm</a><a href="/tags/webpwn/" style="font-size: 1.15em; color: rgb(118, 42, 88)">webpwn</a><a href="/tags/buuctf/" style="font-size: 1.15em; color: rgb(180, 154, 97)">buuctf</a><a href="/tags/calloc/" style="font-size: 1.15em; color: rgb(88, 59, 163)">calloc</a><a href="/tags/realloc/" style="font-size: 1.15em; color: rgb(79, 70, 127)">realloc</a><a href="/tags/grpc/" style="font-size: 1.15em; color: rgb(171, 97, 121)">grpc</a><a href="/tags/protobuf/" style="font-size: 1.2em; color: rgb(67, 145, 31)">protobuf</a><a href="/tags/%E5%9F%BA%E7%A1%80/" style="font-size: 1.25em; color: rgb(19, 75, 73)">基础</a><a href="/tags/elf/" style="font-size: 1.15em; color: rgb(139, 22, 67)">elf</a><a href="/tags/%E6%8A%A5%E9%94%99/" style="font-size: 1.15em; color: rgb(86, 94, 139)">报错</a><a href="/tags/exit/" style="font-size: 1.15em; color: rgb(17, 103, 85)">exit</a><a href="/tags/pwn%E6%8A%80%E5%B7%A7/" style="font-size: 1.15em; color: rgb(133, 197, 69)">pwn技巧</a><a href="/tags/fuzz/" style="font-size: 1.15em; color: rgb(177, 131, 42)">fuzz</a><a href="/tags/IO-FILE/" style="font-size: 1.2em; color: rgb(170, 162, 168)">_IO_FILE</a><a href="/tags/ida/" style="font-size: 1.15em; color: rgb(67, 147, 67)">ida</a><a href="/tags/kernel/" style="font-size: 1.25em; color: rgb(57, 59, 58)">kernel</a><a href="/tags/how2heap/" style="font-size: 1.15em; color: rgb(167, 62, 27)">how2heap</a><a href="/tags/heap/" style="font-size: 1.2em; color: rgb(12, 137, 14)">heap</a><a href="/tags/%E5%AE%89%E5%85%A8%E6%A3%80%E6%9F%A5/" style="font-size: 1.15em; color: rgb(174, 20, 37)">安全检查</a><a href="/tags/glibc/" style="font-size: 1.2em; color: rgb(4, 152, 133)">glibc</a><a href="/tags/%E5%A0%86/" style="font-size: 1.35em; color: rgb(97, 148, 138)">堆</a><a href="/tags/llvm-pass/" style="font-size: 1.15em; color: rgb(109, 190, 58)">llvm-pass</a><a href="/tags/pwnable-tw/" style="font-size: 1.15em; color: rgb(1, 95, 153)">pwnable.tw</a><a href="/tags/%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/" style="font-size: 1.15em; color: rgb(99, 196, 26)">刷题记录</a><a href="/tags/phppwn/" style="font-size: 1.15em; color: rgb(66, 46, 147)">phppwn</a><a href="/tags/%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" style="font-size: 1.15em; color: rgb(10, 136, 142)">环境搭建</a><a href="/tags/linux/" style="font-size: 1.15em; color: rgb(29, 10, 81)">linux</a><a href="/tags/%E6%9D%82%E7%83%A9/" style="font-size: 1.15em; color: rgb(0, 64, 31)">杂烩</a><a href="/tags/%E6%8A%80%E5%B7%A7/" style="font-size: 1.15em; color: rgb(164, 177, 14)">技巧</a><a href="/tags/DynELF/" style="font-size: 1.15em; color: rgb(75, 155, 42)">DynELF</a><a href="/tags/mprotect/" style="font-size: 1.15em; color: rgb(14, 92, 114)">mprotect</a><a href="/tags/vsyscall/" style="font-size: 1.15em; color: rgb(126, 88, 49)">vsyscall</a><a href="/tags/setcontext/" style="font-size: 1.15em; color: rgb(34, 123, 17)">setcontext</a><a href="/tags/pyjail/" style="font-size: 1.15em; color: rgb(10, 5, 124)">pyjail</a></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2023 - 2024 By ixout</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><a class="icon-V hidden" onclick="switchNightMode()" title="浅色和深色模式转换"><svg width="25" height="25" viewBox="0 0 1024 1024"><use id="modeicon" xlink:href="#icon-moon"></use></svg></a><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button><button id="go-down" type="button" title="直达底部" onclick="btf.scrollToDest(document.body.scrollHeight, 500)"><i class="fas fa-arrow-down"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><div class="js-pjax"></div><canvas id="universe"></canvas><script defer src="/js/universe.js"></script><script defer src="/js/cursor.js"></script><script async src="/js/fps.js"></script><script async src="/js/title.js"></script><script src="/js/sun_moon.js" async></script><script async src="//at.alicdn.com/t/c/font_3930344_38rvofbfw64.js"></script><script defer="defer" id="ribbon" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-ribbon.min.js" size="150" alpha="0.6" zIndex="-1" mobile="false" data-click="true"></script><script id="click-show-text" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/click-show-text.min.js" data-mobile="false" data-text="富强,民主,文明,和谐,自由,平等,公正,法治,爱国,敬业,诚信,友善" data-fontsize="20px" data-random="false" async="async"></script></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div><!-- hexo injector body_end start --><script async src="//at.alicdn.com/t/font_2032782_8d5kxvn09md.js"></script><!-- hexo injector body_end end --></body></html>
