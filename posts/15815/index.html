@@ -1,11 +1,18 @@
-<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"><title>堆实操学习笔记 | ixout's blog</title><meta name="author" content="ixout"><meta name="copyright" content="ixout"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="实操">
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="实操">
 <meta property="og:type" content="article">
 <meta property="og:title" content="堆实操学习笔记">
 <meta property="og:url" content="https://ixout.github.io/posts/15815/index.html">
 <meta property="og:site_name" content="ixout&#39;s blog">
 <meta property="og:description" content="实操">
-<meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ixout/ixout.github.io@main/img/61ac5e4.jpg">
+<meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2023-04-27T02:11:26.000Z">
 <meta property="article:modified_time" content="2024-11-20T14:11:46.246Z">
 <meta property="article:author" content="ixout">
@@ -13,175 +20,155 @@
 <meta property="article:tag" content="堆">
 <meta property="article:tag" content="实操">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/ixout/ixout.github.io@main/img/61ac5e4.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://ixout.github.io/posts/15815/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
-  root: '/',
-  algolia: undefined,
-  localSearch: {"path":"/search.xml","preload":false,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
-  translate: undefined,
-  noticeOutdate: undefined,
-  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
-  copy: {
-    success: '复制成功',
-    error: '复制错误',
-    noSupport: '浏览器不支持'
-  },
-  relativeDate: {
-    homepage: false,
-    post: false
-  },
-  runtime: '',
-  date_suffix: {
-    just: '刚刚',
-    min: '分钟前',
-    hour: '小时前',
-    day: '天前',
-    month: '个月前'
-  },
-  copyright: undefined,
-  lightbox: 'fancybox',
-  Snackbar: undefined,
-  source: {
-    justifiedGallery: {
-      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
-      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
-    }
-  },
-  isPhotoFigcaption: true,
-  islazyload: true,
-  isAnchor: false,
-  percent: {
-    toc: true,
-    rightside: true,
-  }
-}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
-  title: '堆实操学习笔记',
-  isPost: true,
-  isHome: false,
-  isHighlightShrink: false,
-  isToc: true,
-  postUpdate: '2024-11-20 22:11:46'
-}</script><noscript><style type="text/css">
-  #nav {
-    opacity: 1
-  }
-  .justified-gallery img {
-    opacity: 1
-  }
-
-  #recent-posts time,
-  #post-meta time {
-    display: inline !important
-  }
-</style></noscript><script>(win=>{
-    win.saveToLocal = {
-      set: function setWithExpiry(key, value, ttl) {
-        if (ttl === 0) return
-        const now = new Date()
-        const expiryDay = ttl * 86400000
-        const item = {
-          value: value,
-          expiry: now.getTime() + expiryDay,
-        }
-        localStorage.setItem(key, JSON.stringify(item))
-      },
-
-      get: function getWithExpiry(key) {
-        const itemStr = localStorage.getItem(key)
-
-        if (!itemStr) {
-          return undefined
-        }
-        const item = JSON.parse(itemStr)
-        const now = new Date()
-
-        if (now.getTime() > item.expiry) {
-          localStorage.removeItem(key)
-          return undefined
-        }
-        return item.value
-      }
-    }
-  
-    win.getScript = url => new Promise((resolve, reject) => {
-      const script = document.createElement('script')
-      script.src = url
-      script.async = true
-      script.onerror = reject
-      script.onload = script.onreadystatechange = function() {
-        const loadState = this.readyState
-        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
-        script.onload = script.onreadystatechange = null
-        resolve()
-      }
-      document.head.appendChild(script)
-    })
-  
-    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
-      const link = document.createElement('link')
-      link.rel = 'stylesheet'
-      link.href = url
-      if (id) link.id = id
-      link.onerror = reject
-      link.onload = link.onreadystatechange = function() {
-        const loadState = this.readyState
-        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
-        link.onload = link.onreadystatechange = null
-        resolve()
-      }
-      document.head.appendChild(link)
-    })
-  
-      win.activateDarkMode = function () {
-        document.documentElement.setAttribute('data-theme', 'dark')
-        if (document.querySelector('meta[name="theme-color"]') !== null) {
-          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
-        }
-      }
-      win.activateLightMode = function () {
-        document.documentElement.setAttribute('data-theme', 'light')
-        if (document.querySelector('meta[name="theme-color"]') !== null) {
-          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
-        }
-      }
-      const t = saveToLocal.get('theme')
     
-          if (t === 'dark') activateDarkMode()
-          else if (t === 'light') activateLightMode()
+    
+      
         
-      const asideStatus = saveToLocal.get('aside-status')
-      if (asideStatus !== undefined) {
-        if (asideStatus === 'hide') {
-          document.documentElement.classList.add('hide-aside')
-        } else {
-          document.documentElement.classList.remove('hide-aside')
-        }
-      }
+          <link rel="shortcut icon" href="/images/favicon.png">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.png">
+        
+      
     
-    const detectApple = () => {
-      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
-        document.documentElement.classList.add('apple')
-      }
-    }
-    detectApple()
-    })(window)</script><link rel="stylesheet" href="/css/universe.css"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/js-heo@1.0.11/mainColor/heoMainColor.css"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/js-heo@1.0.11/poem/poem.css"><link rel="stylesheet" href="/css/footerb.css"><link rel="stylesheet" href="/css/bolang.css"><link rel="stylesheet" href="/css/jzbar.css"><link rel="stylesheet" href="/css/trans.css"><link rel="stylesheet" href="/css/gundongtiao.css"><link rel="stylesheet" href="/css/shubiao.css"><link rel="stylesheet" href="/css/fengche.css"><link rel="stylesheet" href="/css/alitubiao.css"><link rel="stylesheet" href="/css/fps.css"><span id="fps"></span><link rel="stylesheet" href="/css/yituliu.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="//at.alicdn.com/t/c/font_3930344_38rvofbfw64.css" media="defer" onload="this.media='all'"><svg aria-hidden="true" style="position:absolute; overflow:hidden; width:0; height:0"><symbol id="icon-sun" viewBox="0 0 1024 1024"><path d="M960 512l-128 128v192h-192l-128 128-128-128H192v-192l-128-128 128-128V192h192l128-128 128 128h192v192z" fill="#FFD878" p-id="8420"></path><path d="M736 512a224 224 0 1 0-448 0 224 224 0 1 0 448 0z" fill="#FFE4A9" p-id="8421"></path><path d="M512 109.248L626.752 224H800v173.248L914.752 512 800 626.752V800h-173.248L512 914.752 397.248 800H224v-173.248L109.248 512 224 397.248V224h173.248L512 109.248M512 64l-128 128H192v192l-128 128 128 128v192h192l128 128 128-128h192v-192l128-128-128-128V192h-192l-128-128z" fill="#4D5152" p-id="8422"></path><path d="M512 320c105.888 0 192 86.112 192 192s-86.112 192-192 192-192-86.112-192-192 86.112-192 192-192m0-32a224 224 0 1 0 0 448 224 224 0 0 0 0-448z" fill="#4D5152" p-id="8423"></path></symbol><symbol id="icon-moon" viewBox="0 0 1024 1024"><path d="M611.370667 167.082667a445.013333 445.013333 0 0 1-38.4 161.834666 477.824 477.824 0 0 1-244.736 244.394667 445.141333 445.141333 0 0 1-161.109334 38.058667 85.077333 85.077333 0 0 0-65.066666 135.722666A462.08 462.08 0 1 0 747.093333 102.058667a85.077333 85.077333 0 0 0-135.722666 65.024z" fill="#FFB531" p-id="11345"></path><path d="M329.728 274.133333l35.157333-35.157333a21.333333 21.333333 0 1 0-30.165333-30.165333l-35.157333 35.157333-35.114667-35.157333a21.333333 21.333333 0 0 0-30.165333 30.165333l35.114666 35.157333-35.114666 35.157334a21.333333 21.333333 0 1 0 30.165333 30.165333l35.114667-35.157333 35.157333 35.157333a21.333333 21.333333 0 1 0 30.165333-30.165333z" fill="#030835" p-id="11346"></path></symbol></svg><!-- hexo injector head_end start --><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/assets/font-awesome-animation.min.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/tag_plugins.css" media="defer" onload="this.media='all'"><script src="https://npm.elemecdn.com/hexo-butterfly-tag-plugins-plus@latest/lib/assets/carousel-touch.js"></script><!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="ixout's blog" type="application/atom+xml">
-</head><body><div id="loading-box"><div class="pokeball-back"></div><div class="pokeball-loading"><div class="pokeball" id="pokeball-normal"></div><div class="pokeball" id="pokeball-great"></div><div class="pokeball" id="pokeball-ultra"></div><div class="pokeball" id="pokeball-master"></div><div class="pokeball" id="pokeball-safari"></div></div></div><script async="async">const preloader = {
-  endLoading: () => {
-    document.body.style.overflow = 'auto';
-    document.getElementById('loading-box').classList.add("loaded")
-  },
-  initLoading: () => {
-    document.body.style.overflow = '';
-    document.getElementById('loading-box').classList.remove("loaded")
+    <!-- title -->
+    <title>堆实操学习笔记</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
 
-  }
-}
-document.getElementById('loading-box').addEventListener('click',()=> {preloader.endLoading()})
-setTimeout(function(){preloader.endLoading();}, 7000);
 
-if (false) {
-  document.addEventListener('pjax:send', () => { preloader.initLoading() })
-  document.addEventListener('pjax:complete', () => { preloader.endLoading() })
-}</script><link rel="stylesheet" href="/css/jzbar.css"/><script src="https://cdn.jsdelivr.net/npm/pace-js/pace.min.js"></script><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/touxiang.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">43</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">50</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">4</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw iconfont icon-hanbao"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw iconfont icon-fenlei"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw iconfont icon-biaoqian"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw iconfont icon-youlian"></i><span> 友人帐</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw iconfont icon-fantuan"></i><span> About</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://cdn.jsdelivr.net/gh/ixout/ixout.github.io@main/img/61ac5e4.jpg')"><nav id="nav"><span id="blog-info"><a href="/" title="ixout's blog"><span class="site-name">ixout's blog</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw iconfont icon-hanbao"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw iconfont icon-fenlei"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw iconfont icon-biaoqian"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw iconfont icon-youlian"></i><span> 友人帐</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw iconfont icon-fantuan"></i><span> About</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">堆实操学习笔记</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2023-04-27T02:11:26.000Z" title="发表于 2023-04-27 10:11:26">2023-04-27</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-11-20T14:11:46.246Z" title="更新于 2024-11-20 22:11:46">2024-11-20</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/pwn/">pwn</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">14.3k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>67分钟</span></span></div></div></div><section class="main-hero-waves-area waves-area"><svg class="waves-svg" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto"><defs><path id="gentle-wave" d="M -160 44 c 30 0 58 -18 88 -18 s 58 18 88 18 s 58 -18 88 -18 s 58 18 88 18 v 44 h -352 Z"></path></defs><g class="parallax"><use href="#gentle-wave" x="48" y="0"></use><use href="#gentle-wave" x="48" y="3"></use><use href="#gentle-wave" x="48" y="5"></use><use href="#gentle-wave" x="48" y="7"></use></g></svg></section></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="题录"><a href="#题录" class="headerlink" title="题录"></a>题录</h1><h2 id="Asis-CTF-2016-b00ks"><a href="#Asis-CTF-2016-b00ks" class="headerlink" title="Asis CTF 2016 b00ks"></a>Asis CTF 2016 b00ks</h2><p><strong>难度:★★</strong></p>
+    <!-- Umami Analytics -->
+
+
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="ixout's blog" type="application/atom+xml">
+</head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa-solid fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="Previous post" href="/posts/19785/"><i class="fa-solid fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/posts/23411/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://ixout.github.io/posts/15815/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://ixout.github.io/posts/15815/&text=堆实操学习笔记"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://ixout.github.io/posts/15815/&title=堆实操学习笔记"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://ixout.github.io/posts/15815/&is_video=false&description=堆实操学习笔记"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=堆实操学习笔记&body=Check out this article: https://ixout.github.io/posts/15815/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://ixout.github.io/posts/15815/&title=堆实操学习笔记"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://ixout.github.io/posts/15815/&title=堆实操学习笔记"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://ixout.github.io/posts/15815/&title=堆实操学习笔记"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://ixout.github.io/posts/15815/&title=堆实操学习笔记"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://ixout.github.io/posts/15815/&name=堆实操学习笔记&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://ixout.github.io/posts/15815/&t=堆实操学习笔记"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    
+    
+      <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%A2%98%E5%BD%95"><span class="toc-number">1.</span> <span class="toc-text">题录</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Asis-CTF-2016-b00ks"><span class="toc-number">1.1.</span> <span class="toc-text">Asis CTF 2016 b00ks</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#v-amp-n2020%E6%8B%9B%E6%96%B0%E8%B5%9Bsimpleheap"><span class="toc-number">1.2.</span> <span class="toc-text">v&amp;n2020招新赛simpleheap</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#HITCON-Trainging-lab13-heapcreator"><span class="toc-number">1.3.</span> <span class="toc-text">HITCON Trainging lab13 heapcreator</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2015-hacklu-bookstore"><span class="toc-number">1.4.</span> <span class="toc-text">2015 hacklu bookstore</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2014-HITCON-stkof"><span class="toc-number">1.5.</span> <span class="toc-text">2014 HITCON stkof</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2014HITCON-note2"><span class="toc-number">1.6.</span> <span class="toc-text">2014HITCON note2</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2017-insomni%E2%80%99hack-wheelofrobots"><span class="toc-number">1.7.</span> <span class="toc-text">2017 insomni’hack wheelofrobots</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2014ZCTF-note3"><span class="toc-number">1.8.</span> <span class="toc-text">2014ZCTF note3</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#HITCON-training-lab-10-hacknote"><span class="toc-number">1.9.</span> <span class="toc-text">HITCON-training lab 10 hacknote</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2014-hack-lu-oreo"><span class="toc-number">1.10.</span> <span class="toc-text">2014 hack.lu oreo</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2015-9447-CTF-Search-Engine"><span class="toc-number">1.11.</span> <span class="toc-text">2015 9447 CTF : Search Engine</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2017-0ctf-babyheap"><span class="toc-number">1.12.</span> <span class="toc-text">2017 0ctf babyheap</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#HITCON-Training-lab14-magic-heap"><span class="toc-number">1.13.</span> <span class="toc-text">HITCON Training lab14 magic heap</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#LCTF2018-PWN-easy-heap"><span class="toc-number">1.14.</span> <span class="toc-text">LCTF2018 PWN easy_heap</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#HITCON-2018-PWN-baby-tcache"><span class="toc-number">1.15.</span> <span class="toc-text">HITCON 2018 PWN baby_tcache</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#pwnable-bookwriter"><span class="toc-number">1.16.</span> <span class="toc-text">pwnable_bookwriter</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2022%E6%98%A5%E7%A7%8B%E6%9D%AF-torghast"><span class="toc-number">1.17.</span> <span class="toc-text">2022春秋杯-torghast</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#HITCON2019-one-punch-man"><span class="toc-number">1.18.</span> <span class="toc-text">HITCON2019-one_punch man</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF%E4%B8%80"><span class="toc-number">1.18.1.</span> <span class="toc-text">思路一</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF%E4%BA%8C"><span class="toc-number">1.18.2.</span> <span class="toc-text">思路二</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%8B%BE%E9%81%97"><span class="toc-number">2.</span> <span class="toc-text">拾遗</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#0x1chunk%E5%9C%B0%E5%9D%80"><span class="toc-number">2.1.</span> <span class="toc-text">0x1chunk地址</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x2hook%E6%89%A7%E8%A1%8C%E5%8F%82%E6%95%B0"><span class="toc-number">2.2.</span> <span class="toc-text">0x2hook执行参数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x3mmap%E6%89%80%E5%88%86%E9%85%8Dchunk"><span class="toc-number">2.3.</span> <span class="toc-text">0x3mmap所分配chunk</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x4%E5%8F%8Chook%E9%85%8D%E5%90%88"><span class="toc-number">2.4.</span> <span class="toc-text">0x4双hook配合</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x5-fini-array"><span class="toc-number">2.5.</span> <span class="toc-text">0x5.fini_array</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x6%E8%B0%83%E8%AF%95%E7%BB%86%E8%8A%82"><span class="toc-number">2.6.</span> <span class="toc-text">0x6调试细节</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%8E%AF%E5%A2%83%E9%97%AE%E9%A2%98"><span class="toc-number">2.6.1.</span> <span class="toc-text">环境问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%A6%E5%8F%B7%E8%A1%A8"><span class="toc-number">2.6.2.</span> <span class="toc-text">符号表</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%90%88%E9%80%82%E7%9A%84%E8%B0%83%E8%AF%95%E8%B5%B7%E5%A7%8B%E4%BD%8D%E7%BD%AE"><span class="toc-number">2.6.3.</span> <span class="toc-text">合适的调试起始位置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%A6%E4%B8%80%E7%A7%8D%E8%B0%83%E8%AF%95%E6%96%B9%E5%BC%8F"><span class="toc-number">2.6.4.</span> <span class="toc-text">另一种调试方式</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x7main-arena%E5%81%8F%E7%A7%BB%E7%9A%84%E8%8E%B7%E5%8F%96"><span class="toc-number">2.7.</span> <span class="toc-text">0x7main_arena偏移的获取</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x8calloc%E5%88%86%E9%85%8D%E7%9A%84chunk"><span class="toc-number">2.8.</span> <span class="toc-text">0x8calloc分配的chunk</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x9-maloc-hook%E9%99%84%E8%BF%91%E7%9A%84fake-chunk"><span class="toc-number">2.9.</span> <span class="toc-text">0x9 __maloc_hook附近的fake_chunk</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0xa-PIE%E7%9A%84%E4%B8%80%E7%A7%8D%E5%BA%94%E5%AF%B9%E6%96%B9%E5%BC%8F"><span class="toc-number">2.10.</span> <span class="toc-text">0xa PIE的一种应对方式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0xb-unsortedbin-chunk%E5%A4%84%E7%90%86"><span class="toc-number">2.11.</span> <span class="toc-text">0xb unsortedbin-chunk处理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0xc-prev-size%E5%AD%97%E6%AE%B5%E4%BD%95%E6%97%B6%E5%8F%98%E5%8C%96"><span class="toc-number">2.12.</span> <span class="toc-text">0xc prev_size字段何时变化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0xd-io-overflow%E7%9B%B8%E5%85%B3"><span class="toc-number">2.13.</span> <span class="toc-text">0xd io_overflow相关</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0xe-chunk%E5%90%88%E5%B9%B6%E6%A3%80%E6%B5%8B"><span class="toc-number">2.14.</span> <span class="toc-text">0xe chunk合并检测</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0xf-%E6%97%A0free%E6%97%B6topchunk%E7%9A%84%E5%88%A9%E7%94%A8"><span class="toc-number">2.15.</span> <span class="toc-text">0xf 无free时topchunk的利用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x10%E5%B8%B8%E8%A7%84%E6%B3%84%E9%9C%B2"><span class="toc-number">2.16.</span> <span class="toc-text">0x10常规泄露</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x11tcache%E7%9B%B8%E5%85%B3"><span class="toc-number">2.17.</span> <span class="toc-text">0x11tcache相关</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x12overlap"><span class="toc-number">2.18.</span> <span class="toc-text">0x12overlap</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x13%E5%9C%A8tcahe-perthread-struct%E4%B8%8A%E4%BC%AA%E9%80%A0chunk"><span class="toc-number">2.19.</span> <span class="toc-text">0x13在tcahe_perthread_struct上伪造chunk</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x14-unsortedbin%E5%A4%B4"><span class="toc-number">2.20.</span> <span class="toc-text">0x14 unsortedbin头</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x15"><span class="toc-number">2.21.</span> <span class="toc-text">0x15</span></a></li></ol></li></ol>
+      </div>
+    
+  </span>
+</div>
+
+    
+    <div class="content index py4 ">
+        
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle p-name" itemprop="name headline">
+        堆实操学习笔记
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span class="p-name" itemprop="name">ixout</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2023-04-27T02:11:26.000Z" class="dt-published" itemprop="datePublished">2023-04-27</time>
+        
+      
+    </div>
+
+
+      
+    <div class="article-category">
+        <i class="fa-solid fa-archive"></i>
+        <a class="category-link" href="/categories/pwn/">pwn</a>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fa-solid fa-tag"></i>
+        <a class="p-category" href="/tags/%E5%A0%86/" rel="tag">堆</a>, <a class="p-category" href="/tags/%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/" rel="tag">学习记录</a>, <a class="p-category" href="/tags/%E5%AE%9E%E6%93%8D/" rel="tag">实操</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content e-content" itemprop="articleBody">
+    <h1 id="题录"><a href="#题录" class="headerlink" title="题录"></a>题录</h1><h2 id="Asis-CTF-2016-b00ks"><a href="#Asis-CTF-2016-b00ks" class="headerlink" title="Asis CTF 2016 b00ks"></a>Asis CTF 2016 b00ks</h2><p><strong>难度:★★</strong></p>
 <p><strong>核心利用是off-by-one</strong></p>
 <p>使得一个用于管理指针的chunk指向可写区域,进而达到任意写的目的</p>
 <p><strong>exp:</strong></p>
@@ -539,4 +526,144 @@ if (false) {
 <p>原因是2.27及之后malloc_state多了一个<code>int have_fastchunks;</code>变量</p>
 <h2 id="0x15"><a href="#0x15" class="headerlink" title="0x15"></a>0x15</h2><p>free的时候很重要的一点就是理解</p>
 <p>free能否成功,几乎完全取决于size字段</p>
-</article><div class="post-copyright"><div class="post-copyright__title"><span class="post-copyright-info"><h>堆实操学习笔记</h></span></div><div class="post-copyright__type"><span class="post-copyright-info"><a href="https://ixout.github.io/posts/15815/">https://ixout.github.io/posts/15815/</a></span></div><div class="post-copyright-m"><div class="post-copyright-m-info"><div class="post-copyright-a"><h>作者</h><div class="post-copyright-cc-info"><h>ixout</h></div></div><div class="post-copyright-c"><h>发布于</h><div class="post-copyright-cc-info"><h>2023-04-27</h></div></div><div class="post-copyright-u"><h>更新于</h><div class="post-copyright-cc-info"><h>2024-11-20</h></div></div><div class="post-copyright-c"><h>许可协议</h><div class="post-copyright-cc-info"><a class="icon" rel="noopener" target="_blank" title="Creative Commons" href="https://creativecommons.org/"><i class="fab fa-creative-commons"></i></a><a rel="noopener" target="_blank" title="CC BY-NC-SA 4.0" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a></div></div></div></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/">学习记录</a><a class="post-meta__tags" href="/tags/%E5%A0%86/">堆</a><a class="post-meta__tags" href="/tags/%E5%AE%9E%E6%93%8D/">实操</a></div><div class="post_share"><div class="social-share" data-image="https://cdn.jsdelivr.net/gh/ixout/ixout.github.io@main/img/61ac5e4.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/posts/19785/" title="elf动态链接"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/ixout/ixout.github.io@main/img/c6d6.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">elf动态链接</div></div></a></div><div class="next-post pull-right"><a href="/posts/23411/" title="IO_FILE与FSOP"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/ixout/ixout.github.io@main/img/cfcb137bbbe3415.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">IO_FILE与FSOP</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-author"><div class="item-headline"><i class="fa-solid fa-circle-user"></i><span>Author</span></div><div class="author-main-content"><div class="author-check-content"><label class="author-info" for="author-info">     <input id="author-info" type="checkbox" name="author-info"/><div class="author-avatar"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="/img/touxiang.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-name">ixout</div></label></div><div class="author-switch-content"><input class="switch-content" type="radio" name="switch-content" value="description"/><label class="author-description-box">      <div class="author-description"><font color="#e66b6d">十八线业余选手</font></div></label><input class="switch-content" type="radio" name="switch-content" value="social" checked="checked"/><label class="author-social-box"><a class="card-author-button" target="_blank" rel="noopener" href="https://github.com/ixout"><i class="iconfont icon-github"></i><span>Follow Me With Github</span></a><div class="social-icons"><a class="social-icon" href="https://github.com/ixout" target="_blank" title="Github"><i class="fa-brands fa-github"></i></a><a class="social-icon" href="/1425430423" target="_blank" title="QQ"><i class="fa-brands fa-qq"></i></a></div></label><input class="switch-content" type="radio" name="switch-content" value="site-data"/><label class="author-data-box"><div class="site-data"><a class="data-item" href="/archives/"><div class="data-name">文章</div><div class="data-length">43</div></a><a class="data-item" href="/tags/"><div class="data-name">标签</div><div class="data-length">50</div></a><a class="data-item" href="/categories/"><div class="data-name">分类</div><div class="data-length">4</div></a></div></label></div></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>告示牌</span></div><div class="announcement_content"><font color="＃00CED1">(º﹃º)阿巴阿巴阿巴......</font></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%A2%98%E5%BD%95"><span class="toc-number">1.</span> <span class="toc-text">题录</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Asis-CTF-2016-b00ks"><span class="toc-number">1.1.</span> <span class="toc-text">Asis CTF 2016 b00ks</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#v-amp-n2020%E6%8B%9B%E6%96%B0%E8%B5%9Bsimpleheap"><span class="toc-number">1.2.</span> <span class="toc-text">v&amp;n2020招新赛simpleheap</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#HITCON-Trainging-lab13-heapcreator"><span class="toc-number">1.3.</span> <span class="toc-text">HITCON Trainging lab13 heapcreator</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2015-hacklu-bookstore"><span class="toc-number">1.4.</span> <span class="toc-text">2015 hacklu bookstore</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2014-HITCON-stkof"><span class="toc-number">1.5.</span> <span class="toc-text">2014 HITCON stkof</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2014HITCON-note2"><span class="toc-number">1.6.</span> <span class="toc-text">2014HITCON note2</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2017-insomni%E2%80%99hack-wheelofrobots"><span class="toc-number">1.7.</span> <span class="toc-text">2017 insomni’hack wheelofrobots</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2014ZCTF-note3"><span class="toc-number">1.8.</span> <span class="toc-text">2014ZCTF note3</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#HITCON-training-lab-10-hacknote"><span class="toc-number">1.9.</span> <span class="toc-text">HITCON-training lab 10 hacknote</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2014-hack-lu-oreo"><span class="toc-number">1.10.</span> <span class="toc-text">2014 hack.lu oreo</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2015-9447-CTF-Search-Engine"><span class="toc-number">1.11.</span> <span class="toc-text">2015 9447 CTF : Search Engine</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2017-0ctf-babyheap"><span class="toc-number">1.12.</span> <span class="toc-text">2017 0ctf babyheap</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#HITCON-Training-lab14-magic-heap"><span class="toc-number">1.13.</span> <span class="toc-text">HITCON Training lab14 magic heap</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#LCTF2018-PWN-easy-heap"><span class="toc-number">1.14.</span> <span class="toc-text">LCTF2018 PWN easy_heap</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#HITCON-2018-PWN-baby-tcache"><span class="toc-number">1.15.</span> <span class="toc-text">HITCON 2018 PWN baby_tcache</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#pwnable-bookwriter"><span class="toc-number">1.16.</span> <span class="toc-text">pwnable_bookwriter</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2022%E6%98%A5%E7%A7%8B%E6%9D%AF-torghast"><span class="toc-number">1.17.</span> <span class="toc-text">2022春秋杯-torghast</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#HITCON2019-one-punch-man"><span class="toc-number">1.18.</span> <span class="toc-text">HITCON2019-one_punch man</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF%E4%B8%80"><span class="toc-number">1.18.1.</span> <span class="toc-text">思路一</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF%E4%BA%8C"><span class="toc-number">1.18.2.</span> <span class="toc-text">思路二</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%8B%BE%E9%81%97"><span class="toc-number">2.</span> <span class="toc-text">拾遗</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#0x1chunk%E5%9C%B0%E5%9D%80"><span class="toc-number">2.1.</span> <span class="toc-text">0x1chunk地址</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x2hook%E6%89%A7%E8%A1%8C%E5%8F%82%E6%95%B0"><span class="toc-number">2.2.</span> <span class="toc-text">0x2hook执行参数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x3mmap%E6%89%80%E5%88%86%E9%85%8Dchunk"><span class="toc-number">2.3.</span> <span class="toc-text">0x3mmap所分配chunk</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x4%E5%8F%8Chook%E9%85%8D%E5%90%88"><span class="toc-number">2.4.</span> <span class="toc-text">0x4双hook配合</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x5-fini-array"><span class="toc-number">2.5.</span> <span class="toc-text">0x5.fini_array</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x6%E8%B0%83%E8%AF%95%E7%BB%86%E8%8A%82"><span class="toc-number">2.6.</span> <span class="toc-text">0x6调试细节</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%8E%AF%E5%A2%83%E9%97%AE%E9%A2%98"><span class="toc-number">2.6.1.</span> <span class="toc-text">环境问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%A6%E5%8F%B7%E8%A1%A8"><span class="toc-number">2.6.2.</span> <span class="toc-text">符号表</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%90%88%E9%80%82%E7%9A%84%E8%B0%83%E8%AF%95%E8%B5%B7%E5%A7%8B%E4%BD%8D%E7%BD%AE"><span class="toc-number">2.6.3.</span> <span class="toc-text">合适的调试起始位置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%A6%E4%B8%80%E7%A7%8D%E8%B0%83%E8%AF%95%E6%96%B9%E5%BC%8F"><span class="toc-number">2.6.4.</span> <span class="toc-text">另一种调试方式</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x7main-arena%E5%81%8F%E7%A7%BB%E7%9A%84%E8%8E%B7%E5%8F%96"><span class="toc-number">2.7.</span> <span class="toc-text">0x7main_arena偏移的获取</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x8calloc%E5%88%86%E9%85%8D%E7%9A%84chunk"><span class="toc-number">2.8.</span> <span class="toc-text">0x8calloc分配的chunk</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x9-maloc-hook%E9%99%84%E8%BF%91%E7%9A%84fake-chunk"><span class="toc-number">2.9.</span> <span class="toc-text">0x9 __maloc_hook附近的fake_chunk</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0xa-PIE%E7%9A%84%E4%B8%80%E7%A7%8D%E5%BA%94%E5%AF%B9%E6%96%B9%E5%BC%8F"><span class="toc-number">2.10.</span> <span class="toc-text">0xa PIE的一种应对方式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0xb-unsortedbin-chunk%E5%A4%84%E7%90%86"><span class="toc-number">2.11.</span> <span class="toc-text">0xb unsortedbin-chunk处理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0xc-prev-size%E5%AD%97%E6%AE%B5%E4%BD%95%E6%97%B6%E5%8F%98%E5%8C%96"><span class="toc-number">2.12.</span> <span class="toc-text">0xc prev_size字段何时变化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0xd-io-overflow%E7%9B%B8%E5%85%B3"><span class="toc-number">2.13.</span> <span class="toc-text">0xd io_overflow相关</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0xe-chunk%E5%90%88%E5%B9%B6%E6%A3%80%E6%B5%8B"><span class="toc-number">2.14.</span> <span class="toc-text">0xe chunk合并检测</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0xf-%E6%97%A0free%E6%97%B6topchunk%E7%9A%84%E5%88%A9%E7%94%A8"><span class="toc-number">2.15.</span> <span class="toc-text">0xf 无free时topchunk的利用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x10%E5%B8%B8%E8%A7%84%E6%B3%84%E9%9C%B2"><span class="toc-number">2.16.</span> <span class="toc-text">0x10常规泄露</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x11tcache%E7%9B%B8%E5%85%B3"><span class="toc-number">2.17.</span> <span class="toc-text">0x11tcache相关</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x12overlap"><span class="toc-number">2.18.</span> <span class="toc-text">0x12overlap</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x13%E5%9C%A8tcahe-perthread-struct%E4%B8%8A%E4%BC%AA%E9%80%A0chunk"><span class="toc-number">2.19.</span> <span class="toc-text">0x13在tcahe_perthread_struct上伪造chunk</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x14-unsortedbin%E5%A4%B4"><span class="toc-number">2.20.</span> <span class="toc-text">0x14 unsortedbin头</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x15"><span class="toc-number">2.21.</span> <span class="toc-text">0x15</span></a></li></ol></li></ol></div></div><div class="card-widget card-recommend-post"><div class="item-headline"><i class="fas fa-dharmachakra"></i><span>相关推荐</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/posts/61329/" title="堆利用-1"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/ixout/ixout.github.io@main/img/c9d3deb2ca2.jpg" alt="堆利用-1"></a><div class="content"><a class="title" href="/posts/61329/" title="堆利用-1">堆利用-1</a><time datetime="2023-03-28" title="发表于 2023-03-28">2023-03-28</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/61137/" title="堆利用-2"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/ixout/ixout.github.io@main/img/c6d6.jpg" alt="堆利用-2"></a><div class="content"><a class="title" href="/posts/61137/" title="堆利用-2">堆利用-2</a><time datetime="2023-03-30" title="发表于 2023-03-30">2023-03-30</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/11792/" title="堆利用-3"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/ixout/ixout.github.io@main/img/1536aeca2.jpg" alt="堆利用-3"></a><div class="content"><a class="title" href="/posts/11792/" title="堆利用-3">堆利用-3</a><time datetime="2023-03-31" title="发表于 2023-03-31">2023-03-31</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/40023/" title="堆学习笔记-2"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/ixout/ixout.github.io@main/img/p2312414.jpg" alt="堆学习笔记-2"></a><div class="content"><a class="title" href="/posts/40023/" title="堆学习笔记-2">堆学习笔记-2</a><time datetime="2023-03-18" title="发表于 2023-03-18">2023-03-18</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/8932/" title="堆学习笔记"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/ixout/ixout.github.io@main/img/p%20(15).jpg" alt="堆学习笔记"></a><div class="content"><a class="title" href="/posts/8932/" title="堆学习笔记">堆学习笔记</a><time datetime="2023-03-02" title="发表于 2023-03-02">2023-03-02</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/23411/" title="IO_FILE与FSOP"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://cdn.jsdelivr.net/gh/ixout/ixout.github.io@main/img/cfcb137bbbe3415.jpg" alt="IO_FILE与FSOP"></a><div class="content"><a class="title" href="/posts/23411/" title="IO_FILE与FSOP">IO_FILE与FSOP</a><time datetime="2023-04-07" title="发表于 2023-04-07">2023-04-07</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2023 - 2024 By ixout</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><a class="icon-V hidden" onclick="switchNightMode()" title="浅色和深色模式转换"><svg width="25" height="25" viewBox="0 0 1024 1024"><use id="modeicon" xlink:href="#icon-moon"></use></svg></a><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button><button id="go-down" type="button" title="直达底部" onclick="btf.scrollToDest(document.body.scrollHeight, 500)"><i class="fas fa-arrow-down"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><div class="js-pjax"></div><canvas id="universe"></canvas><script defer src="/js/universe.js"></script><script defer src="/js/cursor.js"></script><script async src="/js/fps.js"></script><script async src="/js/title.js"></script><script src="/js/sun_moon.js" async></script><script async src="//at.alicdn.com/t/c/font_3930344_38rvofbfw64.js"></script><script defer="defer" id="ribbon" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-ribbon.min.js" size="150" alpha="0.6" zIndex="-1" mobile="false" data-click="true"></script><script id="click-show-text" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/click-show-text.min.js" data-mobile="false" data-text="富强,民主,文明,和谐,自由,平等,公正,法治,爱国,敬业,诚信,友善" data-fontsize="20px" data-random="false" async="async"></script></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div><!-- hexo injector body_end start --><script async src="//at.alicdn.com/t/font_2032782_8d5kxvn09md.js"></script><!-- hexo injector body_end end --></body></html>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+        
+          <li><a href="/">Home</a></li>
+        
+          <li><a href="/about/">About</a></li>
+        
+          <li><a href="/archives/">Writing</a></li>
+        
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </div>
+
+    
+    
+      <div id="toc-footer" style="display: none">
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%A2%98%E5%BD%95"><span class="toc-number">1.</span> <span class="toc-text">题录</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Asis-CTF-2016-b00ks"><span class="toc-number">1.1.</span> <span class="toc-text">Asis CTF 2016 b00ks</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#v-amp-n2020%E6%8B%9B%E6%96%B0%E8%B5%9Bsimpleheap"><span class="toc-number">1.2.</span> <span class="toc-text">v&amp;n2020招新赛simpleheap</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#HITCON-Trainging-lab13-heapcreator"><span class="toc-number">1.3.</span> <span class="toc-text">HITCON Trainging lab13 heapcreator</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2015-hacklu-bookstore"><span class="toc-number">1.4.</span> <span class="toc-text">2015 hacklu bookstore</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2014-HITCON-stkof"><span class="toc-number">1.5.</span> <span class="toc-text">2014 HITCON stkof</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2014HITCON-note2"><span class="toc-number">1.6.</span> <span class="toc-text">2014HITCON note2</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2017-insomni%E2%80%99hack-wheelofrobots"><span class="toc-number">1.7.</span> <span class="toc-text">2017 insomni’hack wheelofrobots</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2014ZCTF-note3"><span class="toc-number">1.8.</span> <span class="toc-text">2014ZCTF note3</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#HITCON-training-lab-10-hacknote"><span class="toc-number">1.9.</span> <span class="toc-text">HITCON-training lab 10 hacknote</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2014-hack-lu-oreo"><span class="toc-number">1.10.</span> <span class="toc-text">2014 hack.lu oreo</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2015-9447-CTF-Search-Engine"><span class="toc-number">1.11.</span> <span class="toc-text">2015 9447 CTF : Search Engine</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2017-0ctf-babyheap"><span class="toc-number">1.12.</span> <span class="toc-text">2017 0ctf babyheap</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#HITCON-Training-lab14-magic-heap"><span class="toc-number">1.13.</span> <span class="toc-text">HITCON Training lab14 magic heap</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#LCTF2018-PWN-easy-heap"><span class="toc-number">1.14.</span> <span class="toc-text">LCTF2018 PWN easy_heap</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#HITCON-2018-PWN-baby-tcache"><span class="toc-number">1.15.</span> <span class="toc-text">HITCON 2018 PWN baby_tcache</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#pwnable-bookwriter"><span class="toc-number">1.16.</span> <span class="toc-text">pwnable_bookwriter</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2022%E6%98%A5%E7%A7%8B%E6%9D%AF-torghast"><span class="toc-number">1.17.</span> <span class="toc-text">2022春秋杯-torghast</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#HITCON2019-one-punch-man"><span class="toc-number">1.18.</span> <span class="toc-text">HITCON2019-one_punch man</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF%E4%B8%80"><span class="toc-number">1.18.1.</span> <span class="toc-text">思路一</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF%E4%BA%8C"><span class="toc-number">1.18.2.</span> <span class="toc-text">思路二</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%8B%BE%E9%81%97"><span class="toc-number">2.</span> <span class="toc-text">拾遗</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#0x1chunk%E5%9C%B0%E5%9D%80"><span class="toc-number">2.1.</span> <span class="toc-text">0x1chunk地址</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x2hook%E6%89%A7%E8%A1%8C%E5%8F%82%E6%95%B0"><span class="toc-number">2.2.</span> <span class="toc-text">0x2hook执行参数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x3mmap%E6%89%80%E5%88%86%E9%85%8Dchunk"><span class="toc-number">2.3.</span> <span class="toc-text">0x3mmap所分配chunk</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x4%E5%8F%8Chook%E9%85%8D%E5%90%88"><span class="toc-number">2.4.</span> <span class="toc-text">0x4双hook配合</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x5-fini-array"><span class="toc-number">2.5.</span> <span class="toc-text">0x5.fini_array</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x6%E8%B0%83%E8%AF%95%E7%BB%86%E8%8A%82"><span class="toc-number">2.6.</span> <span class="toc-text">0x6调试细节</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%8E%AF%E5%A2%83%E9%97%AE%E9%A2%98"><span class="toc-number">2.6.1.</span> <span class="toc-text">环境问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%A6%E5%8F%B7%E8%A1%A8"><span class="toc-number">2.6.2.</span> <span class="toc-text">符号表</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%90%88%E9%80%82%E7%9A%84%E8%B0%83%E8%AF%95%E8%B5%B7%E5%A7%8B%E4%BD%8D%E7%BD%AE"><span class="toc-number">2.6.3.</span> <span class="toc-text">合适的调试起始位置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%A6%E4%B8%80%E7%A7%8D%E8%B0%83%E8%AF%95%E6%96%B9%E5%BC%8F"><span class="toc-number">2.6.4.</span> <span class="toc-text">另一种调试方式</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x7main-arena%E5%81%8F%E7%A7%BB%E7%9A%84%E8%8E%B7%E5%8F%96"><span class="toc-number">2.7.</span> <span class="toc-text">0x7main_arena偏移的获取</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x8calloc%E5%88%86%E9%85%8D%E7%9A%84chunk"><span class="toc-number">2.8.</span> <span class="toc-text">0x8calloc分配的chunk</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x9-maloc-hook%E9%99%84%E8%BF%91%E7%9A%84fake-chunk"><span class="toc-number">2.9.</span> <span class="toc-text">0x9 __maloc_hook附近的fake_chunk</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0xa-PIE%E7%9A%84%E4%B8%80%E7%A7%8D%E5%BA%94%E5%AF%B9%E6%96%B9%E5%BC%8F"><span class="toc-number">2.10.</span> <span class="toc-text">0xa PIE的一种应对方式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0xb-unsortedbin-chunk%E5%A4%84%E7%90%86"><span class="toc-number">2.11.</span> <span class="toc-text">0xb unsortedbin-chunk处理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0xc-prev-size%E5%AD%97%E6%AE%B5%E4%BD%95%E6%97%B6%E5%8F%98%E5%8C%96"><span class="toc-number">2.12.</span> <span class="toc-text">0xc prev_size字段何时变化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0xd-io-overflow%E7%9B%B8%E5%85%B3"><span class="toc-number">2.13.</span> <span class="toc-text">0xd io_overflow相关</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0xe-chunk%E5%90%88%E5%B9%B6%E6%A3%80%E6%B5%8B"><span class="toc-number">2.14.</span> <span class="toc-text">0xe chunk合并检测</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0xf-%E6%97%A0free%E6%97%B6topchunk%E7%9A%84%E5%88%A9%E7%94%A8"><span class="toc-number">2.15.</span> <span class="toc-text">0xf 无free时topchunk的利用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x10%E5%B8%B8%E8%A7%84%E6%B3%84%E9%9C%B2"><span class="toc-number">2.16.</span> <span class="toc-text">0x10常规泄露</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x11tcache%E7%9B%B8%E5%85%B3"><span class="toc-number">2.17.</span> <span class="toc-text">0x11tcache相关</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x12overlap"><span class="toc-number">2.18.</span> <span class="toc-text">0x12overlap</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x13%E5%9C%A8tcahe-perthread-struct%E4%B8%8A%E4%BC%AA%E9%80%A0chunk"><span class="toc-number">2.19.</span> <span class="toc-text">0x13在tcahe_perthread_struct上伪造chunk</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x14-unsortedbin%E5%A4%B4"><span class="toc-number">2.20.</span> <span class="toc-text">0x14 unsortedbin头</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x15"><span class="toc-number">2.21.</span> <span class="toc-text">0x15</span></a></li></ol></li></ol>
+      </div>
+    
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://ixout.github.io/posts/15815/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://ixout.github.io/posts/15815/&text=堆实操学习笔记"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://ixout.github.io/posts/15815/&title=堆实操学习笔记"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://ixout.github.io/posts/15815/&is_video=false&description=堆实操学习笔记"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=堆实操学习笔记&body=Check out this article: https://ixout.github.io/posts/15815/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://ixout.github.io/posts/15815/&title=堆实操学习笔记"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://ixout.github.io/posts/15815/&title=堆实操学习笔记"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://ixout.github.io/posts/15815/&title=堆实操学习笔记"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://ixout.github.io/posts/15815/&title=堆实操学习笔记"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://ixout.github.io/posts/15815/&name=堆实操学习笔记&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://ixout.github.io/posts/15815/&t=堆实操学习笔记"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        
+          <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa-solid fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2023-2024
+    ixout
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="fa-regular fa-clone"></i>';
+    btn += '</span>';
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>
