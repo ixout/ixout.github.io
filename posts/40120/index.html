@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="fuzzer应该是二进制安全学习者的必修项目,互联网上开源可供使用的fuzzer成百上千,专品精品应有尽有,但没什么比自己动手写一个fuzzer更好的学习方法了 这里跟随国外的h0mbre大佬的caveman系列从一个最简单的fuzzer开始动手 STEPⅠ首先以一个exif格式分析程序为目标程序mkttanabe&#x2F;exif: simple implementation to access the">
+<meta property="og:type" content="article">
+<meta property="og:title" content="code a baby fuzzer">
+<meta property="og:url" content="https://ixout.github.io/posts/40120/index.html">
+<meta property="og:site_name" content="ixout&#39;s blog">
+<meta property="og:description" content="fuzzer应该是二进制安全学习者的必修项目,互联网上开源可供使用的fuzzer成百上千,专品精品应有尽有,但没什么比自己动手写一个fuzzer更好的学习方法了 这里跟随国外的h0mbre大佬的caveman系列从一个最简单的fuzzer开始动手 STEPⅠ首先以一个exif格式分析程序为目标程序mkttanabe&#x2F;exif: simple implementation to access the">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ixout/ixout.github.io@main/img/PixPin_2024-12-29_16-46-17.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ixout/ixout.github.io@main/img/PixPin_2024-12-29_16-48-07.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ixout/ixout.github.io@main/img/20241229194628.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ixout/ixout.github.io@main/img/20241229214119.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ixout/ixout.github.io@main/img/20241229214835.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ixout/ixout.github.io@main/img/20241230104129.png">
+<meta property="article:published_time" content="2024-12-29T08:13:45.000Z">
+<meta property="article:modified_time" content="2024-12-30T03:12:48.621Z">
+<meta property="article:author" content="ixout">
+<meta property="article:tag" content="fuzzer">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/ixout/ixout.github.io@main/img/PixPin_2024-12-29_16-46-17.png">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.png">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.png">
+        
+      
+    
+    <!-- title -->
+    <title>code a baby fuzzer</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
+
+
+    <!-- Umami Analytics -->
+
+
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="ixout's blog" type="application/atom+xml">
+</head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa-solid fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/posts/15971/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://ixout.github.io/posts/40120/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://ixout.github.io/posts/40120/&text=code a baby fuzzer"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://ixout.github.io/posts/40120/&title=code a baby fuzzer"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://ixout.github.io/posts/40120/&is_video=false&description=code a baby fuzzer"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=code a baby fuzzer&body=Check out this article: https://ixout.github.io/posts/40120/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://ixout.github.io/posts/40120/&title=code a baby fuzzer"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://ixout.github.io/posts/40120/&title=code a baby fuzzer"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://ixout.github.io/posts/40120/&title=code a baby fuzzer"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://ixout.github.io/posts/40120/&title=code a baby fuzzer"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://ixout.github.io/posts/40120/&name=code a baby fuzzer&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://ixout.github.io/posts/40120/&t=code a baby fuzzer"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    
+    
+      <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#STEP%E2%85%A0"><span class="toc-number">1.</span> <span class="toc-text">STEPⅠ</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#STEP-%E2%85%A1"><span class="toc-number">2.</span> <span class="toc-text">STEP Ⅱ</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#STEP-%E2%85%A2"><span class="toc-number">3.</span> <span class="toc-text">STEP Ⅲ</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#STEP-%E2%85%A3"><span class="toc-number">4.</span> <span class="toc-text">STEP Ⅳ</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#STEP-%E2%85%A4"><span class="toc-number">5.</span> <span class="toc-text">STEP Ⅴ</span></a></li></ol>
+      </div>
+    
+  </span>
+</div>
+
+    
+    <div class="content index py4 ">
+        
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle p-name" itemprop="name headline">
+        code a baby fuzzer
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span class="p-name" itemprop="name">ixout</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2024-12-29T08:13:45.000Z" class="dt-published" itemprop="datePublished">2024-12-29</time>
+        
+      
+    </div>
+
+
+      
+
+      
+    <div class="article-tag">
+        <i class="fa-solid fa-tag"></i>
+        <a class="p-category" href="/tags/fuzzer/" rel="tag">fuzzer</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content e-content" itemprop="articleBody">
+    <p>fuzzer应该是二进制安全学习者的必修项目,互联网上开源可供使用的fuzzer成百上千,专品精品应有尽有,但没什么比自己动手写一个fuzzer更好的学习方法了</p>
+<p>这里跟随国外的<a target="_blank" rel="noopener" href="https://h0mbre.github.io/">h0mbre</a>大佬的<code>caveman</code>系列从一个最简单的fuzzer开始动手</p>
+<h1 id="STEPⅠ"><a href="#STEPⅠ" class="headerlink" title="STEPⅠ"></a>STEPⅠ</h1><p>首先以一个exif格式分析程序为目标程序<a target="_blank" rel="noopener" href="https://github.com/mkttanabe/exif">mkttanabe/exif: simple implementation to access the Exif segment in the JPEG file</a>切入我们的fuzzer分析</p>
+<p>那么有必要稍微了解一下带exif的jpg格式规范</p>
+<p>exif是一种为数码相机照片设定的档案格式,可以存储拍摄出照片的部分信息</p>
+<p><img src="https://cdn.jsdelivr.net/gh/ixout/ixout.github.io@main/img/PixPin_2024-12-29_16-46-17.png" alt=""></p>
+<p><img src="https://cdn.jsdelivr.net/gh/ixout/ixout.github.io@main/img/PixPin_2024-12-29_16-48-07.png" alt=""></p>
+<p>可以知道图片二进制格式中0xffxx一般是作为元标志使用,特别是</p>
+<ul>
+<li>0xFFD8代表图片的开始,位于二进制格式的最前方</li>
+<li>0xFFD9代表图片的结束,二进制的末尾必须有一个该标志</li>
+</ul>
+<p>以该仓库下的照片作为样本<a target="_blank" rel="noopener" href="https://github.com/ianare/exif-samples/tree/master/jpg">exif-samples/jpg at master · ianare/exif-samples</a></p>
+<h1 id="STEP-Ⅱ"><a href="#STEP-Ⅱ" class="headerlink" title="STEP Ⅱ"></a>STEP Ⅱ</h1><p>代码部分<code>h0mbre</code>一开始采用的是较为方便调试与理解的python进行开发,并在后续改为c/c++等编译型语言以提升性能,这里就直接用cpp了</p>
+<p>首先是最基础的io</p>
+<p>从文件中读取二进制格式,使用一个vector<char\>来模拟可变字节流</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">std::vector&lt;<span class="type">char</span>&gt; <span class="title">GetData</span><span class="params">(std::string filename)</span> </span>&#123;</span><br><span class="line">  <span class="function">std::ifstream <span class="title">file</span><span class="params">(filename, std::ios::binary | std::ios::ate)</span></span>;</span><br><span class="line">  <span class="keyword">if</span> (!file) &#123;</span><br><span class="line">    std::cerr &lt;&lt; <span class="string">&quot;Cannot open &quot;</span> &lt;&lt; filename &lt;&lt; std::endl;</span><br><span class="line">    <span class="keyword">return</span> &#123;&#125;;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  std::streamsize size = file.<span class="built_in">tellg</span>();</span><br><span class="line">  <span class="function">std::vector&lt;<span class="type">char</span>&gt; <span class="title">bytes</span><span class="params">(size)</span></span>;</span><br><span class="line"></span><br><span class="line">  file.<span class="built_in">seekg</span>(<span class="number">0</span>);</span><br><span class="line">  file.<span class="built_in">read</span>(bytes.<span class="built_in">data</span>(), size);</span><br><span class="line">  file.<span class="built_in">close</span>();</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> bytes;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>写出文件</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">BuildFile</span><span class="params">(<span class="type">const</span> std::vector&lt;<span class="type">char</span>&gt;&amp; data)</span> </span>&#123;</span><br><span class="line">  <span class="function">std::ofstream <span class="title">file</span><span class="params">(<span class="string">&quot;mutated.jpg&quot;</span>, std::ios::binary | std::ios::trunc)</span></span>;</span><br><span class="line">  <span class="keyword">if</span> (!file) &#123;</span><br><span class="line">    std::cerr &lt;&lt; <span class="string">&quot;Cannot Create or Write to mutated.jpg&quot;</span> &lt;&lt; std::endl;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">else</span> &#123;</span><br><span class="line">    file.<span class="built_in">write</span>(data.<span class="built_in">data</span>(), data.<span class="built_in">size</span>());</span><br><span class="line">    file.<span class="built_in">close</span>();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>测试一下</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">(<span class="type">int</span> argc, <span class="type">char</span>* argv[])</span> </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (argc &lt; <span class="number">2</span>) &#123;</span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;Usage:baby_fuzzer [valid.jpg]&quot;</span> &lt;&lt; std::endl;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  std::string filename = argv[<span class="number">1</span>];</span><br><span class="line">  std::vector&lt;<span class="type">char</span>&gt; origin_data = <span class="built_in">GetData</span>(filename);</span><br><span class="line">  <span class="built_in">BuildFile</span>(origin_data);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="https://cdn.jsdelivr.net/gh/ixout/ixout.github.io@main/img/20241229194628.png" alt=""></p>
+<h1 id="STEP-Ⅲ"><a href="#STEP-Ⅲ" class="headerlink" title="STEP Ⅲ"></a>STEP Ⅲ</h1><p>接下来是变异功能,一种最简单的变异实现是位翻转</p>
+<p>对于一个字节的数据,我们随机的对其一个bit位进行翻转,当然也可以翻转更多,甚至对每个字节的翻转位数也可以是随机的,不过暂时我们只翻转一个比特位</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">RandomGenerator</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">  <span class="function"><span class="type">static</span> <span class="type">unsigned</span> <span class="type">int</span> <span class="title">GetRandomNum</span><span class="params">(<span class="type">unsigned</span> <span class="type">int</span> min, <span class="type">unsigned</span> <span class="type">int</span> max)</span> </span>&#123;</span><br><span class="line">    <span class="type">static</span> std::random_device rd;</span><br><span class="line">    <span class="function"><span class="type">static</span> std::mt19937 <span class="title">gen</span><span class="params">(rd())</span></span>;</span><br><span class="line">    <span class="function">std::uniform_int_distribution&lt;<span class="type">unsigned</span> <span class="type">int</span>&gt; <span class="title">dist</span><span class="params">(min, max)</span></span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">dist</span>(gen);</span><br><span class="line">  &#125;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">  <span class="built_in">RandomGenerator</span>() = <span class="keyword">delete</span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">BitFlip</span><span class="params">(std::vector&lt;<span class="type">char</span>&gt;&amp; data)</span> </span>&#123;</span><br><span class="line">  <span class="type">int</span> num_to_flip = <span class="built_in">static_cast</span>&lt;<span class="type">int</span>&gt;((data.<span class="built_in">size</span>() - <span class="number">4</span>) * <span class="number">0.01</span>);</span><br><span class="line">  std::vector&lt;<span class="type">unsigned</span> <span class="type">int</span>&gt; victim_indexs;</span><br><span class="line">  victim_indexs.<span class="built_in">reserve</span>(num_to_flip);</span><br><span class="line">  <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; num_to_flip; ++i) &#123;</span><br><span class="line">    victim_indexs.<span class="built_in">emplace_back</span>(RandomGenerator::<span class="built_in">GetRandomNum</span>(<span class="number">2</span>, data.<span class="built_in">size</span>() - <span class="number">3</span>));<span class="comment">//do not edit soi and eoi</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">auto</span>&amp; i : victim_indexs) &#123;</span><br><span class="line">    <span class="type">int</span> bit_index = RandomGenerator::<span class="built_in">GetRandomNum</span>(<span class="number">0</span>, <span class="number">7</span>);</span><br><span class="line">    data[i] = data[i] ^ (<span class="number">1</span> &lt;&lt; bit_index);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>暂定修改1%的字节数</p>
+<h1 id="STEP-Ⅳ"><a href="#STEP-Ⅳ" class="headerlink" title="STEP Ⅳ"></a>STEP Ⅳ</h1><p>我们已经完成了一个变异方法,现在我们需要测试他</p>
+<p>首先是一个运行测试程序的接口,通过caveman后续系列的文章,我们可以知道fork出一个子进程并用execve函数启动目标程序,是优于使用popen函数的,因为popen会额外生成一个shell</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">RunTest</span><span class="params">(<span class="type">int</span> counter, <span class="type">const</span> std::vector&lt;<span class="type">char</span>&gt;&amp; data)</span> </span>&#123;</span><br><span class="line">  <span class="built_in">BuildFile</span>(<span class="string">&quot;mutated.jpg&quot;</span>, data);</span><br><span class="line">  <span class="type">pid_t</span> pid = fork();</span><br><span class="line">  <span class="keyword">if</span> (pid == <span class="number">-1</span>) &#123;</span><br><span class="line">    std::cerr &lt;&lt; <span class="string">&quot;fork failed&quot;</span> &lt;&lt; std::endl;</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">if</span> (pid == <span class="number">0</span>) &#123;</span><br><span class="line">    <span class="type">int</span> fd = <span class="built_in">open</span>(<span class="string">&quot;/dev/null&quot;</span>, O_WRONLY);</span><br><span class="line">    <span class="built_in">dup2</span>(fd, <span class="number">1</span>);</span><br><span class="line">    <span class="built_in">dup2</span>(fd, <span class="number">2</span>);</span><br><span class="line">    <span class="built_in">close</span>(fd);</span><br><span class="line"></span><br><span class="line">    <span class="type">char</span>* <span class="type">const</span> args[] = &#123; <span class="string">&quot;./exif&quot;</span>, <span class="string">&quot;mutated.jpg&quot;</span>, <span class="string">&quot;-v&quot;</span>, <span class="literal">nullptr</span> &#125;;</span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">execve</span>(args[<span class="number">0</span>], args, <span class="literal">nullptr</span>) == <span class="number">-1</span>) &#123;</span><br><span class="line">      std::cerr &lt;&lt; <span class="string">&quot;execve failed: &quot;</span> &lt;&lt; errno &lt;&lt; std::endl;</span><br><span class="line">      _exit(<span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="type">int</span> status;</span><br><span class="line">    <span class="built_in">waitpid</span>(pid, &amp;status, <span class="number">0</span>);</span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">WIFSIGNALED</span>(status)) &#123;</span><br><span class="line">      std::cout &lt;&lt; <span class="string">&quot;Process terminated with signal: &quot;</span> &lt;&lt; <span class="built_in">WTERMSIG</span>(status) &lt;&lt; std::endl;</span><br><span class="line">      <span class="keyword">if</span> (<span class="built_in">WTERMSIG</span>(status) == SIGSEGV) &#123;</span><br><span class="line">        std::cout &lt;&lt; <span class="string">&quot;Segmentation Fault detected!&quot;</span> &lt;&lt; std::endl;</span><br><span class="line">        std::ostringstream oss;</span><br><span class="line">        oss &lt;&lt; <span class="string">&quot;crashes/crash_&quot;</span> &lt;&lt; counter &lt;&lt; <span class="string">&quot;.jpg&quot;</span>;</span><br><span class="line">        <span class="built_in">BuildFile</span>(oss.<span class="built_in">str</span>(), data);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>相应地修改main</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">(<span class="type">int</span> argc, <span class="type">char</span>* argv[])</span> </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (argc &lt; <span class="number">2</span>) &#123;</span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;Usage:baby_fuzzer [valid.jpg]&quot;</span> &lt;&lt; std::endl;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="built_in">CrashDirExists</span>();</span><br><span class="line">  std::string filename = argv[<span class="number">1</span>];</span><br><span class="line">  std::vector&lt;<span class="type">char</span>&gt; origin_data = <span class="built_in">GetData</span>(filename);</span><br><span class="line">  std::vector&lt;<span class="type">char</span>&gt; mutated_data;</span><br><span class="line">  <span class="type">int</span> counter = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">while</span> (counter &lt; <span class="number">100</span>) &#123;</span><br><span class="line">    mutated_data = origin_data;</span><br><span class="line">    <span class="built_in">BitFlip</span>(mutated_data);</span><br><span class="line">    <span class="built_in">RunTest</span>(counter, mutated_data);</span><br><span class="line">    counter++;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="https://cdn.jsdelivr.net/gh/ixout/ixout.github.io@main/img/20241229214119.png" alt=""></p>
+<p>可以看到我们已经成功获得了crash,并且确实能够使得程序崩溃</p>
+<p><img src="https://cdn.jsdelivr.net/gh/ixout/ixout.github.io@main/img/20241229214835.png" alt=""></p>
+<p>在之后我们可以进一步分析它</p>
+<h1 id="STEP-Ⅴ"><a href="#STEP-Ⅴ" class="headerlink" title="STEP Ⅴ"></a>STEP Ⅴ</h1><p>现在继续增加另一种变异方法:特殊值注入</p>
+<p>在计算机中存在这么一些值往往更容易触发意料之外的操作</p>
+<p>例如</p>
+<ul>
+<li>0xFF</li>
+<li>0x7F</li>
+<li>0x00</li>
+<li>0xFFFF</li>
+<li>0x0000</li>
+<li>0xFFFFFFFF</li>
+<li>0x00000000</li>
+<li>0x80000000</li>
+<li>0x40000000</li>
+<li>0x7FFFFFFF</li>
+</ul>
+<p>那么我们接下来就往数据中随机插入数个这样的值</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">std::pair&lt;<span class="type">int</span>, <span class="type">int</span>&gt; gMagicNums[] = &#123;</span><br><span class="line">  &#123;<span class="number">1</span>, <span class="number">0xff</span>&#125;,</span><br><span class="line">  &#123;<span class="number">1</span>, <span class="number">0x7f</span>&#125;,</span><br><span class="line">  &#123;<span class="number">1</span>, <span class="number">0</span>&#125;,</span><br><span class="line">  &#123;<span class="number">2</span>, <span class="number">0xffff</span>&#125;,</span><br><span class="line">  &#123;<span class="number">2</span>, <span class="number">0</span>&#125;,</span><br><span class="line">  &#123;<span class="number">4</span>, <span class="number">0</span>&#125;,</span><br><span class="line">  &#123;<span class="number">4</span>, <span class="number">0xffffffff</span>&#125;,</span><br><span class="line">  &#123;<span class="number">4</span>, <span class="number">0x80000000</span>&#125;,</span><br><span class="line">  &#123;<span class="number">4</span>, <span class="number">0x7fffffff</span>&#125;,</span><br><span class="line">  &#123;<span class="number">4</span>, <span class="number">0x40000000</span>&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">MagicOverwrite</span><span class="params">(std::vector&lt;<span class="type">char</span>&gt;&amp; data)</span> </span>&#123;</span><br><span class="line">  <span class="type">int</span> num_to_over = std::<span class="built_in">max</span>(<span class="number">1</span>, <span class="built_in">static_cast</span>&lt;<span class="type">int</span>&gt;((data.<span class="built_in">size</span>() - <span class="number">4</span>) * <span class="number">0.001</span>));</span><br><span class="line">  std::vector&lt;<span class="type">unsigned</span> <span class="type">int</span>&gt; victim_indexs;</span><br><span class="line">  victim_indexs.<span class="built_in">reserve</span>(num_to_over);</span><br><span class="line">  RandomGenerator::<span class="built_in">SetRange</span>(<span class="number">2</span>, data.<span class="built_in">size</span>() - <span class="number">6</span>);</span><br><span class="line">  <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; num_to_over; ++i) &#123;</span><br><span class="line">    victim_indexs.<span class="built_in">emplace_back</span>(RandomGenerator::<span class="built_in">GetRandomNum</span>());</span><br><span class="line">  &#125;</span><br><span class="line">  RandomGenerator::<span class="built_in">SetRange</span>(<span class="number">0</span>, <span class="number">9</span>);</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">auto</span>&amp; i : victim_indexs) &#123;</span><br><span class="line">    <span class="type">int</span> magic_index = RandomGenerator::<span class="built_in">GetRandomNum</span>();</span><br><span class="line">    <span class="built_in">memcpy</span>(&amp;data[i], &amp;gMagicNums[magic_index].second, gMagicNums[magic_index].first);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>运行测试,也成功得到了crash,但运行数次发现crash数量明显少于位翻转得到的</p>
+<p><img src="https://cdn.jsdelivr.net/gh/ixout/ixout.github.io@main/img/20241230104129.png" alt=""></p>
+<p>至此,一个简陋非常的fuzzer的基本结构就已经完成了</p>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+        
+          <li><a href="/">Home</a></li>
+        
+          <li><a href="/about/">About</a></li>
+        
+          <li><a href="/archives/">Writing</a></li>
+        
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </div>
+
+    
+    
+      <div id="toc-footer" style="display: none">
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#STEP%E2%85%A0"><span class="toc-number">1.</span> <span class="toc-text">STEPⅠ</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#STEP-%E2%85%A1"><span class="toc-number">2.</span> <span class="toc-text">STEP Ⅱ</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#STEP-%E2%85%A2"><span class="toc-number">3.</span> <span class="toc-text">STEP Ⅲ</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#STEP-%E2%85%A3"><span class="toc-number">4.</span> <span class="toc-text">STEP Ⅳ</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#STEP-%E2%85%A4"><span class="toc-number">5.</span> <span class="toc-text">STEP Ⅴ</span></a></li></ol>
+      </div>
+    
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://ixout.github.io/posts/40120/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://ixout.github.io/posts/40120/&text=code a baby fuzzer"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://ixout.github.io/posts/40120/&title=code a baby fuzzer"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://ixout.github.io/posts/40120/&is_video=false&description=code a baby fuzzer"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=code a baby fuzzer&body=Check out this article: https://ixout.github.io/posts/40120/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://ixout.github.io/posts/40120/&title=code a baby fuzzer"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://ixout.github.io/posts/40120/&title=code a baby fuzzer"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://ixout.github.io/posts/40120/&title=code a baby fuzzer"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://ixout.github.io/posts/40120/&title=code a baby fuzzer"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://ixout.github.io/posts/40120/&name=code a baby fuzzer&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://ixout.github.io/posts/40120/&t=code a baby fuzzer"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        
+          <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa-solid fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2023-2024
+    ixout
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="fa-regular fa-clone"></i>';
+    btn += '</span>';
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>
