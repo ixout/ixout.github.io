@@ -83,15 +83,6 @@
   </url>
   
   <url>
-    <loc>https://ixout.github.io/posts/53981/</loc>
-    
-    <lastmod>2024-11-20</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://ixout.github.io/posts/23411/</loc>
     
     <lastmod>2024-11-20</lastmod>
@@ -281,15 +272,6 @@
   </url>
   
   <url>
-    <loc>https://ixout.github.io/posts/9746/</loc>
-    
-    <lastmod>2024-05-09</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://ixout.github.io/posts/36191/</loc>
     
     <lastmod>2024-04-18</lastmod>
@@ -471,13 +453,6 @@
   </url>
   
   <url>
-    <loc>https://ixout.github.io/tags/fuzz/</loc>
-    <lastmod>2024-12-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://ixout.github.io/tags/kernel/</loc>
     <lastmod>2024-12-30</lastmod>
     <changefreq>weekly</changefreq>
@@ -556,13 +531,6 @@
   
   <url>
     <loc>https://ixout.github.io/tags/setcontext/</loc>
-    <lastmod>2024-12-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://ixout.github.io/tags/pyjail/</loc>
     <lastmod>2024-12-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
