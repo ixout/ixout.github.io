@@ -402,9 +402,9 @@
     
     <category term="pwn" scheme="https://ixout.github.io/tags/pwn/"/>
     
-    <category term="heap" scheme="https://ixout.github.io/tags/heap/"/>
-    
     <category term="how2heap" scheme="https://ixout.github.io/tags/how2heap/"/>
+    
+    <category term="heap" scheme="https://ixout.github.io/tags/heap/"/>
     
   </entry>
   
