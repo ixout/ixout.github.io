@@ -30,7 +30,7 @@
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/ixout/ixout.github.io@main/img/2025-01-25_221518.png">
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/ixout/ixout.github.io@main/img/2025-01-25_221904.png">
 <meta property="article:published_time" content="2025-01-13T12:12:43.000Z">
-<meta property="article:modified_time" content="2025-02-12T07:53:00.825Z">
+<meta property="article:modified_time" content="2025-02-12T08:02:24.916Z">
 <meta property="article:author" content="ixout">
 <meta property="article:tag" content="windwos">
 <meta name="twitter:card" content="summary">
@@ -183,12 +183,13 @@
   <div class="content e-content" itemprop="articleBody">
     <h1 id="环境准备"><a href="#环境准备" class="headerlink" title="环境准备"></a>环境准备</h1><p>环境的准备较为简单</p>
 <h2 id="被调试方"><a href="#被调试方" class="headerlink" title="被调试方"></a>被调试方</h2><p>之前学linux内核使用的是qemu仿真,对于windows来说就不那么适合了,所以还是在vmware中增加一个虚拟机</p>
-<p>尽管HEVD提供了x64的版本,但在win10_x64中测试exp时还是遇到了许多错误,这可能是我环境的原因,但鉴于初学windows内核利用,就暂不去理会了,于是选择使用win7_x86作为被调试方(尽管还是有一些问题)</p>
+<p>HEVD提供了x64和x32的版本,所以我们准备两个被调试环境,分别是win7_x32和win10_x64</p>
 <p>构建调试环境参考博客<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_43790779/article/details/115873938">WinDbg 双机调试（调试机为Windows10系统，被调试机为Windows7系统）</a></p>
 <h2 id="其他工具"><a href="#其他工具" class="headerlink" title="其他工具"></a>其他工具</h2><ol>
 <li>KmdManager,用于加载驱动</li>
 <li>DebugView,在被调试方也显示内核调试信息</li>
 <li>windbg</li>
+<li>virtualKD-redux,windows内核调试神器,如果受不了windbg正常调试时的逆天延迟,推荐该工具</li>
 </ol>
 <h1 id="熟悉HEVD"><a href="#熟悉HEVD" class="headerlink" title="熟悉HEVD"></a>熟悉HEVD</h1><p>HEVD仓库</p>
 <p><a target="_blank" rel="noopener" href="https://github.com/hacksysteam/HackSysExtremeVulnerableDriver">hacksysteam/HackSysExtremeVulnerableDriver：HackSys Extreme Vulnerable Driver (HEVD) - Windows &amp; Linux </a></p>
