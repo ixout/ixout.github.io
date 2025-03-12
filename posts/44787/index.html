@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="dex">
+<meta property="og:type" content="article">
+<meta property="og:title" content="dex结构">
+<meta property="og:url" content="https://ixout.github.io/posts/44787/index.html">
+<meta property="og:site_name" content="ixout&#39;s blog">
+<meta property="og:description" content="dex">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ixout/ixout.github.io@main/img/DexFile.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ixout/ixout.github.io@main/img/2025-03-05_115757.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ixout/ixout.github.io@main/img/2025-03-05_140449.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ixout/ixout.github.io@main/img/2025-03-05_141452.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ixout/ixout.github.io@main/img/2025-03-05_141816.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ixout/ixout.github.io@main/img/2025-03-05_142108.png">
+<meta property="og:image" content="c:\Users\Aichengchao\AppData\Roaming\Typora\typora-user-images\image-20250305142952451.png">
+<meta property="og:image" content="c:\Users\Aichengchao\AppData\Roaming\Typora\typora-user-images\image-20250305143520029.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ixout/ixout.github.io@main/img/2025-03-05_144459.png">
+<meta property="og:image" content="c:\Users\Aichengchao\AppData\Roaming\Typora\typora-user-images\image-20250305145055947.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ixout/ixout.github.io@main/img/2025-03-05_145354.png">
+<meta property="article:published_time" content="2024-10-05T07:27:27.000Z">
+<meta property="article:modified_time" content="2025-03-12T03:21:10.759Z">
+<meta property="article:author" content="ixout">
+<meta property="article:tag" content="android">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/ixout/ixout.github.io@main/img/DexFile.png">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.png">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.png">
+        
+      
+    
+    <!-- title -->
+    <title>dex结构</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
+
+
+    <!-- Umami Analytics -->
+
+
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="ixout's blog" type="application/atom+xml">
+</head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa-solid fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="Previous post" href="/posts/32540/"><i class="fa-solid fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/posts/15971/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://ixout.github.io/posts/44787/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://ixout.github.io/posts/44787/&text=dex结构"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://ixout.github.io/posts/44787/&title=dex结构"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://ixout.github.io/posts/44787/&is_video=false&description=dex结构"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=dex结构&body=Check out this article: https://ixout.github.io/posts/44787/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://ixout.github.io/posts/44787/&title=dex结构"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://ixout.github.io/posts/44787/&title=dex结构"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://ixout.github.io/posts/44787/&title=dex结构"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://ixout.github.io/posts/44787/&title=dex结构"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://ixout.github.io/posts/44787/&name=dex结构&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://ixout.github.io/posts/44787/&t=dex结构"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    
+    
+      <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%BA%8F"><span class="toc-number">1.</span> <span class="toc-text">序</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#leb128"><span class="toc-number">2.</span> <span class="toc-text">leb128</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Header"><span class="toc-number">3.</span> <span class="toc-text">Header</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#map-off"><span class="toc-number">4.</span> <span class="toc-text">map_off</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#string-id"><span class="toc-number">5.</span> <span class="toc-text">string_id</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#type-id"><span class="toc-number">6.</span> <span class="toc-text">type_id</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#proto-id"><span class="toc-number">7.</span> <span class="toc-text">proto_id</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#field-id"><span class="toc-number">8.</span> <span class="toc-text">field_id</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#method-id"><span class="toc-number">9.</span> <span class="toc-text">method_id</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#class-def"><span class="toc-number">10.</span> <span class="toc-text">class_def</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#annotations"><span class="toc-number">10.1.</span> <span class="toc-text">annotations</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#class-data"><span class="toc-number">10.2.</span> <span class="toc-text">class_data</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#staticValues"><span class="toc-number">10.3.</span> <span class="toc-text">staticValues</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#data"><span class="toc-number">11.</span> <span class="toc-text">data</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8F%82%E8%80%83"><span class="toc-number">12.</span> <span class="toc-text">参考</span></a></li></ol>
+      </div>
+    
+  </span>
+</div>
+
+    
+    <div class="content index py4 ">
+        
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle p-name" itemprop="name headline">
+        dex结构
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span class="p-name" itemprop="name">ixout</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2024-10-05T07:27:27.000Z" class="dt-published" itemprop="datePublished">2024-10-05</time>
+        
+      
+    </div>
+
+
+      
+    <div class="article-category">
+        <i class="fa-solid fa-archive"></i>
+        <a class="category-link" href="/categories/bin/">bin</a>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fa-solid fa-tag"></i>
+        <a class="p-category" href="/tags/android/" rel="tag">android</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content e-content" itemprop="articleBody">
+    <h1 id="序"><a href="#序" class="headerlink" title="序"></a>序</h1><p>整个dex文件可以看作一个dex结构体的实例, 结构体使用 c 语言实现</p>
+<p>dex结构体的源码位于</p>
+<ul>
+<li><code>art/libdexfile/dex/dex_file.h</code>(新目录)</li>
+<li><code>dalvik/libdex/DexFile.h</code>(较旧版本)</li>
+</ul>
+<p>了解dex结构体是是否有必要的, 特别在加固与脱壳的领域</p>
+<p>整体参考图(与现版本有些许差异)</p>
+<p><img src="https://cdn.jsdelivr.net/gh/ixout/ixout.github.io@main/img/DexFile.png" alt=""></p>
+<p>对应</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">DexFile</span> &#123;</span></span><br><span class="line">    <span class="comment">/* odex文件头 */</span></span><br><span class="line">    <span class="type">const</span> DexOptHeader* pOptHeader;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/* dex文件结构 */</span></span><br><span class="line">    <span class="type">const</span> DexHeader*    pHeader;</span><br><span class="line">    <span class="type">const</span> DexStringId*  pStringIds;</span><br><span class="line">    <span class="type">const</span> DexTypeId*    pTypeIds;</span><br><span class="line">    <span class="type">const</span> DexFieldId*   pFieldIds;</span><br><span class="line">    <span class="type">const</span> DexMethodId*  pMethodIds;</span><br><span class="line">    <span class="type">const</span> DexProtoId*   pProtoIds;</span><br><span class="line">    <span class="type">const</span> DexClassDef*  pClassDefs;</span><br><span class="line">    <span class="type">const</span> DexLink*      pLinkData;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/*辅助数据段,记录dex文件被优化后添加的一些信息*/</span></span><br><span class="line">    <span class="type">const</span> DexClassLookup* pClassLookup;</span><br><span class="line">    <span class="type">const</span> <span class="type">void</span>*         pRegisterMapPool;      </span><br><span class="line">    <span class="type">const</span> u1*           baseAddr;</span><br><span class="line">    <span class="type">int</span>                 overhead;</span><br><span class="line">    <span class="comment">//void*               auxData;</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>使用工具010 editor的模板功能, 能够十分有效的帮助我们学习dex结构体</p>
+<p>使用以下源码得到的dex文件作为学习案例</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Hello</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> number;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">Hello</span><span class="params">(<span class="type">int</span> number)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.number = number;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">getNumber</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> number;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setNumber</span><span class="params">(<span class="type">int</span> number)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.number = number;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="type">int</span> <span class="title function_">add</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b)</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> a + b;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">Hello</span> <span class="variable">ahello</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Hello</span>(<span class="number">10</span>);</span><br><span class="line">        <span class="type">int</span> <span class="variable">result</span> <span class="operator">=</span> add(<span class="number">5</span>, <span class="number">3</span>);</span><br><span class="line">        System.out.println(<span class="string">&quot;The result of addition is: &quot;</span> + result);</span><br><span class="line">        System.out.println(<span class="string">&quot;The number in the object is: &quot;</span> + ahello.getNumber());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>通过以下指令得到目标文件</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">javac ./Hello.java</span><br><span class="line">AndroidSDKVersion/d8.bat --ouput . .\Hello.class</span><br></pre></td></tr></table></figure>
+<p>使用010editor打开</p>
+<p><img src="https://cdn.jsdelivr.net/gh/ixout/ixout.github.io@main/img/2025-03-05_115757.png" alt=""></p>
+<h1 id="leb128"><a href="#leb128" class="headerlink" title="leb128"></a>leb128</h1><p>为了节省内存dex文件中会对部分整数使用可变长度编码</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">名称</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">sleb128</td>
+<td>有符号 LEB128，可变长度（见下文）</td>
+</tr>
+<tr>
+<td style="text-align:left">uleb128</td>
+<td>无符号 LEB128，可变长度（见下文）</td>
+</tr>
+<tr>
+<td style="text-align:left">uleb128p1</td>
+<td>无符号 LEB128 加 <code>1</code>，可变长度（见下文）</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>每个 LEB128 编码值均由 1-5 个字节组成，共同表示一个 32 位的值。每个字节均已设置其最高有效位（序列中的最后一个字节除外，其最高有效位已清除）。每个字节的剩余 7 位均为载荷，即第一个字节中有 7 个最低有效位，第二个字节中也是 7 个，依此类推。</p>
+<p>对于有符号 LEB128 (<code>sleb128</code>)，序列中最后一个字节的最高有效载荷位会进行符号扩展，以生成最终值。在无符号情况 (<code>uleb128</code>) 下，任何未明确表示的位都会被解译为 <code>0</code>。</p>
+<p>变体 <code>uleb128p1</code> 用于表示一个有符号值，其表示法是编码为 <code>uleb128</code> 的值加 1。这使得 <code>-1</code> 的编码（或被视为无符号值 <code>0xffffffff</code>）成为一个单字节（但没有任何其他负数），并且该编码在下面这些情况下非常实用：所表示的数值必须为非负数或 <code>-1</code>（或 <code>0xffffffff</code>）；不允许任何其他负值（或不太可能需要使用较大的无符号值）。</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">编码序列</th>
+<th style="text-align:left">As <code>sleb128</code></th>
+<th style="text-align:left">As <code>uleb128</code></th>
+<th style="text-align:left">编码为 <code>uleb128p1</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">00</td>
+<td style="text-align:left">0</td>
+<td style="text-align:left">0</td>
+<td style="text-align:left">-1</td>
+</tr>
+<tr>
+<td style="text-align:left">01</td>
+<td style="text-align:left">1</td>
+<td style="text-align:left">1</td>
+<td style="text-align:left">0</td>
+</tr>
+<tr>
+<td style="text-align:left">7f</td>
+<td style="text-align:left">-1</td>
+<td style="text-align:left">127</td>
+<td style="text-align:left">126</td>
+</tr>
+<tr>
+<td style="text-align:left">80 7f</td>
+<td style="text-align:left">-128</td>
+<td style="text-align:left">16256</td>
+<td style="text-align:left">16255</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h1 id="Header"><a href="#Header" class="headerlink" title="Header"></a>Header</h1><p>header用于描述dex文件</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**************************************************** </span></span><br><span class="line"><span class="comment">			dex文件头 </span></span><br><span class="line"><span class="comment">****************************************************/</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">DexHeader</span> &#123;</span></span><br><span class="line">    u1  magic[<span class="number">8</span>];           <span class="comment">/* dex版本标识  dex.035=&gt;64 65 78 0a 30 33 35 00 */</span></span><br><span class="line">    u4  checksum;           <span class="comment">/* adler32 校验 checksum段为dex文件的校验和，通过它来判断dex文件是否被损坏或篡改 */</span></span><br><span class="line">    u1  signature[<span class="number">20</span>]; <span class="comment">/* SHA-1 hash */</span></span><br><span class="line">    u4  fileSize;           <span class="comment">/* 整个文件大小 */</span></span><br><span class="line">    u4  headerSize;         <span class="comment">/* DexHeader结构大小	0x70 */</span></span><br><span class="line">    u4  endianTag;			<span class="comment">/* 字节序标记	*/</span></span><br><span class="line">    u4  linkSize;           <span class="comment">/* 链接段大小	*/</span></span><br><span class="line">    u4  linkOff;            <span class="comment">/* 链接段偏移	*/</span>   </span><br><span class="line">	</span><br><span class="line">    u4  mapOff;             <span class="comment">/* DexMapList的文件偏移	*/</span></span><br><span class="line">	</span><br><span class="line">    u4  stringIdsSize;      <span class="comment">/* DexStringId的个数	*/</span></span><br><span class="line">    u4  stringIdsOff;       <span class="comment">/* DexStringId的文件偏移	*/</span></span><br><span class="line">	</span><br><span class="line">    u4  typeIdsSize;		<span class="comment">/* DexTypeId的个数	*/</span></span><br><span class="line">    u4  typeIdsOff;			<span class="comment">/* DexTypeId的文件偏移	*/</span></span><br><span class="line">	</span><br><span class="line">    u4  protoIdsSize;       <span class="comment">/* DexProtoId的个数	*/</span></span><br><span class="line">    u4  protoIdsOff; 		<span class="comment">/* DexProtoId的文件偏移	*/</span></span><br><span class="line">	</span><br><span class="line">    u4  fieldIdsSize;		<span class="comment">/* DexFieldId的个数	*/</span></span><br><span class="line">    u4  fieldIdsOff;		<span class="comment">/* DexFieldId的文件偏移	*/</span></span><br><span class="line">	</span><br><span class="line">    u4  methodIdsSize;		<span class="comment">/* DexMethodId的个数	*/</span>	</span><br><span class="line">    u4  methodIdsOff;		<span class="comment">/* DexMethodId的文件偏移	*/</span>	</span><br><span class="line">	</span><br><span class="line">    u4  classDefsSize;		<span class="comment">/* DexClassDef的个数	*/</span>		</span><br><span class="line">    u4  classDefsOff;       <span class="comment">/* DexClassDef的文件偏移	*/</span>	</span><br><span class="line">	</span><br><span class="line">    u4  dataSize;           <span class="comment">/* 数据段的大小	*/</span>	</span><br><span class="line">    u4  dataOff;			<span class="comment">/* 数据段的文件偏移	*/</span>	</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p><strong>magic</strong></p>
+<p>magic字段格式一般是</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">b&#x27;dex\x0a035\x00&#x27;</span></span><br></pre></td></tr></table></figure>
+<p>其中035会随着dex文件版本发生变化</p>
+<p>例如也有可能是</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">b&#x27;dex\x0a038\x00&#x27;</span></span><br></pre></td></tr></table></figure>
+<p><strong>checksum</strong></p>
+<p>用于校验dex完整性</p>
+<p><strong>signature</strong></p>
+<p>20字节的SHA-1哈希</p>
+<p><strong>file_size</strong></p>
+<p>整个文件的大小</p>
+<p><strong>header_size</strong></p>
+<p>头部大小</p>
+<p><strong>endian_tag</strong></p>
+<p>标识字节序</p>
+<ul>
+<li>小端序<code>0x78563412</code></li>
+<li>大端序<code>0x12345678</code></li>
+</ul>
+<p>以上这些在案例中的实例</p>
+<p><img src="https://cdn.jsdelivr.net/gh/ixout/ixout.github.io@main/img/2025-03-05_140449.png" alt=""></p>
+<p><strong>link</strong></p>
+<p><code>link_size</code> 与 <code>link_off</code>用于标明链接段</p>
+<p>大多数时候皆为空(例如案例中), 不作多关注</p>
+<h1 id="map-off"><a href="#map-off" class="headerlink" title="map_off"></a>map_off</h1><p>DexMapList的偏移</p>
+<p>DexMapList描述了整个dex文件的布局</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">DexMapList</span> &#123;</span></span><br><span class="line">    u4  size;               <span class="comment">/* DexMapItem的个数 */</span></span><br><span class="line">    DexMapItem <span class="built_in">list</span>[<span class="number">1</span>];     <span class="comment">/* DexMapItem结构 */</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">DexMapItem</span> &#123;</span></span><br><span class="line">    u2 type;              <span class="comment">/* kDexType开头的类型 */</span></span><br><span class="line">    u2 unused;			  <span class="comment">/* 未使用，用于字节对齐 */</span></span><br><span class="line">    u4 size;              <span class="comment">/* DexMapItem中的size字段指定了特定类型的个数，它们以特定的类型在dex文件中连续存放 */</span></span><br><span class="line">    u4 offset;            <span class="comment">/* 指定类型数据的文件偏移 offset为该类型的文件起始偏移地址*/</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* DexMapItem的类型(type) */</span></span><br><span class="line"><span class="class"><span class="keyword">enum</span> &#123;</span></span><br><span class="line">    kDexTypeHeaderItem               = <span class="number">0x0000</span>, <span class="comment">//模式整个DexHeader结构，它占用了文件的前0x70个字节的空间</span></span><br><span class="line">    kDexTypeStringIdItem             = <span class="number">0x0001</span>, <span class="comment">//stringIdsSize stringIdsSize </span></span><br><span class="line">    kDexTypeTypeIdItem               = <span class="number">0x0002</span>, <span class="comment">//typeIdsSize typeIdsOff</span></span><br><span class="line">    kDexTypeProtoIdItem              = <span class="number">0x0003</span>, <span class="comment">//protoIdsSize protoIdsOff</span></span><br><span class="line">    kDexTypeFieldIdItem              = <span class="number">0x0004</span>, <span class="comment">//fieldIdsSize fieldIdsSize</span></span><br><span class="line">    kDexTypeMethodIdItem             = <span class="number">0x0005</span>, <span class="comment">//methodIdsSize methodIdsOff</span></span><br><span class="line">    kDexTypeClassDefItem             = <span class="number">0x0006</span>, <span class="comment">//classDefsSize classDefsOff  指向的结构体为DexClassDef</span></span><br><span class="line">	</span><br><span class="line">    kDexTypeMapList                  = <span class="number">0x1000</span>, <span class="comment">//DexMapItem结构</span></span><br><span class="line">    kDexTypeTypeList                 = <span class="number">0x1001</span>, <span class="comment">//DexTypeList结构</span></span><br><span class="line">    kDexTypeAnnotationSetRefList     = <span class="number">0x1002</span>, </span><br><span class="line">    kDexTypeAnnotationSetItem        = <span class="number">0x1003</span>, </span><br><span class="line">	</span><br><span class="line">    kDexTypeClassDataItem            = <span class="number">0x2000</span>, <span class="comment">//DexClassData结构</span></span><br><span class="line">    kDexTypeCodeItem                 = <span class="number">0x2001</span>, <span class="comment">//DexCode结构</span></span><br><span class="line">    kDexTypeStringDataItem           = <span class="number">0x2002</span>, <span class="comment">//指向DexStringId字符串列表的首地址</span></span><br><span class="line">    kDexTypeDebugInfoItem            = <span class="number">0x2003</span>, <span class="comment">//调式信息偏移</span></span><br><span class="line">    kDexTypeAnnotationItem           = <span class="number">0x2004</span>, </span><br><span class="line">    kDexTypeEncodedArrayItem         = <span class="number">0x2005</span>, </span><br><span class="line">    kDexTypeAnnotationsDirectoryItem = <span class="number">0x2006</span>,</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p><img src="https://cdn.jsdelivr.net/gh/ixout/ixout.github.io@main/img/2025-03-05_141452.png" alt=""></p>
+<h1 id="string-id"><a href="#string-id" class="headerlink" title="string_id"></a>string_id</h1><p><strong>string_idx_size</strong></p>
+<p>描述DexStringId的个数</p>
+<p><strong>string_idx_off</strong></p>
+<p>DexStringId的偏移</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">DexStringId</span> &#123;</span></span><br><span class="line">    u4 stringDataOff;      <span class="comment">/* 字符串数据偏移 */</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>也就是黄色的这部分</p>
+<p><img src="https://cdn.jsdelivr.net/gh/ixout/ixout.github.io@main/img/2025-03-05_141816.png" alt=""></p>
+<p>其描述的是一个stringData的偏移</p>
+<p>例如第一个偏移是<code>0x332</code></p>
+<p>对应内容是<img src="https://cdn.jsdelivr.net/gh/ixout/ixout.github.io@main/img/2025-03-05_142108.png" alt=""></p>
+<p>代表该字符串共有6个字符(注意并不是6个字节), 其中不包括结尾的<code>\x00</code></p>
+<p>所有的字符串按顺序排列生成一个索引</p>
+<p><img src="C:\Users\Aichengchao\AppData\Roaming\Typora\typora-user-images\image-20250305142952451.png" alt="image-20250305142952451"></p>
+<h1 id="type-id"><a href="#type-id" class="headerlink" title="type_id"></a>type_id</h1><p><strong>type_ids_size</strong></p>
+<p>描述DexTypeId的个数</p>
+<p><strong>type_ids_off</strong></p>
+<p>指向类型描述符id的偏移</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">DexTypeId</span> &#123;</span></span><br><span class="line">    u4  descriptorIdx;      <span class="comment">/* 指向DexStringId列表的索引 */</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>内容如下</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">02 00 00 00 05 00 00 00 08 00 00 00 09 00 00 00</span><br><span class="line">0A 00 00 00 0B 00 00 00 0C 00 00 00 0F 00 00 00</span><br><span class="line">12 00 00 00</span><br></pre></td></tr></table></figure>
+<p>数字代表的就是字符串的索引</p>
+<p>例如</p>
+<p><code>02 00 00 00</code>就代表索引2的字符串也就是<code>I</code>, int型</p>
+<p><img src="C:\Users\Aichengchao\AppData\Roaming\Typora\typora-user-images\image-20250305143520029.png" alt="image-20250305143520029"></p>
+<h1 id="proto-id"><a href="#proto-id" class="headerlink" title="proto_id"></a>proto_id</h1><p><strong>proto_ids_size</strong></p>
+<p>描述proto_id的个数</p>
+<p><strong>proto_ids_off</strong></p>
+<p>指向proto_ids的偏移</p>
+<p>每一个proto_id的定义如下,用于描述一个方法原型</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"> <span class="class"><span class="keyword">struct</span> <span class="title">DexProtoId</span>&#123;</span> </span><br><span class="line"> u4 shortyIdx;   <span class="comment">/*指向DexStringId列表的索引*/</span> </span><br><span class="line"> u4 returnTypeIdx;  <span class="comment">/*指向DexTypeId列表的索引*/</span> </span><br><span class="line"> u4 parametersOff;  <span class="comment">/*指向DexTypeList的位置偏移*/</span> </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol>
+<li><p>第一个字段是一个索引, 对应字符串中一个能描述方法的字符串</p>
+<p>例如<code>III</code>表示<code>int (int, int)</code></p>
+</li>
+<li><p>第二个字段就是返回值类型的类型索引</p>
+</li>
+<li><p>第三个字段是指向一个DexTypeList的偏移</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">DexTypeList</span> &#123;</span></span><br><span class="line">    u4  size;               <span class="comment">/* 接下来DexTypeItem的个数 */</span></span><br><span class="line">    DexTypeItem <span class="built_in">list</span>[size];    <span class="comment">/* DexTypeItem结构 */</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">DexTypeItem</span> &#123;</span></span><br><span class="line">    u2  typeIdx;            <span class="comment">/* 指向DexTypeId列表的索引 */</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>例如<code>02 00 00 00 00 00 00 00</code>代表</p>
+<p>共有两个参数, 都位于类型索引表的<code>0</code>处, 也就是<code>int, int</code></p>
+</li>
+</ol>
+<p><img src="https://cdn.jsdelivr.net/gh/ixout/ixout.github.io@main/img/2025-03-05_144459.png" alt=""></p>
+<h1 id="field-id"><a href="#field-id" class="headerlink" title="field_id"></a>field_id</h1><p><strong>field_ids_size</strong></p>
+<p>描述DexFieldId的个数</p>
+<p><strong>field_ids_off</strong></p>
+<p>描述DexFieldId所在偏移</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">DexFieldId</span> &#123;</span></span><br><span class="line">    u2  classIdx;           <span class="comment">/* 类的类型，指向DexTypeId列表的索引 */</span></span><br><span class="line">    u2  typeIdx;            <span class="comment">/* 字段类型，指向DexTypeId列表的索引 */</span></span><br><span class="line">    u4  nameIdx;            <span class="comment">/* 字段名，指向DexStringId列表的索引 */</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<ol>
+<li>第一个字段代表所属类</li>
+<li>第二个字段代表类型</li>
+<li>第三个字段对应字符串表中的索引, 是字段的名称</li>
+</ol>
+<p>例如<code>01 00 00 00 17 00 00 00</code>代表Hello.number字段, 其是一个int</p>
+<p><img src="C:\Users\Aichengchao\AppData\Roaming\Typora\typora-user-images\image-20250305145055947.png" alt="image-20250305145055947"></p>
+<h1 id="method-id"><a href="#method-id" class="headerlink" title="method_id"></a>method_id</h1><p><strong>method_ids_size</strong></p>
+<p>method_id的个数</p>
+<p><strong>method_ids_off</strong></p>
+<p>所在偏移</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">DexMethodId</span> &#123;</span></span><br><span class="line">    u2  classIdx;           <span class="comment">/* 类的类型，指向DexTypeId列表的索引 */</span></span><br><span class="line">    u2  protoIdx;           <span class="comment">/* 声明类型，指向DexProtoId列表的索引 */</span></span><br><span class="line">    u4  nameIdx;            <span class="comment">/* 方法名，指向DexStringId列表的索引 */</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<ol>
+<li>第一个字段代表所属类索引</li>
+<li>第二个字段代表方法原型声明索引</li>
+<li>第三个字段代表方法名字</li>
+</ol>
+<p><img src="https://cdn.jsdelivr.net/gh/ixout/ixout.github.io@main/img/2025-03-05_145354.png" alt=""></p>
+<h1 id="class-def"><a href="#class-def" class="headerlink" title="class_def"></a>class_def</h1><p>整个dex最复杂也是最关键的地方</p>
+<p><strong>class_defs_size</strong></p>
+<p>描述DexClassDef的个数</p>
+<p><strong>class_defs_off</strong></p>
+<p>DexClassDef结构所在偏移</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">DexClassDef</span> &#123;</span></span><br><span class="line">    u4  classIdx;           <span class="comment">/* 类的类型，指向DexTypeId列表的索引 */</span></span><br><span class="line">    u4  accessFlags;        <span class="comment">/* accessFlags是类的访问标志，以ACC_开头的一个枚举值 */</span></span><br><span class="line">    u4  superclassIdx;      <span class="comment">/* 父类类型，指向DexTypeId列表的索引 */</span></span><br><span class="line">    u4  interfacesOff;      <span class="comment">/* 接口，指向DexTypeList的偏移 */</span></span><br><span class="line">    u4  sourceFileIdx;      <span class="comment">/* 源文件名，指向DexStringId列表的索引 */</span></span><br><span class="line">    u4  annotationsOff;     <span class="comment">/* 注解，指向DexAnnotationsDirectoryItem结构 annotationsOff字段指向注解目录结构，根据类型不同会有注解类、注解方法、注解字段与注解参数*/</span></span><br><span class="line">    u4  classDataOff;       <span class="comment">/* 指向DexClassData结构的偏移 classDataOff字段是类的数据部分*/</span></span><br><span class="line">    u4  staticValuesOff;    <span class="comment">/* 指向DexEncodedArray结构的偏移 staticValuesOff字段记录类中的静态数据*/</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>访问标志枚举</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* accessFlags 访问标志 */</span></span><br><span class="line"><span class="class"><span class="keyword">enum</span> &#123;</span></span><br><span class="line">    ACC_PUBLIC       = <span class="number">0x00000001</span>,       <span class="comment">// class, field, method, ic</span></span><br><span class="line">    ACC_PRIVATE      = <span class="number">0x00000002</span>,       <span class="comment">// field, method, ic</span></span><br><span class="line">    ACC_PROTECTED    = <span class="number">0x00000004</span>,       <span class="comment">// field, method, ic</span></span><br><span class="line">    ACC_STATIC       = <span class="number">0x00000008</span>,       <span class="comment">// field, method, ic</span></span><br><span class="line">    ACC_FINAL        = <span class="number">0x00000010</span>,       <span class="comment">// class, field, method, ic</span></span><br><span class="line">    ACC_SYNCHRONIZED = <span class="number">0x00000020</span>,       <span class="comment">// method (only allowed on natives)</span></span><br><span class="line">    ACC_SUPER        = <span class="number">0x00000020</span>,       <span class="comment">// class (not used in Dalvik)</span></span><br><span class="line">    ACC_VOLATILE     = <span class="number">0x00000040</span>,       <span class="comment">// field</span></span><br><span class="line">    ACC_BRIDGE       = <span class="number">0x00000040</span>,       <span class="comment">// method (1.5)</span></span><br><span class="line">    ACC_TRANSIENT    = <span class="number">0x00000080</span>,       <span class="comment">// field</span></span><br><span class="line">    ACC_VARARGS      = <span class="number">0x00000080</span>,       <span class="comment">// method (1.5)</span></span><br><span class="line">    ACC_NATIVE       = <span class="number">0x00000100</span>,       <span class="comment">// method</span></span><br><span class="line">    ACC_INTERFACE    = <span class="number">0x00000200</span>,       <span class="comment">// class, ic</span></span><br><span class="line">    ACC_ABSTRACT     = <span class="number">0x00000400</span>,       <span class="comment">// class, method, ic</span></span><br><span class="line">    ACC_STRICT       = <span class="number">0x00000800</span>,       <span class="comment">// method</span></span><br><span class="line">    ACC_SYNTHETIC    = <span class="number">0x00001000</span>,       <span class="comment">// field, method, ic</span></span><br><span class="line">    ACC_ANNOTATION   = <span class="number">0x00002000</span>,       <span class="comment">// class, ic (1.5)</span></span><br><span class="line">    ACC_ENUM         = <span class="number">0x00004000</span>,       <span class="comment">// class, field, ic (1.5)</span></span><br><span class="line">    ACC_CONSTRUCTOR  = <span class="number">0x00010000</span>,       <span class="comment">// method (Dalvik only)</span></span><br><span class="line">    ACC_DECLARED_SYNCHRONIZED =<span class="number">0x00020000</span>,       <span class="comment">// method (Dalvik only)</span></span><br><span class="line">    ACC_CLASS_MASK =(ACC_PUBLIC | ACC_FINAL | ACC_INTERFACE | ACC_ABSTRACT| ACC_SYNTHETIC | ACC_ANNOTATION | ACC_ENUM),</span><br><span class="line">    ACC_INNER_CLASS_MASK =(ACC_CLASS_MASK | ACC_PRIVATE | ACC_PROTECTED | ACC_STATIC),</span><br><span class="line">    ACC_FIELD_MASK =(ACC_PUBLIC | ACC_PRIVATE | ACC_PROTECTED | ACC_STATIC | ACC_FINAL| ACC_VOLATILE | ACC_TRANSIENT | ACC_SYNTHETIC | ACC_ENUM),</span><br><span class="line">    ACC_METHOD_MASK =(ACC_PUBLIC | ACC_PRIVATE | ACC_PROTECTED | ACC_STATIC | ACC_FINAL | ACC_SYNCHRONIZED | ACC_BRIDGE | ACC_VARARGS | ACC_NATIVE | ACC_ABSTRACT | ACC_STRICT | ACC_SYNTHETIC | ACC_CONSTRUCTOR| ACC_DECLARED_SYNCHRONIZED),</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h2 id="annotations"><a href="#annotations" class="headerlink" title="annotations"></a>annotations</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">DexAnnotationSetItem</span> &#123;</span></span><br><span class="line">    u4  size;</span><br><span class="line">    u4  entries[<span class="number">1</span>];                 <span class="comment">/* 指向DexAnnotationItem结构 */</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">DexFieldAnnotationsItem</span> &#123;</span></span><br><span class="line">    u4  fieldIdx;</span><br><span class="line">    u4  annotationsOff;             <span class="comment">/* 指向DexAnnotationSetItem结构 */</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">DexMethodAnnotationsItem</span> &#123;</span></span><br><span class="line">    u4  methodIdx;</span><br><span class="line">    u4  annotationsOff;             <span class="comment">/* 指向DexAnnotationSetItem结构 */</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">DexParameterAnnotationsItem</span> &#123;</span></span><br><span class="line">    u4  methodIdx;</span><br><span class="line">    u4  annotationsOff;             <span class="comment">/* 指向DexAnotationSetRefList结构 */</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">DexAnnotationSetRefList</span> &#123;</span></span><br><span class="line">    u4  size;</span><br><span class="line">    DexAnnotationSetRefItem <span class="built_in">list</span>[<span class="number">1</span>];</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">DexAnnotationSetRefItem</span> &#123;</span></span><br><span class="line">    u4  annotationsOff;             <span class="comment">/* 指向DexAnnotationSetItem结构 */</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">DexAnnotationItem</span> &#123;</span></span><br><span class="line">    u1  visibility;</span><br><span class="line">    u1  annotation[<span class="number">1</span>];              </span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">enum</span> &#123;</span></span><br><span class="line">    kDexVisibilityBuild         = <span class="number">0x00</span>,     </span><br><span class="line">    kDexVisibilityRuntime       = <span class="number">0x01</span>,</span><br><span class="line">    kDexVisibilitySystem        = <span class="number">0x02</span>,</span><br><span class="line"></span><br><span class="line">    kDexAnnotationByte          = <span class="number">0x00</span>,</span><br><span class="line">    kDexAnnotationShort         = <span class="number">0x02</span>,</span><br><span class="line">    kDexAnnotationChar          = <span class="number">0x03</span>,</span><br><span class="line">    kDexAnnotationInt           = <span class="number">0x04</span>,</span><br><span class="line">    kDexAnnotationLong          = <span class="number">0x06</span>,</span><br><span class="line">    kDexAnnotationFloat         = <span class="number">0x10</span>,</span><br><span class="line">    kDexAnnotationDouble        = <span class="number">0x11</span>,</span><br><span class="line">    kDexAnnotationString        = <span class="number">0x17</span>,</span><br><span class="line">    kDexAnnotationType          = <span class="number">0x18</span>,</span><br><span class="line">    kDexAnnotationField         = <span class="number">0x19</span>,</span><br><span class="line">    kDexAnnotationMethod        = <span class="number">0x1a</span>,</span><br><span class="line">    kDexAnnotationEnum          = <span class="number">0x1b</span>,</span><br><span class="line">    kDexAnnotationArray         = <span class="number">0x1c</span>,</span><br><span class="line">    kDexAnnotationAnnotation    = <span class="number">0x1d</span>,</span><br><span class="line">    kDexAnnotationNull          = <span class="number">0x1e</span>,</span><br><span class="line">    kDexAnnotationBoolean       = <span class="number">0x1f</span>,</span><br><span class="line"></span><br><span class="line">    kDexAnnotationValueTypeMask = <span class="number">0x1f</span>,     </span><br><span class="line">    kDexAnnotationValueArgShift = <span class="number">5</span>,</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h2 id="class-data"><a href="#class-data" class="headerlink" title="class_data"></a>class_data</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* classDataOff */</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">DexClassData</span> &#123;</span></span><br><span class="line">    DexClassDataHeader header;        <span class="comment">//指定字段与方法的个数</span></span><br><span class="line">    DexField*          staticFields;  <span class="comment">//静态字段，DexField结构</span></span><br><span class="line">    DexField*          instanceFields;<span class="comment">//实例字段，DexField结构</span></span><br><span class="line">    DexMethod*         directMethods; <span class="comment">//直接方法，DexMethod结构</span></span><br><span class="line">    DexMethod*         virtualMethods;<span class="comment">//虚方法，DexMethod结构</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* DexClassDataHeader结构记录了当前类中字段与方法的数目 */</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">DexClassDataHeader</span> &#123;</span></span><br><span class="line">    u4 staticFieldsSize; <span class="comment">//静态字段个数</span></span><br><span class="line">    u4 instanceFieldsSize; <span class="comment">//实例字段个数</span></span><br><span class="line">    u4 directMethodsSize; <span class="comment">//直接方法个数</span></span><br><span class="line">    u4 virtualMethodsSize; <span class="comment">//虚方法个数</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* DexField结构描述了字段的类型与访问标志 */</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">DexField</span> &#123;</span></span><br><span class="line">    u4 fieldIdx;    <span class="comment">/* 指向DexFieldId的索引 */</span></span><br><span class="line">    u4 accessFlags; <span class="comment">/* 访问标志 */</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* DexMethod结构描述方法的原型、名称、访问标志以及代码数据块 */</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">DexMethod</span> &#123;</span></span><br><span class="line">    u4 methodIdx;    <span class="comment">/* 指向DexMethodId的索引 */</span></span><br><span class="line">    u4 accessFlags;  <span class="comment">/* 访问标志 */</span></span><br><span class="line">    u4 codeOff;      <span class="comment">/* 指向DexCode结构的偏移 */</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">DexCode</span> &#123;</span></span><br><span class="line">    u2  registersSize;      <span class="comment">/* 使用的寄存器个数 .register*/</span></span><br><span class="line">    u2  insSize;			<span class="comment">/* 参数个数 .paramter*/</span></span><br><span class="line">    u2  outsSize;			<span class="comment">/* 调用其他方法时使用的寄存器个数 outsSize指定方法调用外部方法时使用的寄存器个数*/</span></span><br><span class="line">    u2  triesSize;			<span class="comment">/* try/catch个数 */</span></span><br><span class="line">    u4  debugInfoOff;       <span class="comment">/* 指向调式信息的偏移 */</span></span><br><span class="line">    u4  insnsSize;          <span class="comment">/* 指令集个数，以2字节为单位 */</span></span><br><span class="line">    u2  insns[<span class="number">1</span>];			<span class="comment">/* 指令集 */</span></span><br><span class="line">    <span class="comment">/* 2字节空间用于结构对齐 */</span></span><br><span class="line">    <span class="comment">/* try_item[triesSize] DexTry结构 */</span></span><br><span class="line">    <span class="comment">/*  try/catch中handler的个数 */</span></span><br><span class="line">    <span class="comment">/* catch_handler_item[handlersSize] DexCatchHandler结构 */</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">DexTry</span> &#123;</span></span><br><span class="line">    u4  startAddr;         </span><br><span class="line">    u2  insnCount;        </span><br><span class="line">    u2  handlerOff;        </span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h2 id="staticValues"><a href="#staticValues" class="headerlink" title="staticValues"></a>staticValues</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">DexEncodedArray</span> &#123;</span></span><br><span class="line">    u1  <span class="built_in">array</span>[<span class="number">1</span>];   </span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 定义 Encoded Value 结构体</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> &#123;</span></span><br><span class="line">    ubyte value_type;</span><br><span class="line">    ubyte value[value_type_size(value_type)];</span><br><span class="line">&#125; EncodedValue;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 定义 Encoded Array 结构体</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> &#123;</span></span><br><span class="line">    uleb128 size;</span><br><span class="line">    EncodedValue values[size];</span><br><span class="line">&#125; EncodedArray;</span><br></pre></td></tr></table></figure>
+<h1 id="data"><a href="#data" class="headerlink" title="data"></a>data</h1><p>  <strong>data_size</strong></p>
+<p>数据段大小  </p>
+<p>  <strong>data_off</strong></p>
+<p>数据段偏移  </p>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p><a target="_blank" rel="noopener" href="https://source.android.com/docs/core/dalvik/dex-format?hl=zh-cn">Dalvik 可执行文件格式  | Android Open Source Project</a></p>
+<p><a target="_blank" rel="noopener" href="https://cs.android.com/android/platform/superproject/main/+/main:art/libdexfile/dex/dex_file.h">dex_file.h - Android Code Search</a></p>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+        
+          <li><a href="/">Home</a></li>
+        
+          <li><a href="/about/">About</a></li>
+        
+          <li><a href="/archives/">Writing</a></li>
+        
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </div>
+
+    
+    
+      <div id="toc-footer" style="display: none">
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%BA%8F"><span class="toc-number">1.</span> <span class="toc-text">序</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#leb128"><span class="toc-number">2.</span> <span class="toc-text">leb128</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Header"><span class="toc-number">3.</span> <span class="toc-text">Header</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#map-off"><span class="toc-number">4.</span> <span class="toc-text">map_off</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#string-id"><span class="toc-number">5.</span> <span class="toc-text">string_id</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#type-id"><span class="toc-number">6.</span> <span class="toc-text">type_id</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#proto-id"><span class="toc-number">7.</span> <span class="toc-text">proto_id</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#field-id"><span class="toc-number">8.</span> <span class="toc-text">field_id</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#method-id"><span class="toc-number">9.</span> <span class="toc-text">method_id</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#class-def"><span class="toc-number">10.</span> <span class="toc-text">class_def</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#annotations"><span class="toc-number">10.1.</span> <span class="toc-text">annotations</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#class-data"><span class="toc-number">10.2.</span> <span class="toc-text">class_data</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#staticValues"><span class="toc-number">10.3.</span> <span class="toc-text">staticValues</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#data"><span class="toc-number">11.</span> <span class="toc-text">data</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8F%82%E8%80%83"><span class="toc-number">12.</span> <span class="toc-text">参考</span></a></li></ol>
+      </div>
+    
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://ixout.github.io/posts/44787/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://ixout.github.io/posts/44787/&text=dex结构"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://ixout.github.io/posts/44787/&title=dex结构"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://ixout.github.io/posts/44787/&is_video=false&description=dex结构"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=dex结构&body=Check out this article: https://ixout.github.io/posts/44787/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://ixout.github.io/posts/44787/&title=dex结构"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://ixout.github.io/posts/44787/&title=dex结构"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://ixout.github.io/posts/44787/&title=dex结构"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://ixout.github.io/posts/44787/&title=dex结构"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://ixout.github.io/posts/44787/&name=dex结构&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://ixout.github.io/posts/44787/&t=dex结构"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        
+          <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa-solid fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2023-2025
+    ixout
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="fa-regular fa-clone"></i>';
+    btn += '</span>';
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>
