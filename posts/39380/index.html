@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="xposed">
+<meta property="og:type" content="article">
+<meta property="og:title" content="xposed: native-hook与加固hook">
+<meta property="og:url" content="https://ixout.github.io/posts/39380/index.html">
+<meta property="og:site_name" content="ixout&#39;s blog">
+<meta property="og:description" content="xposed">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ixout/ixout.github.io@main/img/2025-03-13_195757.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ixout/ixout.github.io@main/img/2025-03-13_195942.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ixout/ixout.github.io@main/img/2025-03-13_203513.png">
+<meta property="article:published_time" content="2024-10-28T13:04:19.000Z">
+<meta property="article:modified_time" content="2025-03-13T13:06:09.911Z">
+<meta property="article:author" content="ixout">
+<meta property="article:tag" content="xposed">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/ixout/ixout.github.io@main/img/2025-03-13_195757.png">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.png">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.png">
+        
+      
+    
+    <!-- title -->
+    <title>xposed: native-hook与加固hook</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
+
+
+    <!-- Umami Analytics -->
+
+
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="ixout's blog" type="application/atom+xml">
+</head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa-solid fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="Previous post" href="/posts/38747/"><i class="fa-solid fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/posts/32540/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://ixout.github.io/posts/39380/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://ixout.github.io/posts/39380/&text=xposed: native-hook与加固hook"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://ixout.github.io/posts/39380/&title=xposed: native-hook与加固hook"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://ixout.github.io/posts/39380/&is_video=false&description=xposed: native-hook与加固hook"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=xposed: native-hook与加固hook&body=Check out this article: https://ixout.github.io/posts/39380/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://ixout.github.io/posts/39380/&title=xposed: native-hook与加固hook"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://ixout.github.io/posts/39380/&title=xposed: native-hook与加固hook"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://ixout.github.io/posts/39380/&title=xposed: native-hook与加固hook"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://ixout.github.io/posts/39380/&title=xposed: native-hook与加固hook"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://ixout.github.io/posts/39380/&name=xposed: native-hook与加固hook&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://ixout.github.io/posts/39380/&t=xposed: native-hook与加固hook"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    
+    
+      <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#native-hook"><span class="toc-number">1.</span> <span class="toc-text">native-hook</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9E%E9%99%85%E5%BA%94%E7%94%A8"><span class="toc-number">1.1.</span> <span class="toc-text">实际应用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90"><span class="toc-number">1.2.</span> <span class="toc-text">代码分析</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#hook-func"><span class="toc-number">1.2.1.</span> <span class="toc-text">hook_func</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8A%A0%E5%9B%BAhook"><span class="toc-number">2.</span> <span class="toc-text">加固hook</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%96%B9%E6%B3%95%E4%B8%80"><span class="toc-number">2.1.</span> <span class="toc-text">方法一</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%96%B9%E6%B3%95%E4%BA%8C"><span class="toc-number">2.2.</span> <span class="toc-text">方法二</span></a></li></ol></li></ol>
+      </div>
+    
+  </span>
+</div>
+
+    
+    <div class="content index py4 ">
+        
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle p-name" itemprop="name headline">
+        xposed: native-hook与加固hook
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span class="p-name" itemprop="name">ixout</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2024-10-28T13:04:19.000Z" class="dt-published" itemprop="datePublished">2024-10-28</time>
+        
+      
+    </div>
+
+
+      
+    <div class="article-category">
+        <i class="fa-solid fa-archive"></i>
+        <a class="category-link" href="/categories/bin/">bin</a>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fa-solid fa-tag"></i>
+        <a class="p-category" href="/tags/xposed/" rel="tag">xposed</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content e-content" itemprop="articleBody">
+    <h1 id="native-hook"><a href="#native-hook" class="headerlink" title="native-hook"></a>native-hook</h1><p>xposed进行native hook较为麻烦, 需要第三方的hook框架(例如dobby), 但现在lsposed已经能够原生支持native层hook</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/LSPosed/LSPosed/wiki/Native-Hook">Native Hook · LSPosed/LSPosed Wiki</a></p>
+<p>在普通xposed模块编写的基础上添加了以下几个步骤:</p>
+<ol>
+<li><p>正常创建一个xposed模块, 模块中加载之后要注入的so</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> org.lsposed.example</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">MainHook</span> : <span class="type">IXposedHookLoadPackage</span> &#123;</span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">handleLoadPackage</span><span class="params">(lpparam: <span class="type">XC_LoadPackage</span>.<span class="type">LoadPackageParam</span>)</span></span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (lpparam.packageName == <span class="string">&quot;org.lsposed.target&quot;</span>) &#123;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                System.loadLibrary(<span class="string">&quot;example&quot;</span>)</span><br><span class="line">            &#125; <span class="keyword">catch</span> (e: Throwable) &#123;</span><br><span class="line">                LogUtil.e(e)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在AndroidManifest.xml下额外添加两行</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">application</span> <span class="attr">...</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:multiArch</span>=<span class="string">&quot;true&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:extractNativeLibs</span>=<span class="string">&quot;false&quot;</span></span></span><br><span class="line"><span class="tag">&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>右击main目录, 选择Add C++ to Module, 之后即会在main目录下创建一个cpp文件夹(之后build.gradle中会自动添加一些配置, 有需要可以进行更改, 一般默认即可)</p>
+</li>
+<li><p>cpp文件夹内创建一个头文件, 名字任意内容如下</p>
+<figure class="highlight cc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">typedef</span> <span class="title">int</span> <span class="params">(*HookFunType)</span><span class="params">(<span class="type">void</span> *func, <span class="type">void</span> *replace, <span class="type">void</span> **backup)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">typedef</span> <span class="title">int</span> <span class="params">(*UnhookFunType)</span><span class="params">(<span class="type">void</span> *func)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">typedef</span> <span class="title">void</span> <span class="params">(*NativeOnModuleLoaded)</span><span class="params">(<span class="type">const</span> <span class="type">char</span> *name, <span class="type">void</span> *handle)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">struct</span> &#123;</span><br><span class="line">    <span class="type">uint32_t</span> version;</span><br><span class="line">    HookFunType hook_func;</span><br><span class="line">    UnhookFunType unhook_func;</span><br><span class="line">&#125; NativeAPIEntries;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">typedef</span> <span class="title">NativeOnModuleLoaded</span> <span class="params">(*NativeInit)</span><span class="params">(<span class="type">const</span> NativeAPIEntries *entries)</span></span>;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>编写hook主逻辑cpp</p>
+<figure class="highlight cc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;jni.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;string&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;dlfcn.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;lspnative.h&quot;</span></span></span><br><span class="line"><span class="type">static</span> HookFunType hook_func = <span class="literal">nullptr</span>;</span><br><span class="line"></span><br><span class="line"><span class="built_in">int</span> (*backup)();</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">fake</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">backup</span>() + <span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">FILE *(*backup_fopen)(<span class="type">const</span> <span class="type">char</span> *filename, <span class="type">const</span> <span class="type">char</span> *mode);</span><br><span class="line"></span><br><span class="line"><span class="function">FILE *<span class="title">fake_fopen</span><span class="params">(<span class="type">const</span> <span class="type">char</span> *filename, <span class="type">const</span> <span class="type">char</span> *mode)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">strstr</span>(filename, <span class="string">&quot;banned&quot;</span>)) <span class="keyword">return</span> <span class="literal">nullptr</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">backup_fopen</span>(filename, mode);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">jclass</span> (*backup_FindClass)(JNIEnv *env, <span class="type">const</span> <span class="type">char</span> *name);</span><br><span class="line"><span class="function">jclass <span class="title">fake_FindClass</span><span class="params">(JNIEnv *env, <span class="type">const</span> <span class="type">char</span> *name)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(!<span class="built_in">strcmp</span>(name, <span class="string">&quot;dalvik/system/BaseDexClassLoader&quot;</span>))</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">nullptr</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">backup_FindClass</span>(env, name);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">on_library_loaded</span><span class="params">(<span class="type">const</span> <span class="type">char</span> *name, <span class="type">void</span> *handle)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// hooks on `libtarget.so`</span></span><br><span class="line">    <span class="keyword">if</span> (std::<span class="built_in">string</span>(name).<span class="built_in">ends_with</span>(<span class="string">&quot;libtarget.so&quot;</span>)) &#123;</span><br><span class="line">        <span class="type">void</span> *target = <span class="built_in">dlsym</span>(handle, <span class="string">&quot;target_fun&quot;</span>);</span><br><span class="line">        <span class="built_in">hook_func</span>(target, (<span class="type">void</span> *) fake, (<span class="type">void</span> **) &amp;backup);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">extern</span> <span class="string">&quot;C&quot;</span> [[gnu::<span class="built_in">visibility</span>(<span class="string">&quot;default&quot;</span>)]] [[gnu::used]]</span><br><span class="line"><span class="function">jint <span class="title">JNI_OnLoad</span><span class="params">(JavaVM *jvm, <span class="type">void</span>*)</span> </span>&#123;</span><br><span class="line">    JNIEnv *env = <span class="literal">nullptr</span>;</span><br><span class="line">    jvm-&gt;<span class="built_in">GetEnv</span>((<span class="type">void</span> **)&amp;env, JNI_VERSION_1_6);</span><br><span class="line">    <span class="built_in">hook_func</span>((<span class="type">void</span> *)env-&gt;functions-&gt;FindClass, (<span class="type">void</span> *)fake_FindClass, (<span class="type">void</span> **)&amp;backup_FindClass);</span><br><span class="line">    <span class="keyword">return</span> JNI_VERSION_1_6;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">extern</span> <span class="string">&quot;C&quot;</span> [[gnu::<span class="built_in">visibility</span>(<span class="string">&quot;default&quot;</span>)]] [[gnu::used]]</span><br><span class="line"><span class="function">NativeOnModuleLoaded <span class="title">native_init</span><span class="params">(<span class="type">const</span> NativeAPIEntries *entries)</span> </span>&#123;</span><br><span class="line">    hook_func = entries-&gt;hook_func;</span><br><span class="line">    <span class="comment">// system hooks</span></span><br><span class="line">    <span class="built_in">hook_func</span>((<span class="type">void</span>*) fopen, (<span class="type">void</span>*) fake_fopen, (<span class="type">void</span>**) &amp;backup_fopen);</span><br><span class="line">    <span class="keyword">return</span> on_library_loaded;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在assets目录下创建native_init文件, 其中填写实现hook逻辑的so文件名字</p>
+</li>
+</ol>
+<h2 id="实际应用"><a href="#实际应用" class="headerlink" title="实际应用"></a>实际应用</h2><p>以frida labs的lab-9为例</p>
+<p><img src="https://cdn.jsdelivr.net/gh/ixout/ixout.github.io@main/img/2025-03-13_195757.png" alt=""></p>
+<p>但check_flag函数始终返回1</p>
+<p><img src="https://cdn.jsdelivr.net/gh/ixout/ixout.github.io@main/img/2025-03-13_195942.png" alt=""></p>
+<p>首先完成上面介绍的步骤</p>
+<p>xposed入口</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.example.xposed;</span><br><span class="line"><span class="keyword">import</span> android.util.Log;</span><br><span class="line"><span class="keyword">import</span> de.robv.android.xposed.IXposedHookLoadPackage;</span><br><span class="line"><span class="keyword">import</span> de.robv.android.xposed.callbacks.XC_LoadPackage;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">main</span> <span class="keyword">implements</span> <span class="title class_">IXposedHookLoadPackage</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="type">String</span> <span class="variable">TAG</span> <span class="operator">=</span> <span class="string">&quot;[LuoXposed]&quot;</span>;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">handleLoadPackage</span><span class="params">(XC_LoadPackage.LoadPackageParam lpparam)</span> <span class="keyword">throws</span> Throwable &#123;</span><br><span class="line">        <span class="keyword">if</span> (lpparam.packageName.equals(<span class="string">&quot;com.ad2001.a0x9&quot;</span>)) &#123;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                System.loadLibrary(<span class="string">&quot;xposed&quot;</span>);</span><br><span class="line">            &#125;<span class="keyword">catch</span> (Exception e)&#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>native-hook代码</p>
+<figure class="highlight cc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;jni.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;string&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;dlfcn.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;lspnative.h&quot;</span></span></span><br><span class="line"><span class="type">static</span> HookFunType hook_func = <span class="literal">nullptr</span>;</span><br><span class="line"></span><br><span class="line"><span class="built_in">int64_t</span> (*backup)();</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int64_t</span> <span class="title">fake</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0x539</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">on_library_loaded</span><span class="params">(<span class="type">const</span> <span class="type">char</span> *name, <span class="type">void</span> *handle)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// hooks on `libtarget.so`</span></span><br><span class="line">    <span class="keyword">if</span> (std::<span class="built_in">string</span>(name).<span class="built_in">compare</span>(<span class="string">&quot;liba0x9.so&quot;</span>)) &#123;</span><br><span class="line">        <span class="type">void</span> *target = <span class="built_in">dlsym</span>(handle, <span class="string">&quot;Java_com_ad2001_a0x9_MainActivity_check_1flag&quot;</span>);</span><br><span class="line">        <span class="built_in">hook_func</span>(target, (<span class="type">void</span> *) fake, (<span class="type">void</span> **) &amp;backup);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">extern</span> <span class="string">&quot;C&quot;</span> [[gnu::<span class="built_in">visibility</span>(<span class="string">&quot;default&quot;</span>)]] [[gnu::used]]</span><br><span class="line"><span class="function">jint <span class="title">JNI_OnLoad</span><span class="params">(JavaVM *jvm, <span class="type">void</span>*)</span> </span>&#123;</span><br><span class="line">    JNIEnv *env = <span class="literal">nullptr</span>;</span><br><span class="line">    jvm-&gt;<span class="built_in">GetEnv</span>((<span class="type">void</span> **)&amp;env, JNI_VERSION_1_6);</span><br><span class="line">    <span class="comment">//hook_func((void *)env-&gt;functions-&gt;FindClass, (void *)fake_FindClass, (void **)&amp;backup_FindClass);</span></span><br><span class="line">    <span class="keyword">return</span> JNI_VERSION_1_6;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">extern</span> <span class="string">&quot;C&quot;</span> [[gnu::<span class="built_in">visibility</span>(<span class="string">&quot;default&quot;</span>)]] [[gnu::used]]</span><br><span class="line"><span class="function">NativeOnModuleLoaded <span class="title">native_init</span><span class="params">(<span class="type">const</span> NativeAPIEntries *entries)</span> </span>&#123;</span><br><span class="line">    hook_func = entries-&gt;hook_func;</span><br><span class="line">    <span class="comment">// system hooks</span></span><br><span class="line">    <span class="comment">//hook_func((void*) fopen, (void*) fake_fopen, (void**) &amp;backup_fopen);</span></span><br><span class="line">    <span class="keyword">return</span> on_library_loaded;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Cmakelist.txt, 这里就是默认的配置, 没有更改</p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># For more information about using CMake with Android Studio, read the</span></span><br><span class="line"><span class="comment"># documentation: https://d.android.com/studio/projects/add-native-code.html.</span></span><br><span class="line"><span class="comment"># For more examples on how to use CMake, see https://github.com/android/ndk-samples.</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Sets the minimum CMake version required for this project.</span></span><br><span class="line"><span class="keyword">cmake_minimum_required</span>(VERSION <span class="number">3.22</span>.<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Declares the project name. The project name can be accessed via $&#123; PROJECT_NAME&#125;,</span></span><br><span class="line"><span class="comment"># Since this is the top level CMakeLists.txt, the project name is also accessible</span></span><br><span class="line"><span class="comment"># with $&#123;CMAKE_PROJECT_NAME&#125; (both CMake variables are in-sync within the top level</span></span><br><span class="line"><span class="comment"># build script scope).</span></span><br><span class="line"><span class="keyword">project</span>(<span class="string">&quot;xposed&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Creates and names a library, sets it as either STATIC</span></span><br><span class="line"><span class="comment"># or SHARED, and provides the relative paths to its source code.</span></span><br><span class="line"><span class="comment"># You can define multiple libraries, and CMake builds them for you.</span></span><br><span class="line"><span class="comment"># Gradle automatically packages shared libraries with your APK.</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># In this top level CMakeLists.txt, $&#123;CMAKE_PROJECT_NAME&#125; is used to define</span></span><br><span class="line"><span class="comment"># the target library name; in the sub-module&#x27;s CMakeLists.txt, $&#123;PROJECT_NAME&#125;</span></span><br><span class="line"><span class="comment"># is preferred for the same purpose.</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># In order to load a library into your app from Java/Kotlin, you must call</span></span><br><span class="line"><span class="comment"># System.loadLibrary() and pass the name of the library defined here;</span></span><br><span class="line"><span class="comment"># for GameActivity/NativeActivity derived applications, the same library name must be</span></span><br><span class="line"><span class="comment"># used in the AndroidManifest.xml file.</span></span><br><span class="line"><span class="keyword">add_library</span>(<span class="variable">$&#123;CMAKE_PROJECT_NAME&#125;</span> SHARED</span><br><span class="line">    <span class="comment"># List C/C++ source files with relative paths to this CMakeLists.txt.</span></span><br><span class="line">    xposed.cpp)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Specifies libraries CMake should link to your target library. You</span></span><br><span class="line"><span class="comment"># can link libraries from various origins, such as libraries defined in this</span></span><br><span class="line"><span class="comment"># build script, prebuilt third-party libraries, or Android system libraries.</span></span><br><span class="line"><span class="keyword">target_link_libraries</span>(<span class="variable">$&#123;CMAKE_PROJECT_NAME&#125;</span></span><br><span class="line">    <span class="comment"># List libraries link to the target library</span></span><br><span class="line">    android</span><br><span class="line">    log)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>编译安装成功达到目标</p>
+<p><img src="https://cdn.jsdelivr.net/gh/ixout/ixout.github.io@main/img/2025-03-13_203513.png" alt=""></p>
+<h2 id="代码分析"><a href="#代码分析" class="headerlink" title="代码分析"></a>代码分析</h2><p>有三个关键接口, 也就是hook的三个节点</p>
+<ol>
+<li><p><strong>native_init</strong>, 这是Native Hook的初始化函数, 其中可进行对系统库函数的hook</p>
+<p>例如hook fopen</p>
+<figure class="highlight cc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">hook_func</span>((<span class="type">void</span>*) fopen, (<span class="type">void</span>*) fake_fopen, (<span class="type">void</span>**) &amp;backup_fopen);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>JNI_OnLoad</strong>,  这是JNI的入口函数，当Java虚拟机加载本地库时会被调用</p>
+<p>可以在这个位置hook jni相关接口函数</p>
+<figure class="highlight cc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">hook_func</span>((<span class="type">void</span> *)env-&gt;functions-&gt;FindClass, (<span class="type">void</span> *)fake_FindClass, (<span class="type">void</span> **)&amp;backup_FindClass);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>on_library_loaded</strong>, 一个回调函数，当某个库被加载时会被调用, 在此处hook特定so中的特定函数, 使用dlsym通过句柄找到对应的函数地址</p>
+<figure class="highlight cc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">hook_func</span>(target, (<span class="type">void</span> *) fake, (<span class="type">void</span> **) &amp;backup);</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h3 id="hook-func"><a href="#hook-func" class="headerlink" title="hook_func"></a>hook_func</h3><p>通过上述代码可以看到hook的核心是hook_func函数</p>
+<figure class="highlight cc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">typedef</span> <span class="title">int</span> <span class="params">(*HookFunType)</span><span class="params">(<span class="type">void</span> *func, <span class="type">void</span> *replace, <span class="type">void</span> **backup)</span></span>;</span><br></pre></td></tr></table></figure>
+<p><code>hook_func</code> 接受三个参数：</p>
+<ol>
+<li><code>void *func</code>: 需要被 Hook 的函数的地址</li>
+<li><code>void *replace</code>: 用于替换目标函数的新函数地址</li>
+<li><code>void **backup</code>: 用于保存目标函数原地址的指针</li>
+</ol>
+<p>由于有保存原函数地址到backup, 所以替换的新函数也可以通过backup指针调用原有的函数</p>
+<h1 id="加固hook"><a href="#加固hook" class="headerlink" title="加固hook"></a>加固hook</h1><p>LSPosed在注入进程时App的Application类并未完成加载, 这也就导致真实用于加载App业务相关类的ClassLoader并未出现, hook找到的目标是加固壳的ClassLoader, 所以直接对应用中的函数进行hook的话就会导致<strong>ClassNotFoundException</strong>错误</p>
+<p>有两类解决方法</p>
+<h2 id="方法一"><a href="#方法一" class="headerlink" title="方法一"></a>方法一</h2><p>通过对Android下的加固应用进行分析,可以知道壳程序通常是通过在应用进程最先获得执行权限的Application类中的attachBaseContext和onCreate函数中完成对真实Dex的释放以及ClassLoader的切换.</p>
+<p>故可以通过对加固应用Application类的attachBaseContext或onCreate函数进行Hook,来得到真实App的上下文,再通过上下文来获取真实代码释放后的ClassLoader,用于后续的函数Hook.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.example.luoxposeddemo;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> android.app.Application;</span><br><span class="line"><span class="keyword">import</span> android.content.Context;</span><br><span class="line"><span class="keyword">import</span> android.util.Log;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> de.robv.android.xposed.IXposedHookLoadPackage;</span><br><span class="line"><span class="keyword">import</span> de.robv.android.xposed.XC_MethodHook;</span><br><span class="line"><span class="keyword">import</span> de.robv.android.xposed.XposedBridge;</span><br><span class="line"><span class="keyword">import</span> de.robv.android.xposed.XposedHelpers;</span><br><span class="line"><span class="keyword">import</span> de.robv.android.xposed.callbacks.XC_LoadPackage;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">LuoHook</span> <span class="keyword">implements</span> <span class="title class_">IXposedHookLoadPackage</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="type">String</span> <span class="variable">TAG</span> <span class="operator">=</span> <span class="string">&quot;[LuoXposed]&quot;</span>;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">handleLoadPackage</span><span class="params">(XC_LoadPackage.LoadPackageParam lpparam)</span> <span class="keyword">throws</span> Throwable &#123;</span><br><span class="line">        <span class="keyword">if</span> (lpparam.packageName.equals(<span class="string">&quot;com.hay.dreamlover&quot;</span>)) &#123;</span><br><span class="line">            Log.i(TAG, <span class="string">&quot;Enter Hook&quot;</span>);</span><br><span class="line">            <span class="comment">//com.stub.StubApp</span></span><br><span class="line">            <span class="type">Class</span> <span class="variable">applicationClazz</span> <span class="operator">=</span> lpparam.classLoader.loadClass(<span class="string">&quot;com.stub.StubApp&quot;</span>);</span><br><span class="line">            XposedHelpers.findAndHookMethod(applicationClazz, <span class="string">&quot;attachBaseContext&quot;</span>, Context.class, <span class="keyword">new</span> <span class="title class_">XC_MethodHook</span>() &#123;</span><br><span class="line">                <span class="meta">@Override</span></span><br><span class="line">                <span class="keyword">protected</span> <span class="keyword">void</span> <span class="title function_">beforeHookedMethod</span><span class="params">(MethodHookParam param)</span> <span class="keyword">throws</span> Throwable &#123;</span><br><span class="line">                    <span class="built_in">super</span>.beforeHookedMethod(param);</span><br><span class="line">                    Log.i(TAG, <span class="string">&quot;Enter com.stub.StubApp.attachBaseContext&quot;</span>);</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                <span class="meta">@Override</span></span><br><span class="line">                <span class="keyword">protected</span> <span class="keyword">void</span> <span class="title function_">afterHookedMethod</span><span class="params">(MethodHookParam param)</span> <span class="keyword">throws</span> Throwable &#123;</span><br><span class="line">                    <span class="built_in">super</span>.afterHookedMethod(param);</span><br><span class="line">                    Log.i(TAG, <span class="string">&quot;Leave com.stub.StubApp.attachBaseContext&quot;</span>);</span><br><span class="line"></span><br><span class="line">                    <span class="type">Context</span> <span class="variable">context</span> <span class="operator">=</span> (Context) param.args[<span class="number">0</span>];</span><br><span class="line">                    <span class="comment">//获取真实业务代码的classLoader</span></span><br><span class="line">                    <span class="type">ClassLoader</span> <span class="variable">finalClassLoader</span> <span class="operator">=</span> context.getClassLoader();</span><br><span class="line">                    <span class="type">Class</span> <span class="variable">initActivityClazz</span> <span class="operator">=</span> finalClassLoader.loadClass(<span class="string">&quot;com.fanwe.hybrid.activity.InitActivity&quot;</span>);</span><br><span class="line">                    XposedBridge.hookAllMethods(initActivityClazz, <span class="string">&quot;onCreate&quot;</span>, <span class="keyword">new</span> <span class="title class_">XC_MethodHook</span>() &#123;</span><br><span class="line">                        <span class="meta">@Override</span></span><br><span class="line">                        <span class="keyword">protected</span> <span class="keyword">void</span> <span class="title function_">beforeHookedMethod</span><span class="params">(MethodHookParam param)</span> <span class="keyword">throws</span> Throwable &#123;</span><br><span class="line">                            <span class="built_in">super</span>.beforeHookedMethod(param);</span><br><span class="line">                            Log.i(TAG, <span class="string">&quot;attachBaseContext Enter com.fanwe.hybrid.activity.InitActivity.onCreate&quot;</span>);</span><br><span class="line">                        &#125;</span><br><span class="line"></span><br><span class="line">                        <span class="meta">@Override</span></span><br><span class="line">                        <span class="keyword">protected</span> <span class="keyword">void</span> <span class="title function_">afterHookedMethod</span><span class="params">(MethodHookParam param)</span> <span class="keyword">throws</span> Throwable &#123;</span><br><span class="line">                            <span class="built_in">super</span>.afterHookedMethod(param);</span><br><span class="line">                            Log.i(TAG, <span class="string">&quot;attachBaseContext Leave com.fanwe.hybrid.activity.InitActivity.onCreate&quot;</span>);</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="方法二"><a href="#方法二" class="headerlink" title="方法二"></a>方法二</h2><p>上面的方法在厂商对加固过程有改动时, 就需要花费时间对脚本进行修改</p>
+<p>方法二则是一个更通用的解决任意加固应用函数的Hook方式</p>
+<p>回顾app启动相关的知识</p>
+<p>App被Zygote进程孵化后,通过ActivityThread.main函数进入App的世界.</p>
+<p>ActivityThread这个类十分重要,它会根据ActivityManager发送的请求对activities、broadcast Receviers等操作进行调度和执行.</p>
+<p>其中performLaunchActivity()函数用于响应Activity相关的操作.</p>
+<p>另外ActivityThread类中还存在着一个Application类型的mInitialApplication成员,应用程序中有且只有一个Application组件,而Application对象中就存储着当前的ClassLoader,考虑到App在响应Activity消息时,真实App的代码已经被释放到内存中,此时通过mInitialApplication成员获取应用当前的ClassLoader,即可完成对真实App业务代码的Hook.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.example.luoxposeddemo;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> android.app.Application;</span><br><span class="line"><span class="keyword">import</span> android.content.Context;</span><br><span class="line"><span class="keyword">import</span> android.util.Log;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> de.robv.android.xposed.IXposedHookLoadPackage;</span><br><span class="line"><span class="keyword">import</span> de.robv.android.xposed.XC_MethodHook;</span><br><span class="line"><span class="keyword">import</span> de.robv.android.xposed.XposedBridge;</span><br><span class="line"><span class="keyword">import</span> de.robv.android.xposed.XposedHelpers;</span><br><span class="line"><span class="keyword">import</span> de.robv.android.xposed.callbacks.XC_LoadPackage;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">LuoHook</span> <span class="keyword">implements</span> <span class="title class_">IXposedHookLoadPackage</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="type">String</span> <span class="variable">TAG</span> <span class="operator">=</span> <span class="string">&quot;[LuoXposed]&quot;</span>;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">handleLoadPackage</span><span class="params">(XC_LoadPackage.LoadPackageParam lpparam)</span> <span class="keyword">throws</span> Throwable &#123;</span><br><span class="line">        <span class="keyword">if</span> (lpparam.packageName.equals(<span class="string">&quot;com.hay.dreamlover&quot;</span>)) &#123;</span><br><span class="line">            Log.i(TAG, <span class="string">&quot;Enter Hook&quot;</span>);</span><br><span class="line">            <span class="type">Class</span> <span class="variable">activityThreadClazz</span> <span class="operator">=</span> lpparam.classLoader.loadClass(<span class="string">&quot;android.app.ActivityThread&quot;</span>);</span><br><span class="line">            XposedBridge.hookAllMethods(activityThreadClazz, <span class="string">&quot;performLaunchActivity&quot;</span>, <span class="keyword">new</span> <span class="title class_">XC_MethodHook</span>() &#123;</span><br><span class="line">                <span class="meta">@Override</span></span><br><span class="line">                <span class="keyword">protected</span> <span class="keyword">void</span> <span class="title function_">beforeHookedMethod</span><span class="params">(MethodHookParam param)</span> <span class="keyword">throws</span> Throwable &#123;</span><br><span class="line">                    <span class="built_in">super</span>.beforeHookedMethod(param);</span><br><span class="line">                    Log.i(TAG, <span class="string">&quot;Enter android.app.ActivityThread.performLaunchActivity&quot;</span>);</span><br><span class="line">                    </span><br><span class="line">                    <span class="type">Application</span> <span class="variable">mInitialApplication</span> <span class="operator">=</span> (Application) XposedHelpers.getObjectField(param.thisObject, <span class="string">&quot;mInitialApplication&quot;</span>);</span><br><span class="line">                    <span class="type">ClassLoader</span> <span class="variable">finalClassLoader</span> <span class="operator">=</span> mInitialApplication.getClassLoader();</span><br><span class="line">                    <span class="type">Class</span> <span class="variable">initActivityClazz</span> <span class="operator">=</span> finalClassLoader.loadClass(<span class="string">&quot;com.fanwe.hybrid.activity.InitActivity&quot;</span>);</span><br><span class="line">                    <span class="comment">//Log.i(TAG, initActivityClazz.toString());</span></span><br><span class="line">                    XposedBridge.hookAllMethods(initActivityClazz, <span class="string">&quot;onCreate&quot;</span>, <span class="keyword">new</span> <span class="title class_">XC_MethodHook</span>() &#123;</span><br><span class="line">                        <span class="meta">@Override</span></span><br><span class="line">                        <span class="keyword">protected</span> <span class="keyword">void</span> <span class="title function_">beforeHookedMethod</span><span class="params">(MethodHookParam param)</span> <span class="keyword">throws</span> Throwable &#123;</span><br><span class="line">                            <span class="built_in">super</span>.beforeHookedMethod(param);</span><br><span class="line">                            Log.i(TAG, <span class="string">&quot;performLaunchActivity Enter com.fanwe.hybrid.activity.InitActivity.onCreate&quot;</span>);</span><br><span class="line">                        &#125;</span><br><span class="line"></span><br><span class="line">                        <span class="meta">@Override</span></span><br><span class="line">                        <span class="keyword">protected</span> <span class="keyword">void</span> <span class="title function_">afterHookedMethod</span><span class="params">(MethodHookParam param)</span> <span class="keyword">throws</span> Throwable &#123;</span><br><span class="line">                            <span class="built_in">super</span>.afterHookedMethod(param);</span><br><span class="line">                            Log.i(TAG, <span class="string">&quot;performLaunchActivity Leave com.fanwe.hybrid.activity.InitActivity.onCreate&quot;</span>);</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;);</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                <span class="meta">@Override</span></span><br><span class="line">                <span class="keyword">protected</span> <span class="keyword">void</span> <span class="title function_">afterHookedMethod</span><span class="params">(MethodHookParam param)</span> <span class="keyword">throws</span> Throwable &#123;</span><br><span class="line">                    <span class="built_in">super</span>.afterHookedMethod(param);</span><br><span class="line">                    Log.i(TAG, <span class="string">&quot;Leave android.app.ActivityThread.performLaunchActivity&quot;</span>);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+        
+          <li><a href="/">Home</a></li>
+        
+          <li><a href="/about/">About</a></li>
+        
+          <li><a href="/archives/">Writing</a></li>
+        
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </div>
+
+    
+    
+      <div id="toc-footer" style="display: none">
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#native-hook"><span class="toc-number">1.</span> <span class="toc-text">native-hook</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9E%E9%99%85%E5%BA%94%E7%94%A8"><span class="toc-number">1.1.</span> <span class="toc-text">实际应用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90"><span class="toc-number">1.2.</span> <span class="toc-text">代码分析</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#hook-func"><span class="toc-number">1.2.1.</span> <span class="toc-text">hook_func</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8A%A0%E5%9B%BAhook"><span class="toc-number">2.</span> <span class="toc-text">加固hook</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%96%B9%E6%B3%95%E4%B8%80"><span class="toc-number">2.1.</span> <span class="toc-text">方法一</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%96%B9%E6%B3%95%E4%BA%8C"><span class="toc-number">2.2.</span> <span class="toc-text">方法二</span></a></li></ol></li></ol>
+      </div>
+    
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://ixout.github.io/posts/39380/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://ixout.github.io/posts/39380/&text=xposed: native-hook与加固hook"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://ixout.github.io/posts/39380/&title=xposed: native-hook与加固hook"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://ixout.github.io/posts/39380/&is_video=false&description=xposed: native-hook与加固hook"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=xposed: native-hook与加固hook&body=Check out this article: https://ixout.github.io/posts/39380/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://ixout.github.io/posts/39380/&title=xposed: native-hook与加固hook"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://ixout.github.io/posts/39380/&title=xposed: native-hook与加固hook"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://ixout.github.io/posts/39380/&title=xposed: native-hook与加固hook"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://ixout.github.io/posts/39380/&title=xposed: native-hook与加固hook"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://ixout.github.io/posts/39380/&name=xposed: native-hook与加固hook&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://ixout.github.io/posts/39380/&t=xposed: native-hook与加固hook"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        
+          <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa-solid fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2023-2025
+    ixout
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="fa-regular fa-clone"></i>';
+    btn += '</span>';
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>
