@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
     <meta name="description" content="WASM">
 <meta property="og:type" content="article">
-<meta property="og:title" content="WASM初识">
+<meta property="og:title" content="WASM-pwn初识">
 <meta property="og:url" content="https://ixout.github.io/posts/1523/index.html">
 <meta property="og:site_name" content="ixout&#39;s blog">
 <meta property="og:description" content="WASM">
@@ -23,7 +23,7 @@
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/ixout/ixout.github.io@main/img/2024-01-19_134958.png">
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/ixout/ixout.github.io@main/img/2024-01-19_135922.png">
 <meta property="article:published_time" content="2023-12-29T11:19:12.000Z">
-<meta property="article:modified_time" content="2024-11-20T14:11:46.228Z">
+<meta property="article:modified_time" content="2025-03-13T13:07:24.529Z">
 <meta property="article:author" content="ixout">
 <meta property="article:tag" content="wasm">
 <meta property="article:tag" content="webpwn">
@@ -48,7 +48,7 @@
       
     
     <!-- title -->
-    <title>WASM初识</title>
+    <title>WASM-pwn初识</title>
     <!-- async scripts -->
     <!-- Google Analytics -->
 
@@ -111,16 +111,16 @@
     <div id="share" style="display: none">
       <ul>
   <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://ixout.github.io/posts/1523/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://ixout.github.io/posts/1523/&text=WASM初识"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://ixout.github.io/posts/1523/&title=WASM初识"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://ixout.github.io/posts/1523/&is_video=false&description=WASM初识"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=WASM初识&body=Check out this article: https://ixout.github.io/posts/1523/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://ixout.github.io/posts/1523/&title=WASM初识"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://ixout.github.io/posts/1523/&title=WASM初识"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://ixout.github.io/posts/1523/&title=WASM初识"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://ixout.github.io/posts/1523/&title=WASM初识"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://ixout.github.io/posts/1523/&name=WASM初识&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://ixout.github.io/posts/1523/&t=WASM初识"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://ixout.github.io/posts/1523/&text=WASM-pwn初识"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://ixout.github.io/posts/1523/&title=WASM-pwn初识"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://ixout.github.io/posts/1523/&is_video=false&description=WASM-pwn初识"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=WASM-pwn初识&body=Check out this article: https://ixout.github.io/posts/1523/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://ixout.github.io/posts/1523/&title=WASM-pwn初识"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://ixout.github.io/posts/1523/&title=WASM-pwn初识"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://ixout.github.io/posts/1523/&title=WASM-pwn初识"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://ixout.github.io/posts/1523/&title=WASM-pwn初识"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://ixout.github.io/posts/1523/&name=WASM-pwn初识&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://ixout.github.io/posts/1523/&t=WASM-pwn初识"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
@@ -140,7 +140,7 @@
   <header>
     
     <h1 class="posttitle p-name" itemprop="name headline">
-        WASM初识
+        WASM-pwn初识
     </h1>
 
 
@@ -415,16 +415,16 @@
     <div id="share-footer" style="display: none">
       <ul>
   <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://ixout.github.io/posts/1523/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://ixout.github.io/posts/1523/&text=WASM初识"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://ixout.github.io/posts/1523/&title=WASM初识"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://ixout.github.io/posts/1523/&is_video=false&description=WASM初识"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=WASM初识&body=Check out this article: https://ixout.github.io/posts/1523/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://ixout.github.io/posts/1523/&title=WASM初识"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://ixout.github.io/posts/1523/&title=WASM初识"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://ixout.github.io/posts/1523/&title=WASM初识"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://ixout.github.io/posts/1523/&title=WASM初识"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://ixout.github.io/posts/1523/&name=WASM初识&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://ixout.github.io/posts/1523/&t=WASM初识"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://ixout.github.io/posts/1523/&text=WASM-pwn初识"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://ixout.github.io/posts/1523/&title=WASM-pwn初识"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://ixout.github.io/posts/1523/&is_video=false&description=WASM-pwn初识"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=WASM-pwn初识&body=Check out this article: https://ixout.github.io/posts/1523/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://ixout.github.io/posts/1523/&title=WASM-pwn初识"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://ixout.github.io/posts/1523/&title=WASM-pwn初识"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://ixout.github.io/posts/1523/&title=WASM-pwn初识"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://ixout.github.io/posts/1523/&title=WASM-pwn初识"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://ixout.github.io/posts/1523/&name=WASM-pwn初识&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://ixout.github.io/posts/1523/&t=WASM-pwn初识"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
