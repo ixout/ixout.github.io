@@ -1,5 +1,6 @@
-https://ixout.github.io/posts/51089/
 https://ixout.github.io/about/index.html
+https://ixout.github.io/posts/46033/
+https://ixout.github.io/posts/51089/
 https://ixout.github.io/posts/46596/
 https://ixout.github.io/posts/36191/
 https://ixout.github.io/posts/1523/
@@ -79,3 +80,4 @@ https://ixout.github.io/categories/pwn/
 https://ixout.github.io/categories/bin/
 https://ixout.github.io/categories/android/
 https://ixout.github.io/categories/%E9%A2%98%E8%A7%A3/
+https://ixout.github.io/categories/ble/

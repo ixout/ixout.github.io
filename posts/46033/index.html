@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="通过blectf简单认识与ble的交互 基础知识通用属性配置文件（GATT） 是 BLE（蓝牙低功耗）设备在建立连接后用于数据交换的协议框架。它定义了设备间如何通过一系列层次化的属性进行通信。GATT 结构中有三个核心概念：  Profile（配置文件） Service（服务） Characteristic（特征）  它们的关系可以类比为嵌套结构：  一个 Profile 包含多个 Service">
+<meta property="og:type" content="article">
+<meta property="og:title" content="blectf">
+<meta property="og:url" content="https://ixout.github.io/posts/46033/index.html">
+<meta property="og:site_name" content="ixout&#39;s blog">
+<meta property="og:description" content="通过blectf简单认识与ble的交互 基础知识通用属性配置文件（GATT） 是 BLE（蓝牙低功耗）设备在建立连接后用于数据交换的协议框架。它定义了设备间如何通过一系列层次化的属性进行通信。GATT 结构中有三个核心概念：  Profile（配置文件） Service（服务） Characteristic（特征）  它们的关系可以类比为嵌套结构：  一个 Profile 包含多个 Service">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ixout/ixout.github.io@main/img/2025-04-03_222927.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ixout/ixout.github.io@main/img/2025-04-04_145711.png">
+<meta property="article:published_time" content="2024-12-27T12:11:35.000Z">
+<meta property="article:modified_time" content="2025-04-04T12:12:57.408Z">
+<meta property="article:author" content="ixout">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/ixout/ixout.github.io@main/img/2025-04-03_222927.png">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.png">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.png">
+        
+      
+    
+    <!-- title -->
+    <title>blectf</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
+
+
+    <!-- Umami Analytics -->
+
+
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="ixout's blog" type="application/atom+xml">
+</head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa-solid fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="Previous post" href="/posts/40120/"><i class="fa-solid fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/posts/38747/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://ixout.github.io/posts/46033/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://ixout.github.io/posts/46033/&text=blectf"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://ixout.github.io/posts/46033/&title=blectf"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://ixout.github.io/posts/46033/&is_video=false&description=blectf"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=blectf&body=Check out this article: https://ixout.github.io/posts/46033/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://ixout.github.io/posts/46033/&title=blectf"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://ixout.github.io/posts/46033/&title=blectf"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://ixout.github.io/posts/46033/&title=blectf"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://ixout.github.io/posts/46033/&title=blectf"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://ixout.github.io/posts/46033/&name=blectf&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://ixout.github.io/posts/46033/&t=blectf"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    
+    
+      <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86"><span class="toc-number">1.</span> <span class="toc-text">基础知识</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Characteristic%EF%BC%88%E7%89%B9%E5%BE%81%EF%BC%89%E7%9A%84%E7%BB%84%E6%88%90%EF%BC%9A"><span class="toc-number">1.0.1.</span> <span class="toc-text">Characteristic（特征）的组成：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%80%9A%E4%BF%A1%E6%96%B9%E5%BC%8F%EF%BC%9A"><span class="toc-number">1.0.2.</span> <span class="toc-text">通信方式：</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA"><span class="toc-number">2.</span> <span class="toc-text">环境搭建</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%B8%B8%E7%94%A8%E5%B7%A5%E5%85%B7"><span class="toc-number">3.</span> <span class="toc-text">常用工具</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#gatttool"><span class="toc-number">3.1.</span> <span class="toc-text">gatttool</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#bluetoothctl"><span class="toc-number">3.2.</span> <span class="toc-text">bluetoothctl</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#BLE-CTF"><span class="toc-number">4.</span> <span class="toc-text">BLE_CTF</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#0x1"><span class="toc-number">4.1.</span> <span class="toc-text">0x1</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x2"><span class="toc-number">4.2.</span> <span class="toc-text">0x2</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x3"><span class="toc-number">4.3.</span> <span class="toc-text">0x3</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x4"><span class="toc-number">4.4.</span> <span class="toc-text">0x4</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x5"><span class="toc-number">4.5.</span> <span class="toc-text">0x5</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x6"><span class="toc-number">4.6.</span> <span class="toc-text">0x6</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x7"><span class="toc-number">4.7.</span> <span class="toc-text">0x7</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x8"><span class="toc-number">4.8.</span> <span class="toc-text">0x8</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x9"><span class="toc-number">4.9.</span> <span class="toc-text">0x9</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0xa"><span class="toc-number">4.10.</span> <span class="toc-text">0xa</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0xb"><span class="toc-number">4.11.</span> <span class="toc-text">0xb</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0xc"><span class="toc-number">4.12.</span> <span class="toc-text">0xc</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0xd"><span class="toc-number">4.13.</span> <span class="toc-text">0xd</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0xe"><span class="toc-number">4.14.</span> <span class="toc-text">0xe</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0xf"><span class="toc-number">4.15.</span> <span class="toc-text">0xf</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x10"><span class="toc-number">4.16.</span> <span class="toc-text">0x10</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x11"><span class="toc-number">4.17.</span> <span class="toc-text">0x11</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x12"><span class="toc-number">4.18.</span> <span class="toc-text">0x12</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x13"><span class="toc-number">4.19.</span> <span class="toc-text">0x13</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x14"><span class="toc-number">4.20.</span> <span class="toc-text">0x14</span></a></li></ol></li></ol>
+      </div>
+    
+  </span>
+</div>
+
+    
+    <div class="content index py4 ">
+        
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle p-name" itemprop="name headline">
+        blectf
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span class="p-name" itemprop="name">ixout</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2024-12-27T12:11:35.000Z" class="dt-published" itemprop="datePublished">2024-12-27</time>
+        
+      
+    </div>
+
+
+      
+    <div class="article-category">
+        <i class="fa-solid fa-archive"></i>
+        <a class="category-link" href="/categories/ble/">ble</a>
+    </div>
+
+
+      
+
+    </div>
+  </header>
+  
+
+  <div class="content e-content" itemprop="articleBody">
+    <p>通过blectf简单认识与ble的交互</p>
+<h1 id="基础知识"><a href="#基础知识" class="headerlink" title="基础知识"></a>基础知识</h1><p><strong>通用属性配置文件（GATT）</strong> 是 BLE（蓝牙低功耗）设备在建立连接后用于数据交换的协议框架。它定义了设备间如何通过一系列层次化的属性进行通信。GATT 结构中有三个核心概念：</p>
+<ul>
+<li><strong>Profile（配置文件）</strong></li>
+<li><strong>Service（服务）</strong></li>
+<li><strong>Characteristic（特征）</strong></li>
+</ul>
+<p>它们的关系可以类比为嵌套结构：</p>
+<blockquote>
+<p>一个 Profile 包含多个 Service<br>每个 Service 又包含一个或多个 Characteristic</p>
+</blockquote>
+<hr>
+<p>在 BLE 的通信中，设备分为两类：</p>
+<ul>
+<li><strong>主机（Central/Master）</strong>：发起连接的一方</li>
+<li><strong>从机（Peripheral/Slave）</strong>：被连接的一方，通常持有具体的数据和功能</li>
+</ul>
+<p>从机通常通过 Profile 来定义其提供的服务和功能。</p>
+<hr>
+<p>在 GATT 层中，通信角色被进一步细化为：</p>
+<ul>
+<li><strong>Server（服务端）</strong>：保存数据（如 Characteristic），响应客户端请求</li>
+<li><strong>Client（客户端）</strong>：发起读取或写入请求，与服务端交互数据</li>
+</ul>
+<hr>
+<h3 id="Characteristic（特征）的组成："><a href="#Characteristic（特征）的组成：" class="headerlink" title="Characteristic（特征）的组成："></a>Characteristic（特征）的组成：</h3><ul>
+<li><strong>UUID</strong>：唯一标识</li>
+<li><strong>Properties</strong>：定义行为（如读、写、通知）</li>
+<li><strong>Value</strong>：当前值</li>
+<li><strong>Descriptors</strong>：附加说明，如格式、权限等</li>
+</ul>
+<hr>
+<h3 id="通信方式："><a href="#通信方式：" class="headerlink" title="通信方式："></a>通信方式：</h3><ul>
+<li><strong>Client 向 Server 发送请求</strong>：读取（Read）或写入（Write）数据</li>
+<li><strong>Server 主动推送数据给 Client</strong>：通过通知（Notify）</li>
+</ul>
+<hr>
+<p>此外，还有一个更通用的术语 <strong>Attribute（属性）</strong>，用于描述 BLE 中的一切数据单元。它可以包含 UUID、属性、值、描述符等，是构成 Characteristic 的基础元素，也是 GATT 传输的核心单位。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/ixout/ixout.github.io@main/img/2025-04-03_222927.png" alt=""></p>
+<h1 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h1><p>道具准备</p>
+<ol>
+<li>esp32开发板一片</li>
+<li>USB蓝牙适配器一个, 我用的是绿联CM390(如果电脑自带的蓝牙适配器可以兼容linux可以不需要)</li>
+</ol>
+<p>环境安装</p>
+<p>首先安装esptool用于烧录开发板</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install esptool</span><br></pre></td></tr></table></figure>
+<p>接着克隆ble_ctf仓库并烧录</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/hackgnar/ble_ctf</span><br><span class="line"><span class="built_in">cd</span> ble_ctf</span><br><span class="line">esptool -p /dev/ttyUSB0 -b 460800 --before default_reset --after hard_reset --chip esp32  write_flash --flash_mode dio --flash_size 16MB --flash_freq 40m 0x1000 build/bootloader/bootloader.bin 0x8000 build/partition_table/partition-table.bin 0x10000 build/ble_ctf.bin</span><br></pre></td></tr></table></figure>
+<p>flash_size可以根据自己的板子修改, 但不改问题也不大</p>
+<p>等待烧录完成, 此时打开蓝牙可以扫描到一个BLECTF</p>
+<p><img src="https://cdn.jsdelivr.net/gh/ixout/ixout.github.io@main/img/2025-04-04_145711.png" alt=""></p>
+<h1 id="常用工具"><a href="#常用工具" class="headerlink" title="常用工具"></a>常用工具</h1><h2 id="gatttool"><a href="#gatttool" class="headerlink" title="gatttool"></a>gatttool</h2><p>命令行模式</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">Usage:</span><br><span class="line">  gatttool [OPTION?]</span><br><span class="line"></span><br><span class="line">Help Options:</span><br><span class="line">  -h, --<span class="built_in">help</span>                                Show <span class="built_in">help</span> options</span><br><span class="line">  --help-all                                Show all <span class="built_in">help</span> options</span><br><span class="line">  --help-gatt                               Show all GATT commands</span><br><span class="line">  --help-params                             Show all Primary Services/Characteristics arguments</span><br><span class="line">  --help-char-read-write                    Show all Characteristics Value/Descriptor Read/Write arguments</span><br><span class="line"></span><br><span class="line">Application Options:</span><br><span class="line">  -i, --adapter=hciX                        Specify <span class="built_in">local</span> adapter interface</span><br><span class="line">  -b, --device=MAC                          Specify remote Bluetooth address</span><br><span class="line">  -t, --addr-type=[public | random]         Set LE address <span class="built_in">type</span>. Default: public</span><br><span class="line">  -m, --mtu=MTU                             Specify the MTU size</span><br><span class="line">  -p, --psm=PSM                             Specify the PSM <span class="keyword">for</span> GATT/ATT over BR/EDR</span><br><span class="line">  -l, --sec-level=[low | medium | high]     Set security level. Default: low</span><br><span class="line">  -I, --interactive                         Use interactive mode</span><br></pre></td></tr></table></figure>
+<p>交互模式</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">help</span>                                           Show this <span class="built_in">help</span></span><br><span class="line"><span class="built_in">exit</span>                                           Exit interactive mode</span><br><span class="line">quit                                           Exit interactive mode</span><br><span class="line">connect         [address [address <span class="built_in">type</span>]]       Connect to a remote device</span><br><span class="line">disconnect                                     Disconnect from a remote device</span><br><span class="line">primary         [UUID]                         Primary Service Discovery</span><br><span class="line">included        [start hnd [end hnd]]          Find Included Services</span><br><span class="line">characteristics [start hnd [end hnd [UUID]]]   Characteristics Discovery</span><br><span class="line">char-desc       [start hnd] [end hnd]          Characteristics Descriptor Discovery</span><br><span class="line">char-read-hnd   &lt;handle&gt;                       Characteristics Value/Descriptor Read by handle</span><br><span class="line">char-read-uuid  &lt;UUID&gt; [start hnd] [end hnd]   Characteristics Value/Descriptor Read by UUID</span><br><span class="line">char-write-req  &lt;handle&gt; &lt;new value&gt;           Characteristic Value Write (Write Request)</span><br><span class="line">char-write-cmd  &lt;handle&gt; &lt;new value&gt;           Characteristic Value Write (No response)</span><br><span class="line">sec-level       [low | medium | high]          Set security level. Default: low</span><br><span class="line">mtu             &lt;value&gt;                        Exchange MTU <span class="keyword">for</span> GATT/ATT</span><br></pre></td></tr></table></figure>
+<h2 id="bluetoothctl"><a href="#bluetoothctl" class="headerlink" title="bluetoothctl"></a>bluetoothctl</h2><p>虽然都说这个工具更好 但感觉使用体验上不如gatttool</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">enu main:</span><br><span class="line">Available commands:</span><br><span class="line">-------------------</span><br><span class="line">advertise                                         Advertise Options Submenu</span><br><span class="line">scan                                              Scan Options Submenu</span><br><span class="line">gatt                                              Generic Attribute Submenu</span><br><span class="line">list                                              List available controllers</span><br><span class="line">show [ctrl]                                       Controller information</span><br><span class="line">select &lt;ctrl&gt;                                     Select default controller</span><br><span class="line">devices                                           List available devices</span><br><span class="line">paired-devices                                    List paired devices</span><br><span class="line">system-alias &lt;name&gt;                               Set controller <span class="built_in">alias</span></span><br><span class="line">reset-alias                                       Reset controller <span class="built_in">alias</span></span><br><span class="line">power &lt;on/off&gt;                                    Set controller power</span><br><span class="line">pairable &lt;on/off&gt;                                 Set controller pairable mode</span><br><span class="line">discoverable &lt;on/off&gt;                             Set controller discoverable mode</span><br><span class="line">discoverable-timeout [value]                      Set discoverable <span class="built_in">timeout</span></span><br><span class="line">agent &lt;on/off/capability&gt;                         Enable/disable agent with given capability</span><br><span class="line">default-agent                                     Set agent as the default one</span><br><span class="line">advertise &lt;on/off/type&gt;                           Enable/disable advertising with given <span class="built_in">type</span></span><br><span class="line">set-alias &lt;<span class="built_in">alias</span>&gt;                                 Set device <span class="built_in">alias</span></span><br><span class="line">scan &lt;on/off&gt;                                     Scan <span class="keyword">for</span> devices</span><br><span class="line">info [dev]                                        Device information</span><br><span class="line">pair [dev]                                        Pair with device</span><br><span class="line">trust [dev]                                       Trust device</span><br><span class="line">untrust [dev]                                     Untrust device</span><br><span class="line">block [dev]                                       Block device</span><br><span class="line">unblock [dev]                                     Unblock device</span><br><span class="line">remove &lt;dev&gt;                                      Remove device</span><br><span class="line">connect &lt;dev&gt;                                     Connect device</span><br><span class="line">disconnect [dev]                                  Disconnect device</span><br><span class="line">menu &lt;name&gt;                                       Select submenu</span><br><span class="line">version                                           Display version</span><br><span class="line">quit                                              Quit program</span><br><span class="line"><span class="built_in">exit</span>                                              Quit program</span><br><span class="line"><span class="built_in">help</span>                                              Display <span class="built_in">help</span> about this program</span><br><span class="line"><span class="built_in">export</span>                                            Print environment variables</span><br></pre></td></tr></table></figure>
+<h1 id="BLE-CTF"><a href="#BLE-CTF" class="headerlink" title="BLE_CTF"></a>BLE_CTF</h1><p>阅读Readme</p>
+<p>查看分数</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gatttool -b de:ad:be:ef:be:f1 --char-read -a 0x002a|awk -F<span class="string">&#x27;:&#x27;</span> <span class="string">&#x27;&#123;print $2&#125;&#x27;</span>|<span class="built_in">tr</span> -d <span class="string">&#x27; &#x27;</span>|xxd -r -p;<span class="built_in">printf</span> <span class="string">&#x27;\n&#x27;</span> </span><br></pre></td></tr></table></figure>
+<p>提交flag</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gatttool -b de:ad:be:ef:be:f1 --char-write-req -a 0x002c -n $(<span class="built_in">echo</span> -n <span class="string">&quot;some flag value&quot;</span>|xxd -ps)</span><br></pre></td></tr></table></figure>
+<p>作者还给出了共20个关卡的知识点所在</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>Flag</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Flag 1</td>
+<td>This flag is a gift and can only be obtained from reading the hint!</td>
+</tr>
+<tr>
+<td>Flag 0x002e</td>
+<td>Learn how to read handles</td>
+</tr>
+<tr>
+<td>Flag 0x0030</td>
+<td>Read handle puzzle fun</td>
+</tr>
+<tr>
+<td>Flag 0x0016</td>
+<td>Learn about discoverable device attributes</td>
+</tr>
+<tr>
+<td>Flag 0x0032</td>
+<td>Learn about reading and writing to handles</td>
+</tr>
+<tr>
+<td>Flag 0x0034</td>
+<td>Learn about reading and writing ascii to handles</td>
+</tr>
+<tr>
+<td>Flag 0x0036</td>
+<td>Learn about reading and writing hex to handles</td>
+</tr>
+<tr>
+<td>Flag 0x0038</td>
+<td>Learn about reading and writing to handles differently</td>
+</tr>
+<tr>
+<td>Flag 0x003c</td>
+<td>Learn about write fuzzing</td>
+</tr>
+<tr>
+<td>Flag 0x003e</td>
+<td>Learn about read and write speeds</td>
+</tr>
+<tr>
+<td>Flag 0x0040</td>
+<td>Learn about single response notifications</td>
+</tr>
+<tr>
+<td>Flag 0x0042</td>
+<td>Learn about single response indicate</td>
+</tr>
+<tr>
+<td>Flag 0x0046</td>
+<td>Learn about multi response notifications</td>
+</tr>
+<tr>
+<td>Flag 0x0048</td>
+<td>Learn about multi response indicate</td>
+</tr>
+<tr>
+<td>Flag 0x004c</td>
+<td>Learn about BT client device attributes</td>
+</tr>
+<tr>
+<td>Flag 0x004e</td>
+<td>Learn about message sizes MTU</td>
+</tr>
+<tr>
+<td>Flag 0x0050</td>
+<td>Learn about write responses</td>
+</tr>
+<tr>
+<td>Flag 0x0052</td>
+<td>Hidden notify property</td>
+</tr>
+<tr>
+<td>Flag 0x0054</td>
+<td>Use multiple handle properties</td>
+</tr>
+<tr>
+<td>Flag 0x0056</td>
+<td>OSINT the author!</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="0x1"><a href="#0x1" class="headerlink" title="0x1"></a>0x1</h2><p>flag1直接在readme中给我们了, 送分, 用于了解如何提交flag</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$gatttool</span> -b 14:2B:2F:C5:8A:56 --char-write-req -a 0x002c -n $(<span class="built_in">echo</span> -n <span class="string">&quot;12345678901234567890&quot;</span>|xxd -ps)</span><br><span class="line">Characteristic value was written successfully</span><br><span class="line"><span class="variable">$gatttool</span> -b 14:2B:2F:C5:8A:56 --char-read -a 0x002a|awk -F<span class="string">&#x27;:&#x27;</span> <span class="string">&#x27;&#123;print $2&#125;&#x27;</span>|<span class="built_in">tr</span> -d <span class="string">&#x27; &#x27;</span>|xxd -r -p;<span class="built_in">printf</span> <span class="string">&#x27;\n&#x27;</span></span><br><span class="line">Score:1 /20</span><br></pre></td></tr></table></figure>
+<h2 id="0x2"><a href="#0x2" class="headerlink" title="0x2"></a>0x2</h2><p>Learn how to read handles</p>
+<blockquote>
+<p>Check out the ascii value of handle 0x002e and submit it to the flag submision handle 0x002c. If you are using gatttool, make sure you convert it to hex with xxd. If you are using bleah, you can send it as a string value.</p>
+</blockquote>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$gatttool</span> -b 14:2B:2F:C5:8A:56 --char-read -a 0x002e</span><br><span class="line">Characteristic value/descriptor: 64 32 30 35 33 30 33 65 30 39 39 63 65 66 66 34 34 38 33 35</span><br></pre></td></tr></table></figure>
+<p>转为ascii也就是d205303e099ceff44835</p>
+<p>提交</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gatttool -b 14:2B:2F:C5:8A:56 --char-write-req -a 0x002c -n $(<span class="built_in">echo</span> -n <span class="string">&quot;d205303e099ceff44835&quot;</span>|xxd -ps)</span><br></pre></td></tr></table></figure>
+<h2 id="0x3"><a href="#0x3" class="headerlink" title="0x3"></a>0x3</h2><p>Read handle puzzle fun</p>
+<blockquote>
+<p>Check out the ascii value of handle 0x0030. Do what it tells you and submit the flag you find to 0x002c.</p>
+</blockquote>
+<p>还是先读</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gatttool -b 14:2B:2F:C5:8A:56 --char-read -a 0x0030</span><br></pre></td></tr></table></figure>
+<p>得到结果转字符串MD5 of Device Name</p>
+<p>Device Name也就是BLECTF了</p>
+<p>提交</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gatttool -b 14:2B:2F:C5:8A:56 --char-write-req -a 0x002c -n $(<span class="built_in">echo</span> -n <span class="string">&quot;5cd56d74049ae40f442e&quot;</span>|xxd -ps)</span><br></pre></td></tr></table></figure>
+<h2 id="0x4"><a href="#0x4" class="headerlink" title="0x4"></a>0x4</h2><p>Learn about discoverable device attributes</p>
+<blockquote>
+<p>Bluetooth GATT services provide some extra device attributes. Try finding the value of the Generic Access -&gt; Device Name.</p>
+</blockquote>
+<p>查看Generic Access 的Device Name</p>
+<p>首先查看主要服务</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$gatttool</span> -b 14:2B:2F:C5:8A:56 --primary</span><br><span class="line">attr handle = 0x0001, end grp handle = 0x0005 uuid: 00001801-0000-1000-8000-00805f9b34fb</span><br><span class="line">attr handle = 0x0014, end grp handle = 0x001c uuid: 00001800-0000-1000-8000-00805f9b34fb</span><br><span class="line">attr handle = 0x0028, end grp handle = 0xffff uuid: 000000ff-0000-1000-8000-00805f9b34fb</span><br></pre></td></tr></table></figure>
+<p>蓝牙标准规定的某些特殊服务或者特性存在着固定的UUID</p>
+<p><code>00001800-0000-1000-8000-00805f9b34fb</code>就是Generic Access的固定UUID, 这个服务包含的特性是0x14 到 0x1c 范围</p>
+<p>那么对该范围进行扫描</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$gatttool</span> -b 14:2B:2F:C5:8A:56 --characteristics  --start=0x0014 --end=0x001c</span><br><span class="line">handle = 0x0015, char properties = 0x02, char value handle = 0x0016, uuid = 00002a00-0000-1000-8000-00805f9b34fb</span><br><span class="line">handle = 0x0017, char properties = 0x02, char value handle = 0x0018, uuid = 00002a01-0000-1000-8000-00805f9b34fb</span><br><span class="line">handle = 0x0019, char properties = 0x02, char value handle = 0x001a, uuid = 00002aa6-0000-1000-8000-00805f9b34fb</span><br></pre></td></tr></table></figure>
+<p>其中短uuid 2A00就是Device Name(这也是固定的)</p>
+<p>也就是handle 0x0015, 但0x0015只是特征值声明, 我们需要读取其特征值数据handle也就是0x0016</p>
+<p>读取到后取结果20位即可</p>
+<h2 id="0x5"><a href="#0x5" class="headerlink" title="0x5"></a>0x5</h2><p>Learn about reading and writing to handles</p>
+<blockquote>
+<p>Read handle 0032 and do what it says. Notice that its not telling you to write to the flag handle as you have been. When you find the flag, go ahead and write it to the flag handle you have used in the past flags.</p>
+</blockquote>
+<p>让我们先读0032得到结果是<code>Write anything here</code></p>
+<p>那我们随便写一点东西</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$gatttool</span> -b 14:2B:2F:C5:8A:56 --char-write-req -a 0x0032 -n $(<span class="built_in">echo</span> -n <span class="string">&quot;2b00042f7481c7b056c4&quot;</span>|xxd -ps)</span><br><span class="line"></span><br><span class="line"><span class="variable">$gatttool</span> -b 14:2B:2F:C5:8A:56 --char-read -a 0x0032</span><br><span class="line">Characteristic value/descriptor: 33 38 37 33 63 30 32 37 30 37 36 33 35 36 38 63 66 37 61 61</span><br></pre></td></tr></table></figure>
+<p>写完以后再次读取就变成了flag</p>
+<h2 id="0x6"><a href="#0x6" class="headerlink" title="0x6"></a>0x6</h2><p>Learn about reading and writing ascii to handles</p>
+<blockquote>
+<p>Follow the instructions found from reading handle 0x0034. Keep in mind that some tools only write hex values while other provide methods for writing either hex or ascii</p>
+</blockquote>
+<p>先读0x0034得到字符串<code>Write the ascii value &quot;yo&quot; here</code></p>
+<p>直接写就可以了</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gatttool -b 14:2B:2F:C5:8A:56 --char-write-req -a 0x0034 -n $(<span class="built_in">echo</span> -n <span class="string">&quot;yo&quot;</span>|xxd -ps)</span><br></pre></td></tr></table></figure>
+<p>写完后再读变为flag</p>
+<h2 id="0x7"><a href="#0x7" class="headerlink" title="0x7"></a>0x7</h2><p>Learn about reading and writing hex to handles</p>
+<blockquote>
+<p>Follow the instructions found from reading handle 0x0036. Keep in mind that some tools only write hex values while other provide methods for writing either hex or ascii</p>
+</blockquote>
+<p>读取0x0036得到<code>Write the hex value 0x07 here</code></p>
+<p>直接写</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gatttool -b 14:2B:2F:C5:8A:56 --char-write-req -a 0x0036 -n 07</span><br></pre></td></tr></table></figure>
+<h2 id="0x8"><a href="#0x8" class="headerlink" title="0x8"></a>0x8</h2><p>Learn about reading and writing to handles differently</p>
+<blockquote>
+<p>Follow the instructions found from reading handle 0x0038. Pay attention to handles here. Keep in mind handles can be refrenced by integer or hex. Most tools such as gatttool and bleah allow you to specify handles both ways.</p>
+</blockquote>
+<p>读取0x0038得到<code>Write 0xC9 to handle 58</code></p>
+<p>还是直接写</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gatttool -b 14:2B:2F:C5:8A:56 --char-write-req -a 58 -n c9</span><br></pre></td></tr></table></figure>
+<h2 id="0x9"><a href="#0x9" class="headerlink" title="0x9"></a>0x9</h2><p>Learn about write fuzzing</p>
+<blockquote>
+<p>Take a look at handle 0x003c and do what it says. You should script up a solution for this one. Also keep in mind that some tools write faster than others.</p>
+</blockquote>
+<p>读取0x003c得到<code>Brute force my value 00 to ff</code></p>
+<p>即暴力破解一个8比特位的数到0x003c</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/sh</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 蓝牙设备MAC地址</span></span><br><span class="line">DEVICE=<span class="string">&quot;14:2B:2F:C5:8A:56&quot;</span></span><br><span class="line"><span class="comment"># 特征值句柄</span></span><br><span class="line">HANDLE=<span class="string">&quot;0x3c&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用POSIX兼容的循环语法</span></span><br><span class="line">i=0</span><br><span class="line"><span class="keyword">while</span> [ <span class="variable">$i</span> -le 255 ]; <span class="keyword">do</span></span><br><span class="line">    <span class="comment"># 将十进制转换为两位十六进制</span></span><br><span class="line">    hex_value=$(<span class="built_in">printf</span> <span class="string">&quot;%02x&quot;</span> <span class="variable">$i</span>)</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">echo</span> <span class="string">&quot;正在发送: <span class="variable">$hex_value</span>&quot;</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 执行gatttool命令</span></span><br><span class="line">    gatttool -b <span class="variable">$DEVICE</span> --char-write-req -a <span class="variable">$HANDLE</span> -n <span class="variable">$hex_value</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 可选：添加延迟</span></span><br><span class="line">    <span class="built_in">sleep</span> 0.1</span><br><span class="line">    </span><br><span class="line">    i=$((i+<span class="number">1</span>))</span><br><span class="line"><span class="keyword">done</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;所有单字节值(0x00-0xFF)已发送完毕&quot;</span></span><br></pre></td></tr></table></figure>
+<p>执行后再次读取即可</p>
+<h2 id="0xa"><a href="#0xa" class="headerlink" title="0xa"></a>0xa</h2><p>Learn about read and write speeds</p>
+<blockquote>
+<p>Talke a look at handle 0x003e and do what it says. Keep in mind that some tools have better connection speeds than other for doing reads and writes. This has to do with the functionality the tool provides or how it uses cached BT connections on the host OS. Try testing different tools for this flag. Once you find the fastest one, whip up a script or bash 1 liner to complete the task. FYI, once running, this task takes roughly 90 seconds to complete if done right.</p>
+</blockquote>
+<p>读取0x003e得到<code>Read me 1000 times</code></p>
+<p>读取1000次即可</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/sh</span></span><br><span class="line"></span><br><span class="line">DEVICE=<span class="string">&quot;14:2B:2F:C5:8A:56&quot;</span></span><br><span class="line">HANDLE=<span class="string">&quot;0x003e&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> $(<span class="built_in">seq</span> 1 1000); <span class="keyword">do</span></span><br><span class="line">    gatttool -b <span class="variable">$DEVICE</span> --char-read -a <span class="variable">$HANDLE</span></span><br><span class="line">    <span class="built_in">sleep</span> 0.01</span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></figure>
+<p>最后就可以读出flag</p>
+<h2 id="0xb"><a href="#0xb" class="headerlink" title="0xb"></a>0xb</h2><p>Learn about single response notifications</p>
+<blockquote>
+<p>Check out handle 0x0040 and google search gatt notify. Some tools like gatttool have the ability to subscribe to gatt notifications</p>
+</blockquote>
+<p>读取得到<code>Listen to me for a single notification</code></p>
+<p>客户端可以向服务端请求通知一项特征值，当该特征可用时服务端会通知客户端，通知（notification）不需要客户端回应 ACK</p>
+<p>使用命令发起请求监听</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gatttool -b 14:2B:2F:C5:8A:56 --char-write-req -a 0x0040 -n 00 --listen</span><br></pre></td></tr></table></figure>
+<p>00可以是任意值没什么要求</p>
+<h2 id="0xc"><a href="#0xc" class="headerlink" title="0xc"></a>0xc</h2><p>Learn about single response indicate</p>
+<blockquote>
+<p>Check out handle 0x0042 and google search gatt indicate. For single response indicate messages, like this challenge, tools such as gatttool will work just fine.</p>
+</blockquote>
+<p>读取得到<code>Listen to handle 0x0044 for a single indication</code></p>
+<p>指示与通知差不多但区别在于指示需要我们回应</p>
+<p>单指令其实和上一题没有区别</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gatttool -b 14:2B:2F:C5:8A:56 --char-write-req -a 0x0044 -n 11 --listen</span><br></pre></td></tr></table></figure>
+<h2 id="0xd"><a href="#0xd" class="headerlink" title="0xd"></a>0xd</h2><p>Learn about multi response notifications</p>
+<blockquote>
+<p>Check out handle 0x0046 and do what it says. Keep in mind that this notification clallange requires you to recieve multiple responses in order to complete.</p>
+</blockquote>
+<p>读取得到<code>Listen to me for multi notifications</code></p>
+<p>还是和上一题一样的的指令, 不过要多等一下</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gatttool -b 14:2B:2F:C5:8A:56 --char-write-req -a 0x0046 -n 11 --listen</span><br></pre></td></tr></table></figure>
+<h2 id="0xe"><a href="#0xe" class="headerlink" title="0xe"></a>0xe</h2><p>Learn about multi response indicate</p>
+<blockquote>
+<p>Check out handle 0x0048 and google search gatt indicate. Keep in mind that this chalange will require you to parse multiple indicate responses in order to complete the chalange.</p>
+</blockquote>
+<p>读取得到<code>Listen to handle 0x004a for multi indications</code></p>
+<p>还是一样的命令</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gatttool -b 14:2B:2F:C5:8A:56 --char-write-req -a 0x004a -n 11 --listen</span><br></pre></td></tr></table></figure>
+<h2 id="0xf"><a href="#0xf" class="headerlink" title="0xf"></a>0xf</h2><p>Learn about BT client device attributes</p>
+<blockquote>
+<p>Check out handle 0x004c and do what it says. Much like ethernet or wifi devices, you can also change your bluetooth devices mac address.</p>
+</blockquote>
+<p>读取得到<code>Connect with BT MAC address 11:22:33:44:55:66</code></p>
+<p>也就是要修改设备的MAC地址</p>
+<p>可以使用工具<a target="_blank" rel="noopener" href="https://github.com/thxomas/bdaddr">thxomas/bdaddr: Updated version of the bluez bdaddr tool</a></p>
+<h2 id="0x10"><a href="#0x10" class="headerlink" title="0x10"></a>0x10</h2><p>Learn about message sizes MTU</p>
+<blockquote>
+<p>Read handle 0x004e and do what it says. Setting MTU can be a tricky thing. Some tools may provide mtu flags, but they dont seem to really trigger MTU negotiations on servers. Try using gatttool’s interactive mode for this task. By default, the BLECTF server is set to force an MTU size of 20. The server will listen for MTU negotiations, and look at them, but we dont really change the MTU in the code. We just trigger the flag code if you trigger an MTU event with the value specified in handle 0x004e. GLHF!</p>
+</blockquote>
+<p>读取得到<code>Set your connection MTU to 444</code></p>
+<p>MTU是蓝牙单次数据传输能承载的最大字节数</p>
+<p>可以直接通过命令行参数设置, 不过存在一些问题, 得使用交互模式</p>
+<h2 id="0x11"><a href="#0x11" class="headerlink" title="0x11"></a>0x11</h2><p>Learn about write responses</p>
+<blockquote>
+<p>Check out handle 0x0050 and do what it says. This chalange differs from other write chalanges as your tool that does the write needs to have write response ack messages implemente correctly. This flag is also tricky as the flag will come back as notification response data even though there is no “NOTIFY” property.</p>
+</blockquote>
+<p>读取得到<code>Write+resp &#39;hello&#39;</code></p>
+<p>对于<code>--char-write</code>和<code>--char-write-req</code>差别就在于后者必须接受到目标的回复, 有更高的可靠性</p>
+<p>所以这里直接写就可以了</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gatttool -b 14:2B:2F:C5:8A:56 --char-write-req -a 0x0050 -n $(<span class="built_in">echo</span> -n <span class="string">&quot;hello&quot;</span>|xxd -ps)</span><br></pre></td></tr></table></figure>
+<h2 id="0x12"><a href="#0x12" class="headerlink" title="0x12"></a>0x12</h2><p>Hidden notify property</p>
+<blockquote>
+<p>Take a look at handle 0x0052. Notice it does not have a notify property. Do a write here and listen for notifications anyways! Things are not always what they seem!</p>
+</blockquote>
+<p>读取得到<code>No notifications here! really?</code></p>
+<p>根据特征属性标志位</p>
+<ul>
+<li>0x01：允许广播</li>
+<li>0x02：允许读取</li>
+<li>0x04：允许写入（无响应）</li>
+<li>0x08：允许写入（带响应）</li>
+<li>0x10：允许通知（无确认）</li>
+<li>0x20：允许通知（带确认）</li>
+<li>0x40：允许经过身份签名的写入</li>
+<li>0x80：运行扩展属性</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">handle = 0x0051, char properties = 0x0a, char value handle = 0x0052, uuid = 0000ff15-0000-1000-8000-00805f9b34fb</span><br></pre></td></tr></table></figure>
+<p>0x0a属性本不应该有通知权限, 但因为源码虽然仍然使用了esp_ble_gatts_send_indicate发送通知, 所以依然可以接收到通知</p>
+<h2 id="0x13"><a href="#0x13" class="headerlink" title="0x13"></a>0x13</h2><p>Use multiple handle properties</p>
+<blockquote>
+<p>Check out all of the handle properties on 0x0054! Poke around with all of them and find pieces to your flag.</p>
+</blockquote>
+<p>读取得到<code>So many properties!</code></p>
+<p>我们可以看到该句柄具有很多权限</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">handle = 0x0053, char properties = 0x9b, char value handle = 0x0054, uuid = 0000ff16-0000-1000-8000-00805f9b34fb</span><br></pre></td></tr></table></figure>
+<p>可以写入也可以监听, 所以只需要写入一次读取再监听一次</p>
+<p>即可得到完整的flag</p>
+<h2 id="0x14"><a href="#0x14" class="headerlink" title="0x14"></a>0x14</h2><p>md5 of author’s twitter handle</p>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+        
+          <li><a href="/">Home</a></li>
+        
+          <li><a href="/about/">About</a></li>
+        
+          <li><a href="/archives/">Writing</a></li>
+        
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </div>
+
+    
+    
+      <div id="toc-footer" style="display: none">
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86"><span class="toc-number">1.</span> <span class="toc-text">基础知识</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Characteristic%EF%BC%88%E7%89%B9%E5%BE%81%EF%BC%89%E7%9A%84%E7%BB%84%E6%88%90%EF%BC%9A"><span class="toc-number">1.0.1.</span> <span class="toc-text">Characteristic（特征）的组成：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%80%9A%E4%BF%A1%E6%96%B9%E5%BC%8F%EF%BC%9A"><span class="toc-number">1.0.2.</span> <span class="toc-text">通信方式：</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA"><span class="toc-number">2.</span> <span class="toc-text">环境搭建</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%B8%B8%E7%94%A8%E5%B7%A5%E5%85%B7"><span class="toc-number">3.</span> <span class="toc-text">常用工具</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#gatttool"><span class="toc-number">3.1.</span> <span class="toc-text">gatttool</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#bluetoothctl"><span class="toc-number">3.2.</span> <span class="toc-text">bluetoothctl</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#BLE-CTF"><span class="toc-number">4.</span> <span class="toc-text">BLE_CTF</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#0x1"><span class="toc-number">4.1.</span> <span class="toc-text">0x1</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x2"><span class="toc-number">4.2.</span> <span class="toc-text">0x2</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x3"><span class="toc-number">4.3.</span> <span class="toc-text">0x3</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x4"><span class="toc-number">4.4.</span> <span class="toc-text">0x4</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x5"><span class="toc-number">4.5.</span> <span class="toc-text">0x5</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x6"><span class="toc-number">4.6.</span> <span class="toc-text">0x6</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x7"><span class="toc-number">4.7.</span> <span class="toc-text">0x7</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x8"><span class="toc-number">4.8.</span> <span class="toc-text">0x8</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x9"><span class="toc-number">4.9.</span> <span class="toc-text">0x9</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0xa"><span class="toc-number">4.10.</span> <span class="toc-text">0xa</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0xb"><span class="toc-number">4.11.</span> <span class="toc-text">0xb</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0xc"><span class="toc-number">4.12.</span> <span class="toc-text">0xc</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0xd"><span class="toc-number">4.13.</span> <span class="toc-text">0xd</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0xe"><span class="toc-number">4.14.</span> <span class="toc-text">0xe</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0xf"><span class="toc-number">4.15.</span> <span class="toc-text">0xf</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x10"><span class="toc-number">4.16.</span> <span class="toc-text">0x10</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x11"><span class="toc-number">4.17.</span> <span class="toc-text">0x11</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x12"><span class="toc-number">4.18.</span> <span class="toc-text">0x12</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x13"><span class="toc-number">4.19.</span> <span class="toc-text">0x13</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x14"><span class="toc-number">4.20.</span> <span class="toc-text">0x14</span></a></li></ol></li></ol>
+      </div>
+    
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://ixout.github.io/posts/46033/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://ixout.github.io/posts/46033/&text=blectf"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://ixout.github.io/posts/46033/&title=blectf"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://ixout.github.io/posts/46033/&is_video=false&description=blectf"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=blectf&body=Check out this article: https://ixout.github.io/posts/46033/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://ixout.github.io/posts/46033/&title=blectf"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://ixout.github.io/posts/46033/&title=blectf"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://ixout.github.io/posts/46033/&title=blectf"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://ixout.github.io/posts/46033/&title=blectf"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://ixout.github.io/posts/46033/&name=blectf&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://ixout.github.io/posts/46033/&t=blectf"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        
+          <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa-solid fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2023-2025
+    ixout
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="fa-regular fa-clone"></i>';
+    btn += '</span>';
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>
