@@ -31,7 +31,7 @@
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/ixout/ixout.github.io@main/img/2025-04-09_164129.png">
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/ixout/ixout.github.io@main/img/2025-04-09_164803.png">
 <meta property="article:published_time" content="2025-04-07T14:31:18.000Z">
-<meta property="article:modified_time" content="2025-04-09T08:57:30.495Z">
+<meta property="article:modified_time" content="2025-04-09T09:07:48.859Z">
 <meta property="article:author" content="ixout">
 <meta property="article:tag" content="windows">
 <meta name="twitter:card" content="summary">
@@ -393,7 +393,7 @@
 <p><strong>修复之后</strong></p>
 <p><img src="https://cdn.jsdelivr.net/gh/ixout/ixout.github.io@main/img/2025-04-09_164129.png" alt=""></p>
 <p>可以看到在调用之前增加了条件检查</p>
-<p>除非满足<code>Feature_3118115132__private_IsEnabledDeviceUsage</code>函数返回True</p>
+<p>除非满足<code>Feature_3118115132__private_IsEnabledDeviceUsage</code>函数返回True, 而大多数时候显然并不会</p>
 <p>否则就比较<code>pInBufProperty-&gt;Set</code>是否为<code>KSPROPSETID_DrmAudioStream</code>, <strong>不相等</strong>才继续调用函数执行</p>
 <p>而<code>pInBufProperty-&gt;Set == KSPROPSETID_DrmAudioStream</code>却是在<code>ksthunk!CheckIrpForStackAdjustmentNative</code>函数中触发函数调用点的前提<br><img src="https://cdn.jsdelivr.net/gh/ixout/ixout.github.io@main/img/2025-04-09_164803.png" alt=""></p>
 
