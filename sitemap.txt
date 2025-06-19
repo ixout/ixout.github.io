@@ -1,3 +1,4 @@
+https://ixout.github.io/posts/14352/
 https://ixout.github.io/posts/36975/
 https://ixout.github.io/posts/46596/
 https://ixout.github.io/posts/38804/
@@ -81,8 +82,10 @@ https://ixout.github.io/tags/%E9%A2%98%E8%A7%A3/
 https://ixout.github.io/tags/wp/
 https://ixout.github.io/tags/iot/
 https://ixout.github.io/tags/winlpe/
+https://ixout.github.io/tags/xiaomi/
 https://ixout.github.io/categories/pwn/
 https://ixout.github.io/categories/bin/
 https://ixout.github.io/categories/ble/
 https://ixout.github.io/categories/android/
 https://ixout.github.io/categories/%E9%A2%98%E8%A7%A3/
+https://ixout.github.io/categories/iot/
