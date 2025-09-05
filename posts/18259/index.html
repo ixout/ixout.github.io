@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="ida!!">
+<meta property="og:type" content="article">
+<meta property="og:title" content="IDA二三记">
+<meta property="og:url" content="https://ixout.github.io/posts/18259/index.html">
+<meta property="og:site_name" content="ixout&#39;s blog">
+<meta property="og:description" content="ida!!">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ixout/ixout.github.io@main/img/PixPin_2025-07-16_22-00-48.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ixout/ixout.github.io@main/img/PixPin_2025-07-16_22-02-12.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ixout/ixout.github.io@main/img/PixPin_2025-07-16_22-03-15.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ixout/ixout.github.io@main/img/PixPin_2025-07-15_17-11-29.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ixout/ixout.github.io@main/img/PixPin_2025-07-15_22-40-14.png">
+<meta property="article:published_time" content="2025-04-15T09:08:56.000Z">
+<meta property="article:modified_time" content="2025-07-16T14:12:18.232Z">
+<meta property="article:author" content="ixout">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/ixout/ixout.github.io@main/img/PixPin_2025-07-16_22-00-48.png">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.png">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.png">
+        
+      
+    
+    <!-- title -->
+    <title>IDA二三记</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
+
+
+    <!-- Umami Analytics -->
+
+
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="ixout's blog" type="application/atom+xml">
+</head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa-solid fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="Previous post" href="/posts/36975/"><i class="fa-solid fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/posts/51238/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://ixout.github.io/posts/18259/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://ixout.github.io/posts/18259/&text=IDA二三记"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://ixout.github.io/posts/18259/&title=IDA二三记"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://ixout.github.io/posts/18259/&is_video=false&description=IDA二三记"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=IDA二三记&body=Check out this article: https://ixout.github.io/posts/18259/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://ixout.github.io/posts/18259/&title=IDA二三记"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://ixout.github.io/posts/18259/&title=IDA二三记"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://ixout.github.io/posts/18259/&title=IDA二三记"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://ixout.github.io/posts/18259/&title=IDA二三记"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://ixout.github.io/posts/18259/&name=IDA二三记&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://ixout.github.io/posts/18259/&t=IDA二三记"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    
+    
+      <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8F%82%E6%95%B0%E8%A7%A3%E6%9E%90"><span class="toc-number">1.</span> <span class="toc-text">参数解析</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#compiler"><span class="toc-number">1.1.</span> <span class="toc-text">compiler</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#usercall"><span class="toc-number">1.2.</span> <span class="toc-text">__usercall</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#PY%E5%88%87%E6%8D%A2%E5%9D%91"><span class="toc-number">2.</span> <span class="toc-text">PY切换坑</span></a></li></ol>
+      </div>
+    
+  </span>
+</div>
+
+    
+    <div class="content index py4 ">
+        
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle p-name" itemprop="name headline">
+        IDA二三记
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span class="p-name" itemprop="name">ixout</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2025-04-15T09:08:56.000Z" class="dt-published" itemprop="datePublished">2025-04-15</time>
+        
+      
+    </div>
+
+
+      
+    <div class="article-category">
+        <i class="fa-solid fa-archive"></i>
+        <a class="category-link" href="/categories/pwn/">-pwn</a>
+    </div>
+
+
+      
+
+    </div>
+  </header>
+  
+
+  <div class="content e-content" itemprop="articleBody">
+    <p>用了三年ida, 还是只会f5</p>
+<h1 id="参数解析"><a href="#参数解析" class="headerlink" title="参数解析"></a>参数解析</h1><p>ida有时针对函数参数返回值的识别并不准确, 可以通过一些办法进行修复</p>
+<h2 id="compiler"><a href="#compiler" class="headerlink" title="compiler"></a>compiler</h2><p>ida选项栏<code>Options-&gt;Compiler</code>可以重新设置代码分析方案</p>
+<p>例如这是某次比赛的一道exe程序</p>
+<p><img src="https://cdn.jsdelivr.net/gh/ixout/ixout.github.io@main/img/PixPin_2025-07-16_22-00-48.png" alt=""></p>
+<p>但ida似乎并没有认出来, 还是使用的linux式的参数解析, 导致看起来十分怪异</p>
+<p>这时候只需要重新设置一下Compiler, 解析就正确了</p>
+<p><img src="https://cdn.jsdelivr.net/gh/ixout/ixout.github.io@main/img/PixPin_2025-07-16_22-02-12.png" alt=""></p>
+<p>看起来舒服多了</p>
+<p><img src="https://cdn.jsdelivr.net/gh/ixout/ixout.github.io@main/img/PixPin_2025-07-16_22-03-15.png" alt=""></p>
+<h2 id="usercall"><a href="#usercall" class="headerlink" title="__usercall"></a>__usercall</h2><p>__usercall是IDA Pro中用于表示自定义调用约定的特殊修饰符，主要用于分析那些不使用标准调用约定</p>
+<p>标准格式类似如下</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> __usercall func@&lt;eax&gt;(<span class="type">int</span> arg1@&lt;ecx&gt;, <span class="type">int</span> arg2@&lt;edx&gt;, <span class="type">int</span> arg3)</span><br></pre></td></tr></table></figure>
+<ol>
+<li>eax代表返回值由eax传递, 如果如果返回值大于寄存器所能表示的那么可以通过更多寄存器来分别代表高位低位</li>
+<li>ecx, edx, 分别代表第一个第二个参数</li>
+<li>没有标注的参数通过栈传递</li>
+</ol>
+<p>至于具体怎么填, 还得根据函数的汇编代码来进行修改</p>
+<p>IDA Pro中还有另一个类似的修饰符<code>userpurge</code>, 它与usercall的主要区别在于：</p>
+<ul>
+<li>__usercall：调用者负责清理堆栈</li>
+<li>__userpurge：被调用者负责清理堆栈</li>
+</ul>
+<p>上一个例子也可以通过这个方法, 逐个手工修改, 效果相同</p>
+<h1 id="PY切换坑"><a href="#PY切换坑" class="headerlink" title="PY切换坑"></a>PY切换坑</h1><p>ida的python一直用的是52下载的和ida打包的绿色python</p>
+<p>将ida版本升级到ida9.1后, 想着顺带着升级一下python版本, 用<code>idapyswitch</code>切换一下, 再启动竟然就报错了</p>
+<p><img src="https://cdn.jsdelivr.net/gh/ixout/ixout.github.io@main/img/PixPin_2025-07-15_17-11-29.png" alt=""></p>
+<p><code>Unexpected fatal error while initializing python runtime. Please run idapyswitch to confirm or change the used Python runtime</code></p>
+<p>网上搜一下解决方案, 搜到的解决方案大多是设置<code>PYTHONHOME</code>环境变量, 无非是系统变量长期修改和启动时临时修改的差罢了</p>
+<p>前者会导致部分其他依赖python的程序运行出错, 后者过于麻烦, <u>故都不想采用</u></p>
+<p>之前ida77的时候没设置<code>PYTHONHOME</code>变量, 照样用的好好的, 那想来还是有解决办法的</p>
+<p>运行ida的cli工具<code>idat.exe</code>, 希望终端能有更多的错误日志</p>
+<p><img src="https://cdn.jsdelivr.net/gh/ixout/ixout.github.io@main/img/PixPin_2025-07-15_22-40-14.png" alt=""></p>
+<p>观察到其他部分都没什么大问题, 但有一个奇怪的路径<code>/pypath/python310.zip</code>, 但安装目录下并没有这个文件, 而去到先前用的py38文件夹中一看, 确实有一个zip包</p>
+<p>那想来就是这个问题了, 去python官网下了一个便携版python, 解压出来就有一个<code>python3xx.zip</code>, 将其复制到目标切换的python目录下, 再次启动ida就没有报错, 问题解决</p>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+        
+          <li><a href="/">Home</a></li>
+        
+          <li><a href="/about/">About</a></li>
+        
+          <li><a href="/archives/">Writing</a></li>
+        
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </div>
+
+    
+    
+      <div id="toc-footer" style="display: none">
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8F%82%E6%95%B0%E8%A7%A3%E6%9E%90"><span class="toc-number">1.</span> <span class="toc-text">参数解析</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#compiler"><span class="toc-number">1.1.</span> <span class="toc-text">compiler</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#usercall"><span class="toc-number">1.2.</span> <span class="toc-text">__usercall</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#PY%E5%88%87%E6%8D%A2%E5%9D%91"><span class="toc-number">2.</span> <span class="toc-text">PY切换坑</span></a></li></ol>
+      </div>
+    
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://ixout.github.io/posts/18259/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://ixout.github.io/posts/18259/&text=IDA二三记"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://ixout.github.io/posts/18259/&title=IDA二三记"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://ixout.github.io/posts/18259/&is_video=false&description=IDA二三记"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=IDA二三记&body=Check out this article: https://ixout.github.io/posts/18259/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://ixout.github.io/posts/18259/&title=IDA二三记"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://ixout.github.io/posts/18259/&title=IDA二三记"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://ixout.github.io/posts/18259/&title=IDA二三记"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://ixout.github.io/posts/18259/&title=IDA二三记"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://ixout.github.io/posts/18259/&name=IDA二三记&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://ixout.github.io/posts/18259/&t=IDA二三记"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        
+          <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa-solid fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2023-2025
+    ixout
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="fa-regular fa-clone"></i>';
+    btn += '</span>';
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>
